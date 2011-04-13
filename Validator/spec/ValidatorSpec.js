@@ -13,7 +13,9 @@ describe("Validator", function() {
 
     describe("Validator.is", function () {
 
+        describe("Validator.is.email", function () {
 
+        });
     });
 
 });
