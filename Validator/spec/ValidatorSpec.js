@@ -8,6 +8,6 @@ describe("Validator", function() {
     });
 
     it("validator should be object", function () {
-        expect(validator).toBeTruthy();
+        expect(typeof validator).toEqual("object");
     });
 });
