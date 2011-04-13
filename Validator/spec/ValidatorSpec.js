@@ -10,4 +10,10 @@ describe("Validator", function() {
     it("validator should be object", function () {
         expect(typeof validator).toEqual("object");
     });
+
+    describe("Validator.is", function () {
+
+
+    });
+
 });
