@@ -26,6 +26,12 @@ describe("Validator", function() {
                 expect(result).toBeFalsy();
             });
 
+
+            it("should not validate an email which containts non@alhanümeric.çars ", function () {
+                var result = validator.is.email("non@alhanümeric.çars");
+                expect(result).toBeFalsy();
+            });
+
         });
     });
 
