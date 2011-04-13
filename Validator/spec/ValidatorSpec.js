@@ -15,6 +15,11 @@ describe("Validator", function() {
 
         describe("Validator.is.email", function () {
 
+            it("regular email like alnum1@alnum2.tld should pass", function () {
+                var result = validator.is.email("alnum1@alnum2.tld");
+                expect(result).toBeTruthy();
+            });
+
         });
     });
 
