@@ -20,6 +20,12 @@ describe("Validator", function() {
                 expect(result).toBeTruthy();
             });
 
+
+            it("should not validate an email which has alnum1@alnum2.tldmorethan4chars", function () {
+                var result = validator.is.email("alnum1@alnum2.tldmorethan4chars");
+                expect(result).toBeFalsy();
+            });
+
         });
     });
 
