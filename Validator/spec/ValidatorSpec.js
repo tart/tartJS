@@ -32,6 +32,13 @@ describe("Validator", function() {
                 expect(result).toBeFalsy();
             });
 
+            it("should validate an email which belongs@to.a.sub.dom.ain", function () {
+                var result = validator.is.email("belongs@to.a.sub.dom.ain");
+                expect(result).toBeTruthy();
+            });
+
+
+
         });
     });
 
