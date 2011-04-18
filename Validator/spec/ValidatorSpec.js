@@ -1,5 +1,3 @@
-var Validator = require("../Validator").Validator;
-
 describe("Validator", function() {
     var validator;
         
@@ -36,6 +34,12 @@ describe("Validator", function() {
                 var result = validator.is.email("belongs@to.a.sub.dom.ain");
                 expect(result).toBeTruthy();
             });
+
+            it("should not validate email which contains@space.com", function () {
+                var result = validator.is.email("which contains@space.com");
+                expect(result).toBeFalsy();
+            });
+
 
 
 
