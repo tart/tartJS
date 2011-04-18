@@ -40,10 +40,162 @@ describe("Validator", function() {
                 expect(result).toBeFalsy();
             });
 
+        });
+
+        describe("Validator.is.notOnlySpace", function () {
+            it("should not validate an input which has only white space", function () {
+                var result = validator.is.notOnlySpace("   ");
+                expect(result).toBeFalsy();
+            });
+
+            it("should validate an input which starts with whitespace but has other chars", function () {
+                var result = validator.is.notOnlySpace("   foobar");
+                expect(result).toBeTruthy();
+            });
+
+            it("should validate an input which starts and ends with whitespace but has other chars", function () {
+                var result = validator.is.notOnlySpace("   foobar    ");
+                expect(result).toBeTruthy();
+            });
+        });
 
 
+        describe("Validator.is.numeric", function () {
+            it("should not validate text which has non numeric chars", function () {
+               var result = validator.is.numeric("foo123bar");
+               expect(result).toBeFalsy();
+            });
+
+            it("should not validate text which starts with numeric but has non numeric chars", function () {
+               var result = validator.is.numeric("123bar");
+               expect(result).toBeFalsy();
+            });
+
+
+            it("should not validate text which starts with space but has only numeric chars", function () {
+               var result = validator.is.numeric("   123");
+               expect(result).toBeFalsy();
+            });
+
+
+            it("should validate text which has only numeric chars", function () {
+               var result = validator.is.numeric("123");
+               expect(result).toBeTruthy();
+            });
 
         });
+
+
+        describe("Validator.is.digitAndNonDigit", function () {
+            it("should not validate text which has chars but numbers", function () {
+                var result = validator.is.digitAndNonDigit("foobar");
+                expect(result).toBeFalsy();
+            });
+
+            it("should not validate text which has chars only numbers", function () {
+                var result = validator.is.digitAndNonDigit("1234");
+                expect(result).toBeFalsy();
+            });
+ 
+            it("should not validate text which has only whitespaces", function () {
+                var result = validator.is.digitAndNonDigit("   ");
+                expect(result).toBeFalsy();
+            });
+ 
+
+            it("should validate text which contains both numbers and chars", function () {
+                var result = validator.is.digitAndNonDigit("foo123bar");
+                expect(result).toBeTruthy();
+            });
+ 
+            it("should validate text which contains both numbers, chars and whitespaces", function () {
+                var result = validator.is.digitAndNonDigit("foo 123 bar");
+                expect(result).toBeTruthy();
+            });
+ 
+        });
+
+    });
+
+
+    describe("Validator.has", function () {
+        describe("Validator.has.minLength", function() {
+            it("should validate 'abc' has minLength 3", function () {
+                var result = validator.has.minLength("abc", 3);
+                expect(result).toBeTruthy();
+            });
+
+            it("should validate 'abc' has minLength 2", function () {
+                var result = validator.has.minLength("abc", 2);
+                expect(result).toBeTruthy()
+            });
+
+
+            it("should not validate 'abc' has minLength 4", function () {
+                var result = validator.has.minLength("abc", 4);
+                expect(result).toBeFalsy();
+            });
+
+            it("should validate ' ' has minLength 1", function () {
+                var result = validator.has.minLength(" ", 1);
+                expect(result).toBeTruthy();
+            });
+
+            it("should not validate '' has minLength 1", function () {
+                var result = validator.has.minLength("", 1);
+                expect(result).toBeFalsy();
+            });
+
+        });
+
+
+        describe("Validator.has.maxLength", function() {
+            it("should not validate 'abc' has max length 2", function () {
+                var result = validator.has.maxLength("abc", 2);
+                expect(result).toBeFalsy();
+            });
+
+            it("should validate 'ab' has max length 2", function () {
+                var result = validator.has.maxLength("ab", 2);
+                expect(result).toBeTruthy();
+            });
+
+            it("should not validate '   ' has max length 2", function () {
+                var result = validator.has.maxLength("   ", 2);
+                expect(result).toBeFalsy();
+            });
+
+            it("should validate '' has max length 0", function () {
+                var result = validator.has.maxLength("", 0);
+                expect(result).toBeTruthy();
+            });
+        });
+
+
+        describe("Validator.has.minValue", function () {
+            it("should validate 3 has min value 1", function() {
+                var result = validator.has.minValue(3, 1);
+                expect(result).toBeTruthy();
+            });
+
+            it("should not validate 3 has min value 4", function() {
+                var result = validator.has.minValue(3, 4);
+                expect(result).toBeFalsy();
+            });
+        });
+
+        describe("Validator.has.maxValue", function () {
+            it("should validate 3 has max value 4", function() {
+                var result = validator.has.maxValue(3, 4);
+                expect(result).toBeTruthy();
+            });
+
+            it("should not validate 3 has max value 2", function() {
+                var result = validator.has.maxValue(3, 2);
+                expect(result).toBeFalsy();
+            });
+        });
+
     });
 
 });
