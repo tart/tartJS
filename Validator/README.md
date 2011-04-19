@@ -7,7 +7,7 @@ A JavaScript validation library
 You need [jasmine](http://pivotal.github.com/jasmine/) to run the specs
 You better have [qasmine](https://github.com/tart/qasmine) to automatize the testing process
 
-### How to run jasmine-node
+### How to run qasmine
 
 Simlpy, run
     
@@ -23,4 +23,4 @@ Simlpy, run
 * has.maxLength(string, value) : Checks string for max length
 * has.minlength(string, value) : Checks string for min length
 * has.minValue(number, value) : Cheks number for its min value
-* has.axValue(number, value) : Cheks number for its max value
+* has.maxValue(number, value) : Cheks number for its max value
