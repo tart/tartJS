@@ -1,17 +1,17 @@
-describe("Validator", function() {
+describe("Validation", function() {
     var validator;
         
     beforeEach(function() {
-        validator = tart.Validator;
+        validator = tart.Validation;
     });
 
     it("validator should be object", function () {
         expect(typeof validator).toEqual("object");
     });
 
-    describe("Validator.is", function () {
+    describe("Validation.is", function () {
 
-        describe("Validator.is.email", function () {
+        describe("Validation.is.email", function () {
 
             it("regular email like alnum1@alnum2.tld should pass", function () {
                 var result = validator.is.email("alnum1@alnum2.tld");
@@ -42,7 +42,7 @@ describe("Validator", function() {
 
         });
 
-        describe("Validator.is.notOnlySpace", function () {
+        describe("Validation.is.notOnlySpace", function () {
             it("should not validate an input which has only white space", function () {
                 var result = validator.is.notOnlySpace("   ");
                 expect(result).toBeFalsy();
@@ -60,7 +60,7 @@ describe("Validator", function() {
         });
 
 
-        describe("Validator.is.numeric", function () {
+        describe("Validation.is.numeric", function () {
             it("should not validate text which has non numeric chars", function () {
                var result = validator.is.numeric("foo123bar");
                expect(result).toBeFalsy();
@@ -86,7 +86,7 @@ describe("Validator", function() {
         });
 
 
-        describe("Validator.is.digitAndNonDigit", function () {
+        describe("Validation.is.digitAndNonDigit", function () {
             it("should not validate text which has chars but numbers", function () {
                 var result = validator.is.digitAndNonDigit("foobar");
                 expect(result).toBeFalsy();
@@ -118,8 +118,8 @@ describe("Validator", function() {
     });
 
 
-    describe("Validator.has", function () {
-        describe("Validator.has.minLength", function() {
+    describe("Validation.has", function () {
+        describe("Validation.has.minLength", function() {
             it("should validate 'abc' has minLength 3", function () {
                 var result = validator.has.minLength("abc", 3);
                 expect(result).toBeTruthy();
@@ -149,7 +149,7 @@ describe("Validator", function() {
         });
 
 
-        describe("Validator.has.maxLength", function() {
+        describe("Validation.has.maxLength", function() {
             it("should not validate 'abc' has max length 2", function () {
                 var result = validator.has.maxLength("abc", 2);
                 expect(result).toBeFalsy();
@@ -172,7 +172,7 @@ describe("Validator", function() {
         });
 
 
-        describe("Validator.has.minValue", function () {
+        describe("Validation.has.minValue", function () {
             it("should validate 3 has min value 1", function() {
                 var result = validator.has.minValue(3, 1);
                 expect(result).toBeTruthy();
@@ -184,7 +184,7 @@ describe("Validator", function() {
             });
         });
 
-        describe("Validator.has.maxValue", function () {
+        describe("Validation.has.maxValue", function () {
             it("should validate 3 has max value 4", function() {
                 var result = validator.has.maxValue(3, 4);
                 expect(result).toBeTruthy();

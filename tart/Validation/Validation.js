@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-goog.provide('tart.Validator');
+goog.provide('tart.Validation');
 
-goog.provide('tart.Validator.has');
-goog.provide('tart.Validator.is');
+goog.provide('tart.Validation.has');
+goog.provide('tart.Validation.is');
 
 
 /**
@@ -23,7 +23,7 @@ goog.provide('tart.Validator.is');
  * @param {string} text email text to be validated.
  * @return {bool} true if its valid email.
  */
-tart.Validator.is.email = function(text) {
+tart.Validation.is.email = function(text) {
     var pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     return pattern.test(text);
 };
@@ -35,7 +35,7 @@ tart.Validator.is.email = function(text) {
  * @param {string} text text to be validated.
  * @return {bool} true if text contains any char or number.
  */
-tart.Validator.is.notOnlySpace = function(text) {
+tart.Validation.is.notOnlySpace = function(text) {
     var result = $.trim(text).length > 0;
     return result;
 };
@@ -47,7 +47,7 @@ tart.Validator.is.notOnlySpace = function(text) {
  * @param {string} text text to be validated.
  * @return {bool} true if text contains only numbers.
  */
-tart.Validator.is.numeric = function(text) {
+tart.Validation.is.numeric = function(text) {
     var pattern = /^[0-9]+$/;
     return pattern.test(text);
 };
@@ -59,7 +59,7 @@ tart.Validator.is.numeric = function(text) {
  * @param {string} text text to be validated.
  * @return {bool} true if text contains both digit and non-digit chars.
  */
-tart.Validator.is.digitAndNonDigit = function(text) {
+tart.Validation.is.digitAndNonDigit = function(text) {
     var pattern = /(\d\D)|(\D\d)/;
     return pattern.test(text);
 };
@@ -74,7 +74,7 @@ tart.Validator.is.digitAndNonDigit = function(text) {
  * @param {number} value char length value.
  * @return {bool} true if string's length > value.
  */
-tart.Validator.has.minLength = function(text, value) {
+tart.Validation.has.minLength = function(text, value) {
     return (text.length >= value);
 };
 
@@ -85,7 +85,7 @@ tart.Validator.has.minLength = function(text, value) {
  * @param {number} value char length value.
  * @return {bool} true if string's length < value.
  */
-tart.Validator.has.maxLength = function(text, value) {
+tart.Validation.has.maxLength = function(text, value) {
     return (text.length <= value);
 };
 
@@ -97,7 +97,7 @@ tart.Validator.has.maxLength = function(text, value) {
  * @param {number} value value to check.
  * @return {bool} true if string's num < value.
  */
-tart.Validator.has.minValue = function(num, value) {
+tart.Validation.has.minValue = function(num, value) {
     return num >= value;
 };
 
@@ -108,6 +108,6 @@ tart.Validator.has.minValue = function(num, value) {
  * @param {number} value value to check.
  * @return {bool} true if string's num > value.
  */
-tart.Validator.has.maxValue = function(num, value) {
+tart.Validation.has.maxValue = function(num, value) {
     return num <= value;
 };
