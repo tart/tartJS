@@ -2,10 +2,10 @@
 
 ## Howto update sub modules
 Simply type
-<code>
+<pre>
 git submodule init
 git submodule update
-</code>
+</pre>
 
 ## Directory structure
 
