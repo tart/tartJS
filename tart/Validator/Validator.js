@@ -12,28 +12,102 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 goog.provide('tart.Validator');
-goog.require('tart.Validator_');
+
+goog.provide('tart.Validator.has');
+goog.provide('tart.Validator.is');
+
+
+/**
+ * Checks if given text is valid email
+ *
+ * @param {string} text email text to be validated.
+ * @return {bool} true if its valid email.
+ */
+tart.Validator.is.email = function(text) {
+    var pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    return pattern.test(text);
+};
+
+
+/**
+ * Checks if given text doesnt contains only white spaces but some chars or numbers
+ *
+ * @param {string} text text to be validated.
+ * @return {bool} true if text contains any char or number.
+ */
+tart.Validator.is.notOnlySpace = function(text) {
+    var result = $.trim(text).length > 0;
+    return result;
+};
+
+
+/**
+ * Checks if given text contains only numeric chars
+ *
+ * @param {string} text text to be validated.
+ * @return {bool} true if text contains only numbers.
+ */
+tart.Validator.is.numeric = function(text) {
+    var pattern = /^[0-9]+$/;
+    return pattern.test(text);
+};
+
+
+/**
+ * Checks if given text contains both digit and non-digit chars
+ *
+ * @param {string} text text to be validated.
+ * @return {bool} true if text contains both digit and non-digit chars.
+ */
+tart.Validator.is.digitAndNonDigit = function(text) {
+    var pattern = /(\d\D)|(\D\d)/;
+    return pattern.test(text);
+};
+
 
 
 
 /**
- * Tart validator to check if string or number is valid for a specified format
+ * Checks for strings' min length
  *
- * @constructor
+ * @param {string} text string to check for char length.
+ * @param {number} value char length value.
+ * @return {bool} true if string's length > value.
  */
-tart.Validator = function() {
+tart.Validator.has.minLength = function(text, value) {
+    return (text.length >= value);
 };
 
 /**
- * @type {Object}
+ * Checks for string's max length
  *
- * Validator methods, which related to check for input's format
+ * @param {string} text string to check for char length.
+ * @param {number} value char length value.
+ * @return {bool} true if string's length < value.
  */
-tart.Validator.prototype.is = tart.Validator_.is;
+tart.Validator.has.maxLength = function(text, value) {
+    return (text.length <= value);
+};
+
 
 /**
- * @type {Object}
+ * Checks for string or number's min numeric value
  *
- * Validator methods, which related to check for input's attributes ie. char length
+ * @param {string|number} num number to check value for.
+ * @param {number} value value to check.
+ * @return {bool} true if string's num < value.
  */
-tart.Validator.prototype.has = tart.Validator_.has;
+tart.Validator.has.minValue = function(num, value) {
+    return num >= value;
+};
+
+/**
+ * Checks for string or number's max numeric value
+ *
+ * @param {string|number} num number to check value for.
+ * @param {number} value value to check.
+ * @return {bool} true if string's num > value.
+ */
+tart.Validator.has.maxValue = function(num, value) {
+    return num <= value;
+};

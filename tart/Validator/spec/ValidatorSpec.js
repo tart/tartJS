@@ -2,7 +2,7 @@ describe("Validator", function() {
     var validator;
         
     beforeEach(function() {
-        validator = new tart.Validator();
+        validator = tart.Validator;
     });
 
     it("validator should be object", function () {
