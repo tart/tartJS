@@ -11,6 +11,21 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+/**
+ * @fileoverview tart.Validation is a validation library which checks for variable's format (such as email, number) or
+ * attribute (such as char length).
+ *
+ * Example usage:
+ * var validator = tart.Validation;
+ * var isValidEmail = validator.is.email("foo@bar.com"); //returns boolean true
+ * var isNumeric = validator.is.numeric("123foo"); // returns boolean false
+ * var hasMaxLength10 = validator.has.maxLength("foobar", 10); //returns boolean true
+ *
+ *
+ * More examples can be seen from spec/ValidationSpec.js file
+ */
+
 goog.provide('tart.Validation');
 
 goog.provide('tart.Validation.has');
