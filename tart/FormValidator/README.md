@@ -16,7 +16,7 @@ Simlpy, run
 
 ## Validation checks
 
-<code>
+<pre>
 var form = $("form");
 
 var validationForSubmit = function (errors) {
@@ -30,4 +30,4 @@ var validationForBlur = function (errors) {
 
 tart.FormValidator(form).validateOnSubmit(validationForSubmit);
 tart.FormValidator(form).validateOnBlur(validateOnBlur);
-</code>
+</pre>
