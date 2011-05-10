@@ -19,15 +19,32 @@ Simlpy, run
 <pre>
 var form = $("form");
 
-var validationForSubmit = function (errors) {
-    //do some stuff with 'errors' object
+var rules = {
+    testInput1 : {
+        isNumeric : {
+            text : "Input is not numeric"
+        },
+        hasMaxLength : {
+            text : "Input's length is more than 9",
+            value : 9
+        },
+        hasMinLength : {
+            text : "Input's length is less than 6",
+            value : 6
+        }
+    }
 };
 
 
-var validationForBlur = function (errors) {
-    //do some stuff with 'errors' object
-};
+var validator = new tart.FormValidator(form);
 
-tart.FormValidator(form).validateOnSubmit(validationForSubmit);
-tart.FormValidator(form).validateOnBlur(validateOnBlur);
+validator.setRules(rules).validate();
+
+if(validator.isValid()) {
+    //its valid
+}
+else {
+    //its not valid, do some stuff with error object
+    var errors = validator.getErrors();
+}
 </pre>

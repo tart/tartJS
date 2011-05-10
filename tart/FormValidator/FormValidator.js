@@ -117,7 +117,7 @@ tart.FormValidator.prototype.getRuleKeyAndOptions = function(rule) {
 
     //TODO: there should be a smarter way to do this
     for (var i in rule) {
-        results.push({key : i, options: rule[i]});
+        results.push({key: i, options: rule[i]});
     }
 
     return results;
@@ -135,7 +135,7 @@ tart.FormValidator.prototype.applyRule = function(el, rule) {
     var value = this.getElementAttributeToCheck(el);
     var keyAndOptionsArray = this.getRuleKeyAndOptions(rule);
 
-    var keyAndOptions, 
+    var keyAndOptions,
         key,
         validationRule,
         options,
@@ -149,6 +149,7 @@ tart.FormValidator.prototype.applyRule = function(el, rule) {
         validationRule = this.getValidationRuleByKey(key);
         result = validationRule(value, options.value);
 
+        //return on first error
         if (!result) {
             break;
         }
