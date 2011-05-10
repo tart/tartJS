@@ -376,5 +376,46 @@ describe("Form Validator", function() {
         });
     });
 
+    describe("Form validator to check input's numeric value", function () {
+        var ruleErrorText = "Your inputs value is less than 10";
+
+        var rules = {
+            testInput1 : {
+                hasMinValue : {
+                    text : ruleErrorText,
+                    value : 10
+                }
+            }
+        };
+
+
+        it("should not validate an input like '1'", function () {
+            formFields[0].val("1");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should validate an input like '12'", function () {
+            formFields[0].val("12");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+
+        it("should return 'Your inputs value is less than 10' text on error", function () {
+            formFields[0].val("1");
+
+            validator.setRules(rules).validate();
+
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual(ruleErrorText);
+        });
+    });
+
+
+
+
 
 });

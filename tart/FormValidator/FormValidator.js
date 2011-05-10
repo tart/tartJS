@@ -100,6 +100,7 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
         case 'hasMaxLength' : rule = this.validator.has.maxLength; break;
         case 'hasMinLength' : rule = this.validator.has.minLength; break;
         case 'hasMaxValue' : rule = this.validator.has.maxValue; break;
+        case 'hasMinValue' : rule = this.validator.has.minValue; break;
     }
 
     return rule;
