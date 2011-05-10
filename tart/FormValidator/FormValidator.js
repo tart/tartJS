@@ -97,6 +97,7 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
         case 'isNotOnlySpace' : rule = this.validator.is.notOnlySpace; break;
         case 'isNumeric' : rule = this.validator.is.numeric; break;
         case 'isDigitAndNonDigit' : rule = this.validator.is.digitAndNonDigit; break;
+        case 'hasMaxLength' : rule = this.validator.has.maxLength; break;
     }
 
     return rule;
@@ -133,10 +134,11 @@ tart.FormValidator.prototype.applyRule = function(el, rule) {
     var keyAndOptions = this.getRuleKeyAndOptions(rule);
     var key = keyAndOptions.key;
     var validationRule = this.getValidationRuleByKey(key);
+    var options = keyAndOptions.options || {};
 
-    var result = validationRule(value);
+    var result = validationRule(value, options.value);
 
-    return {success: result, item: {el: el, text: keyAndOptions.options.text}};
+    return {success: result, item: {el: el, text: options.text}};
 };
 
 

@@ -233,4 +233,56 @@ describe("Form Validator", function() {
 
     });
 
+
+    describe("Form validator to check inputs max length", function () {
+        var ruleErrorText = "Your inputs lenght is more than 7";
+
+        var rules = {
+            testInput1 : {
+                hasMaxLength : {
+                    text : ruleErrorText,
+                    value : 7
+                }
+            }
+        };
+
+        it("should validate an input like '12345'", function () {
+            formFields[0].val("12345");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+        it("should not validate an input like '12345   '", function () {
+            formFields[0].val("12345   ");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should not validate an input like '        '", function () {
+            formFields[0].val("        ");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should validate an input like '123 5 7'", function () {
+            formFields[0].val("123 5 7");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+
+        it("should return 'Your inputs lenght is more than 7' text on error", function () {
+            formFields[0].val("123 5 7 foo bar");
+
+            validator.setRules(rules).validate();
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual(ruleErrorText);
+
+        });
+    });
+
 });
