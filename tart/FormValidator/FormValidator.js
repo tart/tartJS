@@ -99,6 +99,7 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
         case 'isDigitAndNonDigit' : rule = this.validator.is.digitAndNonDigit; break;
         case 'hasMaxLength' : rule = this.validator.has.maxLength; break;
         case 'hasMinLength' : rule = this.validator.has.minLength; break;
+        case 'hasMaxValue' : rule = this.validator.has.maxValue; break;
     }
 
     return rule;
