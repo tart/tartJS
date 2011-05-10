@@ -94,6 +94,7 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
     //TODO: this swich case should be looked up from an object literal
     switch (ruleKey) {
         case 'isEmail' : rule = this.validator.is.email; break;
+        case 'isNotOnlySpace' : rule = this.validator.is.notOnlySpace; break;
     }
 
     return rule;
