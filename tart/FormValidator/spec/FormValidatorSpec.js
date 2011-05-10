@@ -149,5 +149,88 @@ describe("Form Validator", function() {
         });
 
     });
-});
 
+
+
+
+    describe("Form validator for input which contains both digit and non digit char", function () {
+        var ruleErrorText = "Your input must contain both digit and non digit char";
+
+        var rules = {
+            testInput1 : {
+                isDigitAndNonDigit : {
+                    text : ruleErrorText
+                }
+            }
+        };
+
+        it("should not validate an input which has only numbers like '12345'", function () {
+            formFields[0].val("12345");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should not validate an input which has only alpha chars 'foobar'", function () {
+            formFields[0].val("foobar");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should not validate an input which has only spaces '    '", function () {
+            formFields[0].val("    ");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+
+        it("should validate an input which has both digit and alpha chars 'foo12345bar'", function () {
+            formFields[0].val("foo12345foo");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+        it("should validate an input which has both digit, alpha chars and non alpha cahrs 'foo12345bar-_`'", function () {
+            formFields[0].val("foo12345foo-_`");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+        it("should validate an input which has both digit and space chars like '12345 '", function () {
+            formFields[0].val("12345 ");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+
+        it("should  not validate an input which has both alpha and space chars like 'foobar '", function () {
+            formFields[0].val("foobar ");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+
+        it("should not validate an input which has non alpha chars and space chars like '~-? '", function () {
+            formFields[0].val("~-? ");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should not return an error text 'Your input must contain both digit and non digit char' for an invalid input", function () {
+            formFields[0].val("~-? ");
+
+            validator.setRules(rules).validate();
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual(ruleErrorText);
+        });
+
+    });
+
+});
