@@ -17,12 +17,12 @@ describe("Form Validator", function() {
     });
 
     describe("Form validator for email", function () {
-        var emailErrorText = "Not a valid email";
+        var ruleErrorText = "Not a valid email";
 
         var rules = {
             testInput1 : {
                 isEmail : {
-                    text : emailErrorText
+                    text : ruleErrorText
                 }
             }
         };
@@ -47,7 +47,7 @@ describe("Form Validator", function() {
             validator.setRules(rules).validate();
 
             var errorText = validator.getErrors()[0].text;
-            expect(errorText).toEqual(emailErrorText);
+            expect(errorText).toEqual(ruleErrorText);
         });
 
         it("should not validate in input which has '' an errr text should be 'Not a valid email'", function () {
@@ -55,19 +55,19 @@ describe("Form Validator", function() {
             validator.setRules(rules).validate();
 
             var errorText = validator.getErrors()[0].text;
-            expect(errorText).toEqual(emailErrorText);
+            expect(errorText).toEqual(ruleErrorText);
         });
 
     });
 
 
     describe("Form validator for not only space", function () {
-        var errorText = "You've to write at least one char or digit";
+        var ruleErrorText = "You have ve to write at least one char or digit";
 
         var rules = {
             testInput1 : {
                 isNotOnlySpace : {
-                    text : errorText
+                    text : ruleErrorText
                 }
             }
         };
@@ -94,6 +94,60 @@ describe("Form Validator", function() {
             expect(validator.isValid()).toBeFalsy();
         });
 
+        it("should return error text 'You have ve to write at least one char or digit' on error", function () {
+            formFields[0].val("");
+
+            validator.setRules(rules).validate();
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual(ruleErrorText);
+        });
+
+
+
     });
 
+    describe("Form validator for numeric control", function () {
+        var ruleErrorText = "You can type only numbers between 0-9";
+
+        var rules = {
+            testInput1 : {
+                isNumeric : {
+                    text : ruleErrorText
+                }
+            }
+        };
+
+        it("should validate an input which has only numbers like '12345'", function () {
+            formFields[0].val("12345");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+        it("should not validate an input which has numbers and space like ' 1234 5'", function () {
+            formFields[0].val(" 1234 5");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should not validate an input which has numbers and chars  like '12345foo'", function () {
+            formFields[0].val("12345foo");
+
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+
+        it("should not validate an input and 'You can type only numbers between 0-9' for an input like 'foo12345bar'", function () {
+            formFields[0].val("foo12345foo");
+
+            validator.setRules(rules).validate();
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual(ruleErrorText);
+        });
+
+    });
 });
+

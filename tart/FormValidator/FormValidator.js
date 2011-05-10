@@ -95,6 +95,7 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
     switch (ruleKey) {
         case 'isEmail' : rule = this.validator.is.email; break;
         case 'isNotOnlySpace' : rule = this.validator.is.notOnlySpace; break;
+        case 'isNumeric' : rule = this.validator.is.numeric; break;
     }
 
     return rule;
