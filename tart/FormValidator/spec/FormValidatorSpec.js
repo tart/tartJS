@@ -415,7 +415,80 @@ describe("Form Validator", function() {
     });
 
 
+    describe("Form validator for multiple rules", function () {
+        var rules = {
+            testInput1 : {
+                isNumeric : {
+                    text : "Input is not numeric"
+                },
+                hasMaxLength : {
+                    text : "Input's length is more than 9",
+                    value : 9
+                },
+                hasMinLength : {
+                    text : "Input's length is less than 6",
+                    value : 6
+                }
+            }
+        };
 
 
+        it("should not validate an input like 'fooobar'", function () {
+            formFields[0].val("fooobar");
 
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+        it("should validate an input like '123456'", function () {
+            formFields[0].val("123456");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeTruthy();
+        });
+
+
+        it("should not validate an input like '12345'", function () {
+            formFields[0].val("12345");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+
+        it("should not validate an input like '12345678910'", function () {
+            formFields[0].val("12345678910");
+
+            validator.setRules(rules).validate();
+            expect(validator.isValid()).toBeFalsy();
+        });
+
+
+        it("error text should be 'Input is not numeric' for 'foobar'", function () {
+            formFields[0].val("foobar");
+            validator.setRules(rules).validate();
+
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual("Input is not numeric");
+        });
+
+
+        it("error text should be 'Input\'s length is more than 9' for '1234567890'", function () {
+            formFields[0].val("1234567890");
+            validator.setRules(rules).validate();
+
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual("Input's length is more than 9");
+        });
+
+        it("error text should be 'Input\'s length is less than 6' for '12345'", function () {
+            formFields[0].val("12345");
+            validator.setRules(rules).validate();
+
+            var errorText = validator.getErrors()[0].text;
+            expect(errorText).toEqual("Input's length is less than 6");
+        });
+
+    });
+ 
 });

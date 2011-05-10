@@ -113,15 +113,14 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
  * @return {object} object which has .key and .options nodes.
  */
 tart.FormValidator.prototype.getRuleKeyAndOptions = function(rule) {
-    var result = {};
+    var results = [];
 
     //TODO: there should be a smarter way to do this
     for (var i in rule) {
-        result.key = i;
-        result.options = rule[i];
+        results.push({key : i, options: rule[i]});
     }
 
-    return result;
+    return results;
 };
 
 
@@ -134,12 +133,26 @@ tart.FormValidator.prototype.getRuleKeyAndOptions = function(rule) {
  */
 tart.FormValidator.prototype.applyRule = function(el, rule) {
     var value = this.getElementAttributeToCheck(el);
-    var keyAndOptions = this.getRuleKeyAndOptions(rule);
-    var key = keyAndOptions.key;
-    var validationRule = this.getValidationRuleByKey(key);
-    var options = keyAndOptions.options || {};
+    var keyAndOptionsArray = this.getRuleKeyAndOptions(rule);
 
-    var result = validationRule(value, options.value);
+    var keyAndOptions, 
+        key,
+        validationRule,
+        options,
+        result,
+        failed = false;
+
+    for (var i = 0; i < keyAndOptionsArray.length; i++) {
+        keyAndOptions = keyAndOptionsArray[i];
+        key = keyAndOptions.key;
+        options = keyAndOptions.options;
+        validationRule = this.getValidationRuleByKey(key);
+        result = validationRule(value, options.value);
+
+        if (!result) {
+            break;
+        }
+    }
 
     return {success: result, item: {el: el, text: options.text}};
 };
@@ -162,8 +175,10 @@ tart.FormValidator.prototype.validate = function() {
         rule = this.rules[i];
 
         result = this.applyRule(el, rule);
+
         if (!result.success) {
             this.errors.push(result.item);
+            break;
         }
     }
 
