@@ -12,3 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 goog.provide("tart.TartBox");
+
+tart.TartBox.init = function (title, body, type) {
+    tart.TartBox.title = title;
+    tart.TartBox.body = body;
+    tart.TartBox.type = type;
+};
+
