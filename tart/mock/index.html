@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.js"></script>
+  <script type="text/javascript" src="../../third_party/goog/goog/base.js"></script>
+  <script type="text/javascript" src="jQuery/xhr.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+
+tart.mock.jQuery.xhr = {
+    "foo.html" : {"deneme" : "foo"}
+};
+
+jQuery.get("foo.html", function (response) {
+    console.log(response);
+},'json');
+
+ 
+</script>
+
+</body>
+</html>
