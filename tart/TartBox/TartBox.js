@@ -27,5 +27,6 @@ tart.TartBox.setBodyFromEl = function (el) {
         throw new Error("Element not exists");
     }
 
-    tart.TartBox.body = el.html();
+
+    tart.TartBox.body = $(el).html();
 };

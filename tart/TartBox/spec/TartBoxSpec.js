@@ -51,7 +51,7 @@ describe("TartBox", function () {
     });
 
     describe("body can be set from a DOM element's content", function () {
-        var dummyEl = $("<div>").html("this is dummy text");
+        var dummyEl = $("<div>").html("this is dummy text")[0];
 
         beforeEach(function () {
             tart.TartBox.init();
@@ -67,13 +67,8 @@ describe("TartBox", function () {
            expect(function () {tart.TartBox.setBodyFromEl(elementNotExists)}).toThrow("Element not exists");
         });
 
-        it("should throw an exception if element not a jQuery object exists", function () {
+        it("should throw an exception if element is not a DOM object", function () {
            var elementNotExists = "foobar";
-           expect(function () {tart.TartBox.setBodyFromEl(elementNotExists)}).toThrow("Element not exists");
-        });
-
-        it("should throw an exception if element not a jQuery object which contains a DOM element", function () {
-           var elementNotExists = $(".whichIsNotExists");
            expect(function () {tart.TartBox.setBodyFromEl(elementNotExists)}).toThrow("Element not exists");
         });
 
