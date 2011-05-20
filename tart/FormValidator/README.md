@@ -16,6 +16,27 @@ Simlpy, run
 
 ## Validation checks
 
+* Rules should be written in object literal like this
+
+<pre>
+var rules = {
+    testInput1 : {
+        isNumeric : {
+            text : "Input is not numeric"
+        },
+        hasMaxLength : {
+            text : "Input's length is more than 9",
+            value : 9
+        },
+        hasMinLength : {
+            text : "Input's length is less than 6",
+            value : 6
+        }
+    }
+};
+
+</pre>
+
 <pre>
 var form = $("form");
 
@@ -48,3 +69,10 @@ else {
     var errors = validator.getErrors();
 }
 </pre>
+
+### Form bindings
+It can also binded before form submit and validation process can be done automatically and 
+results will be returned to a callback function
+
+
+

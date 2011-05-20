@@ -490,5 +490,45 @@ describe("Form Validator", function() {
         });
 
     });
+
+
+    describe("Form validate validates form before form's submit", function () {
+        var rules = {
+            testInput1 : {
+                isNumeric : {
+                    text : "Input is not numeric"
+                },
+                hasMaxLength : {
+                    text : "Input's length is more than 9",
+                    value : 9
+                },
+                hasMinLength : {
+                    text : "Input's length is less than 6",
+                    value : 6
+                }
+            }
+        };
+
+
+        it("should validate form on submit and return generated errors in callback", function () {
+            formFields[0].val("foobar");
+
+            var errorObjects;
+
+            validator.setRules(rules).validateOnSubmit(function (errors) {
+                errorObjects = errors;
+            });
+
+            form.trigger("submit");
+
+            expect(errorObjects[0].el.get(0)).toEqual(formFields[0].get(0));
+            expect(errorObjects[0].text).toEqual("Input is not numeric");
+        });
+
+
+
+    });
+
+
  
 });

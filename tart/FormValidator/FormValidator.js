@@ -208,3 +208,20 @@ tart.FormValidator.prototype.isValid = function() {
 tart.FormValidator.prototype.getErrors = function() {
     return this.errors;
 };
+
+
+
+tart.FormValidator.prototype.validateOnSubmit = function(callback) {
+    callback = callback || function () {};
+
+    var that = this;
+
+    this.form.submit(function (e) {
+        that.validate();
+        if (!that.isValid()) { //if an error occured
+            e.preventDefault();
+            e.stopImmediatePropagation(); //stop other events propagation
+            callback(that.getErrors());
+        }
+    });
+};
