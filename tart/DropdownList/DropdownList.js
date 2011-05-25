@@ -22,8 +22,8 @@
  * var list = new tart.DropdownList(items, builder, selectedItem);
  * list.getAll(); // Outputs [{key1:'val1'},{key2:'val2'},{key3:'val3'}]
  * list.getDOM(); // Returns a select (dropdown) menu in jquery format jQuery(select#elementId)
- * list.setSelected(2); // Sets key3:val3 option element selected property to TRUE;
- * list.getActiveItem(); // Returns an Object { key3="val3" }
+ * list.setActiveItemIndex(2); // Sets key3:val3 option element selected property to TRUE;
+ * list.getActiveItemIndex(); // Returns an Object { key3="val3" }
  */
 
 goog.provide('tart.DropdownList');
@@ -48,12 +48,13 @@ tart.DropdownList = function(initialList, opt_builder, opt_activeItem) {
 };
 goog.inherits(tart.DropdownList, tart.List);
 
-
+    
 /**
  * @inheritDoc
  */
 tart.DropdownList.prototype.removeByIndex = function(index) {
     var result = this.constructor.superClass_.removeByIndex.call(this, index);
+
     if (result === false) {
         return -1;
     } else if (result === -1) {
