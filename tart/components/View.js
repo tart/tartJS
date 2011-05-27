@@ -16,35 +16,17 @@
  * @fileoverview tart.components.View is a base class for all components View's.
  *
  * Example usage:
- * 
- * var SubViewClass = function() {
+ *
+ *  var SubModelClass = function() {
  *      goog.base(this);
-
- *      this.$domMappings = {
- *          HEADER: 'h1'
- *      };
  *  };
- *  goog.inherits(SubViewClass, tart.components.View);
-
- *  SubViewClass.prototype.templates_header = function(text) {
- *      text = text || '';
- *      return '<h1>' + text + '</h1>';
- *  };
- *
- *  SubViewClass.prototype.render = function() {
- *     return this.templates_header();
- *  };
- *
- *  var subView = new SubViewClass();
- *
- *  //TODO: make it work with closure
- *  var dummyDiv = $('<div>').append(subView.render());
- *
- *  subView.setDOM(dummyDiv);
- *
- *  subView.get(subView.$domMappings.HEADER).click(function() {
- *      console.log('foo');
+ *  goog.inherits(SubModelClass, tart.components.Model);
+ *  var subModel = new SubModelClass();
+ *  var text;
+ *  subModel.addEventListener('foo', function(e) {
+ *      text = 'foo triggered';
  *  });
+ *  subModel.dispatchEvent({type: 'foo'});
  */
 
 goog.provide('tart.components.View');
