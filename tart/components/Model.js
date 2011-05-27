@@ -11,6 +11,45 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+/**
+ * @fileoverview tart.components.Model is a base class for all components Models's.
+ *
+ * Example usage:
+ * 
+ * var SubViewClass = function() {
+ *      goog.base(this);
+
+ *      this.$domMappings = {
+ *          HEADER: 'h1'
+ *      };
+ *  };
+ *  goog.inherits(SubViewClass, tart.components.View);
+ *
+ *  SubViewClass.prototype.templates_header = function(text) {
+ *      text = text || '';
+ *      return '<h1>' + text + '</h1>';
+ *  };
+ *
+ *  SubViewClass.prototype.render = function() {
+ *     return this.templates_header();
+ *  };
+ *
+ *  var subView = new SubViewClass();
+ *
+ *  //TODO: make it work with closure
+ *  var dummyDiv = $('<div>').append(subView.render());
+ *
+ *  subView.setDOM(dummyDiv);
+ *
+ *  subView.get(subView.$domMappings.HEADER).click(function() {
+ *      console.log('foo');
+ *  });
+ */
+
+
+
+
 goog.require('goog.events.EventTarget');
 goog.provide('tart.components.Model');
 
