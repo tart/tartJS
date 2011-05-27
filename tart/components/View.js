@@ -27,6 +27,11 @@
  *      text = 'foo triggered';
  *  });
  *  subModel.dispatchEvent({type: 'foo'});
+ *
+ *
+ *  Known issues:
+ *  - Templates will be injected withing Templates object
+ *  - jQuery dependency should be removed
  */
 
 goog.provide('tart.components.View');
