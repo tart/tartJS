@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.components.View is a base class for all components View's
+ * @fileoverview tart.components.View is a base class for all components View's.
  *
  * Example usage:
  * 
