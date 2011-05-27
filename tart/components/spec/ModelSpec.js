@@ -8,12 +8,12 @@ describe('Component Model', function() {
 
 
         it("should supply events to it's sub classes", function() {
-            var subModelClass = function() {
+            var SubModelClass = function() {
                 goog.base(this);
             };
-            goog.inherits(subModelClass, tart.components.Model);
+            goog.inherits(SubModelClass, tart.components.Model);
 
-            var subModel = new subModelClass();
+            var subModel = new SubModelClass();
 
             var text;
 
