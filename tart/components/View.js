@@ -11,3 +11,83 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+/**
+ * @fileoverview tart.components.View is a base class for all components View's
+ *
+ * Example usage:
+ * 
+ * var SubViewClass = function() {
+ *      goog.base(this);
+
+ *      this.$domMappings = {
+ *          HEADER: 'h1'
+ *      };
+ *  };
+ *  goog.inherits(SubViewClass, tart.components.View);
+
+ *  SubViewClass.prototype.templates_header = function(text) {
+ *      text = text || '';
+ *      return '<h1>' + text + '</h1>';
+ *  };
+ *
+ *  SubViewClass.prototype.render = function() {
+ *     return this.templates_header();
+ *  };
+ *
+ *  var subView = new SubViewClass();
+ *
+ *  //TODO: make it work with closure
+ *  var dummyDiv = $('<div>').append(subView.render());
+ *
+ *  subView.setDOM(dummyDiv);
+ *
+ *  subView.get(subView.$domMappings.HEADER).click(function() {
+ *      console.log('foo');
+ *  });
+ */
+
+goog.provide('tart.components.View');
+
+/**
+ * View class base
+ * @constructor
+ */
+tart.components.View = function () {
+    /** @private */
+    this.$dom_ = $('body'); //TODO: make it work with closure
+
+    /** @private */
+    this.$domCache_ = {};
+
+    this.$domMappings = {};
+};
+
+/**
+ * Render abstract method, which all subclasses should implement
+ */
+tart.components.View.prototype.render = goog.abstractMethod;
+
+
+/**
+ * Sets base DOM tree for component
+ * @param {object} dom base DOM reference for component.
+ */
+tart.components.View.prototype.setDOM = function (dom) {
+    this.$dom_ = dom;
+};
+
+
+/**
+ * Get item, which is indicated on $domMappings node
+ * Cache them to $domCache_ and return item
+ *
+ * @param {string} key Object key from $domMappings node.
+ * @return {object} found object after traverse.
+ */
+tart.components.View.prototype.get = function (key) {
+    //TODO: make it owrk with closure
+    //TODO: find or filter ???
+    this.$domCache_[key] = this.$domCache_[key] || this.$dom_.find(key);
+    return this.$domCache_[key];
+};
