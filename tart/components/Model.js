@@ -16,38 +16,21 @@
  * @fileoverview tart.components.Model is a base class for all components Models's.
  *
  * Example usage:
- * 
- * var SubViewClass = function() {
- *      goog.base(this);
-
- *      this.$domMappings = {
- *          HEADER: 'h1'
- *      };
- *  };
- *  goog.inherits(SubViewClass, tart.components.View);
  *
- *  SubViewClass.prototype.templates_header = function(text) {
- *      text = text || '';
- *      return '<h1>' + text + '</h1>';
- *  };
+ * var ModelClass = function () {
+ *     goog.base(this);
+ * };
+ * goog.inherits(ModelClass, tart.components.Model);
  *
- *  SubViewClass.prototype.render = function() {
- *     return this.templates_header();
- *  };
+ * ModelClass.EventTypes = {
+ *     SOMETHING_HAPPENED : "foobar"
+ * };
  *
- *  var subView = new SubViewClass();
- *
- *  //TODO: make it work with closure
- *  var dummyDiv = $('<div>').append(subView.render());
- *
- *  subView.setDOM(dummyDiv);
- *
- *  subView.get(subView.$domMappings.HEADER).click(function() {
- *      console.log('foo');
- *  });
+ * ModelClass.prototype.doSomething = function () {
+ *     //do some stuff here, fetch data etc.
+ *     this.dispatchEvent({type: ModelClass.EventTypes.SOMETHING_HAPPENED});
+ * };
  */
-
-
 
 
 goog.require('goog.events.EventTarget');
@@ -62,3 +45,16 @@ tart.components.Model = function() {
     goog.events.EventTarget.call(this);
 };
 goog.inherits(tart.components.Model, goog.events.EventTarget);
+
+/** @typedef {{type: string, oldValue, newValue}} */
+tart.components.Model.Event;
+
+/**
+ * Overriding goog.events.EventTarget's dispatchEvent method, to make this event consistent in application
+ *
+ * @param {tart.components.Model.Event} modelEvent event object which has type, oldValue and newValue fields.
+ * @override
+ */
+tart.components.Model.prototype.dispatchEvent = function(modelEvent) {
+    goog.base(this, 'dispatchEvent', modelEvent);
+};
