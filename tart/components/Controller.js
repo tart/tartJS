@@ -26,7 +26,6 @@
  *      };
  *      var view = new ViewClass();
  *
- *
  *      var ModelClass = function () {
  *          goog.base(this);
  *      };
@@ -34,8 +33,6 @@
  *
  *
  *      var model = new ModelClass();
- *
- *
  *
  *      var ControllerClass = function () {
  *          goog.base(this);
