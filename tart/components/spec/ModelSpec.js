@@ -13,17 +13,23 @@ describe('Component Model', function() {
             };
             goog.inherits(SubModelClass, tart.components.Model);
 
+
+            SubModelClass.EventTypes = {
+                SOMETHING_HAPPENED : 'foo'
+            };
+
+
             var subModel = new SubModelClass();
 
             var text;
 
-            goog.events.listen(subModel, 'foo', function(e) {
-                text = 'foo triggered';
+            goog.events.listen(subModel, SubModelClass.EventTypes.SOMETHING_HAPPENED, function(e) {
+                text = 'something triggered from model';
             });
 
-            subModel.dispatchEvent({type: 'foo'});
+            subModel.dispatchEvent({type: SubModelClass.EventTypes.SOMETHING_HAPPENED });
 
-            expect(text).toEqual('foo triggered');
+            expect(text).toEqual('something triggered from model');
         });
     });
 });
