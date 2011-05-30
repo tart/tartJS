@@ -57,9 +57,9 @@ describe('ComponentView', function() {
         });
 
 
-        it("should throw a 'DOM not set yet' exception if DOM not set yet", function () {
+        it('should throw a 'DOM not set yet' exception if DOM not set yet', function () {
             var subView = new SubViewClass();
-            expect(function() {subView.get(subView.$domMappings.HEADER)[0]}).toThrow("DOM not set yet");
+            expect(function() {subView.get(subView.$domMappings.HEADER)[0]}).toThrow('DOM not set yet');
         });
 
     });
