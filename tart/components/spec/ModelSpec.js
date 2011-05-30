@@ -17,7 +17,7 @@ describe('Component Model', function() {
 
             var text;
 
-            subModel.addEventListener('foo', function(e) {
+            goog.events.listen(subModel, 'foo', function(e) {
                 text = 'foo triggered';
             });
 

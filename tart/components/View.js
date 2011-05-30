@@ -23,7 +23,8 @@
  *  goog.inherits(SubModelClass, tart.components.Model);
  *  var subModel = new SubModelClass();
  *  var text;
- *  subModel.addEventListener('foo', function(e) {
+ *
+ *  goog.events.listen(subModel, 'foo', function(e) {
  *      text = 'foo triggered';
  *  });
  *  subModel.dispatchEvent({type: 'foo'});
