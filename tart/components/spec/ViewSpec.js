@@ -23,9 +23,10 @@ describe('ComponentView', function() {
 
 
     describe('supplies dom traverse with "get" method', function() {
+        var SubViewClass;
 
-        it('should find related element on DOM', function() {
-            var SubViewClass = function() {
+        beforeEach(function () {
+            SubViewClass = function() {
                 goog.base(this);
 
                 this.$domMappings = {
@@ -42,7 +43,10 @@ describe('ComponentView', function() {
             SubViewClass.prototype.render = function() {
                return this.templates_header();
             };
+        });
 
+
+        it('should find related element on DOM', function() {
             var subView = new SubViewClass();
 
             //TODO: make it work with closure
@@ -51,5 +55,12 @@ describe('ComponentView', function() {
             subView.setDOM(dummyDiv);
             expect(subView.get(subView.$domMappings.HEADER)[0]).toBe(dummyDiv.find('h1')[0]);
         });
+
+
+        it("should throw a 'DOM not set yet' exception if DOM not set yet", function () {
+            var subView = new SubViewClass();
+            expect(function() {subView.get(subView.$domMappings.HEADER)[0]}).toThrow("DOM not set yet");
+        });
+
     });
 });

@@ -42,7 +42,7 @@ goog.provide('tart.components.View');
  */
 tart.components.View = function () {
     /** @private */
-    this.$dom_ = $('body'); //TODO: make it work with closure
+    this.$dom_ = undefined;
 
     /** @private */
     this.$domCache_ = {};
@@ -75,6 +75,9 @@ tart.components.View.prototype.setDOM = function (dom) {
 tart.components.View.prototype.get = function (key) {
     //TODO: make it owrk with closure
     //TODO: find or filter ???
+    if (!this.$dom_) {
+        throw new Error('DOM not set yet');
+    }
     this.$domCache_[key] = this.$domCache_[key] || this.$dom_.find(key);
     return this.$domCache_[key];
 };
