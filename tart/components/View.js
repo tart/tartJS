@@ -17,18 +17,30 @@
  *
  * Example usage:
  *
- *  var SubModelClass = function() {
- *      goog.base(this);
- *  };
- *  goog.inherits(SubModelClass, tart.components.Model);
- *  var subModel = new SubModelClass();
- *  var text;
+ * SubViewClass = function() {
+ *     goog.base(this);
  *
- *  goog.events.listen(subModel, 'foo', function(e) {
- *      text = 'foo triggered';
- *  });
- *  subModel.dispatchEvent({type: 'foo'});
+ *     this.domMappings = {
+ *         HEADER: 'h1'
+ *     };
+ * };
+ * goog.inherits(SubViewClass, tart.components.View);
  *
+ * SubViewClass.prototype.templates_header = function(text) {
+ *     text = text || '';
+ *     return '<h1>' + text + '</h1>';
+ * };
+ *
+ * SubViewClass.prototype.render = function() {
+ *    return this.templates_header();
+ * };
+ *
+ * var subView = new SubViewClass();
+ *
+ * var dummyDiv = $('<div>').append(subView.render());
+ *
+ * subView.setDOM(dummyDiv);
+ * subView.get(subView.domMappings.HEADER);
  *
  *  Known issues:
  *  - Templates will be injected withing Templates object
@@ -48,7 +60,7 @@ tart.components.View = function () {
     /** @private */
     this.$domCache_ = {};
 
-    this.$domMappings = {};
+    this.domMappings = {};
 };
 
 /**
@@ -67,10 +79,10 @@ tart.components.View.prototype.setDOM = function (dom) {
 
 
 /**
- * Get item, which is indicated on $domMappings node
+ * Get item, which is indicated on domMappings node
  * Cache them to $domCache_ and return item
  *
- * @param {string} key Object key from $domMappings node.
+ * @param {string} key Object key from domMappings node.
  * @return {object} found object after traverse.
  */
 tart.components.View.prototype.get = function (key) {
