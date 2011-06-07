@@ -73,7 +73,6 @@ describe('Carousel', function() {
             });
 
             carousel.next(99999);
-
             expect(visibleItems[0].name == 'six' && visibleItems[1].name == 'seven').toBeTruthy();
         });
     });

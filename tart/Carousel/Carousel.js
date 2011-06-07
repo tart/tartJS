@@ -145,18 +145,25 @@ tart.Carousel.prototype.move_ = function (moveCount, eventType) {
     moveCount = moveCount || 1;
     eventType = eventType || tart.Carousel.EventTypes.MOVED;
 
+
+    var maxLastItem = this.itemCount_;
+    var maxFirstItem = this.itemCount_ - this.itemPerViewport_;
+    var minFirstItem = 0;
+    var minLastItem = this.itemPerViewport_;
+
+
     this.firstVisible_ = this.firstVisible_ + moveCount;
     this.lastVisible_ = this.firstVisible_ + this.itemPerViewport_;
 
 
-    var maxLastItem = this.itemCount_;
 
     //defensive check for valid intervals
+    //TODO: check/fix cyclomatic complexity of this code block
     if (this.firstVisible_ < 0) {
         this.firstVisible_ = 0;
     }
     else if (this.firstVisible_ > maxLastItem) {
-        this.firstVisible_ = maxLastItem - this.itemPerViewport_;
+        this.firstVisible_ = maxFirstItem;
     }
 
     if (this.lastVisible_ > maxLastItem) {
@@ -164,6 +171,23 @@ tart.Carousel.prototype.move_ = function (moveCount, eventType) {
     }
     else if (this.lastVisible_ < 0) {
         this.lastVisible_ = maxLastItem;
+    }
+
+
+    if (this.firstVisible_ > maxFirstItem) {
+        this.firstVisible_ = maxFirstItem;
+    }
+
+    if (this.lastVisible_ > maxLastItem) {
+        this.lastVisible_ = maxLastItem;
+    }
+
+    if (this.firstVisible_ < minFirstItem) {
+        this.firstVisible_ = minFirstItem;
+    }
+
+    if (this.lastVisible_ < minLastItem) {
+        this.lastVisible_ = minLastItem;
     }
 
 
