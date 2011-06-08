@@ -133,6 +133,23 @@ tart.Carousel.prototype.getVisibleItems = function () {
 
 
 /**
+ * Get visible items indexes
+ *
+ * @return {object} visible items array.
+ */
+tart.Carousel.prototype.getVisibleItemIndexes = function () {
+    var indexes = {
+        first : this.firstVisible_,
+        last  : this.lastVisible_
+    };
+
+    return indexes;
+};
+
+
+
+
+/**
  * Move cursor to next or previous item
  * 
  * @private
