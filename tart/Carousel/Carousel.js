@@ -77,10 +77,6 @@ tart.Carousel = function (items) {
     this.lastVisible_ = this.firstVisible_  + this.itemPerViewport_;
 
     /** @private */
-    this.totalItems_ = 1;
-
-
-    /** @private */
     this.circular_ = false;
 
 };
