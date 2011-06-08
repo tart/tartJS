@@ -53,31 +53,29 @@ goog.require('tart.Carousel');
 tart.Carousel = function (items) {
     goog.events.EventTarget.call(this);
 
-    /** @private */
-    this.items_ = items;
+    /** @protected */
+    this.items = items;
 
-    /** @private */
-    this.itemCount_ = this.items_.length;
+    /** @protected */
+    this.itemCount = this.items.length;
 
-    /** @private */
-    this.itemPerViewport_ = 1;
+    /** @protected */
+    this.itemPerViewport = 1;
 
     /** 
      * First visible item index in viewport
      *
-     * @private 
+     * @protected
      * */
-    this.firstVisible_ = 0;
+    this.firstVisible = 0;
 
     /**
      * Last visible item index in viewport
      *
-     * @private 
+     * @protected
      * */
-    this.lastVisible_ = this.firstVisible_  + this.itemPerViewport_;
+    this.lastVisible = this.firstVisible  + this.itemPerViewport;
 
-    /** @private */
-    this.circular_ = false;
 
 };
 goog.inherits(tart.Carousel, goog.events.EventTarget);
@@ -103,8 +101,8 @@ tart.Carousel.EventTypes = {
  * @this
  */
 tart.Carousel.prototype.setItemPerViewport = function (itemPerViewport) {
-    this.itemPerViewport_ = itemPerViewport;
-    this.lastVisible_ = this.firstVisible_ + this.itemPerViewport_;
+    this.itemPerViewport = itemPerViewport;
+    this.lastVisible = this.firstVisible + itemPerViewport;
     return this;
 };
 
@@ -115,7 +113,7 @@ tart.Carousel.prototype.setItemPerViewport = function (itemPerViewport) {
  * @return {number} number of visible items.
  */
 tart.Carousel.prototype.getItemPerViewport = function () {
-    return this.itemPerViewport_;
+    return this.itemPerViewport;
 };
 
 /**
@@ -124,7 +122,7 @@ tart.Carousel.prototype.getItemPerViewport = function () {
  * @return {Array.<*>} visible items array.
  */
 tart.Carousel.prototype.getVisibleItems = function () {
-    return this.items_.slice(this.firstVisible_, this.lastVisible_);
+    return this.items.slice(this.firstVisible, this.lastVisible);
 };
 
 
@@ -135,8 +133,8 @@ tart.Carousel.prototype.getVisibleItems = function () {
  */
 tart.Carousel.prototype.getVisibleItemIndexes = function () {
     var indexes = {
-        first : this.firstVisible_,
-        last  : this.lastVisible_
+        first : this.firstVisible,
+        last  : this.lastVisible
     };
 
     return indexes;
@@ -159,48 +157,48 @@ tart.Carousel.prototype.move_ = function (moveCount, eventType) {
     eventType = eventType || tart.Carousel.EventTypes.MOVED;
 
 
-    var maxLastItem = this.itemCount_;
-    var maxFirstItem = this.itemCount_ - this.itemPerViewport_;
+    var maxLastItem = this.itemCount;
+    var maxFirstItem = this.itemCount - this.itemPerViewport;
     var minFirstItem = 0;
-    var minLastItem = this.itemPerViewport_;
+    var minLastItem = this.itemPerViewport;
 
 
-    this.firstVisible_ = this.firstVisible_ + moveCount;
-    this.lastVisible_ = this.firstVisible_ + this.itemPerViewport_;
+    this.firstVisible = this.firstVisible + moveCount;
+    this.lastVisible = this.firstVisible + this.itemPerViewport;
 
 
 
     //defensive check for valid intervals
     //TODO: check/fix cyclomatic complexity of this code block
-    if (this.firstVisible_ < 0) {
-        this.firstVisible_ = 0;
+    if (this.firstVisible < 0) {
+        this.firstVisible = 0;
     }
-    else if (this.firstVisible_ > maxLastItem) {
-        this.firstVisible_ = maxFirstItem;
-    }
-
-    if (this.lastVisible_ > maxLastItem) {
-        this.lastVisible_ = maxLastItem;
-    }
-    else if (this.lastVisible_ < 0) {
-        this.lastVisible_ = maxLastItem;
+    else if (this.firstVisible > maxLastItem) {
+        this.firstVisible = maxFirstItem;
     }
 
-
-    if (this.firstVisible_ > maxFirstItem) {
-        this.firstVisible_ = maxFirstItem;
+    if (this.lastVisible > maxLastItem) {
+        this.lastVisible = maxLastItem;
+    }
+    else if (this.lastVisible < 0) {
+        this.lastVisible = maxLastItem;
     }
 
-    if (this.lastVisible_ > maxLastItem) {
-        this.lastVisible_ = maxLastItem;
+
+    if (this.firstVisible > maxFirstItem) {
+        this.firstVisible = maxFirstItem;
     }
 
-    if (this.firstVisible_ < minFirstItem) {
-        this.firstVisible_ = minFirstItem;
+    if (this.lastVisible > maxLastItem) {
+        this.lastVisible = maxLastItem;
     }
 
-    if (this.lastVisible_ < minLastItem) {
-        this.lastVisible_ = minLastItem;
+    if (this.firstVisible < minFirstItem) {
+        this.firstVisible = minFirstItem;
+    }
+
+    if (this.lastVisible < minLastItem) {
+        this.lastVisible = minLastItem;
     }
 
 
