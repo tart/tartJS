@@ -16,26 +16,45 @@
  * @fileoverview tart.Carousel is an event driven Carousel/Image Slider class which handles next and previous events and gets visible items on viewport.
  *
  * Example usage:
- *   var items = [
- *       {name : 'one'},
- *       {name : 'two'},
- *       {name : 'three'},
- *       {name : 'four'},
- *       {name : 'five'},
- *       {name : 'six'},
- *       {name : 'seven'}
- *   ];
- * 
+ *  var items = [
+ *     {name : 'one'},
+ *     {name : 'two'},
+ *     {name : 'three'},
+ *     {name : 'four'},
+ *     {name : 'five'},
+ *     {name : 'six'},
+ *     {name : 'seven'}
+ *  ]; //seven items
+ *
  *  var carousel = new tart.Carousel(items);
- * 
+ *
  *  carousel.setItemPerViewport(2); //only 2 items is visibile
+ *
  *  goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
- *      console.log (carousel.getVisibleItems());
+ *      console.info('items moved next');
+ *      console.log (e.itemsToBeRemoved);
+ *      console.log (e.itemsToBeInserted);
+ *      console.info(carousel.getVisibleItems());
  *  });
  *
- *  //visible items are 'one' and 'two'
- *  carousel.next(2); //after moving cursor to next 2
- *  //visible items are 'three' and 'four'
+ *  goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
+ *      console.info('items moved prev');
+ *      console.log (e.itemsToBeRemoved);
+ *      console.log (e.itemsToBeInserted);
+ *      console.info(carousel.getVisibleItems());
+ *  });
+ *
+ *  //items : 'one', 'two'
+ *  carousel.next(1); 
+ *  //items : 'two', 'three'
+ *  carousel.next(4);
+ *  //items : 'six', 'seven'
+ *  carousel.next(1);
+ *  //items : 'six', 'seven' which is end of items, for circular navigation use tart.CircularCarousel instead
+ *  carousel.prev(1); 
+ *  //items : 'five', 'six'
+ *  carousel.prev(99999); 
+ *  //items : 'one', 'two'
  */
 
 goog.provide('tart.Carousel');
@@ -144,65 +163,116 @@ tart.Carousel.prototype.getVisibleItemIndexes = function () {
 
 
 /**
+ * Calculate max move count 
+ *
+ * @param {string} direction 'next' or 'prev' direction.
+ * @param {number} moveCount number of movement.
+ * @return {number}  max move count.
+ * @private
+ */
+tart.Carousel.prototype.getMaxMoveCount_ = function (direction, moveCount) {
+    var maxMoveCount;
+
+    if (direction == 'next') {
+        maxMoveCount = this.itemCount - this.lastVisible;
+    }
+    else {
+        maxMoveCount = this.firstVisible;
+    }
+
+    return maxMoveCount;
+};
+
+
+
+
+/**
+ * Find which items to be removed and inserted after move
+ *
+ * @param {number} moveCount item move count.
+ * @return {object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
+ */
+tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
+    var i,
+        itemsToBeRemoved = [],
+        itemsToBeInserted = [],
+        previousItemsIndex = [],
+        nextItemsIndex = [];
+
+    for (i = 0; i < this.lastVisible; i++) {
+        previousItemsIndex.push(i);
+    }
+
+    for (i = this.firstVisible + moveCount; i < this.itemPerViewport + moveCount; i++) {
+        nextItemsIndex.push((i + this.itemCount) % this.itemCount);
+    }
+
+    itemsToBeRemoved = this.getArrayDiff(previousItemsIndex, nextItemsIndex);
+    itemsToBeInserted = this.getArrayDiff(nextItemsIndex, previousItemsIndex);
+
+    return {
+        itemsToBeInserted: itemsToBeInserted,
+        itemsToBeRemoved: itemsToBeRemoved
+    };
+
+};
+
+/**
+ * Get difference between visible items, after move and before move
+ *
+ * @param {Array.<object|=>} a1 first array.
+ * @param {Array.<object|=>} a2 second array.
+ * @return {Array.<object|=>} generated diff.
+ * @protected
+ */
+tart.Carousel.prototype.getArrayDiff = function(a1, a2) {
+    //TODO: there should be a method in goog library to get array diff
+    var indexes = a1.filter(function(i) {return !(a2.indexOf(i) > -1);});
+
+    var diff = [];
+
+    for (var i = 0; i < indexes.length; i++) {
+        var index = indexes[i] % this.itemCount;
+
+        diff.push(this.items[index]);
+    }
+
+    return diff;
+};
+
+
+
+
+
+/**
  * Move cursor to next or previous item
  * 
  * @private
+ * @param {string} direction 'next' or 'prev' movement direction.
  * @param {number|*} moveCount cursor move count, positive numbers move next, negative numbers move previous.
- * @param {object} eventType type of event should be triggered.
  * @return {tart.Carousel} .
  * @this
  */ 
-tart.Carousel.prototype.move_ = function (moveCount, eventType) {
+tart.Carousel.prototype.move_ = function (direction, moveCount) {
     moveCount = moveCount || 1;
-    eventType = eventType || tart.Carousel.EventTypes.MOVED;
+    moveCount = Math.abs(moveCount);
 
+    var maxMoveCount = this.getMaxMoveCount_(direction, moveCount);
+    var eventToDispatch = tart.Carousel.EventTypes.NEXT;
 
-    var maxLastItem = this.itemCount;
-    var maxFirstItem = this.itemCount - this.itemPerViewport;
-    var minFirstItem = 0;
-    var minLastItem = this.itemPerViewport;
+    moveCount = moveCount <= maxMoveCount ? moveCount : maxMoveCount;
 
+    if (direction == 'prev') {
+        moveCount = moveCount * -1;
+        eventToDispatch = tart.Carousel.EventTypes.PREV;
+    }
+
+    var moveDiff = this.getItemsToBeInsertedAndRemoved(moveCount);
 
     this.firstVisible = this.firstVisible + moveCount;
-    this.lastVisible = this.firstVisible + this.itemPerViewport;
+    this.lastVisible = this.lastVisible + moveCount;
 
-
-
-    //defensive check for valid intervals
-    //TODO: check/fix cyclomatic complexity of this code block
-    if (this.firstVisible < 0) {
-        this.firstVisible = 0;
-    }
-    else if (this.firstVisible > maxLastItem) {
-        this.firstVisible = maxFirstItem;
-    }
-
-    if (this.lastVisible > maxLastItem) {
-        this.lastVisible = maxLastItem;
-    }
-    else if (this.lastVisible < 0) {
-        this.lastVisible = maxLastItem;
-    }
-
-
-    if (this.firstVisible > maxFirstItem) {
-        this.firstVisible = maxFirstItem;
-    }
-
-    if (this.lastVisible > maxLastItem) {
-        this.lastVisible = maxLastItem;
-    }
-
-    if (this.firstVisible < minFirstItem) {
-        this.firstVisible = minFirstItem;
-    }
-
-    if (this.lastVisible < minLastItem) {
-        this.lastVisible = minLastItem;
-    }
-
-
-    this.dispatchEvent({type : eventType});
+    this.dispatchEvent({type : eventToDispatch});
 
     return this;
 };
@@ -212,13 +282,9 @@ tart.Carousel.prototype.move_ = function (moveCount, eventType) {
  * Move cursor to next
  *
  * @param {number|*} moveCount cursor move count.
- * @return {tart.Carousel} .
- * @this
  */ 
 tart.Carousel.prototype.next = function (moveCount) {
-    moveCount = moveCount || 1;
-    moveCount = Math.abs(moveCount);
-    return this.move_(moveCount, tart.Carousel.EventTypes.NEXT);
+    this.move_('next', moveCount);
 };
 
 
@@ -226,11 +292,7 @@ tart.Carousel.prototype.next = function (moveCount) {
  * Move cursor to previous
  *
  * @param {number|*} moveCount cursor move count.
- * @return {tart.Carousel} .
- * @this
  */ 
 tart.Carousel.prototype.prev = function (moveCount) {
-    moveCount = moveCount || 1;
-    moveCount = -1 * Math.abs(moveCount);
-    return this.move_(moveCount, tart.Carousel.EventTypes.PREV);
+    this.move_('prev', moveCount);
 };

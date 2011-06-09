@@ -36,15 +36,18 @@ describe('Carousel', function() {
         it('should move one item next', function () {
             carousel.setItemPerViewport(3);
 
-            var visibleItems;
+            var previousItems = carousel.getVisibleItems(),
+                visibleItems;
 
-            goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+
+            goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function(e) {
                 visibleItems = carousel.getVisibleItems();
             });
 
-            carousel.next();
+            carousel.next(1);
 
             expect(visibleItems[0].name == 'two' && visibleItems[1].name == 'three').toBeTruthy();
+
         });
 
 
