@@ -66,6 +66,38 @@ tart.CircularCarousel = function(items) {
 goog.inherits(tart.CircularCarousel, tart.Carousel);
 
 
+/**
+ * Find which items to be removed and inserted after move
+ *
+ * @param {number} moveCount item move count.
+ * @return {object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
+ * @override
+ */
+tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
+    var i,
+        itemsToBeRemoved = [],
+        itemsToBeInserted = [],
+        previousItemsIndex = [],
+        nextItemsIndex = [];
+
+    for (i = 0; i < this.lastVisible; i++) {
+        previousItemsIndex.push(i);
+    }
+
+    for (i = this.firstVisible + moveCount; i < this.itemPerViewport + moveCount; i++) {
+        nextItemsIndex.push((i + this.itemCount) % this.itemCount);
+    }
+
+    itemsToBeRemoved = this.getArrayDiff(previousItemsIndex, nextItemsIndex);
+    itemsToBeInserted = this.getArrayDiff(nextItemsIndex, previousItemsIndex);
+
+    return {
+        itemsToBeInserted: itemsToBeInserted,
+        itemsToBeRemoved: itemsToBeRemoved
+    };
+
+};
+
 
 /**
  * low level move which handles next and prev methods

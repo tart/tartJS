@@ -184,8 +184,6 @@ tart.Carousel.prototype.getMaxMoveCount_ = function (direction, moveCount) {
 };
 
 
-
-
 /**
  * Find which items to be removed and inserted after move
  *
@@ -199,12 +197,9 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
         previousItemsIndex = [],
         nextItemsIndex = [];
 
-    for (i = 0; i < this.lastVisible; i++) {
+    for (i = this.firstVisible; i < this.lastVisible; i++) {
         previousItemsIndex.push(i);
-    }
-
-    for (i = this.firstVisible + moveCount; i < this.itemPerViewport + moveCount; i++) {
-        nextItemsIndex.push((i + this.itemCount) % this.itemCount);
+        nextItemsIndex.push(i + moveCount);
     }
 
     itemsToBeRemoved = this.getArrayDiff(previousItemsIndex, nextItemsIndex);
@@ -272,7 +267,12 @@ tart.Carousel.prototype.move_ = function (direction, moveCount) {
     this.firstVisible = this.firstVisible + moveCount;
     this.lastVisible = this.lastVisible + moveCount;
 
-    this.dispatchEvent({type : eventToDispatch});
+
+    var eventObj = {type: eventToDispatch,
+                    itemsToBeRemoved: moveDiff.itemsToBeRemoved,
+                    itemsToBeInserted: moveDiff.itemsToBeInserted};
+
+    this.dispatchEvent(eventObj);
 
     return this;
 };
