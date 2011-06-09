@@ -84,8 +84,11 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
         previousItemsIndex.push(i);
     }
 
-    for (i = this.firstVisible + moveCount; i < this.itemPerViewport + moveCount; i++) {
-        nextItemsIndex.push((i + this.itemCount) % this.itemCount);
+    var start = this.firstVisible + moveCount + this.itemCount;
+
+    for (i = start; i < start + this.itemPerViewport ; i++) {
+        var index = i + this.itemCount; 
+        nextItemsIndex.push(index);
     }
 
     itemsToBeRemoved = this.getArrayDiff(previousItemsIndex, nextItemsIndex);
