@@ -202,14 +202,9 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
         nextItemsIndex.push(i + moveCount);
     }
 
-    itemsToBeRemoved = this.getArrayDiff(previousItemsIndex, nextItemsIndex);
-    itemsToBeInserted = this.getArrayDiff(nextItemsIndex, previousItemsIndex);
+    var moveDiff = this.getArrayDiff(previousItemsIndex, nextItemsIndex, moveCount);
 
-    return {
-        itemsToBeInserted: itemsToBeInserted,
-        itemsToBeRemoved: itemsToBeRemoved
-    };
-
+    return moveDiff;
 };
 
 /**
@@ -220,19 +215,35 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * @return {Array.<object|=>} generated diff.
  * @protected
  */
-tart.Carousel.prototype.getArrayDiff = function(a1, a2) {
+tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
+    var itemCount = this.itemCount;
     //TODO: there should be a method in goog library to get array diff
-    var indexes = a1.filter(function(i) {return !(a2.indexOf(i) > -1);});
+    var items = {
+        toBeRemoved : a1.filter(function(i) {return !(a2.indexOf(i) > -1);}),
+        toBeInserted  : a2.filter(function(i) {return !(a1.indexOf(i) > -1);})
+    };
 
-    var diff = [];
 
-    for (var i = 0; i < indexes.length; i++) {
-        var index = indexes[i] % this.itemCount;
+    var i = 0,
+        index = 0;
 
-        diff.push(this.items[index]);
+    var itemsToBeInserted = [];
+    var itemsToBeRemoved = [];
+
+    for (i = 0; i < items.toBeInserted.length; i++) {
+        index = (items.toBeInserted[i] + itemCount) % itemCount;
+        itemsToBeInserted.push(this.items[index]);
     }
 
-    return diff;
+    for (i = 0; i < items.toBeRemoved.length; i++) {
+        index = (items.toBeRemoved[i] + itemCount) % itemCount;
+        itemsToBeRemoved.push(this.items[index]);
+    }
+
+    return {
+        itemsToBeInserted : itemsToBeInserted,
+        itemsToBeRemoved : itemsToBeRemoved
+    };
 };
 
 
