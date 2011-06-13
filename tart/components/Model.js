@@ -39,6 +39,7 @@ goog.provide('tart.components.Model');
 /**
  * All component models should be inherited from goog.events.EventTarget
  * to publish events to controllers
+ * @extends {goog.events.EventTarget}
  * @constructor
  */
 tart.components.Model = function() {

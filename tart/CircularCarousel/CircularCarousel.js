@@ -58,6 +58,7 @@ goog.require('tart.Carousel');
  * Pagination class to handle all paging events
  *
  * @param {Array.<*>=} items array of items.
+ * @extends {tart.Carousel}
  * @constructor
  */
 tart.CircularCarousel = function(items) {
@@ -66,14 +67,14 @@ tart.CircularCarousel = function(items) {
 goog.inherits(tart.CircularCarousel, tart.Carousel);
 
 
+
 /**
  * Find which items to be removed and inserted after move
  *
  * @param {number} moveCount item move count.
- * @return {object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
- * @override
+ * @return {Object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
  */
-tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
+tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
         itemsToBeRemoved = [],
         itemsToBeInserted = [],

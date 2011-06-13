@@ -71,7 +71,7 @@ tart.components.View.prototype.render = goog.abstractMethod;
 
 /**
  * Sets base DOM tree for component
- * @param {object} dom base DOM reference for component.
+ * @param {Object} dom base DOM reference for component.
  */
 tart.components.View.prototype.setDOM = function (dom) {
     this.$dom_ = dom;
@@ -83,7 +83,7 @@ tart.components.View.prototype.setDOM = function (dom) {
  * Cache them to $domCache_ and return item
  *
  * @param {string} key Object key from domMappings node.
- * @return {object} found object after traverse.
+ * @return {Object} found object after traverse.
  */
 tart.components.View.prototype.get = function (key) {
     //TODO: make it owrk with closure

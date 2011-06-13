@@ -60,13 +60,13 @@
 goog.provide('tart.Carousel');
 
 goog.require('goog.events.EventTarget');
-goog.require('tart.Carousel');
 
 
 /**
  * Pagination class to handle all paging events
  *
  * @param {Array.<*>=} items array of items.
+ * @extends {goog.events.EventTarget}
  * @constructor
  */
 tart.Carousel = function (items) {
@@ -116,8 +116,7 @@ tart.Carousel.EventTypes = {
  * Item per visible viewport
  *
  * @param {number} itemPerViewport number of visible items.
- * @return {tart.Carousel} .
- * @this
+ * @return {tart.Carousel} itself for chaining.
  */
 tart.Carousel.prototype.setItemPerViewport = function (itemPerViewport) {
     this.itemPerViewport = itemPerViewport;
@@ -148,7 +147,7 @@ tart.Carousel.prototype.getVisibleItems = function () {
 /**
  * Get visible items indexes
  *
- * @return {object} visible items array.
+ * @return {Object} visible items array.
  */
 tart.Carousel.prototype.getVisibleItemIndexes = function () {
     var indexes = {
@@ -188,7 +187,7 @@ tart.Carousel.prototype.getMaxMoveCount_ = function (direction, moveCount) {
  * Find which items to be removed and inserted after move
  *
  * @param {number} moveCount item move count.
- * @return {object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
+ * @return {Object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
  */
 tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
@@ -210,10 +209,10 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
 /**
  * Get difference between visible items, after move and before move
  *
- * @param {Array.<object|=>} a1 first array.
- * @param {Array.<object|=>} a2 second array.
+ * @param {Array.<number>} a1 first array.
+ * @param {Array.<number>} a2 second array.
  * @param {number} moveCount item move count.
- * @return {Array.<object|=>} generated diff.
+ * @return {Array.<number>} generated diff.
  * @protected
  */
 tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
@@ -257,8 +256,7 @@ tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
  * @private
  * @param {string} direction 'next' or 'prev' movement direction.
  * @param {number|*} moveCount cursor move count, positive numbers move next, negative numbers move previous.
- * @return {tart.Carousel} .
- * @this
+ * @return {tart.Carousel} return itself for chaining.
  */ 
 tart.Carousel.prototype.move_ = function (direction, moveCount) {
     moveCount = moveCount || 1;
