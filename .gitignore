@@ -2,3 +2,4 @@
 *.swo
 GUI-Tools
 *.DS_Store
+*.pyc
