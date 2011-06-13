@@ -212,6 +212,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  *
  * @param {Array.<object|=>} a1 first array.
  * @param {Array.<object|=>} a2 second array.
+ * @param {number} moveCount item move count.
  * @return {Array.<object|=>} generated diff.
  * @protected
  */
