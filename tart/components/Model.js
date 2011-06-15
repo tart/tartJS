@@ -53,9 +53,9 @@ tart.components.Model.Event;
 /**
  * Overriding goog.events.EventTarget's dispatchEvent method, to make this event consistent in application
  *
- * @param {tart.components.Model.Event} modelEvent event object which has type, oldValue and newValue fields.
+ * @param {Object|string} modelEvent event object which has type, oldValue and newValue fields.
  * @override
  */
 tart.components.Model.prototype.dispatchEvent = function(modelEvent) {
-    goog.base(this, 'dispatchEvent', modelEvent);
+    return goog.base(this, 'dispatchEvent', modelEvent);
 };

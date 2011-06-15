@@ -102,10 +102,11 @@ tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCo
  * low level move which handles next and prev methods
  *
  * @param {string} direction 'next' or 'prev' direction of movement.
- * @param {number} moveCount item move count.
- * @private
+ * @param {*} moveCount item move count.
+ * @override
+ * @protected
  */
-tart.CircularCarousel.prototype.move_ = function(direction, moveCount) {
+tart.CircularCarousel.prototype.move = function(direction, moveCount) {
     moveCount = moveCount || 1;
     moveCount = Math.abs(moveCount);
     moveCount = moveCount % this.itemCount;
@@ -136,22 +137,4 @@ tart.CircularCarousel.prototype.move_ = function(direction, moveCount) {
                     itemsToBeInserted: moveDiff.itemsToBeInserted};
 
     this.dispatchEvent(eventObj);
-};
-
-/**
- * Move item next by moveCount
- *
- * @param {number} moveCount item move count.
- */
-tart.CircularCarousel.prototype.next = function(moveCount) {
-    this.move_('next', moveCount);
-};
-
-/**
- * Move item prev by moveCount
- *
- * @param {number} moveCount item move count.
- */
-tart.CircularCarousel.prototype.prev = function(moveCount) {
-    this.move_('prev', moveCount);
 };

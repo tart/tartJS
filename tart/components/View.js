@@ -60,7 +60,6 @@ tart.components.View = function () {
     /** @private */
     this.$domCache_ = {};
 
-    this.domMappings = {};
 };
 
 /**
@@ -77,6 +76,12 @@ tart.components.View.prototype.setDOM = function (dom) {
     this.$dom_ = dom;
 };
 
+/**
+ * return current DOM
+ */
+tart.components.View.prototype.getDOM = function () {
+    return this.$dom_;
+};
 
 /**
  * Get item, which is indicated on domMappings node

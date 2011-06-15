@@ -58,6 +58,7 @@
  */
 
 goog.provide('tart.Carousel');
+goog.provide('tart.Carousel.EventTypes');
 
 goog.require('goog.events.EventTarget');
 
@@ -103,14 +104,13 @@ goog.inherits(tart.Carousel, goog.events.EventTarget);
 /**
  * Event types enumaration
  *
- * @enum
+ * @enum {string}
  */
 tart.Carousel.EventTypes = {
     MOVED : 'moved',
-    NEXT : 'next',
-    PREV : 'prev'
+    PREV : 'prev',
+    NEXT : 'next'
 };
-
 
 /**
  * Item per visible viewport
@@ -212,7 +212,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * @param {Array.<number>} a1 first array.
  * @param {Array.<number>} a2 second array.
  * @param {number} moveCount item move count.
- * @return {Array.<number>} generated diff.
+ * @return {Object} generated diff.
  * @protected
  */
 tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
@@ -253,12 +253,11 @@ tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
 /**
  * Move cursor to next or previous item
  * 
- * @private
  * @param {string} direction 'next' or 'prev' movement direction.
- * @param {number|*} moveCount cursor move count, positive numbers move next, negative numbers move previous.
- * @return {tart.Carousel} return itself for chaining.
+ * @param {*} moveCount cursor move count, positive numbers move next, negative numbers move previous.
+ * @protected
  */ 
-tart.Carousel.prototype.move_ = function (direction, moveCount) {
+tart.Carousel.prototype.move = function (direction, moveCount) {
     moveCount = moveCount || 1;
     moveCount = Math.abs(moveCount);
 
@@ -283,8 +282,6 @@ tart.Carousel.prototype.move_ = function (direction, moveCount) {
                     itemsToBeInserted: moveDiff.itemsToBeInserted};
 
     this.dispatchEvent(eventObj);
-
-    return this;
 };
 
 
@@ -294,7 +291,7 @@ tart.Carousel.prototype.move_ = function (direction, moveCount) {
  * @param {number|*} moveCount cursor move count.
  */ 
 tart.Carousel.prototype.next = function (moveCount) {
-    this.move_('next', moveCount);
+    this.move('next', moveCount);
 };
 
 
@@ -304,5 +301,5 @@ tart.Carousel.prototype.next = function (moveCount) {
  * @param {number|*} moveCount cursor move count.
  */ 
 tart.Carousel.prototype.prev = function (moveCount) {
-    this.move_('prev', moveCount);
+    this.move('prev', moveCount);
 };
