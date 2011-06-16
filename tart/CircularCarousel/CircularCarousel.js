@@ -13,7 +13,8 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.CircularCarousel is an event driven Carousel/Image Slider class which handles next and previous events and gets visible items on viewport.
+ * @fileoverview tart.CircularCarousel is an event driven Carousel/Image Slider class which
+ * handles next and previous events and gets visible items on viewport.
  *
  * Example usage:
  *  var items = [
@@ -44,8 +45,8 @@
  *      console.info(carousel.getVisibleItems());
  *  });
  *
- *  carousel.prev(3); 
- *  carousel.next(1); 
+ *  carousel.prev(3);
+ *  carousel.next(1);
  */
 
 goog.provide('tart.CircularCarousel');
@@ -87,7 +88,7 @@ tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCo
 
     var start = this.firstVisible + moveCount;
 
-    for (i = start; i < start + this.itemPerViewport ; i++) {
+    for (i = start; i < start + this.itemPerViewport; i++) {
         var index = i;
         nextItemsIndex.push(index);
     }
