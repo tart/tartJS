@@ -3,3 +3,4 @@
 GUI-Tools
 *.DS_Store
 *.pyc
+compiled/*
