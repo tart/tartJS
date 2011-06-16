@@ -50,7 +50,7 @@ goog.provide('tart.Pagination');
  * @constructor
  * @extends {goog.events.EventTarget}
  */
-tart.Pagination = function () {
+tart.Pagination = function() {
 
     goog.events.EventTarget.call(this);
 
@@ -62,7 +62,7 @@ tart.Pagination = function () {
 
     /** @private */
     this.itemPerPage_ = 1;
-    
+
     /** @private */
     this.totalItems_ = 1;
 };
@@ -75,7 +75,7 @@ goog.inherits(tart.Pagination, goog.events.EventTarget);
  * @enum {string}
  */
 tart.Pagination.EventTypes = {
-    PAGE_CHANGED : 'pageChanged'
+    PAGE_CHANGED: 'pageChanged'
 };
 
 
@@ -86,9 +86,9 @@ tart.Pagination.EventTypes = {
  * @param {string|number} newValue new page value.
  * @private
  */
-tart.Pagination.prototype.triggerPageChange_ = function (oldValue, newValue) {
+tart.Pagination.prototype.triggerPageChange_ = function(oldValue, newValue) {
     //TODO: this event object should be '@typedef'ed
-    this.dispatchEvent({type : tart.Pagination.EventTypes.PAGE_CHANGED, oldValue : oldValue, newValue : newValue});
+    this.dispatchEvent({type: tart.Pagination.EventTypes.PAGE_CHANGED, oldValue: oldValue, newValue: newValue});
 };
 
 
@@ -97,7 +97,7 @@ tart.Pagination.prototype.triggerPageChange_ = function (oldValue, newValue) {
  *
  * @return {number} page count.
  */
-tart.Pagination.prototype.getTotalPage = function () {
+tart.Pagination.prototype.getTotalPage = function() {
     return this.totalPage_;
 };
 
@@ -107,7 +107,7 @@ tart.Pagination.prototype.getTotalPage = function () {
  * @param {number} page page count.
  * @return {tart.Pagination} .
  */
-tart.Pagination.prototype.setTotalPage = function (page) {
+tart.Pagination.prototype.setTotalPage = function(page) {
     this.totalPage_ = page;
     this.totalItems_ = page * this.itemPerPage_;
     return this;
@@ -118,7 +118,7 @@ tart.Pagination.prototype.setTotalPage = function (page) {
  *
  * @return {number} current page.
  */
-tart.Pagination.prototype.getCurrentPage = function () {
+tart.Pagination.prototype.getCurrentPage = function() {
     return this.currentPage_;
 };
 
@@ -128,12 +128,12 @@ tart.Pagination.prototype.getCurrentPage = function () {
  * @param {number} page current page.
  * @return {tart.Pagination} .
  */
-tart.Pagination.prototype.setCurrentPage = function (page) {
+tart.Pagination.prototype.setCurrentPage = function(page) {
     var oldValue = this.currentPage_;
 
     //if page > totalPage
     page = (page > this.totalPage_) ? this.totalPage_ : page;
-  
+
     //if page < 1
     page = (page < 1) ? 1 : page;
 
@@ -150,7 +150,7 @@ tart.Pagination.prototype.setCurrentPage = function (page) {
  *
  * @return {number} number of items.
  */
-tart.Pagination.prototype.getTotalItems = function () {
+tart.Pagination.prototype.getTotalItems = function() {
     return this.totalItems_;
 };
 
@@ -160,7 +160,7 @@ tart.Pagination.prototype.getTotalItems = function () {
  * @param {number} itemCount number of items.
  * @return {tart.Pagination} .
  */
-tart.Pagination.prototype.setTotalItems = function (itemCount) {
+tart.Pagination.prototype.setTotalItems = function(itemCount) {
     this.totalItems_ = itemCount;
     this.totalPage_ = Math.ceil(itemCount / this.itemPerPage_);
     return this;
@@ -172,7 +172,7 @@ tart.Pagination.prototype.setTotalItems = function (itemCount) {
  *
  * @return {number} number of items in a page.
  */
-tart.Pagination.prototype.getItemPerPage = function () {
+tart.Pagination.prototype.getItemPerPage = function() {
     return this.itemPerPage_;
 };
 
@@ -182,7 +182,7 @@ tart.Pagination.prototype.getItemPerPage = function () {
  * @param {number} itemPerPage number of items in a page.
  * @return {tart.Pagination} .
  */
-tart.Pagination.prototype.setItemPerPage = function (itemPerPage) {
+tart.Pagination.prototype.setItemPerPage = function(itemPerPage) {
     this.itemPerPage_ = itemPerPage;
     return this;
 };
@@ -194,7 +194,7 @@ tart.Pagination.prototype.setItemPerPage = function (itemPerPage) {
  *
  * @return {boolean} is next page available.
  */
-tart.Pagination.prototype.hasNext = function () {
+tart.Pagination.prototype.hasNext = function() {
     return this.currentPage_ + 1 <= this.totalPage_;
 };
 
@@ -203,7 +203,7 @@ tart.Pagination.prototype.hasNext = function () {
  *
  * @return {number} next page number.
  */
-tart.Pagination.prototype.getNext = function () {
+tart.Pagination.prototype.getNext = function() {
     return this.hasNext() ? this.currentPage_ + 1 : this.currentPage_;
 };
 
@@ -213,7 +213,7 @@ tart.Pagination.prototype.getNext = function () {
  *
  * @return {boolean} is previous page available.
  */
-tart.Pagination.prototype.hasPrev = function () {
+tart.Pagination.prototype.hasPrev = function() {
     return this.currentPage_ - 1 >= 1;
 };
 
@@ -223,7 +223,7 @@ tart.Pagination.prototype.hasPrev = function () {
  *
  * @return {number} previous page number.
  */
-tart.Pagination.prototype.getPrev = function () {
+tart.Pagination.prototype.getPrev = function() {
     return this.hasPrev() ? this.currentPage_ - 1 : this.currentPage_;
 };
 
@@ -231,7 +231,7 @@ tart.Pagination.prototype.getPrev = function () {
 /**
  * Change page to next page
  */
-tart.Pagination.prototype.next = function () {
+tart.Pagination.prototype.next = function() {
     var newValue = this.getNext();
     this.triggerPageChange_(this.currentPage_, newValue);
     this.currentPage_ = newValue;
@@ -240,7 +240,7 @@ tart.Pagination.prototype.next = function () {
 /**
  * Change page to previous page
  */
-tart.Pagination.prototype.prev = function () {
+tart.Pagination.prototype.prev = function() {
     var newValue = this.getPrev();
     this.triggerPageChange_(this.currentPage_, newValue);
     this.currentPage_ = newValue;
