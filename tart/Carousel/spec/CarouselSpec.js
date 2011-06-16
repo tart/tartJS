@@ -1,3 +1,7 @@
+goog.require('tart.Carousel');
+
+goog.provide('tart.Carousel.SpecRunner');
+
 describe('Carousel', function() {
     var carousel;
 
@@ -80,3 +84,13 @@ describe('Carousel', function() {
         });
     });
 });
+
+
+/**
+ * Run jasmine spec
+ */
+tart.Carousel.SpecRunner = function() {
+    jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());
+    jasmine.getEnv()['execute']();
+}();
+

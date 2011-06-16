@@ -32,13 +32,15 @@
  * };
  */
 
-
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventTarget');
 goog.provide('tart.components.Model');
 
 /**
  * All component models should be inherited from goog.events.EventTarget
  * to publish events to controllers
+ * @extends {goog.events.EventTarget}
  * @constructor
  */
 tart.components.Model = function() {
@@ -52,9 +54,10 @@ tart.components.Model.Event;
 /**
  * Overriding goog.events.EventTarget's dispatchEvent method, to make this event consistent in application
  *
- * @param {tart.components.Model.Event} modelEvent event object which has type, oldValue and newValue fields.
+ * @param {Object|string} modelEvent event object which has type, oldValue and newValue fields.
+ * @return {boolean} .
  * @override
  */
 tart.components.Model.prototype.dispatchEvent = function(modelEvent) {
-    goog.base(this, 'dispatchEvent', modelEvent);
+    return goog.base(this, 'dispatchEvent', modelEvent);
 };

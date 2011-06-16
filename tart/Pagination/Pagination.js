@@ -36,14 +36,19 @@
  *
  */
 
+
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventHandler');
+goog.require('goog.events.EventTarget');
+
 goog.provide('tart.Pagination');
 
-goog.require('goog.events.EventTarget');
 
 /**
  * Pagination class to handle all paging events
  *
  * @constructor
+ * @extends {goog.events.EventTarget}
  */
 tart.Pagination = function () {
 
@@ -67,7 +72,7 @@ goog.inherits(tart.Pagination, goog.events.EventTarget);
 /**
  * Event types enumaration
  *
- * @enum
+ * @enum {string}
  */
 tart.Pagination.EventTypes = {
     PAGE_CHANGED : 'pageChanged'
@@ -101,7 +106,6 @@ tart.Pagination.prototype.getTotalPage = function () {
  *
  * @param {number} page page count.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setTotalPage = function (page) {
     this.totalPage_ = page;
@@ -123,7 +127,6 @@ tart.Pagination.prototype.getCurrentPage = function () {
  *
  * @param {number} page current page.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setCurrentPage = function (page) {
     var oldValue = this.currentPage_;
@@ -156,7 +159,6 @@ tart.Pagination.prototype.getTotalItems = function () {
  *
  * @param {number} itemCount number of items.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setTotalItems = function (itemCount) {
     this.totalItems_ = itemCount;
@@ -179,7 +181,6 @@ tart.Pagination.prototype.getItemPerPage = function () {
  *
  * @param {number} itemPerPage number of items in a page.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setItemPerPage = function (itemPerPage) {
     this.itemPerPage_ = itemPerPage;
@@ -191,7 +192,7 @@ tart.Pagination.prototype.setItemPerPage = function (itemPerPage) {
 /**
  * Determine if next page is available
  *
- * @return {Boolean} is next page available.
+ * @return {boolean} is next page available.
  */
 tart.Pagination.prototype.hasNext = function () {
     return this.currentPage_ + 1 <= this.totalPage_;
@@ -203,14 +204,14 @@ tart.Pagination.prototype.hasNext = function () {
  * @return {number} next page number.
  */
 tart.Pagination.prototype.getNext = function () {
-    return this.hasNext() ? this.currentPage_ + 1 : this.currentPage;
+    return this.hasNext() ? this.currentPage_ + 1 : this.currentPage_;
 };
 
 
 /**
  * Determine if previous page is available
  *
- * @return {Boolean} is previous page available.
+ * @return {boolean} is previous page available.
  */
 tart.Pagination.prototype.hasPrev = function () {
     return this.currentPage_ - 1 >= 1;
@@ -223,7 +224,7 @@ tart.Pagination.prototype.hasPrev = function () {
  * @return {number} previous page number.
  */
 tart.Pagination.prototype.getPrev = function () {
-    return this.hasPrev() ? this.currentPage_ - 1 : this.currentPage;
+    return this.hasPrev() ? this.currentPage_ - 1 : this.currentPage_;
 };
 
 
