@@ -1,3 +1,7 @@
+goog.require('tart.Validation');
+
+goog.provide('tart.Validation.SpecRunner');
+
 describe("Validation", function() {
     var validator;
         
@@ -199,3 +203,11 @@ describe("Validation", function() {
     });
 
 });
+
+/**
+ * Run jasmine spec
+ */
+tart.Validation.SpecRunner = function() {
+    jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());
+    jasmine.getEnv()['execute']();
+}();

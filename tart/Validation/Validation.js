@@ -36,7 +36,7 @@ goog.provide('tart.Validation.is');
  * Checks if given text is valid email
  *
  * @param {string} text email text to be validated.
- * @return {bool} true if its valid email.
+ * @return {boolean} true if its valid email.
  */
 tart.Validation.is.email = function(text) {
     var pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -48,7 +48,7 @@ tart.Validation.is.email = function(text) {
  * Checks if given text doesnt contains only white spaces but some chars or numbers
  *
  * @param {string} text text to be validated.
- * @return {bool} true if text contains any char or number.
+ * @return {boolean} true if text contains any char or number.
  */
 tart.Validation.is.notOnlySpace = function(text) {
     var result = $.trim(text).length > 0;
@@ -60,7 +60,7 @@ tart.Validation.is.notOnlySpace = function(text) {
  * Checks if given text contains only numeric chars
  *
  * @param {string} text text to be validated.
- * @return {bool} true if text contains only numbers.
+ * @return {boolean} true if text contains only numbers.
  */
 tart.Validation.is.numeric = function(text) {
     var pattern = /^[0-9]+$/;
@@ -72,7 +72,7 @@ tart.Validation.is.numeric = function(text) {
  * Checks if given text contains both digit and non-digit chars
  *
  * @param {string} text text to be validated.
- * @return {bool} true if text contains both digit and non-digit chars.
+ * @return {boolean} true if text contains both digit and non-digit chars.
  */
 tart.Validation.is.digitAndNonDigit = function(text) {
     var pattern = /(\d\D)|(\D\d)/;
@@ -87,7 +87,7 @@ tart.Validation.is.digitAndNonDigit = function(text) {
  *
  * @param {string} text string to check for char length.
  * @param {number} value char length value.
- * @return {bool} true if string's length > value.
+ * @return {boolean} true if string's length > value.
  */
 tart.Validation.has.minLength = function(text, value) {
     return (text.length >= value);
@@ -98,7 +98,7 @@ tart.Validation.has.minLength = function(text, value) {
  *
  * @param {string} text string to check for char length.
  * @param {number} value char length value.
- * @return {bool} true if string's length < value.
+ * @return {boolean} true if string's length < value.
  */
 tart.Validation.has.maxLength = function(text, value) {
     return (text.length <= value);
@@ -110,7 +110,7 @@ tart.Validation.has.maxLength = function(text, value) {
  *
  * @param {string|number} num number to check value for.
  * @param {number} value value to check.
- * @return {bool} true if string's num < value.
+ * @return {boolean} true if string's num < value.
  */
 tart.Validation.has.minValue = function(num, value) {
     return num >= value;
@@ -121,7 +121,7 @@ tart.Validation.has.minValue = function(num, value) {
  *
  * @param {string|number} num number to check value for.
  * @param {number} value value to check.
- * @return {bool} true if string's num > value.
+ * @return {boolean} true if string's num > value.
  */
 tart.Validation.has.maxValue = function(num, value) {
     return num <= value;
