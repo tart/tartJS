@@ -58,6 +58,7 @@ goog.require('tart.Carousel');
  * Pagination class to handle all paging events
  *
  * @param {Array.<*>=} items array of items.
+ * @extends {tart.Carousel}
  * @constructor
  */
 tart.CircularCarousel = function(items) {
@@ -66,14 +67,14 @@ tart.CircularCarousel = function(items) {
 goog.inherits(tart.CircularCarousel, tart.Carousel);
 
 
+
 /**
  * Find which items to be removed and inserted after move
  *
  * @param {number} moveCount item move count.
- * @return {object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
- * @override
+ * @return {Object} object literal which has itemsToBeInserted and itemsToBeRemoved nodes.
  */
-tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
+tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
         itemsToBeRemoved = [],
         itemsToBeInserted = [],
@@ -87,7 +88,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var start = this.firstVisible + moveCount;
 
     for (i = start; i < start + this.itemPerViewport ; i++) {
-        var index = i;; 
+        var index = i;
         nextItemsIndex.push(index);
     }
 
@@ -101,10 +102,11 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * low level move which handles next and prev methods
  *
  * @param {string} direction 'next' or 'prev' direction of movement.
- * @param {number} moveCount item move count.
- * @private
+ * @param {*} moveCount item move count.
+ * @override
+ * @protected
  */
-tart.CircularCarousel.prototype.move_ = function(direction, moveCount) {
+tart.CircularCarousel.prototype.move = function(direction, moveCount) {
     moveCount = moveCount || 1;
     moveCount = Math.abs(moveCount);
     moveCount = moveCount % this.itemCount;
@@ -135,22 +137,4 @@ tart.CircularCarousel.prototype.move_ = function(direction, moveCount) {
                     itemsToBeInserted: moveDiff.itemsToBeInserted};
 
     this.dispatchEvent(eventObj);
-};
-
-/**
- * Move item next by moveCount
- *
- * @param {number} moveCount item move count.
- */
-tart.CircularCarousel.prototype.next = function(moveCount) {
-    this.move_('next', moveCount);
-};
-
-/**
- * Move item prev by moveCount
- *
- * @param {number} moveCount item move count.
- */
-tart.CircularCarousel.prototype.prev = function(moveCount) {
-    this.move_('prev', moveCount);
 };
