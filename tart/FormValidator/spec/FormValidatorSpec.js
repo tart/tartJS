@@ -24,9 +24,9 @@ describe('Form Validator', function() {
         var ruleErrorText = 'Not a valid email';
 
         var rules = {
-            testInput1: {
-                isEmail: {
-                    text: ruleErrorText
+            'testInput1': {
+                'isEmail': {
+                    'text': ruleErrorText
                 }
             }
         };
@@ -69,9 +69,9 @@ describe('Form Validator', function() {
         var ruleErrorText = 'You have ve to write at least one char or digit';
 
         var rules = {
-            testInput1: {
-                isNotOnlySpace: {
-                    text: ruleErrorText
+            'testInput1': {
+                'isNotOnlySpace': {
+                    'text': ruleErrorText
                 }
             }
         };
@@ -114,9 +114,9 @@ describe('Form Validator', function() {
         var ruleErrorText = 'You can type only numbers between 0-9';
 
         var rules = {
-            testInput1: {
-                isNumeric: {
-                    text: ruleErrorText
+            'testInput1': {
+                'isNumeric': {
+                    'text': ruleErrorText
                 }
             }
         };
@@ -161,9 +161,9 @@ describe('Form Validator', function() {
         var ruleErrorText = 'Your input must contain both digit and non digit char';
 
         var rules = {
-            testInput1: {
-                isDigitAndNonDigit: {
-                    text: ruleErrorText
+            'testInput1': {
+                'isDigitAndNonDigit': {
+                    'text': ruleErrorText
                 }
             }
         };
@@ -242,10 +242,10 @@ describe('Form Validator', function() {
         var ruleErrorText = 'Your inputs lenght is more than 7';
 
         var rules = {
-            testInput1: {
-                hasMaxLength: {
-                    text: ruleErrorText,
-                    value: 7
+            'testInput1': {
+                'hasMaxLength': {
+                    'text': ruleErrorText,
+                    'value': 7
                 }
             }
         };
@@ -294,10 +294,10 @@ describe('Form Validator', function() {
         var ruleErrorText = 'Your inputs lenght is less than 3';
 
         var rules = {
-            testInput1: {
-                hasMinLength: {
-                    text: ruleErrorText,
-                    value: 3
+            'testInput1': {
+                'hasMinLength': {
+                    'text': ruleErrorText,
+                    'value': 3
                 }
             }
         };
@@ -346,10 +346,10 @@ describe('Form Validator', function() {
         var ruleErrorText = 'Your inputs value is more than 10';
 
         var rules = {
-            testInput1: {
-                hasMaxValue: {
-                    text: ruleErrorText,
-                    value: 10
+            'testInput1': {
+                'hasMaxValue': {
+                    'text': ruleErrorText,
+                    'value': 10
                 }
             }
         };
@@ -384,10 +384,10 @@ describe('Form Validator', function() {
         var ruleErrorText = 'Your inputs value is less than 10';
 
         var rules = {
-            testInput1: {
-                hasMinValue: {
-                    text: ruleErrorText,
-                    value: 10
+            'testInput1': {
+                'hasMinValue': {
+                    'text': ruleErrorText,
+                    'value': 10
                 }
             }
         };
@@ -421,17 +421,17 @@ describe('Form Validator', function() {
 
     describe('Form validator for multiple rules', function() {
         var rules = {
-            testInput1: {
-                isNumeric: {
-                    text: 'Input is not numeric'
+            'testInput1': {
+                'isNumeric': {
+                    'text': 'Input is not numeric'
                 },
-                hasMaxLength: {
-                    text: "Input's length is more than 9",
-                    value: 9
+                'hasMaxLength': {
+                    'text': "Input's length is more than 9",
+                    'value': 9
                 },
-                hasMinLength: {
-                    text: "Input's length is less than 6",
-                    value: 6
+                'hasMinLength': {
+                    'text': "Input's length is less than 6",
+                    'value': 6
                 }
             }
         };
@@ -498,17 +498,17 @@ describe('Form Validator', function() {
 
     describe("Form validate validates form before form's submit", function() {
         var rules = {
-            testInput1: {
-                isNumeric: {
-                    text: 'Input is not numeric'
+            'testInput1': {
+                'isNumeric': {
+                    'text': 'Input is not numeric'
                 },
-                hasMaxLength: {
-                    text: "Input's length is more than 9",
-                    value: 9
+                'hasMaxLength': {
+                    'text': "Input's length is more than 9",
+                    'value': 9
                 },
-                hasMinLength: {
-                    text: "Input's length is less than 6",
-                    value: 6
+                'hasMinLength': {
+                    'text': "Input's length is less than 6",
+                    'value': 6
                 }
             }
         };

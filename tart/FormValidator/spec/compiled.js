@@ -2,33 +2,33 @@
 var d = void 0;
 // Input 1
 var e = {has:{}, is:{}};
-e.is.i = function(a) {
+e.is.e = function(a) {
   return/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(a)
 };
-e.is.m = function(a) {
+e.is.i = function(a) {
   return $.trim(a).length > 0
 };
-e.is.n = function(a) {
+e.is.j = function(a) {
   return/^[0-9]+$/.test(a)
 };
-e.is.g = function(a) {
+e.is.c = function(a) {
   return/(\d\D)|(\D\d)/.test(a)
 };
-e.has.k = function(a, g) {
+e.has.g = function(a, g) {
   return a.length >= g
 };
 e.has.maxLength = function(a, g) {
   return a.length <= g
 };
-e.has.l = function(a, g) {
+e.has.h = function(a, g) {
   return a >= g
 };
-e.has.j = function(a, g) {
+e.has.f = function(a, g) {
   return a <= g
 };
 // Input 2
 function f(a) {
-  this.c = e;
+  this.b = e;
   this.form = a;
   this.a = [];
   return this
@@ -54,28 +54,28 @@ function o(a) {
       var h = n[m], j = h.key, h = h.options, k = d;
       switch(j) {
         case "isEmail":
-          k = b.c.is.i;
+          k = b.b.is.e;
           break;
         case "isNotOnlySpace":
-          k = b.c.is.m;
+          k = b.b.is.i;
           break;
         case "isNumeric":
-          k = b.c.is.n;
+          k = b.b.is.j;
           break;
         case "isDigitAndNonDigit":
-          k = b.c.is.g;
+          k = b.b.is.c;
           break;
         case "hasMaxLength":
-          k = b.c.has.maxLength;
+          k = b.b.has.maxLength;
           break;
         case "hasMinLength":
-          k = b.c.has.k;
+          k = b.b.has.g;
           break;
         case "hasMaxValue":
-          k = b.c.has.j;
+          k = b.b.has.f;
           break;
         case "hasMinValue":
-          k = b.c.has.l
+          k = b.b.has.h
       }
       j = k;
       j = j(c, h.value);
@@ -83,8 +83,8 @@ function o(a) {
         break
       }
     }
-    b = {o:j, item:{h:g, text:h.text}};
-    if(!b.o) {
+    b = {k:j, item:{d:g, text:h.text}};
+    if(!b.k) {
       a.a.push(b.item);
       break
     }
@@ -115,7 +115,7 @@ describe("Form Validator", function() {
     expect(typeof a).toEqual("object")
   });
   describe("Form validator for email", function() {
-    var b = {b:{s:{text:"Not a valid email"}}};
+    var b = {testInput1:{isEmail:{text:"Not a valid email"}}};
     it("should validate an input which has 'foo@bar.com' as valid email", function() {
       c[0].val("foo@bar.com");
       o(i(a, b));
@@ -126,7 +126,7 @@ describe("Form Validator", function() {
       o(i(a, b));
       expect(p(a)).toBeFalsy()
     });
-    it("should not validate in input which has 'foo@bar.xxxxx' an errr text should be 'Not a valid email'", function() {
+    it("should not validate in input which has 'foo@bar.xxxxx' with text 'Not a valid email'", function() {
       c[0].val("foo@bar.xxxxx");
       o(i(a, b));
       expect(a.a[0].text).toEqual("Not a valid email")
@@ -138,8 +138,8 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validator for not only space", function() {
-    var b = {b:{t:{text:"You have ve to write at least one char or digit"}}};
-    it("should validate an input which starts with space but has some chars like '  foo   bar    '", function() {
+    var b = {testInput1:{isNotOnlySpace:{text:"You have ve to write at least one char or digit"}}};
+    it("should validate an input which starts with space but has some chars like '  foo   bar   '", function() {
       c[0].val("   foo   bar    ");
       o(i(a, b));
       expect(p(a)).toBeTruthy()
@@ -161,7 +161,7 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validator for numeric control", function() {
-    var b = {b:{f:{text:"You can type only numbers between 0-9"}}};
+    var b = {testInput1:{isNumeric:{text:"You can type only numbers between 0-9"}}};
     it("should validate an input which has only numbers like '12345'", function() {
       c[0].val("12345");
       o(i(a, b));
@@ -177,14 +177,14 @@ describe("Form Validator", function() {
       o(i(a, b));
       expect(p(a)).toBeFalsy()
     });
-    it("should not validate an input and 'You can type only numbers between 0-9' for an input like 'foo12345bar'", function() {
+    it("should not validate input with text 'You can type only numbers between 0-9' for 'foo12345bar'", function() {
       c[0].val("foo12345foo");
       o(i(a, b));
       expect(a.a[0].text).toEqual("You can type only numbers between 0-9")
     })
   });
   describe("Form validator for input which contains both digit and non digit char", function() {
-    var b = {b:{r:{text:"Your input must contain both digit and non digit char"}}};
+    var b = {testInput1:{isDigitAndNonDigit:{text:"Your input must contain both digit and non digit char"}}};
     it("should not validate an input which has only numbers like '12345'", function() {
       c[0].val("12345");
       o(i(a, b));
@@ -205,7 +205,7 @@ describe("Form Validator", function() {
       o(i(a, b));
       expect(p(a)).toBeTruthy()
     });
-    it("should validate an input which has both digit, alpha chars and non alpha cahrs 'foo12345bar-_`'", function() {
+    it("should validate an input which has both digit, alpha chars,no nalpha chars 'foo12345bar-_`'", function() {
       c[0].val("foo12345foo-_`");
       o(i(a, b));
       expect(p(a)).toBeTruthy()
@@ -225,14 +225,14 @@ describe("Form Validator", function() {
       o(i(a, b));
       expect(p(a)).toBeFalsy()
     });
-    it("should not return an error text 'Your input must contain both digit and non digit char' for an invalid input", function() {
+    it("should return text 'Your input must contain both digit and non digit char' for invalid input", function() {
       c[0].val("~-? ");
       o(i(a, b));
       expect(a.a[0].text).toEqual("Your input must contain both digit and non digit char")
     })
   });
   describe("Form validator to check inputs max length", function() {
-    var b = {b:{d:{text:"Your inputs lenght is more than 7", value:7}}};
+    var b = {testInput1:{hasMaxLength:{text:"Your inputs lenght is more than 7", value:7}}};
     it("should validate an input like '12345'", function() {
       c[0].val("12345");
       o(i(a, b));
@@ -260,7 +260,7 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validator to check inputs min length", function() {
-    var b = {b:{e:{text:"Your inputs lenght is less than 3", value:3}}};
+    var b = {testInput1:{hasMinLength:{text:"Your inputs lenght is less than 3", value:3}}};
     it("should validate an input like '12345'", function() {
       c[0].val("12345");
       o(i(a, b));
@@ -288,7 +288,7 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validator to check input's numeric value", function() {
-    var b = {b:{p:{text:"Your inputs value is more than 10", value:10}}};
+    var b = {testInput1:{hasMaxValue:{text:"Your inputs value is more than 10", value:10}}};
     it("should validate an input like '1'", function() {
       c[0].val("1");
       o(i(a, b));
@@ -306,7 +306,7 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validator to check input's numeric value", function() {
-    var b = {b:{q:{text:"Your inputs value is less than 10", value:10}}};
+    var b = {testInput1:{hasMinValue:{text:"Your inputs value is less than 10", value:10}}};
     it("should not validate an input like '1'", function() {
       c[0].val("1");
       o(i(a, b));
@@ -324,7 +324,7 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validator for multiple rules", function() {
-    var b = {b:{f:{text:"Input is not numeric"}, d:{text:"Input's length is more than 9", value:9}, e:{text:"Input's length is less than 6", value:6}}};
+    var b = {testInput1:{isNumeric:{text:"Input is not numeric"}, hasMaxLength:{text:"Input's length is more than 9", value:9}, hasMinLength:{text:"Input's length is less than 6", value:6}}};
     it("should not validate an input like 'fooobar'", function() {
       c[0].val("fooobar");
       o(i(a, b));
@@ -362,7 +362,7 @@ describe("Form Validator", function() {
     })
   });
   describe("Form validate validates form before form's submit", function() {
-    var b = {b:{f:{text:"Input is not numeric"}, d:{text:"Input's length is more than 9", value:9}, e:{text:"Input's length is less than 6", value:6}}};
+    var b = {testInput1:{isNumeric:{text:"Input is not numeric"}, hasMaxLength:{text:"Input's length is more than 9", value:9}, hasMinLength:{text:"Input's length is less than 6", value:6}}};
     it("should validate form on submit and return generated errors in callback", function() {
       c[0].val("foobar");
       var l;
@@ -370,7 +370,7 @@ describe("Form Validator", function() {
         l = a
       });
       g.trigger("submit");
-      expect(l[0].h.get(0)).toEqual(c[0].get(0));
+      expect(l[0].d.get(0)).toEqual(c[0].get(0));
       expect(l[0].text).toEqual("Input is not numeric")
     })
   })
