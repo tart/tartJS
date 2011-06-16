@@ -24,7 +24,8 @@ var jasmineMatcher = {
     toBeTruthy : function () {},
     toBeFalsy : function () {},
     toBe : function () {},
-    toThrow : function () {}
+    toThrow : function () {},
+    toBeGreaterThan : function() {}
 };
 
 /**
