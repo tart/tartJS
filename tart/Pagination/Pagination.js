@@ -72,7 +72,7 @@ goog.inherits(tart.Pagination, goog.events.EventTarget);
 /**
  * Event types enumaration
  *
- * @enum
+ * @enum {string}
  */
 tart.Pagination.EventTypes = {
     PAGE_CHANGED : 'pageChanged'
@@ -192,7 +192,7 @@ tart.Pagination.prototype.setItemPerPage = function (itemPerPage) {
 /**
  * Determine if next page is available
  *
- * @return {Boolean} is next page available.
+ * @return {boolean} is next page available.
  */
 tart.Pagination.prototype.hasNext = function () {
     return this.currentPage_ + 1 <= this.totalPage_;
@@ -204,14 +204,14 @@ tart.Pagination.prototype.hasNext = function () {
  * @return {number} next page number.
  */
 tart.Pagination.prototype.getNext = function () {
-    return this.hasNext() ? this.currentPage_ + 1 : this.currentPage;
+    return this.hasNext() ? this.currentPage_ + 1 : this.currentPage_;
 };
 
 
 /**
  * Determine if previous page is available
  *
- * @return {Boolean} is previous page available.
+ * @return {boolean} is previous page available.
  */
 tart.Pagination.prototype.hasPrev = function () {
     return this.currentPage_ - 1 >= 1;
@@ -224,7 +224,7 @@ tart.Pagination.prototype.hasPrev = function () {
  * @return {number} previous page number.
  */
 tart.Pagination.prototype.getPrev = function () {
-    return this.hasPrev() ? this.currentPage_ - 1 : this.currentPage;
+    return this.hasPrev() ? this.currentPage_ - 1 : this.currentPage_;
 };
 
 
