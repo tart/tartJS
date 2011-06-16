@@ -29,20 +29,25 @@
  *
  * More examples can be seen from spec/FormValidationSpec.js file
  */
+ 
+goog.require('tart.Validation');
 
 goog.provide('tart.FormValidator');
 
 /**
  * Attach validator to formEl
  *
- * @param {object} formEl jQuery element for selected form.
+ * @param {Object} formEl jQuery element for selected form.
+ * @constructor
  * @return {tart.FormValidator} .
- * @this
  */
 tart.FormValidator = function(formEl) {
     //TODO: this is tightly coupled to tart.Validation
+    /* @protected */
     this.validator = tart.Validation;
+    /* @protected */
     this.form = formEl;
+    /* @protected */
     this.errors = [];
     return this;
 };
@@ -50,9 +55,9 @@ tart.FormValidator = function(formEl) {
 /**
  * Set validation rules to attached form
  *
- * @param {object} rules given rules in object literal notation.
+ * @param {Object} rules given rules in object literal notation.
  * @return {tart.FormValidator} .
- * @this
+ * @this {tart.FormValidator} .
  */
 tart.FormValidator.prototype.setRules = function(rules) {
     this.rules = rules;
@@ -64,7 +69,7 @@ tart.FormValidator.prototype.setRules = function(rules) {
  * Find element with elementName in given form object
  *
  * @param {string} elementName name of element which to be find in form.
- * @return {object} jQuery object for given element.
+ * @return {Object} jQuery object for given element.
  */
 tart.FormValidator.prototype.getFormElementByName = function(elementName) {
     var el = this.form.find('input[name=' + elementName + ']');
@@ -75,7 +80,7 @@ tart.FormValidator.prototype.getFormElementByName = function(elementName) {
 /**
  * Find related element attribute for given input type
  *
- * @param {object} el jQuery object of element.
+ * @param {Object} el jQuery object of element.
  * @return {string} elements value for related input type.
  */
 tart.FormValidator.prototype.getElementAttributeToCheck = function(el) {
@@ -87,7 +92,7 @@ tart.FormValidator.prototype.getElementAttributeToCheck = function(el) {
  * Rule key for tart.Validation
  *
  * @param {string} ruleKey key of rule.
- * @return {object} elements value for related input type.
+ * @return {Function} elements value for related input type.
  */
 tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
     var rule;
@@ -109,8 +114,8 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
 /**
  * Get rule key and rule options from rule object
  *
- * @param {object} rule rule object whom key is ruleName and value is rule options.
- * @return {object} object which has .key and .options nodes.
+ * @param {Object} rule rule object whom key is ruleName and value is rule options.
+ * @return {Object} object which has .key and .options nodes.
  */
 tart.FormValidator.prototype.getRuleKeyAndOptions = function(rule) {
     var results = [];
@@ -127,9 +132,9 @@ tart.FormValidator.prototype.getRuleKeyAndOptions = function(rule) {
 /**
  * Apply rule and generate result in object literal
  *
- * @param {object} el jQuery object to rule rule object whom key is ruleName and value is rule options.
- * @param {object} rule rule to be applied to el.
- * @return {object} result object which has .success and .item nodes.
+ * @param {Object} el jQuery object to rule rule object whom key is ruleName and value is rule options.
+ * @param {Object} rule rule to be applied to el.
+ * @return {Object} result object which has .success and .item nodes.
  */
 tart.FormValidator.prototype.applyRule = function(el, rule) {
     var value = this.getElementAttributeToCheck(el);
@@ -163,7 +168,6 @@ tart.FormValidator.prototype.applyRule = function(el, rule) {
  * Validate given form object with given rules, if any errors occured this.errors array will be populated
  *
  * @return {tart.FormValidator} .
- * @this
  */
 tart.FormValidator.prototype.validate = function() {
     this.errors = [];
@@ -203,7 +207,7 @@ tart.FormValidator.prototype.isValid = function() {
 /**
  * Get generated errors array which contains element (el) and error text(text)
  *
- * @return {array} errors array.
+ * @return {Array} errors array.
  */
 tart.FormValidator.prototype.getErrors = function() {
     return this.errors;
