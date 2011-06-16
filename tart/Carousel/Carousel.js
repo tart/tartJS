@@ -60,6 +60,8 @@
 goog.provide('tart.Carousel');
 goog.provide('tart.Carousel.EventTypes');
 
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventTarget');
 
 
