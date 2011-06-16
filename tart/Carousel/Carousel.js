@@ -13,7 +13,8 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.Carousel is an event driven Carousel/Image Slider class which handles next and previous events and gets visible items on viewport.
+ * @fileoverview tart.Carousel is an event driven Carousel/Image Slider class
+ * which handles next and previous events and gets visible items on viewport.
  *
  * Example usage:
  *  var items = [
@@ -45,15 +46,15 @@
  *  });
  *
  *  //items : 'one', 'two'
- *  carousel.next(1); 
+ *  carousel.next(1);
  *  //items : 'two', 'three'
  *  carousel.next(4);
  *  //items : 'six', 'seven'
  *  carousel.next(1);
  *  //items : 'six', 'seven' which is end of items, for circular navigation use tart.CircularCarousel instead
- *  carousel.prev(1); 
+ *  carousel.prev(1);
  *  //items : 'five', 'six'
- *  carousel.prev(99999); 
+ *  carousel.prev(99999);
  *  //items : 'one', 'two'
  */
 
@@ -72,7 +73,7 @@ goog.require('goog.events.EventTarget');
  * @extends {goog.events.EventTarget}
  * @constructor
  */
-tart.Carousel = function (items) {
+tart.Carousel = function(items) {
     goog.events.EventTarget.call(this);
 
     /** @protected */
@@ -84,7 +85,7 @@ tart.Carousel = function (items) {
     /** @protected */
     this.itemPerViewport = 1;
 
-    /** 
+    /**
      * First visible item index in viewport
      *
      * @protected
@@ -96,7 +97,7 @@ tart.Carousel = function (items) {
      *
      * @protected
      * */
-    this.lastVisible = this.firstVisible  + this.itemPerViewport;
+    this.lastVisible = this.firstVisible + this.itemPerViewport;
 
 
 };
@@ -109,9 +110,9 @@ goog.inherits(tart.Carousel, goog.events.EventTarget);
  * @enum {string}
  */
 tart.Carousel.EventTypes = {
-    MOVED : 'moved',
-    PREV : 'prev',
-    NEXT : 'next'
+    MOVED: 'moved',
+    PREV: 'prev',
+    NEXT: 'next'
 };
 
 /**
@@ -120,7 +121,7 @@ tart.Carousel.EventTypes = {
  * @param {number} itemPerViewport number of visible items.
  * @return {tart.Carousel} itself for chaining.
  */
-tart.Carousel.prototype.setItemPerViewport = function (itemPerViewport) {
+tart.Carousel.prototype.setItemPerViewport = function(itemPerViewport) {
     this.itemPerViewport = itemPerViewport;
     this.lastVisible = this.firstVisible + itemPerViewport;
     return this;
@@ -132,7 +133,7 @@ tart.Carousel.prototype.setItemPerViewport = function (itemPerViewport) {
  *
  * @return {number} number of visible items.
  */
-tart.Carousel.prototype.getItemPerViewport = function () {
+tart.Carousel.prototype.getItemPerViewport = function() {
     return this.itemPerViewport;
 };
 
@@ -141,7 +142,7 @@ tart.Carousel.prototype.getItemPerViewport = function () {
  *
  * @return {Array.<*>} visible items array.
  */
-tart.Carousel.prototype.getVisibleItems = function () {
+tart.Carousel.prototype.getVisibleItems = function() {
     return this.items.slice(this.firstVisible, this.lastVisible);
 };
 
@@ -151,10 +152,10 @@ tart.Carousel.prototype.getVisibleItems = function () {
  *
  * @return {Object} visible items array.
  */
-tart.Carousel.prototype.getVisibleItemIndexes = function () {
+tart.Carousel.prototype.getVisibleItemIndexes = function() {
     var indexes = {
-        first : this.firstVisible,
-        last  : this.lastVisible
+        first: this.firstVisible,
+        last: this.lastVisible
     };
 
     return indexes;
@@ -164,14 +165,14 @@ tart.Carousel.prototype.getVisibleItemIndexes = function () {
 
 
 /**
- * Calculate max move count 
+ * Calculate max move count
  *
  * @param {string} direction 'next' or 'prev' direction.
  * @param {number} moveCount number of movement.
  * @return {number}  max move count.
  * @private
  */
-tart.Carousel.prototype.getMaxMoveCount_ = function (direction, moveCount) {
+tart.Carousel.prototype.getMaxMoveCount_ = function(direction, moveCount) {
     var maxMoveCount;
 
     if (direction == 'next') {
@@ -193,8 +194,6 @@ tart.Carousel.prototype.getMaxMoveCount_ = function (direction, moveCount) {
  */
 tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
-        itemsToBeRemoved = [],
-        itemsToBeInserted = [],
         previousItemsIndex = [],
         nextItemsIndex = [];
 
@@ -203,7 +202,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
         nextItemsIndex.push(i + moveCount);
     }
 
-    var moveDiff = this.getArrayDiff(previousItemsIndex, nextItemsIndex, moveCount);
+    var moveDiff = this.getMoveDiff(previousItemsIndex, nextItemsIndex, moveCount);
 
     return moveDiff;
 };
@@ -217,56 +216,53 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * @return {Object} generated diff.
  * @protected
  */
-tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
-    var itemCount = this.itemCount;
-    //TODO: there should be a method in goog library to get array diff
-    var items = {
-        toBeRemoved : a1.filter(function(i) {return !(a2.indexOf(i) > -1);}),
-        toBeInserted  : a2.filter(function(i) {return !(a1.indexOf(i) > -1);})
-    };
-
+tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
+    moveCount = Math.abs(moveCount);
 
     var i = 0,
-        index = 0;
+        index = 0,
+        itemsToBeInserted = [],
+        itemsToBeRemoved = [],
+        itemCount = this.itemCount;
 
-    var itemsToBeInserted = [];
-    var itemsToBeRemoved = [];
+    var tmpItems = {
+        toBeInserted: a2.slice(-1 * a2.length, moveCount),
+        toBeRemoved: a1.slice(a1.length - moveCount, a1.length)
+    };
 
-    for (i = 0; i < items.toBeInserted.length; i++) {
-        index = (items.toBeInserted[i] + itemCount) % itemCount;
+    for (i = 0; i < tmpItems.toBeInserted.length; i++) {
+        index = (tmpItems.toBeInserted[i] + itemCount) % itemCount;
         itemsToBeInserted.push(this.items[index]);
     }
 
-    for (i = 0; i < items.toBeRemoved.length; i++) {
-        index = (items.toBeRemoved[i] + itemCount) % itemCount;
+    for (i = 0; i < tmpItems.toBeRemoved.length; i++) {
+        index = (tmpItems.toBeRemoved[i] + itemCount) % itemCount;
         itemsToBeRemoved.push(this.items[index]);
     }
 
     return {
-        itemsToBeInserted : itemsToBeInserted,
-        itemsToBeRemoved : itemsToBeRemoved
+        itemsToBeInserted: itemsToBeInserted,
+        itemsToBeRemoved: itemsToBeRemoved
     };
 };
 
 
 
-
-
 /**
  * Move cursor to next or previous item
- * 
+ *
  * @param {string} direction 'next' or 'prev' movement direction.
- * @param {*} moveCount cursor move count, positive numbers move next, negative numbers move previous.
+ * @param {*} moveCount cursor move count.
  * @protected
- */ 
-tart.Carousel.prototype.move = function (direction, moveCount) {
+ */
+tart.Carousel.prototype.move = function(direction, moveCount) {
     moveCount = moveCount || 1;
     moveCount = Math.abs(moveCount);
 
     var maxMoveCount = this.getMaxMoveCount_(direction, moveCount);
-    var eventToDispatch = tart.Carousel.EventTypes.NEXT;
-
     moveCount = moveCount <= maxMoveCount ? moveCount : maxMoveCount;
+
+    var eventToDispatch = tart.Carousel.EventTypes.NEXT;
 
     if (direction == 'prev') {
         moveCount = moveCount * -1;
@@ -291,8 +287,8 @@ tart.Carousel.prototype.move = function (direction, moveCount) {
  * Move cursor to next
  *
  * @param {number|*} moveCount cursor move count.
- */ 
-tart.Carousel.prototype.next = function (moveCount) {
+ */
+tart.Carousel.prototype.next = function(moveCount) {
     this.move('next', moveCount);
 };
 
@@ -301,7 +297,7 @@ tart.Carousel.prototype.next = function (moveCount) {
  * Move cursor to previous
  *
  * @param {number|*} moveCount cursor move count.
- */ 
-tart.Carousel.prototype.prev = function (moveCount) {
+ */
+tart.Carousel.prototype.prev = function(moveCount) {
     this.move('prev', moveCount);
 };

@@ -46,14 +46,14 @@ var jQuerySelector;
  * @param {(Element|jQueryObject|Document|Object)=} arg2
  * @return {jQueryObject}
  */
-function $(arg1, arg2) {};
+function $(arg1, arg2) {}
 
 /**
  * @param {(jQuerySelector|Element|Array|Object|string|function())=} arg1
  * @param {(Element|jQueryObject|Document|Object)=} arg2
  * @return {jQueryObject}
  */
-function jQuery(arg1, arg2) {};
+function jQuery(arg1, arg2) {}
 
 /**
  * @param {Object.<string,*>} settings
@@ -366,7 +366,7 @@ jQuery.unique = function(arr) {};
  * @constructor
  * @private
  */
-function jQueryObject() { };
+function jQueryObject() { }
 
 /**
  * @param {(jQuerySelector|Array.<Element>|string)} arg1
@@ -555,8 +555,7 @@ jQueryObject.prototype.delay = function(duration, queueName) {};
  * @param {function()=} handler
  * @return {jQueryObject}
  */
-jQueryObject.prototype.delegate
-    = function(selector, eventType, arg3, handler) {};
+jQueryObject.prototype.delegate = function(selector, eventType, arg3, handler) {};
 
 /**
  * @param {string=} queueName
@@ -1219,18 +1218,18 @@ jQueryObject.prototype.wrapAll = function(wrappingElement) {};
 jQueryObject.prototype.wrapInner = function(arg1) {};
 
 /* for jquery.json-2.2.js */
-jQuery.toJSON = function (o) {};
-jQuery.evalJSON = function (src) {};
-jQuery.secureEvalJSON = function (src) {};
-jQuery.quoteString = function (string) {};
+jQuery.toJSON = function(o) {};
+jQuery.evalJSON = function(src) {};
+jQuery.secureEvalJSON = function(src) {};
+jQuery.quoteString = function(string) {};
 
 
 /* for jquery.bt.js */
 jQuery.bt = function(content, options) {};
-jQuery.btPosition = function () {};
-jQuery.btOuterWidth = function (margin) {};
-jQuery.btOn = function () {};
-jQuery.btOff = function () {};
+jQuery.btPosition = function() {};
+jQuery.btOuterWidth = function(margin) {};
+jQuery.btOn = function() {};
+jQuery.btOff = function() {};
 
 
 /* for jquery-dotnet_String_formatting-1.0.0.js */

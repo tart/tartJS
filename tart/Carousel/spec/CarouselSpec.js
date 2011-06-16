@@ -6,13 +6,13 @@ describe('Carousel', function() {
     var carousel;
 
     var items = [
-        {name : 'one'},
-        {name : 'two'},
-        {name : 'three'},
-        {name : 'four'},
-        {name : 'five'},
-        {name : 'six'},
-        {name : 'seven'}
+        {name: 'one'},
+        {name: 'two'},
+        {name: 'three'},
+        {name: 'four'},
+        {name: 'five'},
+        {name: 'six'},
+        {name: 'seven'}
     ];
 
 
@@ -20,14 +20,14 @@ describe('Carousel', function() {
         carousel = new tart.Carousel(items);
     });
 
-    describe('some parameters should be set and get', function () {
-        it('should set itemPerViewport', function () {
+    describe('some parameters should be set and get', function() {
+        it('should set itemPerViewport', function() {
             carousel.setItemPerViewport(10);
             expect(carousel.getItemPerViewport()).toEqual(10);
         });
 
 
-        it('should return visible items', function () {
+        it('should return visible items', function() {
             carousel.setItemPerViewport(2);
             var visibleItems = carousel.getVisibleItems();
 
@@ -35,9 +35,9 @@ describe('Carousel', function() {
         });
     });
 
-    describe('will navigate through items', function () {
+    describe('will navigate through items', function() {
 
-        it('should move one item next', function () {
+        it('should move one item next', function() {
             carousel.setItemPerViewport(3);
 
             var previousItems = carousel.getVisibleItems(),
@@ -56,12 +56,12 @@ describe('Carousel', function() {
 
 
 
-        it('should move more than item next', function () {
+        it('should move more than item next', function() {
             carousel.setItemPerViewport(3);
 
             var visibleItems;
 
-            goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+            goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function(e) {
                 visibleItems = carousel.getVisibleItems();
             });
 
@@ -70,12 +70,12 @@ describe('Carousel', function() {
             expect(visibleItems[0].name == 'four' && visibleItems[1].name == 'five').toBeTruthy();
         });
 
-        it('should not move more than item count', function () {
+        it('should not move more than item count', function() {
             carousel.setItemPerViewport(2);
 
             var visibleItems;
 
-            goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+            goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function(e) {
                 visibleItems = carousel.getVisibleItems();
             });
 

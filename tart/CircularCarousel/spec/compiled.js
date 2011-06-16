@@ -997,28 +997,24 @@ X.prototype.B = function(a) {
   for(b = this.c;b < this.e;b++) {
     c.push(b), d.push(b + a)
   }
-  return db(this, c, d)
+  return db(this, c, d, a)
 };
-function db(a, b, c) {
-  for(var d = a.n, f = {U:b.filter(function(a) {
-    return!(c.indexOf(a) > -1)
-  }), T:c.filter(function(a) {
-    return!(b.indexOf(a) > -1)
-  })}, e = 0, g = 0, i = [], j = [], e = 0;e < f.T.length;e++) {
-    g = (f.T[e] + d) % d, i.push(a.i[g])
+function db(a, b, c, d) {
+  for(var d = Math.abs(d), f = 0, e = 0, g = [], i = [], j = a.n, b = {T:c.slice(-1 * c.length, d), U:b.slice(b.length - d, b.length)}, f = 0;f < b.T.length;f++) {
+    e = (b.T[f] + j) % j, g.push(a.i[e])
   }
-  for(e = 0;e < f.U.length;e++) {
-    g = (f.U[e] + d) % d, j.push(a.i[g])
+  for(f = 0;f < b.U.length;f++) {
+    e = (b.U[f] + j) % j, i.push(a.i[e])
   }
-  return{s:i, t:j}
+  return{s:g, t:i}
 }
 X.prototype.move = function(a, b) {
-  var b = Math.abs(b || 1), c = a == "next" ? this.n - this.e : this.c, d = "next", b = b <= c ? b : c;
-  a == "prev" && (b *= -1, d = "prev");
-  c = this.B(b);
+  var b = Math.abs(b || 1), c = a == "next" ? this.n - this.e : this.c, b = b <= c ? b : c, c = "next";
+  a == "prev" && (b *= -1, c = "prev");
+  var d = this.B(b);
   this.c += b;
   this.e += b;
-  this.dispatchEvent({type:d, t:c.t, s:c.s})
+  this.dispatchEvent({type:c, t:d.t, s:d.s})
 };
 X.prototype.next = function(a) {
   this.move("next", a)
@@ -1032,14 +1028,14 @@ function eb(a) {
 }
 u(eb, X);
 eb.prototype.B = function(a) {
-  var b, c = [], d = [];
+  var b, c = [], d = [], f = this.c + a;
   for(b = 0;b < this.e;b++) {
     c.push(b)
   }
-  for(b = a = this.c + a;b < a + this.r;b++) {
+  for(b = f;b < f + this.r;b++) {
     d.push(b)
   }
-  return db(this, c, d)
+  return db(this, c, d, a)
 };
 eb.prototype.move = function(a, b) {
   b = Math.abs(b || 1);

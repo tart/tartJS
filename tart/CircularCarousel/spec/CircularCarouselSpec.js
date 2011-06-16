@@ -115,7 +115,7 @@ describe('CircularCarousel', function() {
 /**
  * Run jasmine spec
  */
-tart.CircularCarousel.SpecRunner = function () {
+tart.CircularCarousel.SpecRunner = function() {
     jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());
     jasmine.getEnv()['execute']();
 }();

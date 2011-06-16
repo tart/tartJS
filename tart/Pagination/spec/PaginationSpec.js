@@ -23,7 +23,7 @@ describe('Pagination', function() {
         it('should have itemPerPage', function() {
             expect(paginator.getItemPerPage()).toBeGreaterThan(0);
         });
-        
+
         it('should have totalItems', function() {
             expect(paginator.getTotalItems()).toBeGreaterThan(0);
         });
@@ -52,26 +52,26 @@ describe('Pagination', function() {
         });
 
 
-        it('should change page count when totalItem count set', function () {
+        it('should change page count when totalItem count set', function() {
             paginator.setItemPerPage(2);
             paginator.setTotalItems(5);
             expect(paginator.getTotalPage()).toEqual(3);
         });
 
 
-        it('should change item count when totalPage count set', function () {
+        it('should change item count when totalPage count set', function() {
             paginator.setItemPerPage(2);
             paginator.setTotalPage(4);
             expect(paginator.getTotalItems()).toEqual(8);
         });
 
-        it('should set page count to totalPageCount if page > totalPageCount', function () {
+        it('should set page count to totalPageCount if page > totalPageCount', function() {
             paginator.setTotalPage(5);
             paginator.setCurrentPage(6);
             expect(paginator.getCurrentPage()).toEqual(5);
         });
 
-        it('should set page count to 1 if page < 1', function () {
+        it('should set page count to 1 if page < 1', function() {
             paginator.setTotalPage(5);
             paginator.setCurrentPage(0);
             expect(paginator.getCurrentPage()).toEqual(1);
@@ -107,12 +107,12 @@ describe('Pagination', function() {
 
     });
 
-    describe('triggers pageChanged event on some conditions', function () {
-        it('should trigger event on setCurrentPage', function () {
+    describe('triggers pageChanged event on some conditions', function() {
+        it('should trigger event on setCurrentPage', function() {
 
             var triggeredObject = {};
 
-            goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+            goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
                triggeredObject = e;
             });
 
@@ -124,13 +124,13 @@ describe('Pagination', function() {
         });
 
 
-        it('should trigger event on next()', function () {
+        it('should trigger event on next()', function() {
             paginator.setTotalPage(12);
             paginator.setCurrentPage(10);
 
             var triggeredObject = {};
 
-            goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+            goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
                triggeredObject = e;
             });
 
@@ -141,13 +141,13 @@ describe('Pagination', function() {
 
         });
 
-        it('should trigger event on prev()', function () {
+        it('should trigger event on prev()', function() {
             paginator.setTotalPage(12);
             paginator.setCurrentPage(10);
 
             var triggeredObject = {};
 
-            goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+            goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
                triggeredObject = e;
             });
 

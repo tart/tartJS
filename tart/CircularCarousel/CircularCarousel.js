@@ -13,7 +13,8 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.CircularCarousel is an event driven Carousel/Image Slider class which handles next and previous events and gets visible items on viewport.
+ * @fileoverview tart.CircularCarousel is an event driven Carousel/Image Slider class which
+ * handles next and previous events and gets visible items on viewport.
  *
  * Example usage:
  *  var items = [
@@ -44,8 +45,8 @@
  *      console.info(carousel.getVisibleItems());
  *  });
  *
- *  carousel.prev(3); 
- *  carousel.next(1); 
+ *  carousel.prev(3);
+ *  carousel.next(1);
  */
 
 goog.provide('tart.CircularCarousel');
@@ -76,23 +77,20 @@ goog.inherits(tart.CircularCarousel, tart.Carousel);
  */
 tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
-        itemsToBeRemoved = [],
-        itemsToBeInserted = [],
         previousItemsIndex = [],
-        nextItemsIndex = [];
+        nextItemsIndex = [],
+        start = this.firstVisible + moveCount;
+
 
     for (i = 0; i < this.lastVisible; i++) {
         previousItemsIndex.push(i);
     }
 
-    var start = this.firstVisible + moveCount;
-
-    for (i = start; i < start + this.itemPerViewport ; i++) {
-        var index = i;
-        nextItemsIndex.push(index);
+    for (i = start; i < start + this.itemPerViewport; i++) {
+        nextItemsIndex.push(i);
     }
 
-    var moveDiff = this.getArrayDiff(previousItemsIndex, nextItemsIndex, moveCount);
+    var moveDiff = this.getMoveDiff(previousItemsIndex, nextItemsIndex, moveCount);
 
     return moveDiff;
 };
@@ -112,6 +110,8 @@ tart.CircularCarousel.prototype.move = function(direction, moveCount) {
     moveCount = moveCount % this.itemCount;
 
     var tmpCursor = 0;
+
+    //default event dispatched
     var eventToDispatch = tart.Carousel.EventTypes.NEXT;
 
     if (direction == 'prev') {
