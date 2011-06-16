@@ -77,20 +77,17 @@ goog.inherits(tart.CircularCarousel, tart.Carousel);
  */
 tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
-        itemsToBeRemoved = [],
-        itemsToBeInserted = [],
         previousItemsIndex = [],
-        nextItemsIndex = [];
+        nextItemsIndex = [],
+        start = this.firstVisible + moveCount;
+
 
     for (i = 0; i < this.lastVisible; i++) {
         previousItemsIndex.push(i);
     }
 
-    var start = this.firstVisible + moveCount;
-
     for (i = start; i < start + this.itemPerViewport; i++) {
-        var index = i;
-        nextItemsIndex.push(index);
+        nextItemsIndex.push(i);
     }
 
     var moveDiff = this.getMoveDiff(previousItemsIndex, nextItemsIndex, moveCount);
@@ -113,6 +110,8 @@ tart.CircularCarousel.prototype.move = function(direction, moveCount) {
     moveCount = moveCount % this.itemCount;
 
     var tmpCursor = 0;
+
+    //default event dispatched
     var eventToDispatch = tart.Carousel.EventTypes.NEXT;
 
     if (direction == 'prev') {

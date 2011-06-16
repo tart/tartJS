@@ -99,6 +99,7 @@ tart.components.View.prototype.get = function(key) {
     if (!this.$dom_) {
         throw new Error('DOM not set yet');
     }
+
     this.$domCache_[key] = this.$domCache_[key] || this.$dom_.find(key);
     return this.$domCache_[key];
 };

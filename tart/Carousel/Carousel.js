@@ -194,8 +194,6 @@ tart.Carousel.prototype.getMaxMoveCount_ = function(direction, moveCount) {
  */
 tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
     var i,
-        itemsToBeRemoved = [],
-        itemsToBeInserted = [],
         previousItemsIndex = [],
         nextItemsIndex = [];
 
@@ -219,26 +217,26 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * @protected
  */
 tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
-    var itemCount = this.itemCount;
     moveCount = Math.abs(moveCount);
-
-    var items = {
-        toBeInserted: a2.slice(-1 * a2.length, moveCount),
-        toBeRemoved: a1.slice(a1.length - moveCount, a1.length)
-    };
 
     var i = 0,
         index = 0,
         itemsToBeInserted = [],
-        itemsToBeRemoved = [];
+        itemsToBeRemoved = [],
+        itemCount = this.itemCount;
 
-    for (i = 0; i < items.toBeInserted.length; i++) {
-        index = (items.toBeInserted[i] + itemCount) % itemCount;
+    var tmpItems = {
+        toBeInserted: a2.slice(-1 * a2.length, moveCount),
+        toBeRemoved: a1.slice(a1.length - moveCount, a1.length)
+    };
+
+    for (i = 0; i < tmpItems.toBeInserted.length; i++) {
+        index = (tmpItems.toBeInserted[i] + itemCount) % itemCount;
         itemsToBeInserted.push(this.items[index]);
     }
 
-    for (i = 0; i < items.toBeRemoved.length; i++) {
-        index = (items.toBeRemoved[i] + itemCount) % itemCount;
+    for (i = 0; i < tmpItems.toBeRemoved.length; i++) {
+        index = (tmpItems.toBeRemoved[i] + itemCount) % itemCount;
         itemsToBeRemoved.push(this.items[index]);
     }
 
@@ -250,13 +248,11 @@ tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
 
 
 
-
-
 /**
  * Move cursor to next or previous item
  *
  * @param {string} direction 'next' or 'prev' movement direction.
- * @param {*} moveCount cursor move count, positive numbers move next, negative numbers move previous.
+ * @param {*} moveCount cursor move count.
  * @protected
  */
 tart.Carousel.prototype.move = function(direction, moveCount) {
@@ -264,9 +260,9 @@ tart.Carousel.prototype.move = function(direction, moveCount) {
     moveCount = Math.abs(moveCount);
 
     var maxMoveCount = this.getMaxMoveCount_(direction, moveCount);
-    var eventToDispatch = tart.Carousel.EventTypes.NEXT;
-
     moveCount = moveCount <= maxMoveCount ? moveCount : maxMoveCount;
+
+    var eventToDispatch = tart.Carousel.EventTypes.NEXT;
 
     if (direction == 'prev') {
         moveCount = moveCount * -1;
