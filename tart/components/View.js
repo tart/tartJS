@@ -53,33 +53,36 @@ goog.provide('tart.components.View');
  * View class base
  * @constructor
  */
-tart.components.View = function () {
+tart.components.View = function() {
     /** @private */
     this.$dom_ = undefined;
 
     /** @private */
     this.$domCache_ = {};
-
 };
 
 /**
  * Render abstract method, which all subclasses should implement
  */
-tart.components.View.prototype.render = goog.abstractMethod;
+tart.components.View.prototype.render = function() {
+    throw new Error('Not implemneted yet');
+};
 
 
 /**
  * Sets base DOM tree for component
  * @param {Object} dom base DOM reference for component.
  */
-tart.components.View.prototype.setDOM = function (dom) {
+tart.components.View.prototype.setDOM = function(dom) {
     this.$dom_ = dom;
 };
 
 /**
- * return current DOM
+ * get current DOM reference
+ *
+ * @return {(Object|null|undefined)} .
  */
-tart.components.View.prototype.getDOM = function () {
+tart.components.View.prototype.getDOM = function() {
     return this.$dom_;
 };
 
@@ -90,7 +93,7 @@ tart.components.View.prototype.getDOM = function () {
  * @param {string} key Object key from domMappings node.
  * @return {Object} found object after traverse.
  */
-tart.components.View.prototype.get = function (key) {
+tart.components.View.prototype.get = function(key) {
     //TODO: make it owrk with closure
     //TODO: find or filter ???
     if (!this.$dom_) {

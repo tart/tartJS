@@ -54,13 +54,13 @@ goog.provide('tart.components.Controller');
 /**
  * Base controller
  *
- * @param {tart.components.Model} model Data model.
- * @param {tart.components.View} view View object.
+ * @param {tart.components.Model=} opt_model Data model.
+ * @param {tart.components.View=} opt_view View object.
  * @constructor
  */
-tart.components.Controller = function(model, view) {
-    this.model = model || new tart.components.Model();
-    this.view = view || new tart.components.View();
+tart.components.Controller = function(opt_model, opt_view) {
+    this.model = opt_model || new tart.components.Model();
+    this.view = opt_view || new tart.components.View();
 };
 
 /**
@@ -80,6 +80,6 @@ tart.components.Controller.prototype.buildDOM = function() {
  *
  * @return {*} DOM reference.
  */
-tart.components.Controller.prototype.getDOM = function () {
+tart.components.Controller.prototype.getDOM = function() {
     return this.view.getDOM();
 };
