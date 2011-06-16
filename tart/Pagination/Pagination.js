@@ -36,14 +36,19 @@
  *
  */
 
+
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventHandler');
+goog.require('goog.events.EventTarget');
+
 goog.provide('tart.Pagination');
 
-goog.require('goog.events.EventTarget');
 
 /**
  * Pagination class to handle all paging events
  *
  * @constructor
+ * @extends {goog.events.EventTarget}
  */
 tart.Pagination = function () {
 
@@ -101,7 +106,6 @@ tart.Pagination.prototype.getTotalPage = function () {
  *
  * @param {number} page page count.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setTotalPage = function (page) {
     this.totalPage_ = page;
@@ -123,7 +127,6 @@ tart.Pagination.prototype.getCurrentPage = function () {
  *
  * @param {number} page current page.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setCurrentPage = function (page) {
     var oldValue = this.currentPage_;
@@ -156,7 +159,6 @@ tart.Pagination.prototype.getTotalItems = function () {
  *
  * @param {number} itemCount number of items.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setTotalItems = function (itemCount) {
     this.totalItems_ = itemCount;
@@ -179,7 +181,6 @@ tart.Pagination.prototype.getItemPerPage = function () {
  *
  * @param {number} itemPerPage number of items in a page.
  * @return {tart.Pagination} .
- * @this
  */
 tart.Pagination.prototype.setItemPerPage = function (itemPerPage) {
     this.itemPerPage_ = itemPerPage;

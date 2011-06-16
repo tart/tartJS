@@ -1,3 +1,7 @@
+goog.require('tart.Pagination');
+
+goog.provide('tart.Pagination.SpecRunner');
+
 describe('Pagination', function() {
     var paginator;
 
@@ -155,3 +159,11 @@ describe('Pagination', function() {
         });
     });
 });
+
+/**
+ * Run jasmine spec
+ */
+tart.Pagination.SpecRunner = function() {
+    jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());
+    jasmine.getEnv()['execute']();
+}();
