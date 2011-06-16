@@ -1,3 +1,7 @@
+goog.require('tart.CircularCarousel');
+
+goog.provide('tart.CircularCarousel.SpecRunner');
+
 describe('CircularCarousel', function() {
     var carousel;
 
@@ -104,12 +108,14 @@ describe('CircularCarousel', function() {
             expect(previousItems[0].name == 'one' && nextItems[0].name == 'three').toBeTruthy();
         });
 
-
-
-
     });
 
-
-
-
 });
+
+/**
+ * Run jasmine spec
+ */
+tart.CircularCarousel.SpecRunner = function () {
+    jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());
+    jasmine.getEnv()['execute']();
+}();
