@@ -21,7 +21,8 @@ var waitsFor = {}
 /** @typedef {Object} */
 var jasmineMatcher = {
     toEqual : function () {},
-    toBeTruthy : function () {}
+    toBeTruthy : function () {},
+    toBeFalsy : function () {}
 };
 
 /**
