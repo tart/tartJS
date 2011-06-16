@@ -29,7 +29,7 @@
  *
  * More examples can be seen from spec/FormValidationSpec.js file
  */
- 
+
 goog.require('tart.Validation');
 
 goog.provide('tart.FormValidator');
@@ -214,13 +214,17 @@ tart.FormValidator.prototype.getErrors = function() {
 };
 
 
-
+/**
+ * Validate form on submit
+ *
+ * @param {Function} callback callback function after submit.
+ */
 tart.FormValidator.prototype.validateOnSubmit = function(callback) {
-    callback = callback || function () {};
+    callback = callback || function() {};
 
     var that = this;
 
-    this.form.submit(function (e) {
+    this.form.submit(function(e) {
         that.validate();
         if (!that.isValid()) { //if an error occured
             e.preventDefault();
