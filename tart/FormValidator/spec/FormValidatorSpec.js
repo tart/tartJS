@@ -1,3 +1,7 @@
+goog.require('tart.FormValidator');
+
+goog.provide('tart.FormValidator.SpecRunner');
+
 describe("Form Validator", function() {
     var validator,
         form,
@@ -532,3 +536,11 @@ describe("Form Validator", function() {
 
  
 });
+
+/**
+ * Run jasmine spec
+ */
+tart.FormValidator.SpecRunner = function() {
+    jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());
+    jasmine.getEnv()['execute']();
+}();
