@@ -93,7 +93,7 @@ tart.CircularCarousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCo
         nextItemsIndex.push(index);
     }
 
-    var moveDiff = this.getArrayDiff(previousItemsIndex, nextItemsIndex, moveCount);
+    var moveDiff = this.getMoveDiff(previousItemsIndex, nextItemsIndex, moveCount);
 
     return moveDiff;
 };

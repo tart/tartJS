@@ -204,7 +204,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
         nextItemsIndex.push(i + moveCount);
     }
 
-    var moveDiff = this.getArrayDiff(previousItemsIndex, nextItemsIndex, moveCount);
+    var moveDiff = this.getMoveDiff(previousItemsIndex, nextItemsIndex, moveCount);
 
     return moveDiff;
 };
@@ -218,7 +218,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * @return {Object} generated diff.
  * @protected
  */
-tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
+tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
     var itemCount = this.itemCount;
     moveCount = Math.abs(moveCount);
 
