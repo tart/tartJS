@@ -992,27 +992,19 @@ function Y(a, b) {
 function Z(a) {
   return a.p.slice(a.h, a.l)
 }
-function db(a, b, c) {
-  for(var e = a.L, f = {T:b.filter(function(a) {
-    return!(c.indexOf(a) > -1)
-  }), S:c.filter(function(a) {
-    return!(b.indexOf(a) > -1)
-  })}, d = 0, g = 0, i = [], j = [], d = 0;d < f.S.length;d++) {
-    g = (f.S[d] + e) % e, i.push(a.p[g])
-  }
-  for(d = 0;d < f.T.length;d++) {
-    g = (f.T[d] + e) % e, j.push(a.p[g])
-  }
-  return{M:i, N:j}
-}
 cb.prototype.move = function(a, b) {
   var b = Math.abs(b || 1), c = a == "next" ? this.L - this.l : this.h, e = "next", b = b <= c ? b : c;
   a == "prev" && (b *= -1, e = "prev");
-  var c = b, f, d = [], g = [];
-  for(f = this.h;f < this.l;f++) {
-    d.push(f), g.push(f + c)
+  for(var f = b, d = [], g = [], c = this.h;c < this.l;c++) {
+    d.push(c), g.push(c + f)
   }
-  c = db(this, d, g);
+  for(var c = this.L, f = Math.abs(f), d = {S:g.slice(-1 * g.length, f), T:d.slice(d.length - f, d.length)}, f = g = 0, i = [], j = [], g = 0;g < d.S.length;g++) {
+    f = (d.S[g] + c) % c, i.push(this.p[f])
+  }
+  for(g = 0;g < d.T.length;g++) {
+    f = (d.T[g] + c) % c, j.push(this.p[f])
+  }
+  c = {M:i, N:j};
   this.h += b;
   this.l += b;
   this.dispatchEvent({type:e, N:c.N, M:c.M})

@@ -220,18 +220,17 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  */
 tart.Carousel.prototype.getArrayDiff = function(a1, a2, moveCount) {
     var itemCount = this.itemCount;
-    //TODO: there should be a method in goog library to get array diff
+    moveCount = Math.abs(moveCount);
+
     var items = {
-        toBeRemoved: a1.filter(function(i) {return !(a2.indexOf(i) > -1);}),
-        toBeInserted: a2.filter(function(i) {return !(a1.indexOf(i) > -1);})
+        toBeInserted: a2.slice(-1 * a2.length, moveCount),
+        toBeRemoved: a1.slice(a1.length - moveCount, a1.length)
     };
 
-
     var i = 0,
-        index = 0;
-
-    var itemsToBeInserted = [];
-    var itemsToBeRemoved = [];
+        index = 0,
+        itemsToBeInserted = [],
+        itemsToBeRemoved = [];
 
     for (i = 0; i < items.toBeInserted.length; i++) {
         index = (items.toBeInserted[i] + itemCount) % itemCount;
