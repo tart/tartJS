@@ -2,35 +2,30 @@
   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Jasmine Test Runner</title>
-  <link rel="stylesheet" type="text/css" href="../../../third_party/jasmine/lib/jasmine.css">
-  <script type="text/javascript" src="../../../third_party/jasmine/lib/jasmine.js"></script>
-  <script type="text/javascript" src="../../../third_party/jasmine/lib/jasmine-html.js"></script>
+    <title>Jasmine Test Runner</title>
+    <link rel="stylesheet" type="text/css" href="../../../third_party/jasmine/lib/jasmine.css">
+    <script type="text/javascript" src="../../../third_party/jasmine/lib/jasmine.js"></script>
+    <script type="text/javascript" src="../../../third_party/jasmine/lib/jasmine-html.js"></script>
 
-  <!-- include source files here... -->
-  <script type="text/javascript" src="../../../third_party/jquery/jquery-1.5.2.js"></script>
-  <script type="text/javascript" src="../../../third_party/goog/goog/base.js"></script>
+    <!-- include source files here... -->
+    <script type="text/javascript" src="../../../third_party/jquery/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../../../third_party/goog/goog/base.js"></script>
 
-  <script type="text/javascript">
+    <script type="text/javascript">
     goog.require("goog.events.EventTarget");
-  </script>
+    </script>
 
-  <script type="text/javascript" src="../Model.js"></script>
-  <script type="text/javascript" src="../View.js"></script>
-  <script type="text/javascript" src="../Controller.js"></script>
+    <script type="text/javascript" src="../Model.js"></script>
+    <script type="text/javascript" src="../View.js"></script>
+    <script type="text/javascript" src="../Controller.js"></script>
 
-  <!-- include spec files here... -->
-  <script type="text/javascript" src="ControllerSpec.js"></script>
-  <script type="text/javascript" src="ModelSpec.js"></script>
-  <script type="text/javascript" src="ViewSpec.js"></script>
+    <!-- include spec files here... -->
+    <script type="text/javascript" src="ControllerSpec.js"></script>
+    <script type="text/javascript" src="ModelSpec.js"></script>
+    <script type="text/javascript" src="ViewSpec.js"></script>
 
 </head>
 <body>
-
-<script type="text/javascript">
-  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-  jasmine.getEnv().execute();
-</script>
-
+    <script type="text/javascript" src="ComponentSpec.js"></script>
 </body>
 </html>
