@@ -22,7 +22,9 @@ var waitsFor = {}
 var jasmineMatcher = {
     toEqual : function () {},
     toBeTruthy : function () {},
-    toBeFalsy : function () {}
+    toBeFalsy : function () {},
+    toBe : function () {},
+    toThrow : function () {}
 };
 
 /**
