@@ -1,6 +1,6 @@
 *.swp
 *.swo
-GUI-Tools
+.idea
 *.DS_Store
 *.pyc
 compiled/*
