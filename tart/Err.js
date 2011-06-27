@@ -20,30 +20,20 @@ goog.provide('tart.Err');
 goog.require('tart');
 
 
-
 /**
- * Constructor.
+ * Returns a new Error object which contains a custom error name and message.
  *
+ * @param {string=} message Message to set as the error message.
+ * @param {string=} name Optional error name.
+ * @extends {Error}
  * @constructor
- */
-tart.Err = function() {
-    return this;
+  */
+
+tart.Err = function(message, name) {
+    this.name = name || 'Error';
+    this.message = message || '';
 };
-
-
-/**
- * Returns a new Error object which contains a custom error message.
- *
- * @param {string} message Message to set as the error message.
- * @return {Error} Error object containing the details.
- */
-tart.Err.get = function(message) {
-    var err = new Error();
-    err.name = 'Problem';
-    err.message = message;
-    return err;
-};
-
+goog.inherits(tart.Err, Error);
 
 /**
  * Returns a new Error object which contains a implementation error message.
@@ -52,8 +42,6 @@ tart.Err.get = function(message) {
  * @throws {Error} Error object containing the details.
  */
 tart.Err.unimplementedMethod = function(methodName) {
-    var err = new Error();
-    err.name = 'Wrong implementation';
-    err.message = 'You should implement your own ' + methodName + ' method in child class which you want to use.';
-    throw err;
+    throw new tart.Err('Wrong implementation',
+        'You should implement your own ' + methodName + ' method in child class which you want to use.');
 };
