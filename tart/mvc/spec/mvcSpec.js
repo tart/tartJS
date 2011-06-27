@@ -6,7 +6,7 @@ describe('MVC', function() {
             format: '/',
             controller: tart.mvc.Controller,
             action: function() {
-                return 'action1'
+                return 'action1';
             }
         });
 
@@ -21,16 +21,16 @@ describe('MVC', function() {
         var controller1, controller2, action1, action2, action3, action4, route1, route2, route3;
         controller1 = tart.mvc.Controller;
         action1 = function() {
-            return 'action1'
+            return 'action1';
         };
         action2 = function() {
-            return 'action2'
+            return 'action2';
         };
         action3 = function() {
-            return 'action3'
+            return 'action3';
         };
         action4 = function() {
-            return 'action4'
+            return 'action4';
         };
 
         beforeEach(function() {
@@ -116,5 +116,5 @@ describe('MVC', function() {
 
     describe('Request', function() {
 
-    })
+    });
 });

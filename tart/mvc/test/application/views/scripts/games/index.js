@@ -11,12 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 goog.provide('mvcapp.views.scripts.games.index');
+
 
 /**
  * @this {tart.mvc.View}
+ * @return {string} Output.
  */
 mvcapp.views.scripts.games.index = function() {
     var ps = [this.p1, this.p2, this.a, this.b];
-    return "games index content " + ps.join(' ') + " will be here";
-}
+    return 'games index content ' + ps.join(' ') + ' will be here';
+};

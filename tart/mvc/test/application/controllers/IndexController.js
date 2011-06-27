@@ -14,6 +14,8 @@
 goog.provide('mvcapp.controllers.IndexController');
 goog.require('mvcapp.views.scripts.index.list');
 
+
+
 /**
  * @constructor
  * @extends {tart.mvc.Controller}
@@ -23,6 +25,7 @@ mvcapp.controllers.IndexController = function() {
 };
 goog.inherits(mvcapp.controllers.IndexController, tart.mvc.Controller);
 
+
 /**
  * @this {tart.mvc.Action}
  */
@@ -30,6 +33,7 @@ mvcapp.controllers.IndexController.indexAction = function() {
     console.log('Index');
     console.log(this);
 };
+
 
 /**
  * @this {tart.mvc.Action}
@@ -41,6 +45,7 @@ mvcapp.controllers.IndexController.listAction = function() {
     console.log(this);
 
 };
+
 
 /**
  * @this {tart.mvc.Action}

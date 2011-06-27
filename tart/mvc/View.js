@@ -18,6 +18,7 @@
 goog.provide('tart.mvc.View');
 
 
+
 /**
  * @constructor
  */

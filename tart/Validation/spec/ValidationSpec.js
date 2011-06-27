@@ -66,25 +66,25 @@ describe('Validation', function() {
 
         describe('Validation.is.numeric', function() {
             it('should not validate text which has non numeric chars', function() {
-               var result = validator.is.numeric('foo123bar');
-               expect(result).toBeFalsy();
+                var result = validator.is.numeric('foo123bar');
+                expect(result).toBeFalsy();
             });
 
             it('should not validate text which starts with numeric but has non numeric chars', function() {
-               var result = validator.is.numeric('123bar');
-               expect(result).toBeFalsy();
+                var result = validator.is.numeric('123bar');
+                expect(result).toBeFalsy();
             });
 
 
             it('should not validate text which starts with space but has only numeric chars', function() {
-               var result = validator.is.numeric('   123');
-               expect(result).toBeFalsy();
+                var result = validator.is.numeric('   123');
+                expect(result).toBeFalsy();
             });
 
 
             it('should validate text which has only numeric chars', function() {
-               var result = validator.is.numeric('123');
-               expect(result).toBeTruthy();
+                var result = validator.is.numeric('123');
+                expect(result).toBeTruthy();
             });
 
         });
@@ -203,6 +203,7 @@ describe('Validation', function() {
     });
 
 });
+
 
 /**
  * Run jasmine spec

@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 goog.require('tart.mvc');
-goog.require('mvcapp.controllers.IndexController');
 goog.require('mvcapp.controllers.GamesController');
+goog.require('mvcapp.controllers.IndexController');
 goog.require('mvcapp.views.layouts.common');
 goog.provide('mvcapp.Application');
+
+
 
 /**
  * @constructor
@@ -23,19 +25,37 @@ goog.provide('mvcapp.Application');
  */
 mvcapp.Application = function() {
     goog.base(this);
+    this.defaultRoute_ = new tart.mvc.uri.Route({
+        name: 'default',
+        format: '',
+        controller: mvcapp.controllers.IndexController,
+        action: mvcapp.controllers.IndexController.listAction
+    });
 };
 goog.inherits(mvcapp.Application, tart.mvc.Application);
 
-mvcapp.Application.prototype.basePath_ = '/tart/mvc/test/';
-mvcapp.Application.prototype.defaultRoute_ = new tart.mvc.uri.Route({
-    name: 'default',
-    format: '',
-    controller: mvcapp.controllers.IndexController,
-    action: mvcapp.controllers.IndexController.listAction
-});
 
-mvcapp.Application.prototype.defaultLayout_ = mvcapp.views.layouts.common;
+/**
+ * @inheritDoc
+ */
+mvcapp.Application.prototype.basePath = '/tart/mvc/test/';
 
+
+/**
+ * @inheritDoc
+ */
+mvcapp.Application.prototype.defaultRoute_;
+
+
+/**
+ * @inheritDoc
+ */
+mvcapp.Application.prototype.defaultLayout = mvcapp.views.layouts.common;
+
+
+/**
+ * @inheritDoc
+ */
 mvcapp.Application.prototype.initRouting = function() {
     var router = this.getRouter();
     router.addRoute(new tart.mvc.uri.Route({
@@ -62,4 +82,4 @@ mvcapp.Application.prototype.initRouting = function() {
         controller: mvcapp.controllers.GamesController,
         action: mvcapp.controllers.GamesController.indexAction
     }));
-}
+};

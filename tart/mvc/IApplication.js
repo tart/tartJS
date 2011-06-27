@@ -21,6 +21,7 @@
 goog.provide('tart.mvc.IApplication');
 
 
+
 /**
  * Base application class for tart.mvc.
  * @interface
@@ -33,7 +34,8 @@ tart.mvc.IApplication = function() {};
  * your application doesn't need to override this property. On the other hand, if it will run in a subdirectory
  * (such as http://www.foo.com/bar/) you need to override and set this property to the subdirectory (such as '/bar/').
  */
-tart.mvc.IApplication.prototype.basePath_;
+tart.mvc.IApplication.prototype.basePath;
+
 
 /**
  * Default scheme for the application. Each application should implement a default controller and an action as these

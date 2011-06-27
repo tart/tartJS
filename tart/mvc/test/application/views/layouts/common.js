@@ -11,14 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+goog.provide('mvcapp.views.layouts.common');
+
 
 /**
  * @this {tart.mvc.Layout}
  */
 mvcapp.views.layouts.common = function() {
     this.markup = '<div id="header">header</div>' +
-           '<div id="content">' +
-           this.getContent() +
-           '</div>' +
-           '<div id="footer">footer</div>'
+        '<div id="content">' +
+        this.getContent() +
+        '</div>' +
+        '<div id="footer">footer</div>';
 };

@@ -11,11 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 goog.provide('mvcapp.views.scripts.games.list');
+
 
 /**
  * @this {tart.mvc.View}
+ * @return {string} Output.
  */
 mvcapp.views.scripts.games.list = function() {
-    return "list vp1: " + this.vp1 + ", vp2: " + this.vp2;
-}
+    return 'list vp1: ' + this.vp1 + ', vp2: ' + this.vp2;
+};

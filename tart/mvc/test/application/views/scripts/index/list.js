@@ -11,11 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 goog.provide('mvcapp.views.scripts.index.list');
+
 
 /**
  * @this {tart.mvc.View}
+ * @return {string} Output.
  */
 mvcapp.views.scripts.index.list = function() {
-    return "list" + this.id;
-}
+    return 'list' + this.id;
+};

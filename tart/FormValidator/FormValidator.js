@@ -34,6 +34,8 @@ goog.require('tart.Validation');
 
 goog.provide('tart.FormValidator');
 
+
+
 /**
  * Attach validator to formEl
  *
@@ -51,6 +53,7 @@ tart.FormValidator = function(formEl) {
     this.errors = [];
     return this;
 };
+
 
 /**
  * Set validation rules to attached form
@@ -88,6 +91,7 @@ tart.FormValidator.prototype.getElementAttributeToCheck = function(el) {
     return el.val();
 };
 
+
 /**
  * Rule key for tart.Validation
  *
@@ -110,6 +114,7 @@ tart.FormValidator.prototype.getValidationRuleByKey = function(ruleKey) {
 
     return rule;
 };
+
 
 /**
  * Get rule key and rule options from rule object
@@ -190,6 +195,7 @@ tart.FormValidator.prototype.validate = function() {
     return this;
 };
 
+
 /**
  * Check if validation operation is successful or not by looking at this.errors array
  *
@@ -203,6 +209,7 @@ tart.FormValidator.prototype.isValid = function() {
         return false;
     }
 };
+
 
 /**
  * Get generated errors array which contains element (el) and error text(text)

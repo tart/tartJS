@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 /**
  * @fileoverview URI Router class that takes a given URI and resolves the necessary controller / action.
  */
@@ -19,6 +20,7 @@ goog.provide('tart.mvc.uri.Router');
 goog.require('goog.array');
 goog.require('goog.object');
 goog.require('tart.mvc.uri.Request');
+
 
 
 /**
@@ -34,7 +36,10 @@ goog.require('tart.mvc.uri.Request');
 tart.mvc.uri.Router = function(basePath, defaultRoute) {
     this.setBasePath(basePath);
 
-    /** @type {Array.<tart.mvc.uri.Route>} */
+    /**
+     * @type {Array.<tart.mvc.uri.Route>}
+     * @private
+     */
     this.routes_ = [];
     this.routes_.def = defaultRoute;
 };
@@ -54,13 +59,14 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
     this.process_(this.request);
 };
 
+
 /**
  * Set base path
  *
  * @param {string} path uri base path.
  */
 tart.mvc.uri.Router.prototype.setBasePath = function(path) {
-    this.basePath_ = path || '/';
+    this.basePath = path || '/';
 };
 
 
@@ -70,7 +76,7 @@ tart.mvc.uri.Router.prototype.setBasePath = function(path) {
  * @return {string} uri base path.
  */
 tart.mvc.uri.Router.prototype.getBasePath = function() {
-    return this.basePath_;
+    return this.basePath;
 };
 
 
@@ -79,6 +85,7 @@ tart.mvc.uri.Router.prototype.getBasePath = function() {
  * If the request matches any route, this function resolves it. Or else, it will resolve to the default route.
  * @private
  * @param {tart.mvc.uri.Request} request Request to look for a route match.
+ * @return {tart.mvc.uri.Route} Resolved route that holds the details of handling the request.
  */
 tart.mvc.uri.Router.prototype.resolve_ = function(request) {
     var response, route, responseValue, responseArray, that = this;
@@ -100,7 +107,7 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
                     fragments = fragments.concat(responseArray);
                 }
                 else
-                /*
+                    /*
                  no slashes, this is a valid parameter, so we should add it (responseValue)
                  with its respective owner that was given as :name (route.params[i])
                  */
@@ -131,18 +138,20 @@ tart.mvc.uri.Router.prototype.process_ = function(request) {
 /**
  * Sets a URL route as the current route.
  * @param {tart.mvc.uri.Route} route Route to set as the current one.
+ * @private
  */
 tart.mvc.uri.Router.prototype.setCurrentRoute_ = function(route) {
     this.currentRoute_ = route;
-}
+};
+
 
 /**
- * Returns the active URI route.
- * @return {tart.mvc.uri.Route}
+ * @return {tart.mvc.uri.Route} the active URI route.
  */
 tart.mvc.uri.Router.prototype.getCurrentRoute = function() {
     return this.currentRoute_;
-}
+};
+
 
 /**
  * Sets the current controller required by the request. If there are no such controllers, default controller is set.
@@ -184,15 +193,23 @@ tart.mvc.uri.Router.prototype.setParams_ = function(paramsArray) {
     this.params_ = params;
 };
 
+
+/**
+ * This little function fixes parameters in case there are odd number of elements so that it's impossible to construct
+ * a valid key value pair. It adds an empty item at the end; making the last item a key with empty value. This is
+ * quite handy when you only want the key present and no value is necessary.
+ * @param {Array} params Request parameters.
+ * @private
+ */
 tart.mvc.uri.Router.prototype.fixOddParams_ = function(params) {
     if (params.length % 2 == 1)
         params.push('');
-}
+};
 
 
 /**
  * Returns the active controller.
- * @return {tart.mvc.Controller} Active controller
+ * @return {tart.mvc.Controller} Active controller.
  */
 tart.mvc.uri.Router.prototype.getController = function() {
     return this.controller_;
@@ -201,7 +218,7 @@ tart.mvc.uri.Router.prototype.getController = function() {
 
 /**
  * Returns the active action.
- * @return {Function} Active action
+ * @return {Function} Active action.
  */
 tart.mvc.uri.Router.prototype.getAction = function() {
     return this.action_;
@@ -209,8 +226,7 @@ tart.mvc.uri.Router.prototype.getAction = function() {
 
 
 /**
- * Returns the active parameters.
- * @return {Object}
+ * @return {Object} The active parameters.
  */
 tart.mvc.uri.Router.prototype.getParams = function() {
     return this.params_;
@@ -225,10 +241,10 @@ tart.mvc.uri.Router.prototype.addRoute = function(route) {
     this.routes_.push(route);
 };
 
+
 /**
- * Returns the array of routes in this router.
- * @return {Array.<tart.mvc.uri.Route}
+ * @return {Array.<tart.mvc.uri.Route>} The array of routes in this router.
  */
 tart.mvc.uri.Router.prototype.getRoutes = function() {
     return this.routes_;
-}
+};

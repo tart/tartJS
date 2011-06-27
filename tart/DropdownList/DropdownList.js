@@ -48,7 +48,7 @@ tart.DropdownList = function(initialList, opt_builder, opt_activeItem) {
 };
 goog.inherits(tart.DropdownList, tart.List);
 
-    
+
 /**
  * @inheritDoc
  */

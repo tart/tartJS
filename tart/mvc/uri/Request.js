@@ -16,6 +16,7 @@ goog.provide('tart.mvc.uri.Request');
 goog.require('goog.Uri');
 
 
+
 /**
  * Represents a request made to the application, storing its controller, action and parameters.
  * @constructor

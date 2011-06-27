@@ -35,6 +35,7 @@ tart.Err = function(message, name) {
 };
 goog.inherits(tart.Err, Error);
 
+
 /**
  * Returns a new Error object which contains a implementation error message.
  *

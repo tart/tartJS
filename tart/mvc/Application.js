@@ -11,23 +11,25 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 /**
  * @fileoverview This class implements the base application. The users of tart.mvc should extend this class
  * in order to create their own MVC application.
  */
 
 goog.require('goog.History');
-goog.require('goog.events');
 goog.require('goog.debug.ErrorHandler');
-goog.require('tart.mvc.uri.Router');
-goog.require('tart.mvc.uri.Route');
-goog.require('tart.mvc.IApplication');
-goog.require('tart.mvc.Controller');
-goog.require('tart.mvc.Model');
+goog.require('goog.events');
 goog.require('tart.mvc.Action');
-goog.require('tart.mvc.Renderer');
+goog.require('tart.mvc.Controller');
+goog.require('tart.mvc.IApplication');
 goog.require('tart.mvc.Layout');
+goog.require('tart.mvc.Model');
+goog.require('tart.mvc.Renderer');
+goog.require('tart.mvc.uri.Route');
+goog.require('tart.mvc.uri.Router');
 goog.provide('tart.mvc.Application');
+
 
 
 /**
@@ -37,6 +39,16 @@ goog.provide('tart.mvc.Application');
  */
 tart.mvc.Application = function() {
     var historyCallback, that = this;
+    that.defaultRoute_ = new tart.mvc.uri.Route({
+        name: 'default',
+        format: '/',
+        controller: tart.mvc.Controller,
+        action: /** @this {tart.mvc.Action} **/ function() {
+            this.setViewScript(function() {
+                return '';
+            });
+        }
+    });
 
     /** @private */
     this.history_ = new goog.History(false);
@@ -55,47 +67,57 @@ tart.mvc.Application = function() {
     this.history_.setEnabled(true);
 };
 
-tart.mvc.Application.prototype.getRenderer = function() {
-    if (!this.renderer_)
-        this.renderer_ = new tart.mvc.Renderer(this.defaultLayout_);
-
-    return this.renderer_;
-}
 
 /**
- * Returns the router of the application
- * @return {tart.mvc.uri.Router}
+ * @return {tart.mvc.Renderer} The renderer instance. This method creates a single renderer instance if it's not
+ * already been created.
+ */
+tart.mvc.Application.prototype.getRenderer = function() {
+    if (!this.renderer_)
+        this.renderer_ = new tart.mvc.Renderer(this.defaultLayout);
+
+    return this.renderer_;
+};
+
+
+/**
+ * @return {tart.mvc.uri.Router} The router of the application.
  */
 tart.mvc.Application.prototype.getRouter = function() {
     if (!this.router_)
-    this.router_ = new tart.mvc.uri.Router(this.basePath_, this.defaultRoute_);
-    return this.router_
-}
+        this.router_ = new tart.mvc.uri.Router(this.basePath, this.defaultRoute_);
+    return this.router_;
+};
 
+
+/**
+ * Users of tartMVC should implement this method. It should include all the routing jobs (adding routes to the router)
+ */
 tart.mvc.Application.prototype.initRouting = function() {
-}
+};
+
 
 /**
  * The base path for the application. If your application will run in the root domain (such as http://www.foo.com)
  * your application doesn't need to override this property. On the other hand, if it will run in a subdirectory
  * (such as http://www.foo.com/bar/) you need to override and set this property to the subdirectory (such as '/bar/').
  * @type {string}
+ * @protected
  */
-tart.mvc.Application.prototype.basePath_ = '/';
+tart.mvc.Application.prototype.basePath = '/';
+
 
 /**
  * The default route fallback, which will be used if there are no matching routes found for a given url.
  * @type {tart.mvc.uri.Route}
+ * @protected
  */
-tart.mvc.Application.prototype.defaultRoute_ = new tart.mvc.uri.Route({
-    name: 'default',
-    format: '/',
-    controller: tart.mvc.Controller,
-    action: /** @this {tart.mvc.Action} **/ function() {
-        this.setViewScript(function() {
-            return ''
-        });
-    }
-});
+tart.mvc.Application.prototype.defaultRoute_;
 
-tart.mvc.Application.prototype.defaultLayout_ = /** @type {tart.mvc.LayoutTemplate} */ function() {};
+
+/**
+ * The default layout view of the application.
+ * @protected
+ */
+tart.mvc.Application.prototype.defaultLayout = /** @type {tart.mvc.LayoutTemplate} */ function() {
+};

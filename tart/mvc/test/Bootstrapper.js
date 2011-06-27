@@ -14,6 +14,12 @@
 goog.provide('mvcapp.Bootstrapper');
 goog.require('mvcapp.Application');
 
+
+
+/**
+ * Bootstrapper of the example application.
+ * @constructor
+ */
 mvcapp.Bootstrapper = function() {
     new mvcapp.Application();
 };

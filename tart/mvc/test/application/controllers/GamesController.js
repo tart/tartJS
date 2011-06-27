@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 goog.provide('mvcapp.controllers.GamesController');
+goog.require('mvcapp.views.layouts.rare');
 goog.require('mvcapp.views.scripts.games.index');
 goog.require('mvcapp.views.scripts.games.list');
-goog.require('mvcapp.views.layouts.rare');
+
+
+
 /**
  * @constructor
  * @extends {tart.mvc.Controller}
@@ -23,6 +26,7 @@ mvcapp.controllers.GamesController = function() {
     goog.base(this);
 };
 goog.inherits(mvcapp.controllers.GamesController, tart.mvc.Controller);
+
 
 /**
  * @this {tart.mvc.Action}
@@ -38,6 +42,7 @@ mvcapp.controllers.GamesController.indexAction = function() {
     this.view.b = this.params['b'];
 };
 
+
 /**
  * @this {tart.mvc.Action}
  */
@@ -47,6 +52,7 @@ mvcapp.controllers.GamesController.listAction = function() {
     this.view.vp2 = this.params['param2'];
     console.log('games list');
 };
+
 
 /**
  * @this {tart.mvc.Action}

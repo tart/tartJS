@@ -11,7 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+goog.provide('tart.mvc.uri.Route');
 goog.require('tart.Err');
+
+
 
 /**
  * Represents a request made to the application, storing its controller, action and parameters.
@@ -25,14 +29,19 @@ tart.mvc.uri.Route = function(template) {
     this.setFormat(template.format);
 };
 
+
+/**
+ * Parses a route's human readable format into hard-core RegExp.
+ * @param {string} format Route's format.
+ */
 tart.mvc.uri.Route.prototype.setFormat = function(format) {
     var fields, wildchars;
     wildchars = format.match(/\*/g);
     if (wildchars && wildchars.length > 1)
         throw new tart.Err('Route cannot contain more than one wildchar.', 'Routing Error');
-    
+
     if (goog.string.endsWith(format, '/') == false)
-        format+= '/';
+        format += '/';
 
     format = '^' + format + '$';
 
@@ -50,7 +59,15 @@ tart.mvc.uri.Route.prototype.setFormat = function(format) {
     this.format = new RegExp(format);
 
 
-}
+};
 
-/** @typedef {{name: string, format: (string|RegExp), controller: function(new:tart.mvc.Controller), action: function(this:tart.mvc.Action)}} **/
+
+/** @typedef
+ * {{
+ *  name: string,
+ *  format: (string|RegExp),
+ *  controller: function(new:tart.mvc.Controller),
+ *  action: function(this:tart.mvc.Action)
+ * }}
+ * **/
 tart.mvc.uri.routeTemplate;

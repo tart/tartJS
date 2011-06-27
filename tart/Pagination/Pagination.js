@@ -44,6 +44,7 @@ goog.require('goog.events.EventTarget');
 goog.provide('tart.Pagination');
 
 
+
 /**
  * Pagination class to handle all paging events
  *
@@ -101,6 +102,7 @@ tart.Pagination.prototype.getTotalPage = function() {
     return this.totalPage_;
 };
 
+
 /**
  * Set total page count
  *
@@ -113,6 +115,7 @@ tart.Pagination.prototype.setTotalPage = function(page) {
     return this;
 };
 
+
 /**
  * Get current page
  *
@@ -121,6 +124,7 @@ tart.Pagination.prototype.setTotalPage = function(page) {
 tart.Pagination.prototype.getCurrentPage = function() {
     return this.currentPage_;
 };
+
 
 /**
  * Set current page
@@ -154,6 +158,7 @@ tart.Pagination.prototype.getTotalItems = function() {
     return this.totalItems_;
 };
 
+
 /**
  * Set number of items
  *
@@ -176,6 +181,7 @@ tart.Pagination.prototype.getItemPerPage = function() {
     return this.itemPerPage_;
 };
 
+
 /**
  * set number of items to be listed in a page
  *
@@ -188,7 +194,6 @@ tart.Pagination.prototype.setItemPerPage = function(itemPerPage) {
 };
 
 
-
 /**
  * Determine if next page is available
  *
@@ -197,6 +202,7 @@ tart.Pagination.prototype.setItemPerPage = function(itemPerPage) {
 tart.Pagination.prototype.hasNext = function() {
     return this.currentPage_ + 1 <= this.totalPage_;
 };
+
 
 /**
  * Get next page
@@ -236,6 +242,7 @@ tart.Pagination.prototype.next = function() {
     this.triggerPageChange_(this.currentPage_, newValue);
     this.currentPage_ = newValue;
 };
+
 
 /**
  * Change page to previous page

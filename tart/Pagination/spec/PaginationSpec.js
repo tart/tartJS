@@ -113,7 +113,7 @@ describe('Pagination', function() {
             var triggeredObject = {};
 
             goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
-               triggeredObject = e;
+                triggeredObject = e;
             });
 
             paginator.setCurrentPage(10);
@@ -131,7 +131,7 @@ describe('Pagination', function() {
             var triggeredObject = {};
 
             goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
-               triggeredObject = e;
+                triggeredObject = e;
             });
 
             paginator.next();
@@ -148,7 +148,7 @@ describe('Pagination', function() {
             var triggeredObject = {};
 
             goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
-               triggeredObject = e;
+                triggeredObject = e;
             });
 
             paginator.prev();
@@ -159,6 +159,7 @@ describe('Pagination', function() {
         });
     });
 });
+
 
 /**
  * Run jasmine spec

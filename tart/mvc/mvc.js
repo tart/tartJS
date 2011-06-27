@@ -20,11 +20,14 @@
 goog.require('tart.mvc.Application');
 goog.provide('tart.mvc');
 
+
 /** @typedef {function(this:tart.mvc.Layout)} */
 tart.mvc.LayoutTemplate;
 
+
 /** @typedef {function(new:tart.mvc.Controller)} */
 tart.mvc.ControllerTemplate;
+
 
 /** @typedef {function(this:tart.mvc.Action)} */
 tart.mvc.ActionTemplate;

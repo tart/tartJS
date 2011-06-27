@@ -11,14 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+goog.provide('mvcapp.views.layouts.rare');
+
 
 /**
  * @this {tart.mvc.Layout}
  */
 mvcapp.views.layouts.rare = function() {
     this.markup = '<div id="header">rare header</div>' +
-           '<div id="content">' +
-           this.getContent() +
-           '</div>' +
-           '<div id="footer">rare footer</div>'
+        '<div id="content">' +
+        this.getContent() +
+        '</div>' +
+        '<div id="footer">rare footer</div>';
 };
