@@ -11,20 +11,21 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-goog.provide("tart.TartBox");
+goog.provide('tart.TartBox');
+
 
 /**
- * @param {string|jQuery} body 
+ * @param {string|jQuery} body
  */
-tart.TartBox.init = function (title, body, type) {
+tart.TartBox.init = function(title, body, type) {
     tart.TartBox.title = title;
     tart.TartBox.body = body;
     tart.TartBox.type = type;
 };
 
-tart.TartBox.setBodyFromEl = function (el) {
+tart.TartBox.setBodyFromEl = function(el) {
     if (!el || !el.jquery || el.length == 0) {
-        throw new Error("Element not exists");
+        throw new Error('Element not exists');
     }
 
 

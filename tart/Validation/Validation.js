@@ -80,8 +80,6 @@ tart.Validation.is.digitAndNonDigit = function(text) {
 };
 
 
-
-
 /**
  * Checks for strings' min length
  *
@@ -92,6 +90,7 @@ tart.Validation.is.digitAndNonDigit = function(text) {
 tart.Validation.has.minLength = function(text, value) {
     return (text.length >= value);
 };
+
 
 /**
  * Checks for string's max length
@@ -115,6 +114,7 @@ tart.Validation.has.maxLength = function(text, value) {
 tart.Validation.has.minValue = function(num, value) {
     return num >= value;
 };
+
 
 /**
  * Checks for string or number's max numeric value

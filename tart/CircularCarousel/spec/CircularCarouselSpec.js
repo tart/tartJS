@@ -112,6 +112,7 @@ describe('CircularCarousel', function() {
 
 });
 
+
 /**
  * Run jasmine spec
  */

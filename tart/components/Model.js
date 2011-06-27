@@ -38,6 +38,8 @@ goog.require('goog.events.EventTarget');
 
 goog.provide('tart.components.Model');
 
+
+
 /**
  * All component models should be inherited from goog.events.EventTarget
  * to publish events to controllers
@@ -49,8 +51,10 @@ tart.components.Model = function() {
 };
 goog.inherits(tart.components.Model, goog.events.EventTarget);
 
+
 /** @typedef {{type: string, oldValue, newValue}} */
 tart.components.Model.Event;
+
 
 /**
  * Overriding goog.events.EventTarget's dispatchEvent method, to make this event consistent in application

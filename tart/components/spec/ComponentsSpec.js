@@ -147,7 +147,7 @@ describe('Component', function() {
                 };
 
                 SubViewClass.prototype.render = function() {
-                   return this.templates_header();
+                    return this.templates_header();
                 };
             });
 
