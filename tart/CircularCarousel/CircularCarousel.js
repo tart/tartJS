@@ -55,6 +55,7 @@ goog.require('goog.events.EventTarget');
 goog.require('tart.Carousel');
 
 
+
 /**
  * Pagination class to handle all paging events
  *
@@ -66,7 +67,6 @@ tart.CircularCarousel = function(items) {
     goog.base(this, items);
 };
 goog.inherits(tart.CircularCarousel, tart.Carousel);
-
 
 
 /**
@@ -133,8 +133,8 @@ tart.CircularCarousel.prototype.move = function(direction, moveCount) {
     this.lastVisible = this.itemPerViewport;
 
     var eventObj = {type: eventToDispatch,
-                    itemsToBeRemoved: moveDiff.itemsToBeRemoved,
-                    itemsToBeInserted: moveDiff.itemsToBeInserted};
+        itemsToBeRemoved: moveDiff.itemsToBeRemoved,
+        itemsToBeInserted: moveDiff.itemsToBeInserted};
 
     this.dispatchEvent(eventObj);
 };

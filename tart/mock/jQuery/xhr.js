@@ -11,32 +11,32 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-goog.provide("tart.mock.jQuery.xhr");
+goog.provide('tart.mock.jQuery.xhr');
 
 jQuery.ajaxSetup({
     converters: {
-        "mockup text": function( requestOptions ) {
+        'mockup text': function(requestOptions ) {
             return tart.mock.jQuery.xhr[requestOptions.url];
         },
-        "mockup json": function( requestOptions ) {
+        'mockup json': function(requestOptions ) {
             return tart.mock.jQuery.xhr[requestOptions.url];
         },
-        "mockup xml": function( requestOptions ) {
+        'mockup xml': function(requestOptions ) {
             return tart.mock.jQuery.xhr[requestOptions.url];
         }
     }
 });
 
 
-jQuery.ajaxTransport( "mockup", function( options ) {
+jQuery.ajaxTransport('mockup', function(options ) {
     return {
-        send: function( headers, callback ) {
-            callback( 200, "OK", {
+        send: function(headers, callback ) {
+            callback(200, 'OK', {
                 mockup: options
-            } );
+            });
         }
-    }
-} );
+    };
+});
 
 // Switch to mockup
 jQuery.ajaxSetup({
@@ -44,10 +44,10 @@ jQuery.ajaxSetup({
 });
 
 
-jQuery.ajaxPrefilter(function( options ) {
-    if ( options.mock ) {
+jQuery.ajaxPrefilter(function(options ) {
+    if (options.mock) {
         var finalDataType = options.dataTypes.pop();
-        options.dataTypes = [ finalDataType === "*" ? "text" : finalDataType ];
-        return "mockup";
+        options.dataTypes = [finalDataType === '*' ? 'text' : finalDataType];
+        return 'mockup';
     }
 });

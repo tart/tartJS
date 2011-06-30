@@ -66,6 +66,7 @@ goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventTarget');
 
 
+
 /**
  * Pagination class to handle all paging events
  *
@@ -115,6 +116,7 @@ tart.Carousel.EventTypes = {
     NEXT: 'next'
 };
 
+
 /**
  * Item per visible viewport
  *
@@ -136,6 +138,7 @@ tart.Carousel.prototype.setItemPerViewport = function(itemPerViewport) {
 tart.Carousel.prototype.getItemPerViewport = function() {
     return this.itemPerViewport;
 };
+
 
 /**
  * Get visible items
@@ -160,8 +163,6 @@ tart.Carousel.prototype.getVisibleItemIndexes = function() {
 
     return indexes;
 };
-
-
 
 
 /**
@@ -206,6 +207,7 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
 
     return moveDiff;
 };
+
 
 /**
  * Get difference between visible items, after move and before move
@@ -260,7 +262,6 @@ tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
 };
 
 
-
 /**
  * Move cursor to next or previous item
  *
@@ -289,8 +290,8 @@ tart.Carousel.prototype.move = function(direction, moveCount) {
 
 
     var eventObj = {type: eventToDispatch,
-                    itemsToBeRemoved: moveDiff.itemsToBeRemoved,
-                    itemsToBeInserted: moveDiff.itemsToBeInserted};
+        itemsToBeRemoved: moveDiff.itemsToBeRemoved,
+        itemsToBeInserted: moveDiff.itemsToBeInserted};
 
     this.dispatchEvent(eventObj);
 };

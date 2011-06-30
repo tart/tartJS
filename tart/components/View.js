@@ -49,6 +49,8 @@
 
 goog.provide('tart.components.View');
 
+
+
 /**
  * View class base
  * @constructor
@@ -60,6 +62,7 @@ tart.components.View = function() {
     /** @private */
     this.$domCache_ = {};
 };
+
 
 /**
  * Render abstract method, which all subclasses should implement
@@ -77,6 +80,7 @@ tart.components.View.prototype.setDOM = function(dom) {
     this.$dom_ = dom;
 };
 
+
 /**
  * get current DOM reference
  *
@@ -85,6 +89,7 @@ tart.components.View.prototype.setDOM = function(dom) {
 tart.components.View.prototype.getDOM = function() {
     return this.$dom_;
 };
+
 
 /**
  * Get item, which is indicated on domMappings node

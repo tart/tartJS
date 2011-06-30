@@ -11,23 +11,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-goog.provide('tart.TartBox');
+goog.provide('mvcapp.Bootstrapper');
+goog.require('mvcapp.Application');
+
 
 
 /**
- * @param {string|jQuery} body
+ * Bootstrapper of the example application.
+ * @constructor
  */
-tart.TartBox.init = function(title, body, type) {
-    tart.TartBox.title = title;
-    tart.TartBox.body = body;
-    tart.TartBox.type = type;
+mvcapp.Bootstrapper = function() {
+    new mvcapp.Application();
 };
 
-tart.TartBox.setBodyFromEl = function(el) {
-    if (!el || !el.jquery || el.length == 0) {
-        throw new Error('Element not exists');
-    }
-
-
-    tart.TartBox.body = $(el).html();
-};
+goog.exportSymbol('mvcapp.Bootstrapper', mvcapp.Bootstrapper);
