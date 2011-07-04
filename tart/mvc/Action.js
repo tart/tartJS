@@ -59,7 +59,7 @@ tart.mvc.Action.prototype.getLayout = function() {
 
 
 /**
- * @return {tart.mvc.View} The view script that belongs to the action.
+ * @return {tart.mvc.ViewTemplate} The view script that belongs to the action.
  */
 tart.mvc.Action.prototype.getViewScript = function() {
     return this.viewScript_;
@@ -68,7 +68,7 @@ tart.mvc.Action.prototype.getViewScript = function() {
 
 /**
  * Sets the action's view script.
- * @param {tart.mvc.View} viewScript view script.
+ * @param {tart.mvc.ViewTemplate} viewScript view script.
  */
 tart.mvc.Action.prototype.setViewScript = function(viewScript) {
     this.viewScript_ = viewScript;
