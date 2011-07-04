@@ -27,7 +27,7 @@ goog.require('tart');
  * @param {string=} name Optional error name.
  * @extends {Error}
  * @constructor
-  */
+ */
 
 tart.Err = function(message, name) {
     this.name = name || 'Error';
