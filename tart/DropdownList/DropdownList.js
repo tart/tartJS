@@ -27,8 +27,8 @@
  */
 
 goog.provide('tart.DropdownList');
-goog.require('tart.DropdownBuilder');
 goog.require('tart.Collection');
+goog.require('tart.DropdownBuilder');
 
 
 
@@ -70,15 +70,17 @@ tart.DropdownList.prototype.removeByIndex = function(index) {
 
 
 /**
- * @inheritDoc
+ * Removes current DOM element of dropdownlist instance from window.document.
  */
 tart.DropdownList.prototype.removeDOM = function() {
-    return this.builder.removeDOM();
+    this.builder.removeDOM();
 };
 
 
 /**
- * @inheritDoc
+ * Returns current DOM element of dropdownlist instance.
+ *
+ * @return {jQueryObject} The jQuery object that wraps the DOM.
  */
 tart.DropdownList.prototype.getDOM = function() {
     return this.builder.getDOM();
@@ -92,7 +94,9 @@ tart.DropdownList.prototype.setActiveItemIndex = function(newIndex) {
     this.switchIndex(newIndex);
     if (this.builder) {
         this.builder.changeActiveItem(this.getActiveItemIndex());
+        return true;
     }
+    return false;
 };
 
 /**
@@ -115,6 +119,7 @@ tart.DropdownList.prototype.addItem = function(key, value) {
     var added = this.constructor.superClass_.addItem.call(this, key, value);
     if (this.builder && added === true) {
         this.builder.addOption(key, value);
+        return true;
     }
-    return this;
+    return false;
 };

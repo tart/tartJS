@@ -13,13 +13,14 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.XhrModel a base model to handle xhr requests
+ * @fileoverview tart.component.XhrModel a base model to handle xhr requests.
  */
 
 goog.provide('tart.component.XhrModel');
 
-goog.require('tart.component.Model');
 goog.require('tart.XhrManager');
+goog.require('tart.component.Model');
+
 
 
 /**
