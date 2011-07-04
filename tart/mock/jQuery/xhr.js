@@ -16,13 +16,13 @@ goog.provide('tart.mock.jQuery.xhr');
 jQuery.ajaxSetup({
     converters: {
         'mockup text': function(requestOptions ) {
-            return tart.mock.jQuery.xhr[requestOptions.url];
+            return tart.mock.jQuery.xhr(requestOptions);
         },
         'mockup json': function(requestOptions ) {
-            return tart.mock.jQuery.xhr[requestOptions.url];
+            return tart.mock.jQuery.xhr(requestOptions);
         },
         'mockup xml': function(requestOptions ) {
-            return tart.mock.jQuery.xhr[requestOptions.url];
+            return tart.mock.jQuery.xhr(requestOptions);
         }
     }
 });

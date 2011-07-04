@@ -56,7 +56,7 @@ tart.DropdownBuilder.templates.container = function(id, optionListHTML) {
 /**
  * Generates a select menu element, converts it to a jQuery object and passes to this.$dom_.
  *
- * @param {tart.List} owner Owner tart.List instance.
+ * @param {tart.Collection} owner Owner tart.Collection instance.
  */
 tart.DropdownBuilder.prototype.buildDOM = function(owner) {
     this.owner = owner;

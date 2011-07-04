@@ -28,7 +28,7 @@
 
 goog.provide('tart.DropdownList');
 goog.require('tart.DropdownBuilder');
-goog.require('tart.List');
+goog.require('tart.Collection');
 
 
 
@@ -36,7 +36,7 @@ goog.require('tart.List');
  * Constructor method for DropdownList.
  *
  * @constructor
- * @extends {tart.List}
+ * @extends {tart.Collection}
  * @param {Object|Array}  initialList    initial list of items.
  * @param {tart.Builder=} opt_builder    builder class.
  * @param {number=}       opt_activeItem index of the active item.
@@ -46,7 +46,7 @@ tart.DropdownList = function(initialList, opt_builder, opt_activeItem) {
     this.builder = opt_builder || new tart.DropdownBuilder('');
     this.builder.buildDOM(this);
 };
-goog.inherits(tart.DropdownList, tart.List);
+goog.inherits(tart.DropdownList, tart.Collection);
 
 
 /**

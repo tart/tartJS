@@ -13,33 +13,44 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.List to handle List typed data structures extended from tart.Collection.
+ * @fileoverview tart.component.Model base model
  */
 
-goog.provide('tart.List');
+goog.provide('tart.component.Model');
 
-goog.require('tart.Collection');
+goog.require('goog.structs.Map');
 
 /**
- * List data structure
+ * Base model
  *
- * @extends {tart.Collection}
  * @constructor
  */
-tart.List = function() {
-    goog.base(this);
-
+tart.component.Model = function() {
     /** @private **/
-    this.keyCount_ = 0;
+    this.items_ = null;
+
+    this.params = new goog.structs.Map();
 };
-goog.inherits(tart.List, tart.Collection);
 
 
 /**
- * Adds a new item to list .
- *
- * @param {*} value Value for the pair.
+ * Abstract method to load data from any resource
  */
-tart.List.prototype.addItem = function(value) {
-    tart.Collection.prototype.addItem.call(this, this.keyCount_++, value);
+tart.component.Model.prototype.load = goog.abstractMethod;
+
+/**
+ * getter for items
+ * @return {Object} items all items.
+ */
+tart.component.Model.prototype.getItems = function () {
+    return this.items_;
+};
+
+
+/**
+ * Setter for items 
+ * @param {Object} items items to be set.
+ */
+tart.component.Model.prototype.setItems = function(items) {
+    this.items_ = items;
 };
