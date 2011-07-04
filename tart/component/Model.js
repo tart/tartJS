@@ -18,7 +18,7 @@
 
 goog.provide('tart.component.Model');
 
-goog.require('goog.structs.map');
+goog.require('goog.structs.Map');
 
 /**
  * Base model

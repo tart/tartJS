@@ -44,7 +44,7 @@ goog.inherits(tart.component.XhrModel, tart.component.Model);
 /**
  * Set url to fetch data
  *
- * @param {String} url url to fetch data.
+ * @param {string} url url to fetch data.
  */
 tart.component.XhrModel.prototype.setUrl = function(url) {
     //TODO: valid url check???
