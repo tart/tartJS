@@ -1433,3 +1433,9 @@ jQuery.btOff = function() {};
 
 /* for jquery-dotnet_String_formatting-1.0.0.js */
 jQuery.format = function(text) {};
+
+
+
+jQuery.ajaxTransport = function(a,b) {};
+jQuery.ajaxPrefilter = function(a) {};
+
