@@ -219,6 +219,9 @@ tart.Carousel.prototype.getItemsToBeInsertedAndRemoved = function(moveCount) {
  * @protected
  */
 tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
+
+    var direction = (moveCount > 0) ? 'next' : 'prev';
+
     moveCount = Math.abs(moveCount);
 
     var i = 0,
@@ -227,10 +230,20 @@ tart.Carousel.prototype.getMoveDiff = function(a1, a2, moveCount) {
         itemsToBeRemoved = [],
         itemCount = this.itemCount;
 
-    var tmpItems = {
-        toBeInserted: a2.slice(-1 * a2.length, moveCount),
-        toBeRemoved: a1.slice(a1.length - moveCount, a1.length)
-    };
+    var tmpItems;
+
+    if (direction == 'prev') {
+        tmpItems = {
+            toBeInserted: a2.slice(0, moveCount),
+            toBeRemoved: a1.slice(-1 * moveCount, a1.length)
+        };
+    }
+    else {
+        tmpItems = {
+            toBeRemoved: a1.slice(0, moveCount),
+            toBeInserted: a2.slice(-1 * moveCount, a2.length)
+        };
+    }
 
     for (i = 0; i < tmpItems.toBeInserted.length; i++) {
         index = (tmpItems.toBeInserted[i] + itemCount) % itemCount;
