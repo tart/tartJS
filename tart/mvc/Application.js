@@ -39,7 +39,7 @@ goog.provide('tart.mvc.Application');
  */
 tart.mvc.Application = function() {
     var historyCallback, that = this;
-    that.defaultRoute_ = new tart.mvc.uri.Route({
+    that.defaultRoute = new tart.mvc.uri.Route({
         name: 'default',
         format: '/',
         controller: tart.mvc.Controller,
@@ -85,7 +85,7 @@ tart.mvc.Application.prototype.getRenderer = function() {
  */
 tart.mvc.Application.prototype.getRouter = function() {
     if (!this.router_)
-        this.router_ = new tart.mvc.uri.Router(this.basePath, this.defaultRoute_);
+        this.router_ = new tart.mvc.uri.Router(this.basePath, this.defaultRoute);
     return this.router_;
 };
 
@@ -93,8 +93,7 @@ tart.mvc.Application.prototype.getRouter = function() {
 /**
  * Users of tartMVC should implement this method. It should include all the routing jobs (adding routes to the router)
  */
-tart.mvc.Application.prototype.initRouting = function() {
-};
+tart.mvc.Application.prototype.initRouting = goog.abstractMethod();
 
 
 /**
@@ -112,7 +111,7 @@ tart.mvc.Application.prototype.basePath = '/';
  * @type {tart.mvc.uri.Route}
  * @protected
  */
-tart.mvc.Application.prototype.defaultRoute_;
+tart.mvc.Application.prototype.defaultRoute;
 
 
 /**

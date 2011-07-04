@@ -121,7 +121,7 @@ tart.DropdownBuilder.prototype.addOption = function(key, value) {
 
 
 /**
- * Removes select menu from DOM with events.
+ * @inheritDoc
  */
 tart.DropdownBuilder.prototype.removeDOM = function() {
     this.$dom_.remove();

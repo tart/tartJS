@@ -77,19 +77,19 @@ goog.inherits(tart.Collection, goog.pubsub.PubSub);
  */
 tart.Collection.prototype.addItem = function(key, value) {
     if (key === undefined || value === undefined) {
-        throw tart.Err.get('Missing arguments (key: ' + key + ' value: ' + value + ')- you must give a key' +
+        throw new tart.Err('Missing arguments (key: ' + key + ' value: ' + value + ')- you must give a key' +
                 'and a value to add a new item.');
     } else if (this.getByKey(key)) {
         // Deffensive check: key's must be unique
-        throw tart.Err.get('Key "' + key + '" already in collection. Keys should be unique.');
+        throw new tart.Err('Key "' + key + '" already in collection. Keys should be unique.');
     } else {
         var item = {};
         item[key] = value;
         this.keys_.push(key);
         this.values_.push(value);
         this.items_.push(item);
+        return true;
     }
-    return true;
 };
 
 

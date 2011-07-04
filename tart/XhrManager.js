@@ -18,11 +18,11 @@
 
 goog.provide('tart.XhrManager');
 
-tart.XhrManager.get = function (url, params, callback) {
+tart.XhrManager.get = function(url, params, callback) {
     return jQuery.get(url, params, callback, 'json');
 };
 
 
-tart.XhrManager.post = function (url, params, callback) {
+tart.XhrManager.post = function(url, params, callback) {
     return jQuery.post(url, params, callback, 'json');
 };
