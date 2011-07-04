@@ -65,7 +65,7 @@ tart.mvc.uri.Route.prototype.setFormat = function(format) {
 /** @typedef
  * {{
  *  name: string,
- *  format: (string|RegExp),
+ *  format: string,
  *  controller: function(new:tart.mvc.Controller),
  *  action: function(this:tart.mvc.Action)
  * }}
