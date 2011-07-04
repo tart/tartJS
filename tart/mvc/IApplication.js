@@ -41,4 +41,4 @@ tart.mvc.IApplication.prototype.basePath;
  * Default scheme for the application. Each application should implement a default controller and an action as these
  * will be called when there are no matching controller / actions.
  */
-tart.mvc.IApplication.prototype.defaultRoute_;
+tart.mvc.IApplication.prototype.defaultRoute;

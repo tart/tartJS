@@ -25,7 +25,7 @@ goog.provide('mvcapp.Application');
  */
 mvcapp.Application = function() {
     goog.base(this);
-    this.defaultRoute_ = new tart.mvc.uri.Route({
+    this.defaultRoute = new tart.mvc.uri.Route({
         name: 'default',
         format: '',
         controller: mvcapp.controllers.IndexController,
@@ -39,12 +39,6 @@ goog.inherits(mvcapp.Application, tart.mvc.Application);
  * @inheritDoc
  */
 mvcapp.Application.prototype.basePath = '/tart/mvc/test/';
-
-
-/**
- * @inheritDoc
- */
-mvcapp.Application.prototype.defaultRoute_;
 
 
 /**
