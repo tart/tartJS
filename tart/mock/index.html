@@ -12,15 +12,20 @@
 
 <script type="text/javascript">
 
-tart.mock.jQuery.xhr = {
-    "foo.html" : {"deneme" : "foo"}
+tart.mock.jQuery.xhr = function (request) {
+    var url = request.url;
+    var data = request.data;
+
+    if (url == "foo.html") {
+        return {"deneme" : "foo"};
+    }
 };
 
-jQuery.get("foo.html", function (response) {
+jQuery.post("foo.html", {xxx : "yyy"}, function (response) {
     console.log(response);
 },'json');
 
- 
+
 </script>
 
 </body>
