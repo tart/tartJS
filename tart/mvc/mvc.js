@@ -31,3 +31,7 @@ tart.mvc.ControllerTemplate;
 
 /** @typedef {function(this:tart.mvc.Action)} */
 tart.mvc.ActionTemplate;
+
+
+/** @typedef {function(this:tart.mvc.View)} */
+tart.mvc.ViewTemplate;
