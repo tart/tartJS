@@ -41,7 +41,8 @@ goog.inherits(tart.List, tart.Collection);
  * Adds a new item to list .
  *
  * @param {*} value Value for the pair.
+ * @return {boolean} .
  */
 tart.List.prototype.addItem = function(value) {
-    tart.Collection.prototype.addItem.call(this, this.keyCount_++, value);
+    return tart.Collection.prototype.addItem.call(this, this.keyCount_++, value);
 };
