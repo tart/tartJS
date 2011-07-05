@@ -33,7 +33,7 @@ tart.component.XhrModel = function() {
     goog.base(this);
 
     /** @private **/
-    this.url_ = null;
+    this.url_ = "";
 
     /** @private **/
     this.fethedData_ = null;
@@ -56,6 +56,7 @@ tart.component.XhrModel.prototype.setUrl = function(url) {
 /**
  * Fetch data using xhr
  *
+ * @param {(function (string, string, (XMLHttpRequest|null)): ?|undefined)} callback callback method after xhr request.
  * @protected
  */
 tart.component.XhrModel.prototype.fetchDataWithXhr = function(callback) {

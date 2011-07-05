@@ -15,22 +15,22 @@ goog.provide('tart.mock.jQuery.xhr');
 
 jQuery.ajaxSetup({
     'converters': {
-        'mockup text': function(requestOptions ) {
+        'mockup text': function(requestOptions) {
             return tart.mock.jQuery.xhr(requestOptions);
         },
-        'mockup json': function(requestOptions ) {
+        'mockup json': function(requestOptions) {
             return tart.mock.jQuery.xhr(requestOptions);
         },
-        'mockup xml': function(requestOptions ) {
+        'mockup xml': function(requestOptions) {
             return tart.mock.jQuery.xhr(requestOptions);
         }
     }
 });
 
 
-jQuery.ajaxTransport('mockup', function(options ) {
+jQuery.ajaxTransport('mockup', function(options) {
     return {
-        'send': function(headers, callback ) {
+        'send': function(headers, callback) {
             callback(200, 'OK', {
                 'mockup': options
             });
@@ -44,7 +44,7 @@ jQuery.ajaxSetup({
 });
 
 
-jQuery.ajaxPrefilter(function(options ) {
+jQuery.ajaxPrefilter(function(options) {
     if (options['mock']) {
         var finalDataType = options['dataTypes']['pop']();
         options['dataTypes'] = [finalDataType === '*' ? 'text' : finalDataType];

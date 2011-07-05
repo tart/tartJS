@@ -18,11 +18,26 @@
 
 goog.provide('tart.XhrManager');
 
+/**
+ * jQuery GET's wrapper
+ *
+ * @param {string} url url to send request.
+ * @param {Object} params POST/GET parameters.
+ * @param {(function (string, string, (XMLHttpRequest|null)): ?|undefined)} callback success callback.
+ * @return {Object} .
+ */
 tart.XhrManager.get = function(url, params, callback) {
     return jQuery.get(url, params, callback, 'json');
 };
 
-
+/**
+ * jQuery POST's wrapper
+ *
+ * @param {string} url url to send request.
+ * @param {Object} params POST/GET parameters.
+ * @param {(function (string, string, (XMLHttpRequest|null)): ?|undefined)} callback success callback.
+ * @return {Object} .
+ */
 tart.XhrManager.post = function(url, params, callback) {
     return jQuery.post(url, params, callback, 'json');
 };
