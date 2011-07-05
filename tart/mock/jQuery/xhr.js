@@ -14,7 +14,7 @@
 goog.provide('tart.mock.jQuery.xhr');
 
 jQuery.ajaxSetup({
-    converters: {
+    'converters': {
         'mockup text': function(requestOptions ) {
             return tart.mock.jQuery.xhr(requestOptions);
         },
@@ -30,9 +30,9 @@ jQuery.ajaxSetup({
 
 jQuery.ajaxTransport('mockup', function(options ) {
     return {
-        send: function(headers, callback ) {
+        'send': function(headers, callback ) {
             callback(200, 'OK', {
-                mockup: options
+                'mockup': options
             });
         }
     };
@@ -40,14 +40,14 @@ jQuery.ajaxTransport('mockup', function(options ) {
 
 // Switch to mockup
 jQuery.ajaxSetup({
-    mock: true
+    'mock': true
 });
 
 
 jQuery.ajaxPrefilter(function(options ) {
-    if (options.mock) {
-        var finalDataType = options.dataTypes.pop();
-        options.dataTypes = [finalDataType === '*' ? 'text' : finalDataType];
+    if (options['mock']) {
+        var finalDataType = options['dataTypes']['pop']();
+        options['dataTypes'] = [finalDataType === '*' ? 'text' : finalDataType];
         return 'mockup';
     }
 });
