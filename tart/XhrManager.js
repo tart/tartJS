@@ -23,7 +23,7 @@ goog.provide('tart.XhrManager');
  *
  * @param {string} url url to send request.
  * @param {Object} params POST/GET parameters.
- * @param {(function (string, string, (XMLHttpRequest|null)): ?|undefined)} callback success callback.
+ * @param {function(string,string,XMLHttpRequest)=} callback success callback.
  * @return {Object} .
  */
 tart.XhrManager.get = function(url, params, callback) {
@@ -35,7 +35,7 @@ tart.XhrManager.get = function(url, params, callback) {
  *
  * @param {string} url url to send request.
  * @param {Object} params POST/GET parameters.
- * @param {(function (string, string, (XMLHttpRequest|null)): ?|undefined)} callback success callback.
+ * @param {function(string,string,XMLHttpRequest)=} callback success callback.
  * @return {Object} .
  */
 tart.XhrManager.post = function(url, params, callback) {
