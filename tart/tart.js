@@ -20,3 +20,10 @@ goog.provide('tart');
 
 /** @typedef {Object} */
 tart.JSON;
+
+(function() {
+    var counter = Math.floor(Math.random() * 2147483648);
+    tart.getUid = function() {
+        return (counter++).toString(36);
+    }
+})();
