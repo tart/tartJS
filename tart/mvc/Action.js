@@ -62,6 +62,9 @@ tart.mvc.Action.prototype.getLayout = function() {
  * @return {tart.mvc.ViewTemplate} The view script that belongs to the action.
  */
 tart.mvc.Action.prototype.getViewScript = function() {
+    if (!this.viewScript_)
+        throw new tart.Err('No view script set for the action', 'tartMVC Action Exception');
+
     return this.viewScript_;
 };
 
