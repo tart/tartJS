@@ -93,7 +93,7 @@ tart.mvc.Application.prototype.getRouter = function() {
 /**
  * Users of tartMVC should implement this method. It should include all the routing jobs (adding routes to the router)
  */
-tart.mvc.Application.prototype.initRouting = goog.abstractMethod();
+tart.mvc.Application.prototype.initRouting = goog.abstractMethod;
 
 
 /**

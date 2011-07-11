@@ -203,7 +203,7 @@ tart.mvc.uri.Router.prototype.setParams_ = function(paramsArray) {
  */
 tart.mvc.uri.Router.prototype.fixOddParams_ = function(params) {
     if (params.length % 2 == 1)
-        params.push('');
+        params.push(true);
 };
 
 
