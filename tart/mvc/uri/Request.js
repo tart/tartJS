@@ -31,15 +31,15 @@ tart.mvc.uri.Request = function(uriString, router) {
     this.path = uri.getPath();
     this.fragment = uri.getFragment();
 
-    if (goog.string.endsWith(this.fragment, '/') == false)
-        this.fragment += '/';
-
     if (this.fragment.length > 1) {
         this.path = this.fragment.substr(2);
     }
     else if (this.path.indexOf(basePath) == 0) {
         this.path = this.path.substr(basePath.length);
     }
+
+    if (goog.string.endsWith(this.path, '/') == false)
+        this.path += '/';
 
     this.fragments = this.path.split('/');
     this.fragments = goog.array.filter(this.fragments, function(el, i, arr) {
