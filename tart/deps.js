@@ -61,6 +61,6 @@ goog.addDependency('../../../tart/mvc/test/application/views/scripts/index/list.
 goog.addDependency('../../../tart/mvc/uri/Request.js', ['tart.mvc.uri.Request'], ['goog.Uri']);
 goog.addDependency('../../../tart/mvc/uri/Route.js', ['tart.mvc.uri.Route'], ['tart.Err']);
 goog.addDependency('../../../tart/mvc/uri/Router.js', ['tart.mvc.uri.Router'], ['goog.array', 'goog.object', 'tart.mvc.uri.Request']);
-goog.addDependency('../../../tart/storage/LocalStorage.js', ['tart.LocalStorage'], []);
+goog.addDependency('../../../tart/storage/Storage.js', ['tart.storage.Storage'], []);
 goog.addDependency('../../../tart/string/string.js', ['tart.string'], []);
 goog.addDependency('../../../tart/tart.js', ['tart'], []);
