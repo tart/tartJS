@@ -38,17 +38,11 @@ goog.provide('tart.mvc.Application');
  * @implements {tart.mvc.IApplication}
  */
 tart.mvc.Application = function() {
+    if (!this.defaultRoute) {
+        throw new tart.Err("No default route is set.", "tartMVC Application Exception");
+    }
+    
     var historyCallback, that = this;
-    that.defaultRoute = new tart.mvc.uri.Route({
-        name: 'default',
-        format: '/',
-        controller: tart.mvc.Controller,
-        action: /** @this {tart.mvc.Action} **/ function() {
-            this.setViewScript(function() {
-                return '';
-            });
-        }
-    });
 
     /** @private */
     this.history_ = new goog.History(false);
@@ -111,7 +105,7 @@ tart.mvc.Application.prototype.basePath = '/';
  * @type {tart.mvc.uri.Route}
  * @protected
  */
-tart.mvc.Application.prototype.defaultRoute;
+tart.mvc.Application.prototype.defaultRoute = null;
 
 
 /**
