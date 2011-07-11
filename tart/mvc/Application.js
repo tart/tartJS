@@ -38,9 +38,8 @@ goog.provide('tart.mvc.Application');
  * @implements {tart.mvc.IApplication}
  */
 tart.mvc.Application = function() {
-    if (!this.defaultRoute) {
+    if (!this.defaultRoute)
         throw new tart.Err("No default route is set.", "tartMVC Application Exception");
-    }
     
     var historyCallback, that = this;
 
