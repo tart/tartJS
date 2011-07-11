@@ -105,6 +105,10 @@ tart.mvc.Layout.prototype.getBody = function() {
 tart.mvc.Layout.prototype.getContentArea = function() {
     if (!this.contentArea) {
         this.contentArea = $('#content');
+        if (this.contentArea.length == 0) {
+            this.contentArea = this.getBody();
+        }
     }
+    
     return this.contentArea;
 };
