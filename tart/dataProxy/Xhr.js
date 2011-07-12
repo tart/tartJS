@@ -40,16 +40,20 @@ tart.dataProxy.Xhr.prototype.fetch = function(callback) {
 
     var url = this.params.get("url_");
     this.params.remove("url_");
+    url = "" + url; //cast to string to make it type safe for XhrManager.get
 
+
+    /**
+     * get plain objects from Maps from given plugins
+     */
     var pluginParams = ['filterBy_', 'sortBy_', 'pager_'];
-
+    
     for (var i = 0, ii = pluginParams.length; i < ii; i++) {
-        if (this.params.get(pluginParams[i])) {
-            this.params.set(pluginParams[i], this.params.get(pluginParams[i]).toObject());
+        var param =  this.params.get(pluginParams[i]);
+        if (param) {
+            this.params.set(pluginParams[i], param.toObject());
         }
     }
-
-    url = "" + url; //cast to string to make it type safe for XhrManager.get
 
     tart.XhrManager.get(url, this.params.toObject(), callback);
 };
