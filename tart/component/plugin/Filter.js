@@ -23,6 +23,8 @@ goog.require('tart.component.plugin.BasePlugin');
 
 /**
  * @param {tart.component.Model} model
+ *
+ * @extends {tart.component.plugin.BasePlugin}
  * @constructor
  */
 tart.component.plugin.Filter = function (model) {
