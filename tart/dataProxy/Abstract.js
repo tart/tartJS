@@ -27,9 +27,6 @@ goog.require('goog.structs.Map');
  * @constructor
  */
 tart.dataProxy.Abstract = function() {
-    /** @private */
-    this.data_ = [];
-
     /** @protected **/
     this.params = new goog.structs.Map();
 };
@@ -50,4 +47,3 @@ tart.dataProxy.Abstract.prototype.setParams = function (params) {
 tart.dataProxy.Abstract.prototype.fetch = function(callback) {
     goog.abstractMethod();
 };
-
