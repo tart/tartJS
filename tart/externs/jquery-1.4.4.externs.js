@@ -1436,6 +1436,6 @@ jQuery.format = function(text) {};
 
 
 
-jQuery.ajaxTransport = function(a,b) {};
+jQuery.ajaxTransport = function(a, b) {};
 jQuery.ajaxPrefilter = function(a) {};
 

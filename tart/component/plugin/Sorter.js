@@ -13,36 +13,30 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.List to handle List typed data structures extended from tart.Collection.
+ * @fileoverview tart.component.plugin.Sorter model sorter plugin.
  */
 
-goog.provide('tart.List');
+goog.provide('tart.component.plugin.Sorter');
 
-goog.require('tart.Collection');
-
+goog.require('goog.structs.Map');
 
 
 /**
- * List data structure
- *
- * @extends {tart.Collection}
+ * @param {tart.component.Model} model
  * @constructor
  */
-tart.List = function() {
-    goog.base(this);
+tart.component.plugin.Sorter = function (model) {
+    /** @private */
+    this.model_ = model;
 
-    /** @private **/
-    this.keyCount_ = 0;
+    this.sortBy_ = new goog.structs.Map();
 };
-goog.inherits(tart.List, tart.Collection);
-
 
 /**
- * Adds a new item to list .
- *
- * @param {*} value Value for the pair.
- * @return {boolean} .
+ * @param {string} field field to be sorted.
+ * @param {string} order order by directive, which is asc or desc.
  */
-tart.List.prototype.addItem = function(value) {
-    return tart.Collection.prototype.addItem.call(this, this.keyCount_++, value);
+tart.component.plugin.Sorter.prototype.addSort = function (field, order) {
+    this.sortBy_.set(field, order);
+    this.model_.params.set('sortBy_', this.sortBy_.toObject());
 };
