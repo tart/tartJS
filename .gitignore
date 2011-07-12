@@ -5,3 +5,5 @@
 *.pyc
 compiled/*
 /atlassian-ide-plugin.xml
+compiled.js
+SpecRunnerCompiled.html
