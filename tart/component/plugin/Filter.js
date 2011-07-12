@@ -18,7 +18,7 @@
 
 goog.provide('tart.component.plugin.Filter');
 
-goog.require('goog.structs.Map');
+goog.require('tart.component.plugin.BasePlugin');
 
 
 /**
@@ -26,12 +26,10 @@ goog.require('goog.structs.Map');
  * @constructor
  */
 tart.component.plugin.Filter = function (model) {
-    /** @private */
-    this.model_ = model;
-
-    this.filterBy_ = new goog.structs.Map();
-    this.model_.params.set("filterBy_", this.filterBy_);
+    goog.base(this, model);
+    this.setKey("filterBy_");
 };
+goog.inherits(tart.component.plugin.Filter, tart.component.plugin.BasePlugin);
 
 /**
  * @param {string} field field to be filtereded.
@@ -43,7 +41,7 @@ tart.component.plugin.Filter.prototype.addFilter = function (field, condition, v
     /**
      * There can be multiple condition-value pair for a field
      */
-    var fieldFilter = this.filterBy_.get(field);
+    var fieldFilter = this.map.get(field);
 
     //and if this field did not set before create a new object
     if (!fieldFilter) {
@@ -52,5 +50,5 @@ tart.component.plugin.Filter.prototype.addFilter = function (field, condition, v
 
     fieldFilter[condition] = value;
 
-    this.filterBy_.set(field, fieldFilter);
+    this.map.set(field, fieldFilter);
 };

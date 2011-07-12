@@ -18,33 +18,33 @@
 
 goog.provide('tart.component.plugin.Pager');
 
-goog.require('goog.structs.Map');
+goog.require('tart.component.plugin.BasePlugin');
 
 
 /**
  * @param {tart.component.Model} model
+ * 
+ * @extends {tart.component.plugin.BasePlugin}
  * @constructor
  */
 tart.component.plugin.Pager = function (model) {
-    /** @private */
-    this.model_ = model;
-
-    this.pager_ = new goog.structs.Map();
-    this.model_.params.set("pager_", this.pager_);
+    goog.base(this, model);
+    this.setKey("pager_");
 };
+goog.inherits(tart.component.plugin.Pager, tart.component.plugin.BasePlugin);
 
 /**
  * @param {number} pageCount number of pages.
  */
 tart.component.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
-    this.pager_.set("pageCount", pageCount);
+    this.amp.set("pageCount", pageCount);
 };
 
 /**
  * @param {number} offset cursor start point for paging.
  */
 tart.component.plugin.Pager.prototype.setOffset = function (offset) {
-    this.pager_.set("offset", offset);
+    this.map.set("offset", offset);
 };
 
 
@@ -53,5 +53,5 @@ tart.component.plugin.Pager.prototype.setOffset = function (offset) {
  * @param {number} limit item count to fetch.
  */
 tart.component.plugin.Pager.prototype.setLimit = function (limit) {
-    this.pager_.set("limit", limit);
+    this.map.set("limit", limit);
 };

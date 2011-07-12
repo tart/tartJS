@@ -13,30 +13,36 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.plugin.Sorter model sorter plugin.
+ * @fileoverview tart.component.plugin.BasePlugin to get common properties for a plugin in one class.
  */
 
-goog.provide('tart.component.plugin.Sorter');
+goog.provide('tart.component.plugin.BasePlugin');
 
-goog.require('tart.component.plugin.BasePlugin');
+goog.require('goog.structs.Map');
 
 
 /**
  * @param {tart.component.Model} model
- *
- * @extends {tart.component.plugin.BasePlugin}
  * @constructor
  */
-tart.component.plugin.Sorter = function (model) {
-    goog.base(this, model);
-    this.setKey("sortBy_");
+tart.component.plugin.BasePlugin = function (model) {
+    /** @protected */
+    this.model = model;
+
+    /** @protected */
+    this.key = undefined;
+
+    /** @protected **/
+    this.map = new goog.structs.Map();
 };
-goog.inherits(tart.component.plugin.Sorter, tart.component.plugin.BasePlugin);
+
 
 /**
- * @param {string} field field to be sorted.
- * @param {string} order order by directive, which is asc or desc.
+ * set model's param key
+ *
+ * @param {string} key key on model param.
  */
-tart.component.plugin.Sorter.prototype.addSort = function (field, order) {
-    this.map.set(field, order);
+tart.component.plugin.BasePlugin.prototype.setKey = function (key) {
+    this.key = key;
+    this.model.params.set(key, this.map);
 };
