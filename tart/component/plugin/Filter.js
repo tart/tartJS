@@ -30,6 +30,7 @@ tart.component.plugin.Filter = function (model) {
     this.model_ = model;
 
     this.filterBy_ = new goog.structs.Map();
+    this.model_.params.set("filterBy_", this.filterBy_);
 };
 
 /**
@@ -46,6 +47,4 @@ tart.component.plugin.Filter.prototype.addFilter = function (field, condition, v
     fieldFilter[condition] = value;
 
     this.filterBy_.set(field, fieldFilter);
-
-    this.model_.params.set('filterBy_', this.filterBy_.toObject());
 };

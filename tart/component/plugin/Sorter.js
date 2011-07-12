@@ -30,6 +30,7 @@ tart.component.plugin.Sorter = function (model) {
     this.model_ = model;
 
     this.sortBy_ = new goog.structs.Map();
+    this.model_.params.set("sortBy_", this.sortBy_);
 };
 
 /**
@@ -38,5 +39,4 @@ tart.component.plugin.Sorter = function (model) {
  */
 tart.component.plugin.Sorter.prototype.addSort = function (field, order) {
     this.sortBy_.set(field, order);
-    this.model_.params.set('sortBy_', this.sortBy_.toObject());
 };

@@ -30,6 +30,7 @@ tart.component.plugin.Pager = function (model) {
     this.model_ = model;
 
     this.pager_ = new goog.structs.Map();
+    this.model_.params.set("pager_", this.pager_);
 };
 
 /**
@@ -37,7 +38,6 @@ tart.component.plugin.Pager = function (model) {
  */
 tart.component.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
     this.pager_.set("pageCount", pageCount);
-    this.model_.params.set('pager_', this.pager_.toObject());
 };
 
 /**
@@ -45,7 +45,6 @@ tart.component.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
  */
 tart.component.plugin.Pager.prototype.setOffset = function (offset) {
     this.pager_.set("offset", offset);
-    this.model_.params.set('pager_', this.pager_.toObject());
 };
 
 
@@ -55,5 +54,4 @@ tart.component.plugin.Pager.prototype.setOffset = function (offset) {
  */
 tart.component.plugin.Pager.prototype.setLimit = function (limit) {
     this.pager_.set("limit", limit);
-    this.model_.params.set('pager_', this.pager_.toObject());
 };
