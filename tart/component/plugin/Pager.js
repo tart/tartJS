@@ -37,7 +37,7 @@ goog.inherits(tart.component.plugin.Pager, tart.component.plugin.BasePlugin);
  * @param {number} pageCount number of pages.
  */
 tart.component.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
-    this.amp.set("pageCount", pageCount);
+    this.map.set("pageCount", pageCount);
 };
 
 /**
