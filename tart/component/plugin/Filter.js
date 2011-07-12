@@ -39,11 +39,17 @@ tart.component.plugin.Filter = function (model) {
  * @param {string} value field value to filter field for.
  */
 tart.component.plugin.Filter.prototype.addFilter = function (field, condition, value) {
+
+    /**
+     * There can be multiple condition-value pair for a field
+     */
     var fieldFilter = this.filterBy_.get(field);
 
+    //and if this field did not set before create a new object
     if (!fieldFilter) {
         fieldFilter = {};
     }
+
     fieldFilter[condition] = value;
 
     this.filterBy_.set(field, fieldFilter);
