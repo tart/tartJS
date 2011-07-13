@@ -29,9 +29,15 @@ goog.require('tart.component.plugin.BasePlugin');
  */
 tart.component.plugin.Filter = function (model) {
     goog.base(this, model);
-    this.setKey("filterBy_");
 };
 goog.inherits(tart.component.plugin.Filter, tart.component.plugin.BasePlugin);
+
+/**
+ * Set plugins param key
+ */
+tart.component.plugin.Filter.prototype.key = "filterBy_";
+
+
 
 /**
  * @param {string} field field to be filtereded.
