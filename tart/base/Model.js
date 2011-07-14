@@ -13,10 +13,10 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.Model base model.
+ * @fileoverview tart.base.Model base model.
  */
 
-goog.provide('tart.component.Model');
+goog.provide('tart.base.Model');
 
 goog.require('goog.structs.Map');
 
@@ -27,7 +27,7 @@ goog.require('goog.structs.Map');
  *
  * @constructor
  */
-tart.component.Model = function() {
+tart.base.Model = function() {
     /** @private **/
     this.items_ = null;
 
@@ -37,15 +37,18 @@ tart.component.Model = function() {
 
 /**
  * Abstract method to load data from any resource
+ * @param {Function=} opt_callback method after load.
  */
-tart.component.Model.prototype.load = goog.abstractMethod;
+tart.base.Model.prototype.load = function (opt_callback) {
+    goog.abstractMethod();
+};
 
 
 /**
  * getter for items
  * @return {Object} items all items.
  */
-tart.component.Model.prototype.getItems = function() {
+tart.base.Model.prototype.getItems = function() {
     return this.items_;
 };
 
@@ -54,6 +57,6 @@ tart.component.Model.prototype.getItems = function() {
  * Setter for items
  * @param {Object} items items to be set.
  */
-tart.component.Model.prototype.setItems = function(items) {
+tart.base.Model.prototype.setItems = function(items) {
     this.items_ = items;
 };

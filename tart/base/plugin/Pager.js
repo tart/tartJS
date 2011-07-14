@@ -13,37 +13,42 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.plugin.Pager model pager plugin to handle pagination.
+ * @fileoverview tart.base.plugin.Pager model pager plugin to handle pagination.
  */
 
-goog.provide('tart.component.plugin.Pager');
+goog.provide('tart.base.plugin.Pager');
 
-goog.require('tart.component.plugin.BasePlugin');
+goog.require('tart.base.plugin.BasePlugin');
 
 
 /**
- * @param {tart.component.Model} model
+ * @param {tart.base.Model} model
  * 
- * @extends {tart.component.plugin.BasePlugin}
+ * @extends {tart.base.plugin.BasePlugin}
  * @constructor
  */
-tart.component.plugin.Pager = function (model) {
+tart.base.plugin.Pager = function (model) {
     goog.base(this, model);
-    this.setKey("pager_");
 };
-goog.inherits(tart.component.plugin.Pager, tart.component.plugin.BasePlugin);
+goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
+
+/**
+ * Set plugin's param
+ */
+tart.base.plugin.Pager.prototype.key = "pager_";
+
 
 /**
  * @param {number} pageCount number of pages.
  */
-tart.component.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
+tart.base.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
     this.map.set("pageCount", pageCount);
 };
 
 /**
  * @param {number} offset cursor start point for paging.
  */
-tart.component.plugin.Pager.prototype.setOffset = function (offset) {
+tart.base.plugin.Pager.prototype.setOffset = function (offset) {
     this.map.set("offset", offset);
 };
 
@@ -52,6 +57,6 @@ tart.component.plugin.Pager.prototype.setOffset = function (offset) {
  *
  * @param {number} limit item count to fetch.
  */
-tart.component.plugin.Pager.prototype.setLimit = function (limit) {
+tart.base.plugin.Pager.prototype.setLimit = function (limit) {
     this.map.set("limit", limit);
 };

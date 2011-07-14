@@ -13,32 +13,38 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.plugin.Filter model filter plugin.
+ * @fileoverview tart.base.plugin.Filter model filter plugin.
  */
 
-goog.provide('tart.component.plugin.Filter');
+goog.provide('tart.base.plugin.Filter');
 
-goog.require('tart.component.plugin.BasePlugin');
+goog.require('tart.base.plugin.BasePlugin');
 
 
 /**
- * @param {tart.component.Model} model
+ * @param {tart.base.Model} model
  *
- * @extends {tart.component.plugin.BasePlugin}
+ * @extends {tart.base.plugin.BasePlugin}
  * @constructor
  */
-tart.component.plugin.Filter = function (model) {
+tart.base.plugin.Filter = function (model) {
     goog.base(this, model);
-    this.setKey("filterBy_");
 };
-goog.inherits(tart.component.plugin.Filter, tart.component.plugin.BasePlugin);
+goog.inherits(tart.base.plugin.Filter, tart.base.plugin.BasePlugin);
+
+/**
+ * Set plugins param key
+ */
+tart.base.plugin.Filter.prototype.key = "filterBy_";
+
+
 
 /**
  * @param {string} field field to be filtereded.
  * @param {string} condition condition operator.
  * @param {string} value field value to filter field for.
  */
-tart.component.plugin.Filter.prototype.addFilter = function (field, condition, value) {
+tart.base.plugin.Filter.prototype.addFilter = function (field, condition, value) {
 
     /**
      * There can be multiple condition-value pair for a field

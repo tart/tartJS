@@ -13,30 +13,35 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.plugin.Sorter model sorter plugin.
+ * @fileoverview tart.base.plugin.Sorter model sorter plugin.
  */
 
-goog.provide('tart.component.plugin.Sorter');
+goog.provide('tart.base.plugin.Sorter');
 
-goog.require('tart.component.plugin.BasePlugin');
+goog.require('tart.base.plugin.BasePlugin');
 
 
 /**
- * @param {tart.component.Model} model
+ * @param {tart.base.Model} model
  *
- * @extends {tart.component.plugin.BasePlugin}
+ * @extends {tart.base.plugin.BasePlugin}
  * @constructor
  */
-tart.component.plugin.Sorter = function (model) {
+tart.base.plugin.Sorter = function (model) {
     goog.base(this, model);
-    this.setKey("sortBy_");
 };
-goog.inherits(tart.component.plugin.Sorter, tart.component.plugin.BasePlugin);
+goog.inherits(tart.base.plugin.Sorter, tart.base.plugin.BasePlugin);
+
+/**
+ * Set plugin's param
+ */
+tart.base.plugin.Sorter.prototype.key = "sortBy_";
+
 
 /**
  * @param {string} field field to be sorted.
  * @param {string} order order by directive, which is asc or desc.
  */
-tart.component.plugin.Sorter.prototype.addSort = function (field, order) {
+tart.base.plugin.Sorter.prototype.addSort = function (field, order) {
     this.map.set(field, order);
 };
