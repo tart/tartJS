@@ -38,4 +38,4 @@ tart.base.plugin.BasePlugin = function (model) {
 /**
  * models key
  */
-tart.component.plugin.BasePlugin.prototype.key = undefined;
+tart.base.plugin.BasePlugin.prototype.key = undefined;
