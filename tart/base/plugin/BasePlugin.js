@@ -13,19 +13,19 @@
 // limitations under the License.
 
 /**
- * @fileoverview tart.component.plugin.BasePlugin to get common properties for a plugin in one class.
+ * @fileoverview tart.base.plugin.BasePlugin to get common properties for a plugin in one class.
  */
 
-goog.provide('tart.component.plugin.BasePlugin');
+goog.provide('tart.base.plugin.BasePlugin');
 
 goog.require('goog.structs.Map');
 
 
 /**
- * @param {tart.component.Model} model
+ * @param {tart.base.Model} model
  * @constructor
  */
-tart.component.plugin.BasePlugin = function (model) {
+tart.base.plugin.BasePlugin = function (model) {
     /** @protected */
     this.model = model;
 
@@ -42,7 +42,7 @@ tart.component.plugin.BasePlugin = function (model) {
  *
  * @param {string} key key on model param.
  */
-tart.component.plugin.BasePlugin.prototype.setKey = function (key) {
+tart.base.plugin.BasePlugin.prototype.setKey = function (key) {
     this.key = key;
     this.model.params.set(key, this.map);
 };
