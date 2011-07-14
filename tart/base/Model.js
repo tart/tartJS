@@ -37,8 +37,11 @@ tart.base.Model = function() {
 
 /**
  * Abstract method to load data from any resource
+ * @param {Function=} opt_callback method after load.
  */
-tart.base.Model.prototype.load = goog.abstractMethod;
+tart.base.Model.prototype.load = function (opt_callback) {
+    goog.abstractMethod();
+};
 
 
 /**
