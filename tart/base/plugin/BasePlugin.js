@@ -29,20 +29,13 @@ tart.base.plugin.BasePlugin = function (model) {
     /** @protected */
     this.model = model;
 
-    /** @protected */
-    this.key = undefined;
-
     /** @protected **/
     this.map = new goog.structs.Map();
+    
+    this.model.params.set(this.key, this.map);
 };
-
 
 /**
- * set model's param key
- *
- * @param {string} key key on model param.
+ * models key
  */
-tart.base.plugin.BasePlugin.prototype.setKey = function (key) {
-    this.key = key;
-    this.model.params.set(key, this.map);
-};
+tart.component.plugin.BasePlugin.prototype.key = undefined;

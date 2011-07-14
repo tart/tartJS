@@ -29,9 +29,14 @@ goog.require('tart.base.plugin.BasePlugin');
  */
 tart.base.plugin.Pager = function (model) {
     goog.base(this, model);
-    this.setKey("pager_");
 };
 goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
+
+/**
+ * Set plugin's param
+ */
+tart.component.plugin.Pager.prototype.key = "pager_";
+
 
 /**
  * @param {number} pageCount number of pages.

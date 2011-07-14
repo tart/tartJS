@@ -29,9 +29,14 @@ goog.require('tart.base.plugin.BasePlugin');
  */
 tart.base.plugin.Sorter = function (model) {
     goog.base(this, model);
-    this.setKey("sortBy_");
 };
 goog.inherits(tart.base.plugin.Sorter, tart.base.plugin.BasePlugin);
+
+/**
+ * Set plugin's param
+ */
+tart.component.plugin.Sorter.prototype.key = "sortBy_";
+
 
 /**
  * @param {string} field field to be sorted.
