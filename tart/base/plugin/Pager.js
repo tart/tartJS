@@ -19,6 +19,7 @@
 goog.provide('tart.base.plugin.Pager');
 
 goog.require('tart.base.plugin.BasePlugin');
+goog.require('tart.Pagination');
 
 
 /**
@@ -29,6 +30,19 @@ goog.require('tart.base.plugin.BasePlugin');
  */
 tart.base.plugin.Pager = function (model) {
     goog.base(this, model);
+    
+    var that = this;
+    that.pagination = new tart.Pagination();
+    that.pagination.setParentEventTarget(this);
+
+    /**
+     * Change offset on page change events
+     */
+    goog.events.listen(that.pagination, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+        var limit = that.map.get("limit");
+        var newOffset = (e.newValue - 1) * limit;
+        that.map.set("offset", newOffset);
+    }); 
 };
 goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
 
@@ -59,4 +73,43 @@ tart.base.plugin.Pager.prototype.setOffset = function (offset) {
  */
 tart.base.plugin.Pager.prototype.setLimit = function (limit) {
     this.map.set("limit", limit);
+    this.pagination.setItemPerPage(limit);
+};
+
+/**
+ *
+ * @return {number} current limit.
+ */
+tart.base.plugin.Pager.prototype.getLimit = function () {
+    return this.pagination.getItemPerPage();
+};
+
+
+/**
+ * @param {number} totalItemCount set total item count for paginator.
+ */
+tart.base.plugin.Pager.prototype.setTotalItems = function (totalItemCount) {
+    this.pagination.setTotalItems(totalItemCount);
+};
+
+/**
+ * Next wrapper for paginator.
+ */
+tart.base.plugin.Pager.prototype.next = function () {
+    this.pagination.next();
+};
+
+/**
+ * Prev wrapper for paginator.
+ */
+tart.base.plugin.Pager.prototype.prev = function () {
+    this.pagination.prev();
+};
+
+/**
+ * setCurrentPage wrapper for paginator.
+ * @param {number} currentPageNum current page number.
+ */
+tart.base.plugin.Pager.prototype.setCurrentPage = function (currentPageNum) {
+    this.pagination.setCurrentPage(currentPageNum);
 };
