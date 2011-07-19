@@ -31,9 +31,11 @@ jQuery.ajaxSetup({
 jQuery.ajaxTransport('mockup', function(options) {
     return {
         'send': function(headers, callback) {
-            callback(200, 'OK', {
-                'mockup': options
-            });
+            setTimeout(function () {
+                callback(200, 'OK', {
+                    'mockup': options
+                });
+            }, 1);
         }
     };
 });
