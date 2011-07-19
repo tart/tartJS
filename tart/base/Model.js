@@ -31,6 +31,9 @@ tart.base.Model = function() {
     /** @private **/
     this.items_ = null;
 
+    /** @private **/
+    this.totalItemCount_ = 0;
+
     this.params = new goog.structs.Map();
 };
 
@@ -59,4 +62,20 @@ tart.base.Model.prototype.getItems = function() {
  */
 tart.base.Model.prototype.setItems = function(items) {
     this.items_ = items;
+};
+
+/**
+ * Set total item count
+ * @param {number} itemCount total item count for this model.
+ */
+tart.base.Model.prototype.setTotalItemCount = function(itemCount) {
+    this.totalItemCount_ = itemCount;
+};
+
+/**
+ * Get total item count
+ * @return {number} total item count for this model.
+ */
+tart.base.Model.prototype.getTotalItemCount = function() {
+    return this.totalItemCount_;
 };
