@@ -18,6 +18,9 @@
 
 goog.provide('tart.base.plugin.BasePlugin');
 
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventHandler');
+goog.require('goog.events.EventTarget');
 goog.require('goog.structs.Map');
 
 
@@ -26,6 +29,8 @@ goog.require('goog.structs.Map');
  * @constructor
  */
 tart.base.plugin.BasePlugin = function (model) {
+    goog.events.EventTarget.call(this);
+
     /** @protected */
     this.model = model;
 
@@ -34,6 +39,7 @@ tart.base.plugin.BasePlugin = function (model) {
     
     this.model.params.set(this.key, this.map);
 };
+goog.inherits(tart.base.plugin.BasePlugin, goog.events.EventTarget);
 
 /**
  * models key
