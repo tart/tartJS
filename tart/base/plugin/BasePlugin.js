@@ -26,6 +26,7 @@ goog.require('goog.structs.Map');
 
 /**
  * @param {tart.base.Model} model
+ * @extends {goog.events.EventTarget}
  * @constructor
  */
 tart.base.plugin.BasePlugin = function (model) {
