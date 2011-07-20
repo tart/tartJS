@@ -32,13 +32,15 @@ tart.base.plugin.Pager = function (model) {
     goog.base(this, model);
     
     var that = this;
-    that.pagination = new tart.Pagination();
-    that.pagination.setParentEventTarget(this);
+
+    /** @private */
+    that.pagination_ = new tart.Pagination();
+    that.pagination_.setParentEventTarget(this);
 
     /**
      * Change offset on page change events
      */
-    goog.events.listen(that.pagination, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+    goog.events.listen(that.pagination_, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
         var limit = that.map.get("limit");
         var newOffset = (e.newValue - 1) * limit;
         that.map.set("offset", newOffset);
@@ -73,7 +75,7 @@ tart.base.plugin.Pager.prototype.setOffset = function (offset) {
  */
 tart.base.plugin.Pager.prototype.setLimit = function (limit) {
     this.map.set("limit", limit);
-    this.pagination.setItemPerPage(limit);
+    this.pagination_.setItemPerPage(limit);
 };
 
 /**
@@ -81,7 +83,7 @@ tart.base.plugin.Pager.prototype.setLimit = function (limit) {
  * @return {number} current limit.
  */
 tart.base.plugin.Pager.prototype.getLimit = function () {
-    return this.pagination.getItemPerPage();
+    return this.pagination_.getItemPerPage();
 };
 
 
@@ -89,21 +91,21 @@ tart.base.plugin.Pager.prototype.getLimit = function () {
  * @param {number} totalItemCount set total item count for paginator.
  */
 tart.base.plugin.Pager.prototype.setTotalItems = function (totalItemCount) {
-    this.pagination.setTotalItems(totalItemCount);
+    this.pagination_.setTotalItems(totalItemCount);
 };
 
 /**
  * Next wrapper for paginator.
  */
 tart.base.plugin.Pager.prototype.next = function () {
-    this.pagination.next();
+    this.pagination_.next();
 };
 
 /**
  * Prev wrapper for paginator.
  */
 tart.base.plugin.Pager.prototype.prev = function () {
-    this.pagination.prev();
+    this.pagination_.prev();
 };
 
 /**
@@ -111,5 +113,13 @@ tart.base.plugin.Pager.prototype.prev = function () {
  * @param {number} currentPageNum current page number.
  */
 tart.base.plugin.Pager.prototype.setCurrentPage = function (currentPageNum) {
-    this.pagination.setCurrentPage(currentPageNum);
+    this.pagination_.setCurrentPage(currentPageNum);
 };
+
+/**
+ * @return {number} number of pages.
+ */
+tart.base.plugin.Pager.prototype.getTotalPage = function () {
+    return this.pagination_.getTotalPage();
+};
+
