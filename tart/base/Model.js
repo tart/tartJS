@@ -27,6 +27,7 @@ goog.require('goog.events.EventTarget');
 /**
  * Base model
  *
+ * @extends {goog.events.EventTarget}
  * @constructor
  */
 tart.base.Model = function() {
