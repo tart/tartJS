@@ -29,7 +29,7 @@
  *      var ModelClass = function () {
  *          goog.base(this);
  *      };
- *      goog.inherits(ModelClass, tart.components.Model);
+ *      goog.inherits(ModelClass, tart.base.Model);
  *
  *
  *      var model = new ModelClass();
@@ -46,7 +46,7 @@
  *  - jQuery dependency should be removed
  */
 
-goog.require('tart.components.Model');
+goog.require('tart.base.Model');
 goog.require('tart.components.View');
 
 goog.provide('tart.components.Controller');
@@ -56,12 +56,12 @@ goog.provide('tart.components.Controller');
 /**
  * Base controller
  *
- * @param {tart.components.Model=} opt_model Data model.
+ * @param {tart.base.Model=} opt_model Data model.
  * @param {tart.components.View=} opt_view View object.
  * @constructor
  */
 tart.components.Controller = function(opt_model, opt_view) {
-    this.model = opt_model || new tart.components.Model();
+    this.model = opt_model || new tart.base.Model();
     this.view = opt_view || new tart.components.View();
 };
 

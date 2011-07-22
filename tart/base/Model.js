@@ -19,7 +19,9 @@
 goog.provide('tart.base.Model');
 
 goog.require('goog.structs.Map');
-
+goog.require('goog.debug.ErrorHandler');
+goog.require('goog.events.EventHandler');
+goog.require('goog.events.EventTarget');
 
 
 /**
@@ -28,6 +30,8 @@ goog.require('goog.structs.Map');
  * @constructor
  */
 tart.base.Model = function() {
+    goog.events.EventTarget.call(this);
+
     /** @private **/
     this.items_ = null;
 
@@ -36,6 +40,7 @@ tart.base.Model = function() {
 
     this.params = new goog.structs.Map();
 };
+goog.inherits(tart.base.Model, goog.events.EventTarget);
 
 
 /**
@@ -79,3 +84,19 @@ tart.base.Model.prototype.setTotalItemCount = function(itemCount) {
 tart.base.Model.prototype.getTotalItemCount = function() {
     return this.totalItemCount_;
 };
+
+/** @typedef {{type: string, oldValue, newValue}} */
+tart.base.Model.Event;
+
+
+/**
+ * Overriding goog.events.EventTarget's dispatchEvent method, to make this event consistent in application
+ *
+ * @param {Object|string} modelEvent event object which has type, oldValue and newValue fields.
+ * @return {boolean} .
+ * @override
+ */
+tart.base.Model.prototype.dispatchEvent = function(modelEvent) {
+    return goog.base(this, 'dispatchEvent', modelEvent);
+};
+

@@ -1,19 +1,19 @@
 goog.require('tart.components.Controller');
-goog.require('tart.components.Model');
+goog.require('tart.base.Model');
 goog.require('tart.components.View');
 
 goog.provide('tart.components.SpecRunner');
 
 describe('Component', function() {
 
-    var opt_model = new tart.components.Model();
+    var opt_model = new tart.base.Model();
     var opt_view = new tart.components.View();
 
     describe('ComponentController', function() {
         describe('has model and view objects in it', function() {
             it('should have model object', function() {
                 var controller = new tart.components.Controller(opt_model, opt_view);
-                expect(controller.model instanceof tart.components.Model).toBeTruthy();
+                expect(controller.model instanceof tart.base.Model).toBeTruthy();
             });
 
             it('should have view object', function() {
@@ -51,7 +51,7 @@ describe('Component', function() {
     describe('Component Model', function() {
         describe('is event driven', function() {
             it('should  be inherited from goog.events.EventTarget', function() {
-                var model = new tart.components.Model();
+                var model = new tart.base.Model();
                 expect(model instanceof goog.events.EventTarget).toBeTruthy();
             });
 
@@ -60,12 +60,12 @@ describe('Component', function() {
 
                 /**
                  * @constructor
-                 * @extends {tart.components.Model}
+                 * @extends {tart.base.Model}
                  * */
                 var SubModelClass = function() {
                     goog.base(this);
                 };
-                goog.inherits(SubModelClass, tart.components.Model);
+                goog.inherits(SubModelClass, tart.base.Model);
 
 
                 SubModelClass.EventTypes = {
