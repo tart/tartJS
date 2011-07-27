@@ -5,7 +5,12 @@
 namespace=$1
 outputFile=$2
 
-tools/goog/build/closurebuilder.py --root="third_party/goog/"  --root="tart/"  --root="ply/"   --namespace="${namespace}"  --compiler_flags="--externs=tart/externs/tart.externs.js" --compiler_flags="--externs=tart/externs/jasmine.externs.js" \
+tools/goog/build/closurebuilder.py \
+--root="third_party/goog/" \
+--root="tart/" \
+--namespace="${namespace}" \
+--compiler_flags="--externs=tart/externs/tart.externs.js" \
+--compiler_flags="--externs=tart/externs/jasmine.externs.js" \
 --compiler_flags="--externs=tart/externs/jquery-1.4.4.externs.js"  \
 --output_mode="compiled"  --compiler_jar=tools/goog/compiler/compiler.jar  \
 --output_file=${outputFile}  \
