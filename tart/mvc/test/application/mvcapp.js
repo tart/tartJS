@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-goog.require('tart.mvc');
 goog.require('mvcapp.controllers.GamesController');
 goog.require('mvcapp.controllers.IndexController');
 goog.require('mvcapp.views.layouts.common');
+goog.require('tart.mvc');
 goog.provide('mvcapp.Application');
 
 
@@ -24,13 +24,13 @@ goog.provide('mvcapp.Application');
  * @extends {tart.mvc.Application}
  */
 mvcapp.Application = function() {
-    goog.base(this);
     this.defaultRoute = new tart.mvc.uri.Route({
         name: 'default',
         format: '',
         controller: mvcapp.controllers.IndexController,
         action: mvcapp.controllers.IndexController.listAction
     });
+    goog.base(this);
 };
 goog.inherits(mvcapp.Application, tart.mvc.Application);
 
