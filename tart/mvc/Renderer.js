@@ -45,7 +45,7 @@ tart.mvc.Renderer.prototype.render = function(router) {
     viewMarkup = action.getViewScript().call(action.view);
 
     // instantiate the layout, set its content and then markup.
-    layout = new tart.mvc.Layout();
+    layout = new tart.mvc.Layout(action.view);
     layout.setContent(viewMarkup);
     this.currentLayout = action.getLayout();
     this.currentLayout.call(layout);

@@ -13,6 +13,7 @@
 // limitations under the License.
 goog.provide('mvcapp.controllers.IndexController');
 goog.require('mvcapp.views.scripts.index.list');
+goog.require('tart.mvc.Controller');
 
 
 

@@ -12,19 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * @fileoverview The instances of this class will hold the root HTML markups for the MVC application.
+ */
 goog.provide('tart.mvc.Layout');
 goog.require('tart.mvc.View');
 
 
 
 /**
+ * Layout class.
  * @constructor
- * @extends {tart.mvc.View}
+ * @param {tart.mvc.View} view View instance that will be rendered in this layout.
  */
-tart.mvc.Layout = function() {
-    goog.base(this);
+tart.mvc.Layout = function(view) {
+    this.view = view;
 };
-goog.inherits(tart.mvc.Layout, tart.mvc.View);
 
 
 /**
@@ -72,6 +75,10 @@ tart.mvc.Layout.prototype.body;
 tart.mvc.Layout.prototype.contentArea;
 
 
+/** @nosideeffects */
+tart.mvc.Layout.prototype.view;
+
+
 /**
  * Default markup of a layout.
  */
@@ -109,6 +116,6 @@ tart.mvc.Layout.prototype.getContentArea = function() {
             this.contentArea = this.getBody();
         }
     }
-    
+
     return this.contentArea;
 };
