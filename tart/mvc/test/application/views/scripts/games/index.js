@@ -21,5 +21,7 @@ goog.provide('mvcapp.views.scripts.games.index');
  */
 mvcapp.views.scripts.games.index = function() {
     var ps = [this.p1, this.p2, this.a, this.b];
+    this.layoutName = 'layoutname: games index';
+
     return 'games index content ' + ps.join(' ') + ' will be here';
 };
