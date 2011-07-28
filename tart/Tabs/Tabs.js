@@ -163,7 +163,7 @@ tart.Tabs.prototype.removeTab = function(index) {
  * @return {boolean} Whether the operation was successful.
  */
 tart.Tabs.prototype.setActiveTab = function(index) {
-    if (index > this.getTabsLength()) {
+    if (index >= this.getTabsLength()) {
         return false;
     }
 
