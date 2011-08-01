@@ -18,6 +18,9 @@ goog.provide('mvcapp.views.layouts.rare');
  * @this {tart.mvc.Layout}
  */
 mvcapp.views.layouts.rare = function() {
+    this.onRender = function() {
+        console && console.log('rare layout render callback');
+    };
     this.markup = '<div id="header">rare header</div>' +
                   this.view.layoutName +
                   '<div id="content">' +
