@@ -18,7 +18,6 @@ goog.require('tart.mvc.Layout');
 goog.require('tart.mvc.View');
 
 
-
 /**
  * @constructor
  * @param {tart.mvc.LayoutTemplate} layout The default layout of the application. This layout will be used when an
@@ -55,4 +54,9 @@ tart.mvc.Renderer.prototype.render = function(router) {
         layout.resetLayout = true;
 
     layout.render();
+
+    // call respective render callback functions; if there are any. These let the developers
+    // watch out for rendering events.
+    goog.typeOf(action.view.onRender) == 'function' && action.view.onRender();
+    goog.typeOf(layout.onRender) == 'function' && layout.onRender();
 };
