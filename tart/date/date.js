@@ -19,7 +19,16 @@
 goog.require('goog.date.DateTime');
 goog.require('goog.math');
 goog.provide('tart.date');
+goog.provide('tart.date.Date');
 
+/**
+ * @constructor
+ * @extends {goog.date.Date}
+ */
+tart.date.Date = function() {
+    goog.base(this);
+}
+goog.inherits(tart.date.Date, goog.date.Date);
 
 /**
  * Returns a random time.
@@ -58,3 +67,5 @@ tart.date.randomTimeInInterval = function(interval) {
 
     return tart.date.randomTimeInBetween(now, then);
 };
+
+
