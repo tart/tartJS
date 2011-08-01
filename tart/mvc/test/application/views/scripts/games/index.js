@@ -20,8 +20,13 @@ goog.provide('mvcapp.views.scripts.games.index');
  * @return {string} Output.
  */
 mvcapp.views.scripts.games.index = function() {
-    var ps = [this.p1, this.p2, this.a, this.b];
     this.layoutName = 'layoutname: games index';
+
+    var ps = [this.p1, this.p2, this.a, this.b];
+
+    this.onRender = function(){
+        console && console.log('games index view script render callback');
+    }
 
     return 'games index content ' + ps.join(' ') + ' will be here';
 };
