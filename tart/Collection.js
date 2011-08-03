@@ -139,7 +139,7 @@ tart.Collection.prototype.getActiveItemIndex = function() {
  * @return {tart.JSON} returns the key-value pair given a specific key.
  */
 tart.Collection.prototype.getByKey = function(key) {
-    return this.items_[this.keys_.indexOf(key)];
+    return this.items_[goog.array.indexOf(this.keys_, key)];
 };
 
 
@@ -150,7 +150,7 @@ tart.Collection.prototype.getByKey = function(key) {
  * @return {tart.JSON} returns the key-value pair given a specific value.
  */
 tart.Collection.prototype.getByValue = function(val) {
-    return this.items_[this.values_.indexOf(val)];
+    return this.items_[goog.array.indexOf(this.values_, val)];
 };
 
 
@@ -225,7 +225,7 @@ tart.Collection.prototype.removeByIndex = function(index) {
         this.items_.splice(index, 1);
         this.keys_.splice(index, 1);
         this.values_.splice(index, 1);
-        var oldActiveIndex = this.keys_.indexOf(oldActiveKey);
+        var oldActiveIndex = goog.array.indexOf(this.keys_, oldActiveKey);
         if (oldActiveIndex > -1) {
             this.setActiveItemIndex(oldActiveIndex);
         } else {
