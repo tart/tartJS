@@ -119,3 +119,10 @@ tart.mvc.Layout.prototype.getContentArea = function() {
 
     return this.contentArea;
 };
+
+
+/**
+ * @nosideeffects 
+ */
+tart.mvc.Layout.prototype.onRender;
+
