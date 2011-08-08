@@ -54,6 +54,7 @@ tart.mvc.Layout.prototype.render = function() {
     if (this.resetLayout == true) {
         this.getBody().html(this.markup);
         this.resetLayout = false;
+        goog.typeOf(this.onRender) == 'function' && this.onRender();
     }
     else {
         this.getContentArea().html(this.getContent());
