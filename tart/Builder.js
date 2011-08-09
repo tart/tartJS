@@ -36,9 +36,9 @@ tart.Builder = function(id) {
 
 /**
  * @type {jQueryObject}
- * @protected
+ * @private
  */
-tart.Builder.prototype.$dom = null;
+tart.Builder.prototype.$dom_ = null;
 
 
 /**
@@ -60,7 +60,7 @@ tart.Builder.prototype.buildDOM = goog.abstractMethod;
  * @return {?jQueryObject} the DOM object built by the builder.
  */
 tart.Builder.prototype.getDOM = function() {
-    return this.$dom;
+    return this.$dom_;
 };
 
 
