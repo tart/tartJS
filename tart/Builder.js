@@ -36,7 +36,7 @@ tart.Builder = function(id) {
 
 /**
  * @type {jQueryObject}
- * @protected
+ * @private
  */
 tart.Builder.prototype.$dom_ = null;
 
