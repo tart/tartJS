@@ -33,8 +33,8 @@ goog.require('tart.CurrencyUSD');
 /**
  * Tart Money Class for defining money type.
  * @constructor
- * @param {string} amount Retrieves Amount for convert to currency.
- * @param {tart.Currency} currency Currency type.
+ * @param {number} amount Retrieves Amount for convert to currency.
+ * @param {tart.Currency=} currency Currency type.
  */
 tart.Money = function(amount, currency) {
     /** @private */
