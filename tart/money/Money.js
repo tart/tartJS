@@ -65,7 +65,11 @@ tart.Money.prototype.getCapital = function() {
  * @return {string} Returns fraction of money.
  */
 tart.Money.prototype.getFraction = function() {
-    var result = parseInt(((this.amount_).toFixed(2) - this.getCapital()) * 100, 10).toString();
+    //JavaScript math calculation fix for floating point arithmetic
+    //http://stackoverflow.com/questions/588004/is-javascripts-math-broken/588053#588053
+    var mathFix = ((this.amount_).toFixed(2) - this.getCapital()).toFixed(2);
+
+    var result = parseInt(mathFix * 100, 10).toString();
 
     if (result == '0') {
         result = result + '0'; // converts to "00" end of fraction which is finishes with "0".
