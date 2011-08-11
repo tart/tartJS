@@ -31,9 +31,10 @@ goog.require('tart.mvc.uri.Request');
  * @param {string} basePath The URI to parse.
  * @param {tart.mvc.uri.Route} defaultRoute Default URI route that is used as fallback when no appropriate
  * controller/action is found.
+ * @param {tart.mvc.Renderer} renderer Renderer instance to actually execute the routing and draw the layout and view.
  * @constructor
  */
-tart.mvc.uri.Router = function(basePath, defaultRoute) {
+tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
     this.setBasePath(basePath);
 
     /**
@@ -42,6 +43,8 @@ tart.mvc.uri.Router = function(basePath, defaultRoute) {
      */
     this.routes_ = [];
     this.routes_.def = defaultRoute;
+
+    this.renderer_ = renderer;
 };
 
 
