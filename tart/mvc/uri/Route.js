@@ -35,6 +35,7 @@ tart.mvc.uri.Route = function(template) {
  * @param {string} format Route's format.
  */
 tart.mvc.uri.Route.prototype.setFormat = function(format) {
+    this.templateFormat = format;
     var fields, wildchars;
     wildchars = format.match(/\*/g);
     if (wildchars && wildchars.length > 1)
@@ -57,7 +58,6 @@ tart.mvc.uri.Route.prototype.setFormat = function(format) {
     }
     format = format.replace(/\//g, '\\/');
     this.format = new RegExp(format);
-
 
 };
 

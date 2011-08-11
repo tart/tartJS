@@ -15,7 +15,9 @@
 goog.provide('tart.mvc.Renderer');
 goog.require('tart.mvc.Action');
 goog.require('tart.mvc.Layout');
+goog.require('tart.mvc.Redirection');
 goog.require('tart.mvc.View');
+
 
 
 /**
@@ -39,10 +41,16 @@ tart.mvc.Renderer.prototype.render = function(router) {
         action = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
 
     // execute the action
-    router.getAction().call(action);
+    var actionResult = router.getAction().call(action);
+
+    if (actionResult instanceof tart.mvc.Redirection) {
+        return;
+    }
     // generate the view markup
     viewMarkup = action.getViewScript().call(action.view);
-
+    if (viewMarkup instanceof tart.mvc.Redirection) {
+        return;
+    }
     // instantiate the layout, set its content and then markup.
     layout = new tart.mvc.Layout(action.view);
     layout.setContent(viewMarkup);

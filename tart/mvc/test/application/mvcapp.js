@@ -24,6 +24,7 @@ goog.provide('mvcapp.Application');
  * @extends {tart.mvc.Application}
  */
 mvcapp.Application = function() {
+    mvcapp.app = this;
     this.defaultRoute = new tart.mvc.uri.Route({
         name: 'default',
         format: '',
@@ -38,7 +39,7 @@ goog.inherits(mvcapp.Application, tart.mvc.Application);
 /**
  * @inheritDoc
  */
-mvcapp.Application.prototype.basePath = '/tart/mvc/test/';
+mvcapp.Application.prototype.basePath = '/tart/mvc/test/#!/';
 
 
 /**
@@ -52,6 +53,7 @@ mvcapp.Application.prototype.defaultLayout = mvcapp.views.layouts.common;
  */
 mvcapp.Application.prototype.initRouting = function() {
     var router = this.getRouter();
+    mvcapp.router = router;
     router.addRoute(new tart.mvc.uri.Route({
         name: 'homeshow',
         format: 'home/show/',

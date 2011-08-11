@@ -12,22 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-goog.provide('mvcapp.views.scripts.games.index');
+/**
+ * @fileoverview This is a special return value that is used to identify a redirection. If a redirection is in place
+ * the tart.mvc.Router returns an instance of this class, so that the redirector won't resume after the redirection
+ * takes place.
+ */
+
+goog.provide('tart.mvc.Redirection');
+
 
 
 /**
- * @this {tart.mvc.View}
- * @return {string} Output.
+ * Special return value for a redirection in tart.mvc.Router.
+ * @constructor
  */
-mvcapp.views.scripts.games.index = function() {
-    this.layoutName = 'layoutname: games index';
-    var ps = [this.p1, this.p2, this.a, this.b];
-    if (this.p1 == 'b')
-        return mvcapp.router.redirectToRoute('home anything', {'p1': 'pe3', 'p2': 'pe2', 'c': 'd'});
-
-    this.onRender = function() {
-        console && console.log('games index view script render callback');
-    }
-
-    return 'games index content ' + ps.join(' ') + ' will be here';
+tart.mvc.Redirection = function() {
 };
