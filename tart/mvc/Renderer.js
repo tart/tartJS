@@ -55,11 +55,12 @@ tart.mvc.Renderer.prototype.render = function(router) {
     layout = new tart.mvc.Layout(action.view);
     layout.setContent(viewMarkup);
     this.currentLayout = action.getLayout();
-    this.currentLayout.call(layout);
 
     // have to reset the layout if the action's layout is different than the previous one
-    if (this.currentLayout != oldLayout)
+    if (this.currentLayout != oldLayout) {
         layout.resetLayout = true;
+        this.currentLayout.call(layout);
+    }
 
     layout.render();
 

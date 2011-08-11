@@ -54,7 +54,7 @@ tart.DropdownBuilder.templates.container = function(id, optionListHTML) {
 
 
 /**
- * Generates a select menu element, converts it to a jQuery object and passes to this.$dom_.
+ * Generates a select menu element, converts it to a jQuery object and passes to this.$dom.
  *
  * @param {tart.Collection} owner Owner tart.Collection instance.
  */
@@ -67,8 +67,8 @@ tart.DropdownBuilder.prototype.buildDOM = function(owner) {
         opts.push(option);
     }
     var finalDOM = tart.DropdownBuilder.templates.container(this.id_, opts.join(''));
-    this.$dom_ = $(finalDOM);
-    this.$dom_.change(function() {
+    this.$dom = $(finalDOM);
+    this.$dom.change(function() {
         owner.switchIndex($(this).attr('selectedIndex'));
     });
 };
@@ -94,7 +94,7 @@ tart.DropdownBuilder.templates.option = function(key, value, selected) {
  * @param {number} newIndex the new index of the element to set the dropdown list to.
  */
 tart.DropdownBuilder.prototype.changeActiveItem = function(newIndex) {
-    this.$dom_.attr('selectedIndex', newIndex).change();
+    this.$dom.attr('selectedIndex', newIndex).change();
 };
 
 
@@ -104,7 +104,7 @@ tart.DropdownBuilder.prototype.changeActiveItem = function(newIndex) {
  * @param {number} index the index of the element to remove from the list.
  */
 tart.DropdownBuilder.prototype.removeOption = function(index) {
-    this.$dom_.children().eq(index).remove();
+    this.$dom.children().eq(index).remove();
 };
 
 
@@ -116,7 +116,7 @@ tart.DropdownBuilder.prototype.removeOption = function(index) {
  * @return {jQueryObject} the jQuery object that holds the DOM object of the dropdown list.
  */
 tart.DropdownBuilder.prototype.addOption = function(key, value) {
-    return this.$dom_.append(tart.DropdownBuilder.templates.option(key, value, false));
+    return this.$dom.append(tart.DropdownBuilder.templates.option(key, value, false));
 };
 
 
@@ -124,5 +124,5 @@ tart.DropdownBuilder.prototype.addOption = function(key, value) {
  * @inheritDoc
  */
 tart.DropdownBuilder.prototype.removeDOM = function() {
-    this.$dom_.remove();
+    this.$dom.remove();
 };

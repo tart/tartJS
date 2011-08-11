@@ -237,6 +237,17 @@ tart.Collection.prototype.removeByIndex = function(index) {
 
 
 /**
+ * Removes items by key.
+ * @param {string} key Game items key.
+ */
+tart.Collection.prototype.removeByKey = function(key) {
+    var keys = this.getKeys();
+    var index = keys.indexOf(key);
+    this.removeByIndex(index);
+};
+
+
+/**
  * Sets active item index.
  * @param {number} newIndex index to set as the new active item.
  * @return {boolean} Whether the method was able to set the item.
