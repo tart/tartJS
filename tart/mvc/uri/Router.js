@@ -55,9 +55,16 @@ tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
  */
 tart.mvc.uri.Router.prototype.route = function(uri) {
     var route;
-    this.request = new tart.mvc.uri.Request(uri || window.location, this);
 
-    route = this.resolve_(this.request);
+    try {
+        this.request = new tart.mvc.uri.Request(uri || window.location, this);
+        route = this.resolve_(this.request);
+    }
+    catch (e) {
+        this.redirectToRoute(this.getDefaultRoute());
+        return;
+    }
+
     this.setCurrentRoute_(route);
     this.process_(this.request.params);
     this.renderer_.render(this);
