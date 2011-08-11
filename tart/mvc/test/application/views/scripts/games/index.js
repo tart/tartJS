@@ -21,10 +21,11 @@ goog.provide('mvcapp.views.scripts.games.index');
  */
 mvcapp.views.scripts.games.index = function() {
     this.layoutName = 'layoutname: games index';
-
     var ps = [this.p1, this.p2, this.a, this.b];
+    if (this.p1 == 'b')
+        return mvcapp.router.redirectToRoute('home anything', {'p1': 'pe3', 'p2': 'pe2', 'c': 'd'});
 
-    this.onRender = function(){
+    this.onRender = function() {
         console && console.log('games index view script render callback');
     }
 
