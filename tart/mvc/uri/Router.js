@@ -74,7 +74,7 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
 /**
  * Redirects to a given route with given parameters.
  *
- * @param {tart.mvc.Route|string} route The name of the route the redirection will be made to.
+ * @param {tart.mvc.uri.Route|string} route The name of the route the redirection will be made to.
  * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
@@ -86,7 +86,7 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
         validParams,
         customParamArray = [],
         routeContainsCustomParams,
-        requestParams = params,
+        requestParams = params || {},
         paramsLength = goog.object.getCount(requestParams),
         routeParams,
         paramString = '';
@@ -193,7 +193,8 @@ tart.mvc.uri.Router.prototype.getBasePath = function() {
  * If the request matches any route, this function resolves it. Or else, it will throw a tart.Err.
  * @private
  * @param {tart.mvc.uri.Request} request Request to look for a route match.
- * @return {tart.mvc.uri.Route} Resolved route that holds the details of handling the request.
+ * @return {tart.mvc.uri.Route|null} Resolved route that holds the details of handling the request. Note that this
+ * function never returns null; this is a Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.resolve_ = function(request) {
     var response, route, responseValue, responseArray, that = this;
@@ -228,7 +229,10 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
     });
     if (!route)
         throw new tart.Err('The request cannot be resolved to a route.', 'Routing Error');
-    return route;
+
+    if (route instanceof tart.mvc.uri.Route) // workaround for casting goog.array.find return type to route.
+        return route;
+    return null;
 };
 
 
@@ -365,7 +369,8 @@ tart.mvc.uri.Router.prototype.getRoutes = function() {
 /**
  * Returns a route with a given name. If no matching route is found, this method throws a tart.Err.
  * @param {string} name Route name to look up.
- * @return {tart.mvc.Route} Route with the given name.
+ * @return {tart.mvc.uri.Route|null} Route with the given name. Note that this function never returns null; this is a
+ * Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.getRoute = function(name) {
     var route = goog.array.find(this.getRoutes(), function(route) {
@@ -374,13 +379,15 @@ tart.mvc.uri.Router.prototype.getRoute = function(name) {
     if (!route)
         throw new tart.Err('Route name "' + name + '" cannot be found', 'Routing Error');
 
-    return route;
+    if (route instanceof tart.mvc.uri.Route) // workaround for casting goog.array.find return type to route.
+        return route;
+    return null;
 };
 
 
 /**
  * Returns the default route associated with this router.
- * @return {tart.mvc.Route} Default route.
+ * @return {tart.mvc.uri.Route} Default route.
  */
 tart.mvc.uri.Router.prototype.getDefaultRoute = function() {
     return this.defaultRoute;

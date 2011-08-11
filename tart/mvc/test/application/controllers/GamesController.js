@@ -45,6 +45,7 @@ mvcapp.controllers.GamesController.indexAction = function() {
 
     if (this.view.p1 == 'a')
         return mvcapp.router.redirectToRoute('home anything', {'p1': 'pe1', 'p2': 'pe2', 'c': 'd'});
+    return null;
 };
 
 

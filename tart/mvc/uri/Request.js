@@ -27,7 +27,6 @@ goog.require('goog.Uri');
 tart.mvc.uri.Request = function(uriString, router) {
     var basePath = router.getBasePath(),
         uri = new goog.Uri(uriString),
-        uriString = uri.toString(),
         requestPath;
 
     if (uri.hasFragment() && !goog.string.endsWith(basePath, '#!/'))
