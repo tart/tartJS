@@ -141,6 +141,27 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
 
 
 /**
+ * Redirects to a given controller and action with given parameters. This method is a convenience method for
+ * redirectToRoute in that one may use without hard-coding the name of the route. Keep in mind that there still
+ * needs to be an actual route that will resolve to the given controller and action.
+ *
+ * @param {tart.mvc.ControllerTemplate} controller The controller child class that the redirection will resolve to.
+ * @param {tart.mvc.ActionTemplate} action The action that the redirection will reeolve to.
+ * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
+ * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * execution after this action.
+ */
+tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params) {
+    var route = goog.array.find(this.getRoutes(), function(route) {
+        return route.controller = controller && route.action == action;
+    });
+
+    return this.redirectToRoute(route.name, params);
+};
+
+
+/**
  * Set base path
  *
  * @param {string} path uri base path.
