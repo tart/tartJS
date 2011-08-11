@@ -42,8 +42,8 @@ tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
      * @private
      */
     this.routes_ = [];
-    this.routes_.def = defaultRoute;
-
+    this.defaultRoute = defaultRoute;
+    this.addRoute(this.defaultRoute);
     this.renderer_ = renderer;
 };
 
@@ -122,7 +122,7 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
         }
         return false;
     });
-    return route || that.routes_.def;
+    return route || that.getDefaultRoute();
 };
 
 
@@ -186,7 +186,7 @@ tart.mvc.uri.Router.prototype.setAction_ = function(action) {
 tart.mvc.uri.Router.prototype.setParams_ = function(paramsArray) {
     var params = {};
 
-    if (this.getCurrentRoute() == this.routes_.def) {
+    if (this.getCurrentRoute() == this.getDefaultRoute()) {
         this.params_ = {};
         return;
     }
@@ -253,4 +253,13 @@ tart.mvc.uri.Router.prototype.addRoute = function(route) {
  */
 tart.mvc.uri.Router.prototype.getRoutes = function() {
     return this.routes_;
+};
+
+
+/**
+ * Returns the default route associated with this router.
+ * @return {tart.mvc.Route} Default route.
+ */
+tart.mvc.uri.Router.prototype.getDefaultRoute = function() {
+    return this.defaultRoute;
 };
