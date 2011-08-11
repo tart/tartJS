@@ -65,6 +65,82 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
 
 
 /**
+ * Redirects to a given route with given parameters.
+ *
+ * @param {tart.mvc.Route|string} route The name of the route the redirection will be made to.
+ * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
+ * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
+ * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * execution after this action.
+ */
+tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
+    var url,
+        validParams,
+        customParamArray = [],
+        routeContainsCustomParams,
+        requestParams = params,
+        paramsLength = goog.object.getCount(requestParams),
+        routeParams,
+        paramString = '';
+
+    if (route instanceof tart.mvc.uri.Route)
+        route = route.name;
+    try {
+        route = this.getRoute(route);
+    }
+    catch (e) {
+        throw e;
+    }
+
+    // we'll construct the url in this variable and we start with the given template of a route.
+    url = route.templateFormat;
+    routeContainsCustomParams = url.indexOf('*') > -1;
+
+    // find required parameters with ":paramName" notation.
+    routeParams = url.match(/:\w+/g);
+
+    if (routeParams) {
+        // validParams is true whenever each and every one of those required parameters are present in params array.
+        validParams = goog.array.every(routeParams, function(routeParam) {
+            return routeParam.substr(1) in requestParams;
+        });
+
+        // check number of parameters match.
+        if (!routeContainsCustomParams && paramsLength != routeParams.length ||
+                routeContainsCustomParams && paramsLength <= routeParams.length)
+            validParams = false;
+
+        // if parameters do not match the route's requirements; throw an error.
+        if (!validParams)
+            throw new tart.Err('Given parameters do not match the required parameters of the route', 'Routing Error');
+
+        // replace route parameters with their equivalents in params object.
+        goog.array.forEach(routeParams, function(routeParam) {
+            routeParam = routeParam.substr(1);
+            url = url.replace(':' + routeParam, requestParams[routeParam]);
+            delete requestParams[routeParam];
+        });
+
+        // convert all remaining custom parameters to an array for easier addition to url.
+        if (routeContainsCustomParams)
+            for (var key in requestParams)
+                customParamArray.push(key, requestParams[key]);
+    }
+
+    // construct the final url by replacing custom parameter placeholder with custom parameters
+    url = this.getBasePath() + url.replace('*', customParamArray.join('/'));
+
+    // set the url. Since the application listens url changes; it will trigger the correct redirection
+    window.location = url;
+
+    // since this is a redirection; return a proof that it really is; so that a renderer knows a redirection took place
+    // and doesn't go on executing the previous action / view scripts' remaining tasks.
+    return new tart.mvc.Redirection();
+};
+
+
+/**
  * Set base path
  *
  * @param {string} path uri base path.
