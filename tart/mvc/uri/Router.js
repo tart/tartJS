@@ -60,6 +60,7 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
     route = this.resolve_(this.request);
     this.setCurrentRoute_(route);
     this.process_(this.request.params);
+    this.renderer_.render(this);
 };
 
 

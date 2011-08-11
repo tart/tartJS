@@ -48,9 +48,7 @@ tart.mvc.Application = function() {
     this.initRouting();
 
     historyCallback = function(e) {
-        var router = that.getRouter();
-        router.route();
-        that.getRenderer().render(router);
+        that.getRouter().route();
     }
     /**
      * every time the URI changes, this.router_ routes the request to the appropriate controller/action.
@@ -78,7 +76,7 @@ tart.mvc.Application.prototype.getRenderer = function() {
  */
 tart.mvc.Application.prototype.getRouter = function() {
     if (!this.router_)
-        this.router_ = new tart.mvc.uri.Router(this.basePath, this.defaultRoute);
+        this.router_ = new tart.mvc.uri.Router(this.basePath, this.defaultRoute, this.getRenderer());
     return this.router_;
 };
 
