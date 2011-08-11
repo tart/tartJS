@@ -86,7 +86,7 @@ tart.mvc.uri.Router.prototype.getBasePath = function() {
 
 /**
  * Resolves routes.
- * If the request matches any route, this function resolves it. Or else, it will resolve to the default route.
+ * If the request matches any route, this function resolves it. Or else, it will throw a tart.Err.
  * @private
  * @param {tart.mvc.uri.Request} request Request to look for a route match.
  * @return {tart.mvc.uri.Route} Resolved route that holds the details of handling the request.
@@ -122,7 +122,9 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
         }
         return false;
     });
-    return route || that.getDefaultRoute();
+    if (!route)
+        throw new tart.Err('The request cannot be resolved to a route.', 'Routing Error');
+    return route;
 };
 
 
