@@ -26,23 +26,25 @@ goog.require('goog.Uri');
  */
 tart.mvc.uri.Request = function(uriString, router) {
     var basePath = router.getBasePath(),
-        uri = new goog.Uri(uriString);
+        uri = new goog.Uri(uriString),
+        uriString = uri.toString(),
+        requestPath;
 
-    this.path = uri.getPath();
-    this.fragment = uri.getFragment();
+    if (uri.hasFragment() && !goog.string.endsWith(basePath, '#!/'))
+        basePath = basePath + '#!/';
 
-    if (this.fragment.length > 1) {
-        this.path = this.fragment.substr(2);
-    }
-    else if (this.path.indexOf(basePath) == 0) {
-        this.path = this.path.substr(basePath.length);
-    }
+    requestPath = uri.getPath() + (uri.hasFragment() ? '#' + uri.getFragment() : '');
 
-    if (goog.string.endsWith(this.path, '/') == false)
+    if (goog.string.startsWith(requestPath, basePath))
+        this.path = requestPath.substr(basePath.length);
+    else
+        throw new tart.Err('Request cannot be handled by application.', 'Request Error');
+
+    if (!goog.string.endsWith(this.path, '/'))
         this.path += '/';
 
     this.fragments = this.path.split('/');
-    this.fragments = goog.array.filter(this.fragments, function(el, i, arr) {
+    this.fragments = goog.array.filter(this.fragments, function(el) {
         return (el != '');
     });
 };
