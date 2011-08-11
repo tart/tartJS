@@ -59,7 +59,7 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
 
     route = this.resolve_(this.request);
     this.setCurrentRoute_(route);
-    this.process_(this.request);
+    this.process_(this.request.params);
 };
 
 
@@ -128,13 +128,13 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
 /**
  * This function sets the current route and the related controllers, actions and parameters.
  * @private
- * @param {tart.mvc.uri.Request} request Request to be processed.
+ * @param {Array} params Request to be processed.
  */
-tart.mvc.uri.Router.prototype.process_ = function(request) {
+tart.mvc.uri.Router.prototype.process_ = function(params) {
     var route = this.getCurrentRoute();
     this.setController_(route.controller);
     this.setAction_(route.action);
-    this.setParams_(request.params);
+    this.setParams_(params);
 };
 
 
@@ -183,15 +183,17 @@ tart.mvc.uri.Router.prototype.setAction_ = function(action) {
  * @param {Array.<string>} paramsArray Array of parameters.
  */
 tart.mvc.uri.Router.prototype.setParams_ = function(paramsArray) {
-    var params;
+    var params = {};
 
     if (this.getCurrentRoute() == this.routes_.def) {
         this.params_ = {};
         return;
     }
 
-    this.fixOddParams_(paramsArray);
-    params = goog.object.create(paramsArray);
+    if (paramsArray && paramsArray.length > 0) {
+        this.fixOddParams_(paramsArray);
+        params = goog.object.create(paramsArray);
+    }
 
     this.params_ = params;
 };
