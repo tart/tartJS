@@ -14,6 +14,7 @@ goog.addDependency('../../../tart/FormValidator/spec/FormValidatorSpec.js', ['ta
 goog.addDependency('../../../tart/List.js', ['tart.List'], ['tart.Collection']);
 goog.addDependency('../../../tart/Pagination/Pagination.js', ['tart.Pagination'], ['goog.debug.ErrorHandler', 'goog.events.EventHandler', 'goog.events.EventTarget']);
 goog.addDependency('../../../tart/Pagination/spec/PaginationSpec.js', ['tart.Pagination.SpecRunner'], ['tart.Pagination']);
+goog.addDependency('../../../tart/Registry.js', ['tart.Registry'], ['goog.structs.Map']);
 goog.addDependency('../../../tart/StateMachine/State.js', ['tart.State'], []);
 goog.addDependency('../../../tart/StateMachine/StateMachine.js', ['tart.StateMachine'], ['goog.array', 'goog.pubsub.PubSub', 'tart.State']);
 goog.addDependency('../../../tart/Tabs/TabPanel.js', ['tart.TabPanel'], []);
@@ -28,11 +29,12 @@ goog.addDependency('../../../tart/base/plugin/Pager.js', ['tart.base.plugin.Page
 goog.addDependency('../../../tart/base/plugin/Sorter.js', ['tart.base.plugin.Sorter'], ['tart.base.plugin.BasePlugin']);
 goog.addDependency('../../../tart/components/Controller.js', ['tart.components.Controller'], ['tart.base.Model', 'tart.components.View']);
 goog.addDependency('../../../tart/components/View.js', ['tart.components.View'], []);
+goog.addDependency('../../../tart/components/Widget.js', ['tart.components.Widget'], ['tart']);
 goog.addDependency('../../../tart/components/spec/ComponentsSpec.js', ['tart.components.SpecRunner'], ['tart.base.Model', 'tart.components.Controller', 'tart.components.View']);
 goog.addDependency('../../../tart/dataProxy/Abstract.js', ['tart.dataProxy.Abstract'], ['goog.structs.Map']);
 goog.addDependency('../../../tart/dataProxy/Local.js', ['tart.dataProxy.Local'], ['goog.array', 'tart.dataProxy.Abstract']);
 goog.addDependency('../../../tart/dataProxy/Xhr.js', ['tart.dataProxy.Xhr'], ['tart.XhrManager', 'tart.dataProxy.Abstract']);
-goog.addDependency('../../../tart/date/date.js', ['tart.date'], ['goog.date.DateTime', 'goog.math']);
+goog.addDependency('../../../tart/date/date.js', ['tart.date', 'tart.date.Date'], ['goog.date.DateTime', 'goog.math']);
 goog.addDependency('../../../tart/deps.js', [], []);
 goog.addDependency('../../../tart/externs/jasmine.externs.js', [], []);
 goog.addDependency('../../../tart/externs/jquery-1.4.4.externs.js', [], []);
@@ -44,7 +46,7 @@ goog.addDependency('../../../tart/mvc/Controller.js', ['tart.mvc.Controller'], [
 goog.addDependency('../../../tart/mvc/IApplication.js', ['tart.mvc.IApplication'], []);
 goog.addDependency('../../../tart/mvc/Layout.js', ['tart.mvc.Layout'], ['tart.mvc.View']);
 goog.addDependency('../../../tart/mvc/Model.js', ['tart.mvc.Model'], []);
-goog.addDependency('../../../tart/mvc/Renderer.js', ['tart.mvc.Renderer'], ['tart.mvc.Action', 'tart.mvc.Layout', 'tart.mvc.View']);
+goog.addDependency('../../../tart/mvc/Renderer.js', ['tart.mvc.Renderer'], ['tart.mvc.Action', 'tart.mvc.Layout', 'tart.mvc.Redirection', 'tart.mvc.View']);
 goog.addDependency('../../../tart/mvc/View.js', ['tart.mvc.View'], []);
 goog.addDependency('../../../tart/mvc/mvc.js', ['tart.mvc'], ['tart.mvc.Application']);
 goog.addDependency('../../../tart/mvc/spec/mvcSpec.js', [], []);
@@ -57,6 +59,7 @@ goog.addDependency('../../../tart/mvc/test/application/views/layouts/rare.js', [
 goog.addDependency('../../../tart/mvc/test/application/views/scripts/games/index.js', ['mvcapp.views.scripts.games.index'], []);
 goog.addDependency('../../../tart/mvc/test/application/views/scripts/games/list.js', ['mvcapp.views.scripts.games.list'], []);
 goog.addDependency('../../../tart/mvc/test/application/views/scripts/index/list.js', ['mvcapp.views.scripts.index.list'], []);
+goog.addDependency('../../../tart/mvc/uri/Redirection.js', ['tart.mvc.Redirection'], []);
 goog.addDependency('../../../tart/mvc/uri/Request.js', ['tart.mvc.uri.Request'], ['goog.Uri']);
 goog.addDependency('../../../tart/mvc/uri/Route.js', ['tart.mvc.uri.Route'], ['tart.Err']);
 goog.addDependency('../../../tart/mvc/uri/Router.js', ['tart.mvc.uri.Router'], ['goog.array', 'goog.object', 'tart.mvc.uri.Request']);

@@ -31,9 +31,10 @@ goog.require('tart.mvc.uri.Request');
  * @param {string} basePath The URI to parse.
  * @param {tart.mvc.uri.Route} defaultRoute Default URI route that is used as fallback when no appropriate
  * controller/action is found.
+ * @param {tart.mvc.Renderer} renderer Renderer instance to actually execute the routing and draw the layout and view.
  * @constructor
  */
-tart.mvc.uri.Router = function(basePath, defaultRoute) {
+tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
     this.setBasePath(basePath);
 
     /**
@@ -41,7 +42,9 @@ tart.mvc.uri.Router = function(basePath, defaultRoute) {
      * @private
      */
     this.routes_ = [];
-    this.routes_.def = defaultRoute;
+    this.defaultRoute = defaultRoute;
+    this.addRoute(this.defaultRoute);
+    this.renderer_ = renderer;
 };
 
 
@@ -52,11 +55,116 @@ tart.mvc.uri.Router = function(basePath, defaultRoute) {
  */
 tart.mvc.uri.Router.prototype.route = function(uri) {
     var route;
-    this.request = new tart.mvc.uri.Request(uri || window.location, this);
 
-    route = this.resolve_(this.request);
+    try {
+        this.request = new tart.mvc.uri.Request(uri || window.location, this);
+        route = this.resolve_(this.request);
+    }
+    catch (e) {
+        this.redirectToRoute(this.getDefaultRoute());
+        return;
+    }
+
     this.setCurrentRoute_(route);
-    this.process_(this.request);
+    this.process_(this.request.params);
+    this.renderer_.render(this);
+};
+
+
+/**
+ * Redirects to a given route with given parameters.
+ *
+ * @param {tart.mvc.uri.Route|string} route The name of the route the redirection will be made to.
+ * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
+ * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
+ * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * execution after this action.
+ */
+tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
+    var url,
+        validParams,
+        customParamArray = [],
+        routeContainsCustomParams,
+        requestParams = params || {},
+        paramsLength = goog.object.getCount(requestParams),
+        routeParams,
+        paramString = '';
+
+    if (route instanceof tart.mvc.uri.Route)
+        route = route.name;
+    try {
+        route = this.getRoute(route);
+    }
+    catch (e) {
+        throw e;
+    }
+
+    // we'll construct the url in this variable and we start with the given template of a route.
+    url = route.templateFormat;
+    routeContainsCustomParams = url.indexOf('*') > -1;
+
+    // find required parameters with ":paramName" notation.
+    routeParams = url.match(/:\w+/g);
+
+    if (routeParams) {
+        // validParams is true whenever each and every one of those required parameters are present in params array.
+        validParams = goog.array.every(routeParams, function(routeParam) {
+            return routeParam.substr(1) in requestParams;
+        });
+
+        // check number of parameters match.
+        if (!routeContainsCustomParams && paramsLength != routeParams.length ||
+                routeContainsCustomParams && paramsLength <= routeParams.length)
+            validParams = false;
+
+        // if parameters do not match the route's requirements; throw an error.
+        if (!validParams)
+            throw new tart.Err('Given parameters do not match the required parameters of the route', 'Routing Error');
+
+        // replace route parameters with their equivalents in params object.
+        goog.array.forEach(routeParams, function(routeParam) {
+            routeParam = routeParam.substr(1);
+            url = url.replace(':' + routeParam, requestParams[routeParam]);
+            delete requestParams[routeParam];
+        });
+
+        // convert all remaining custom parameters to an array for easier addition to url.
+        if (routeContainsCustomParams)
+            for (var key in requestParams)
+                customParamArray.push(key, requestParams[key]);
+    }
+
+    // construct the final url by replacing custom parameter placeholder with custom parameters
+    url = this.getBasePath() + url.replace('*', customParamArray.join('/'));
+
+    // set the url. Since the application listens url changes; it will trigger the correct redirection
+    window.location = url;
+
+    // since this is a redirection; return a proof that it really is; so that a renderer knows a redirection took place
+    // and doesn't go on executing the previous action / view scripts' remaining tasks.
+    return new tart.mvc.Redirection();
+};
+
+
+/**
+ * Redirects to a given controller and action with given parameters. This method is a convenience method for
+ * redirectToRoute in that one may use without hard-coding the name of the route. Keep in mind that there still
+ * needs to be an actual route that will resolve to the given controller and action.
+ *
+ * @param {tart.mvc.ControllerTemplate} controller The controller child class that the redirection will resolve to.
+ * @param {tart.mvc.ActionTemplate} action The action that the redirection will reeolve to.
+ * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
+ * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * execution after this action.
+ */
+tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params) {
+    var route = goog.array.find(this.getRoutes(), function(route) {
+        return route.controller = controller && route.action == action;
+    });
+
+    return this.redirectToRoute(route.name, params);
 };
 
 
@@ -82,10 +190,11 @@ tart.mvc.uri.Router.prototype.getBasePath = function() {
 
 /**
  * Resolves routes.
- * If the request matches any route, this function resolves it. Or else, it will resolve to the default route.
+ * If the request matches any route, this function resolves it. Or else, it will throw a tart.Err.
  * @private
  * @param {tart.mvc.uri.Request} request Request to look for a route match.
- * @return {tart.mvc.uri.Route} Resolved route that holds the details of handling the request.
+ * @return {tart.mvc.uri.Route|null} Resolved route that holds the details of handling the request. Note that this
+ * function never returns null; this is a Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.resolve_ = function(request) {
     var response, route, responseValue, responseArray, that = this;
@@ -118,20 +227,25 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
         }
         return false;
     });
-    return route || that.routes_.def;
+    if (!route)
+        throw new tart.Err('The request cannot be resolved to a route.', 'Routing Error');
+
+    if (route instanceof tart.mvc.uri.Route) // workaround for casting goog.array.find return type to route.
+        return route;
+    return null;
 };
 
 
 /**
  * This function sets the current route and the related controllers, actions and parameters.
  * @private
- * @param {tart.mvc.uri.Request} request Request to be processed.
+ * @param {Array} params Request to be processed.
  */
-tart.mvc.uri.Router.prototype.process_ = function(request) {
+tart.mvc.uri.Router.prototype.process_ = function(params) {
     var route = this.getCurrentRoute();
     this.setController_(route.controller);
     this.setAction_(route.action);
-    this.setParams_(request.params);
+    this.setParams_(params);
 };
 
 
@@ -180,15 +294,17 @@ tart.mvc.uri.Router.prototype.setAction_ = function(action) {
  * @param {Array.<string>} paramsArray Array of parameters.
  */
 tart.mvc.uri.Router.prototype.setParams_ = function(paramsArray) {
-    var params;
+    var params = {};
 
-    if (this.getCurrentRoute() == this.routes_.def) {
+    if (this.getCurrentRoute() == this.getDefaultRoute()) {
         this.params_ = {};
         return;
     }
 
-    this.fixOddParams_(paramsArray);
-    params = goog.object.create(paramsArray);
+    if (paramsArray && paramsArray.length > 0) {
+        this.fixOddParams_(paramsArray);
+        params = goog.object.create(paramsArray);
+    }
 
     this.params_ = params;
 };
@@ -247,4 +363,32 @@ tart.mvc.uri.Router.prototype.addRoute = function(route) {
  */
 tart.mvc.uri.Router.prototype.getRoutes = function() {
     return this.routes_;
+};
+
+
+/**
+ * Returns a route with a given name. If no matching route is found, this method throws a tart.Err.
+ * @param {string} name Route name to look up.
+ * @return {tart.mvc.uri.Route|null} Route with the given name. Note that this function never returns null; this is a
+ * Google Closure Compiler fix.
+ */
+tart.mvc.uri.Router.prototype.getRoute = function(name) {
+    var route = goog.array.find(this.getRoutes(), function(route) {
+        return route.name == name;
+    });
+    if (!route)
+        throw new tart.Err('Route name "' + name + '" cannot be found', 'Routing Error');
+
+    if (route instanceof tart.mvc.uri.Route) // workaround for casting goog.array.find return type to route.
+        return route;
+    return null;
+};
+
+
+/**
+ * Returns the default route associated with this router.
+ * @return {tart.mvc.uri.Route} Default route.
+ */
+tart.mvc.uri.Router.prototype.getDefaultRoute = function() {
+    return this.defaultRoute;
 };

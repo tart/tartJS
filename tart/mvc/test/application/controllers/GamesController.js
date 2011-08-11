@@ -32,16 +32,20 @@ goog.inherits(mvcapp.controllers.GamesController, tart.mvc.Controller);
 
 /**
  * @this {tart.mvc.Action}
+ * @return {tart.mvc.Redirection} This action redirects to 'home anything' route.
  */
 mvcapp.controllers.GamesController.indexAction = function() {
     this.setViewScript(mvcapp.views.scripts.games.index);
     this.setLayout(mvcapp.views.layouts.rare);
     console.log('games index');
-    console.dir(this);
     this.view.p1 = this.params['p1'];
     this.view.p2 = this.params['p2'];
     this.view.a = this.params['a'];
     this.view.b = this.params['b'];
+
+    if (this.view.p1 == 'a')
+        return mvcapp.router.redirectToRoute('home anything', {'p1': 'pe1', 'p2': 'pe2', 'c': 'd'});
+    return null;
 };
 
 
@@ -60,5 +64,6 @@ mvcapp.controllers.GamesController.listAction = function() {
  * @this {tart.mvc.Action}
  */
 mvcapp.controllers.GamesController.showAction = function() {
+    this.setViewScript(mvcapp.views.scripts.games.index);
     console.log('games show');
 };
