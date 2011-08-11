@@ -123,7 +123,7 @@ tart.mvc.Layout.prototype.getContentArea = function() {
 
 
 /**
- * @nosideeffects 
+ * @nosideeffects
  */
 tart.mvc.Layout.prototype.onRender;
 
