@@ -257,6 +257,22 @@ tart.mvc.uri.Router.prototype.getRoutes = function() {
 
 
 /**
+ * Returns a route with a given name. If no matching route is found, this method throws a tart.Err.
+ * @param {string} name Route name to look up.
+ * @return {tart.mvc.Route} Route with the given name.
+ */
+tart.mvc.uri.Router.prototype.getRoute = function(name) {
+    var route = goog.array.find(this.getRoutes(), function(route) {
+        return route.name == name;
+    });
+    if (!route)
+        throw new tart.Err('Route name "' + name + '" cannot be found', 'Routing Error');
+
+    return route;
+};
+
+
+/**
  * Returns the default route associated with this router.
  * @return {tart.mvc.Route} Default route.
  */
