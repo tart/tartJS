@@ -1,9 +1,9 @@
 [submodule "tools"]
 	path = tools
-	url = https://github.com/tart/GUI-Tools.git
+    url = git://github.com/tart/GUI-Tools.git
 [submodule "third_party/jasmine"]
 	path = third_party/jasmine
-	url = https://github.com/pivotal/jasmine.git
+	url = git://github.com/pivotal/jasmine.git
 [submodule "third_party/goog"]
 	path = third_party/goog
-	url = https://github.com/tart/Google-Closure-Library.git
+	url = git://github.com/tart/Google-Closure-Library.git
