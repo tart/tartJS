@@ -19,6 +19,7 @@
 goog.provide('tart.mvc.uri.Router');
 goog.require('goog.array');
 goog.require('goog.object');
+goog.require('tart.mvc.uri.Redirection');
 goog.require('tart.mvc.uri.Request');
 
 
@@ -143,7 +144,11 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
 
     // since this is a redirection; return a proof that it really is; so that a renderer knows a redirection took place
     // and doesn't go on executing the previous action / view scripts' remaining tasks.
-    return new tart.mvc.Redirection();
+    
+    if (!this.redirectionReturnValue)
+        this.redirectionReturnValue = new tart.mvc.uri.Redirection();
+    
+    return this.redirectionReturnValue;
 };
 
 
