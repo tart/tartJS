@@ -78,7 +78,7 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
  * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
- * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
 tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
@@ -156,7 +156,7 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
  * @param {tart.mvc.ActionTemplate} action The action that the redirection will reeolve to.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
- * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
 tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params) {
