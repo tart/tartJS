@@ -18,7 +18,7 @@
  * takes place.
  */
 
-goog.provide('tart.mvc.Redirection');
+goog.provide('tart.mvc.uri.Redirection');
 
 
 
@@ -26,5 +26,5 @@ goog.provide('tart.mvc.Redirection');
  * Special return value for a redirection in tart.mvc.Router.
  * @constructor
  */
-tart.mvc.Redirection = function() {
+tart.mvc.uri.Redirection = function() {
 };

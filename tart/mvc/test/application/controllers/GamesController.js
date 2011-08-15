@@ -32,7 +32,7 @@ goog.inherits(mvcapp.controllers.GamesController, tart.mvc.Controller);
 
 /**
  * @this {tart.mvc.Action}
- * @return {tart.mvc.Redirection} This action redirects to 'home anything' route.
+ * @return {tart.mvc.uri.Redirection} This action redirects to 'home anything' route.
  */
 mvcapp.controllers.GamesController.indexAction = function() {
     this.setViewScript(mvcapp.views.scripts.games.index);

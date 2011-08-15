@@ -19,6 +19,7 @@
 goog.provide('tart.mvc.uri.Router');
 goog.require('goog.array');
 goog.require('goog.object');
+goog.require('tart.mvc.uri.Redirection');
 goog.require('tart.mvc.uri.Request');
 
 
@@ -78,7 +79,7 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
  * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
- * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
 tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
@@ -143,7 +144,11 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
 
     // since this is a redirection; return a proof that it really is; so that a renderer knows a redirection took place
     // and doesn't go on executing the previous action / view scripts' remaining tasks.
-    return new tart.mvc.Redirection();
+    
+    if (!this.redirectionReturnValue)
+        this.redirectionReturnValue = new tart.mvc.uri.Redirection();
+    
+    return this.redirectionReturnValue;
 };
 
 
@@ -156,7 +161,7 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
  * @param {tart.mvc.ActionTemplate} action The action that the redirection will reeolve to.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
- * @return {tart.mvc.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
+ * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
 tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params) {
