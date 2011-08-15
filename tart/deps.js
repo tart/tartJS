@@ -46,7 +46,7 @@ goog.addDependency('../../../tart/mvc/Controller.js', ['tart.mvc.Controller'], [
 goog.addDependency('../../../tart/mvc/IApplication.js', ['tart.mvc.IApplication'], []);
 goog.addDependency('../../../tart/mvc/Layout.js', ['tart.mvc.Layout'], ['tart.mvc.View']);
 goog.addDependency('../../../tart/mvc/Model.js', ['tart.mvc.Model'], []);
-goog.addDependency('../../../tart/mvc/Renderer.js', ['tart.mvc.Renderer'], ['tart.mvc.Action', 'tart.mvc.Layout', 'tart.mvc.Redirection', 'tart.mvc.View']);
+goog.addDependency('../../../tart/mvc/Renderer.js', ['tart.mvc.Renderer'], ['tart.mvc.Action', 'tart.mvc.Layout', 'tart.mvc.uri.Redirection', 'tart.mvc.View']);
 goog.addDependency('../../../tart/mvc/View.js', ['tart.mvc.View'], []);
 goog.addDependency('../../../tart/mvc/mvc.js', ['tart.mvc'], ['tart.mvc.Application']);
 goog.addDependency('../../../tart/mvc/spec/mvcSpec.js', [], []);
@@ -59,7 +59,7 @@ goog.addDependency('../../../tart/mvc/test/application/views/layouts/rare.js', [
 goog.addDependency('../../../tart/mvc/test/application/views/scripts/games/index.js', ['mvcapp.views.scripts.games.index'], []);
 goog.addDependency('../../../tart/mvc/test/application/views/scripts/games/list.js', ['mvcapp.views.scripts.games.list'], []);
 goog.addDependency('../../../tart/mvc/test/application/views/scripts/index/list.js', ['mvcapp.views.scripts.index.list'], []);
-goog.addDependency('../../../tart/mvc/uri/Redirection.js', ['tart.mvc.Redirection'], []);
+goog.addDependency('../../../tart/mvc/uri/Redirection.js', ['tart.mvc.uri.Redirection'], []);
 goog.addDependency('../../../tart/mvc/uri/Request.js', ['tart.mvc.uri.Request'], ['goog.Uri']);
 goog.addDependency('../../../tart/mvc/uri/Route.js', ['tart.mvc.uri.Route'], ['tart.Err']);
 goog.addDependency('../../../tart/mvc/uri/Router.js', ['tart.mvc.uri.Router'], ['goog.array', 'goog.object', 'tart.mvc.uri.Request']);
