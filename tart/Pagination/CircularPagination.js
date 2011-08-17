@@ -18,7 +18,7 @@ goog.provide('tart.CircularPagination');
 
 
 /**
- * CircularPagination class to handle all paging events
+ * CircularPagination class to handle circular paging events
  *
  * @constructor
  * @extends {tart.Pagination}
