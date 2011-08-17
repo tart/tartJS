@@ -137,7 +137,7 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
     }
 
     // construct the final url by replacing custom parameter placeholder with custom parameters
-    url = this.getBasePath() + url.replace('*', customParamArray.join('/'));
+    url = this.getBasePath() + '#!/' + url.replace('*', customParamArray.join('/'));
 
     // set the url. Since the application listens url changes; it will trigger the correct redirection
     window.location = url;
