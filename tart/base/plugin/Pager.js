@@ -20,21 +20,23 @@ goog.provide('tart.base.plugin.Pager');
 
 goog.require('tart.base.plugin.BasePlugin');
 goog.require('tart.Pagination');
+goog.require('tart.CircularPagination');
 
 
 /**
  * @param {tart.base.Model} model
+ * @param {tart.Pagination=} pagination
  * 
  * @extends {tart.base.plugin.BasePlugin}
  * @constructor
  */
-tart.base.plugin.Pager = function (model) {
+tart.base.plugin.Pager = function (model, pagination) {
     goog.base(this, model);
     
     var that = this;
 
     /** @private */
-    that.pagination_ = new tart.Pagination();
+    that.pagination_ = pagination || new tart.Pagination();
     that.pagination_.setParentEventTarget(this);
 
     /**
