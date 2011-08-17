@@ -38,24 +38,40 @@ goog.provide('tart.mvc.Application');
  * @implements {tart.mvc.IApplication}
  */
 tart.mvc.Application = function() {
-    if (!this.defaultRoute)
-        throw new tart.Err('No default route is set.', 'tartMVC Application Exception');
-
-    var historyCallback, that = this;
-
-    /** @private */
-    this.history_ = new goog.History(false);
-    this.initRouting();
-
-    historyCallback = function(e) {
-        that.getRouter().route();
+    var uri = new goog.Uri(window.location),
+        uriString = uri.toString(),
+        uriPath = uri.getPath(),
+        myPath = '';
+    if (goog.string.startsWith(uriPath, this.basePath)) {
+        myPath = uriPath.substr(this.basePath.length - 1);
+        if (myPath.length > 1 && !goog.string.endsWith(myPath, '/')) {
+            myPath = myPath + '/';
+        }
+        uri.setPath(myPath);
     }
-    /**
-     * every time the URI changes, this.router_ routes the request to the appropriate controller/action.
-     */
-    goog.events.listen(this.history_, goog.history.EventType.NAVIGATE, historyCallback);
 
-    this.history_.setEnabled(true);
+    if (myPath.length > 1 &&
+        (!uri.hasFragment() || uriString.indexOf(myPath) < uriString.indexOf(uri.getFragment())))
+        window.location = this.basePath + '#!' + myPath;
+    else {
+        if (!this.defaultRoute)
+            throw new tart.Err('No default route is set.', 'tartMVC Application Exception');
+
+        var historyCallback, that = this;
+
+        /** @private */
+        this.history_ = new goog.History(false);
+        this.initRouting();
+        historyCallback = function(e) {
+            that.getRouter().route();
+        }
+        /**
+         * every time the URI changes, this.router_ routes the request to the appropriate controller/action.
+         */
+        goog.events.listen(this.history_, goog.history.EventType.NAVIGATE, historyCallback);
+
+        this.history_.setEnabled(true);
+    }
 };
 
 
