@@ -31,8 +31,9 @@ goog.inherits(tart.CircularPagination, tart.Pagination);
 
 
 /**
+ * Overriding tart.Pagination's hasPrev method, to return true for all conditions to make circular pages.
  *
- *
+ * @override
  * @return {boolean} previous page is available .
  */
 tart.CircularPagination.prototype.hasPrev = function() {
