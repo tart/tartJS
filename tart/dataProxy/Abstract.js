@@ -37,7 +37,7 @@ tart.dataProxy.Abstract = function() {
  * @param {goog.structs.Map} params hash map to hold fetch params
  */
 tart.dataProxy.Abstract.prototype.setParams = function (params) {
-    this.params = params;
+    this.params = new goog.structs.Map(params);
 };
 
 /**
