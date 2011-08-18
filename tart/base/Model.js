@@ -55,9 +55,11 @@ tart.base.Model.prototype.load = function (opt_callback) {
 
 /**
  * getter for items
+ * @param {boolean=} dispatchEvent Whether this method should throw an event when its items are loaded. This may be used in classes that
+ * extend tart.base.Model.
  * @return {Object} items all items.
  */
-tart.base.Model.prototype.getItems = function() {
+tart.base.Model.prototype.getItems = function(dispatchEvent) {
     return this.items_;
 };
 
