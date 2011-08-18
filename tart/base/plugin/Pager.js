@@ -24,17 +24,18 @@ goog.require('tart.Pagination');
 
 /**
  * @param {tart.base.Model} model
- * 
+ * @param {tart.Pagination=} pagination
+ *
  * @extends {tart.base.plugin.BasePlugin}
  * @constructor
  */
-tart.base.plugin.Pager = function (model) {
+tart.base.plugin.Pager = function (model, pagination) {
     goog.base(this, model);
-    
+
     var that = this;
 
     /** @private */
-    that.pagination_ = new tart.Pagination();
+    that.pagination_ = pagination || new tart.Pagination();
     that.pagination_.setParentEventTarget(this);
 
     /**
@@ -44,7 +45,7 @@ tart.base.plugin.Pager = function (model) {
         var limit = that.map.get("limit");
         var newOffset = (e.newValue - 1) * limit;
         that.map.set("offset", newOffset);
-    }); 
+    });
 };
 goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
 
