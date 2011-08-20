@@ -45,6 +45,17 @@ tart.Validation.is.email = function(text) {
 
 
 /**
+ * Checks if a value is true.
+ *
+ * @param {boolean} value value to check.
+ * @return {boolean} true if value evaluates to true.
+ */
+tart.Validation.is.truthy = function(value) {
+    return value == true;
+};
+
+
+/**
  * Checks if given text doesnt contains only white spaces but some chars or numbers
  *
  * @param {string} text text to be validated.
