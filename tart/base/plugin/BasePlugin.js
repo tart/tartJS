@@ -43,6 +43,13 @@ tart.base.plugin.BasePlugin = function (model) {
 goog.inherits(tart.base.plugin.BasePlugin, goog.events.EventTarget);
 
 /**
+ * clear map for plugin
+ */
+tart.base.plugin.BasePlugin.prototype.clear = function () {
+    this.map.clear();
+};
+
+/**
  * models key
  */
 tart.base.plugin.BasePlugin.prototype.key = undefined;
