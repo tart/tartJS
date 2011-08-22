@@ -18,18 +18,18 @@
 
 goog.provide('tart.base.plugin.Pager');
 
-goog.require('tart.base.plugin.BasePlugin');
 goog.require('tart.Pagination');
+goog.require('tart.base.plugin.BasePlugin');
 
 
 /**
- * @param {tart.base.Model} model
- * @param {tart.Pagination=} pagination
+ * @param {tart.base.Model} model model.
+ * @param {tart.Pagination=} pagination pagination.
  *
  * @extends {tart.base.plugin.BasePlugin}
  * @constructor
  */
-tart.base.plugin.Pager = function (model, pagination) {
+tart.base.plugin.Pager = function(model, pagination) {
     goog.base(this, model);
 
     var that = this;
@@ -41,10 +41,10 @@ tart.base.plugin.Pager = function (model, pagination) {
     /**
      * Change offset on page change events
      */
-    goog.events.listen(that.pagination_, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
-        var limit = that.map.get("limit");
+    goog.events.listen(that.pagination_, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
+        var limit = that.map.get('limit');
         var newOffset = (e.newValue - 1) * limit;
-        that.map.set("offset", newOffset);
+        that.map.set('offset', newOffset);
     });
 };
 goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
@@ -52,21 +52,21 @@ goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
 /**
  * Set plugin's param
  */
-tart.base.plugin.Pager.prototype.key = "pager_";
+tart.base.plugin.Pager.prototype.key = 'pager_';
 
 
 /**
  * @param {number} pageCount number of pages.
  */
-tart.base.plugin.Pager.prototype.setTotalPageCount = function (pageCount) {
-    this.map.set("pageCount", pageCount);
+tart.base.plugin.Pager.prototype.setTotalPageCount = function(pageCount) {
+    this.map.set('pageCount', pageCount);
 };
 
 /**
  * @param {number} offset cursor start point for paging.
  */
-tart.base.plugin.Pager.prototype.setOffset = function (offset) {
-    this.map.set("offset", offset);
+tart.base.plugin.Pager.prototype.setOffset = function(offset) {
+    this.map.set('offset', offset);
 };
 
 
@@ -74,8 +74,8 @@ tart.base.plugin.Pager.prototype.setOffset = function (offset) {
  *
  * @param {number} limit item count to fetch.
  */
-tart.base.plugin.Pager.prototype.setLimit = function (limit) {
-    this.map.set("limit", limit);
+tart.base.plugin.Pager.prototype.setLimit = function(limit) {
+    this.map.set('limit', limit);
     this.pagination_.setItemPerPage(limit);
 };
 
@@ -83,7 +83,7 @@ tart.base.plugin.Pager.prototype.setLimit = function (limit) {
  *
  * @return {number} current limit.
  */
-tart.base.plugin.Pager.prototype.getLimit = function () {
+tart.base.plugin.Pager.prototype.getLimit = function() {
     return this.pagination_.getItemPerPage();
 };
 
@@ -91,21 +91,21 @@ tart.base.plugin.Pager.prototype.getLimit = function () {
 /**
  * @param {number} totalItemCount set total item count for paginator.
  */
-tart.base.plugin.Pager.prototype.setTotalItems = function (totalItemCount) {
+tart.base.plugin.Pager.prototype.setTotalItems = function(totalItemCount) {
     this.pagination_.setTotalItems(totalItemCount);
 };
 
 /**
  * Next wrapper for paginator.
  */
-tart.base.plugin.Pager.prototype.next = function () {
+tart.base.plugin.Pager.prototype.next = function() {
     this.pagination_.next();
 };
 
 /**
  * Prev wrapper for paginator.
  */
-tart.base.plugin.Pager.prototype.prev = function () {
+tart.base.plugin.Pager.prototype.prev = function() {
     this.pagination_.prev();
 };
 
@@ -113,14 +113,20 @@ tart.base.plugin.Pager.prototype.prev = function () {
  * setCurrentPage wrapper for paginator.
  * @param {number} currentPageNum current page number.
  */
-tart.base.plugin.Pager.prototype.setCurrentPage = function (currentPageNum) {
+tart.base.plugin.Pager.prototype.setCurrentPage = function(currentPageNum) {
     this.pagination_.setCurrentPage(currentPageNum);
 };
 
 /**
  * @return {number} number of pages.
  */
-tart.base.plugin.Pager.prototype.getTotalPage = function () {
+tart.base.plugin.Pager.prototype.getTotalPage = function() {
     return this.pagination_.getTotalPage();
 };
 
+/**
+ * @return {number} current page number.
+ */
+tart.base.plugin.Pager.prototype.getCurrentPage = function() {
+    return this.pagination_.getCurrentPage();
+};
