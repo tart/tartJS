@@ -23,8 +23,8 @@ goog.require('tart.base.plugin.BasePlugin');
 
 
 /**
- * @param {tart.base.Model} model model.
- * @param {tart.Pagination=} pagination pagination.
+ * @param {tart.base.Model} model tart.base.Model instance to set pager params.
+ * @param {tart.Pagination=} pagination optional tart.Pagination instance to handle pagination.
  *
  * @extends {tart.base.plugin.BasePlugin}
  * @constructor
@@ -50,7 +50,7 @@ tart.base.plugin.Pager = function(model, pagination) {
 goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
 
 /**
- * Set plugin's param
+ * Plugin's parameter key which is inherited from BasePlugin and should be defined
  */
 tart.base.plugin.Pager.prototype.key = 'pager_';
 
