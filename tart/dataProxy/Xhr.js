@@ -41,6 +41,18 @@ tart.dataProxy.Xhr.prototype.fetch = function(callback) {
     this.params.remove("url_");
     url = "" + url; //cast to string to make it type safe for XhrManager.get
 
+    var method = this.params.get('method_');
+    var methodFn;
+    this.params.remove('method_');
+
+    switch (method) {
+        case 'post' :
+            methodFn = tart.XhrManager.post;
+            break;
+        default:
+            methodFn = tart.XhrManager.get;
+    };
+
     /**
      * get plain objects from Maps from given plugins
      */
@@ -56,5 +68,5 @@ tart.dataProxy.Xhr.prototype.fetch = function(callback) {
         }
     }
 
-    tart.XhrManager.get(url, this.params.toObject(), callback);
+    methodFn(url, this.params.toObject(), callback);
 };
