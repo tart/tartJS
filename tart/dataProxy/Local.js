@@ -42,7 +42,7 @@ tart.dataProxy.Local.prototype.fetch = function(callback) {
 
     var fetchedData = this.data_;
 
-    var pagerParam = this.params.get("pager_");
+    var pagerParam = this.params.get("paginationParams");
 
     if (pagerParam) {
         var offset = pagerParam.get("offset");

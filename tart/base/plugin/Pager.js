@@ -52,7 +52,7 @@ goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
 /**
  * Plugin's parameter key which is inherited from BasePlugin and should be defined
  */
-tart.base.plugin.Pager.prototype.key = 'pager_';
+tart.base.plugin.Pager.prototype.key = 'paginationParams';
 
 
 /**
