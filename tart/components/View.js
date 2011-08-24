@@ -108,3 +108,13 @@ tart.components.View.prototype.get = function(key) {
     this.$domCache_[key] = this.$domCache_[key] || this.$dom_.find(key);
     return this.$domCache_[key];
 };
+
+
+/**
+ * Clears the view's dom cache. This might come in handy where you find yourself with dangling HTMLElement's who are
+ * not in DOM anymore but bugs you because they are in cache. This also helps with memory leaks; you should often clear
+ * your cache. TODO: Make this default with a deconstructor for view
+ */
+tart.components.View.prototype.clearCache = function() {
+    this.$domCache_ = {};
+};
