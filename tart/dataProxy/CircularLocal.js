@@ -40,7 +40,7 @@ goog.inherits(tart.dataProxy.CircularLocal, tart.dataProxy.Local);
  */
 tart.dataProxy.CircularLocal.prototype.fetch = function(callback) {
     var fetchedData = this.getData();
-    var pagerParam = this.params.get('pager_');
+    var pagerParam = this.params.get('paginationParams');
 
     if (pagerParam) {
         var offset = ((pagerParam.get('offset') % fetchedData.length) + fetchedData.length) % fetchedData.length;
