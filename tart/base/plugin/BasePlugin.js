@@ -50,6 +50,15 @@ tart.base.plugin.BasePlugin.prototype.clear = function () {
 };
 
 /**
+ * Getter for model
+ */
+tart.base.plugin.BasePlugin.prototype.getModel = function () {
+    return this.model;
+};
+
+
+
+/**
  * models key
  */
 tart.base.plugin.BasePlugin.prototype.key = undefined;
