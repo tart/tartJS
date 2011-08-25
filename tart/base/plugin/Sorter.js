@@ -35,7 +35,7 @@ goog.inherits(tart.base.plugin.Sorter, tart.base.plugin.BasePlugin);
 /**
  * Set plugin's param
  */
-tart.base.plugin.Sorter.prototype.key = "sortBy_";
+tart.base.plugin.Sorter.prototype.key = "sortParams[]";
 
 
 /**
