@@ -63,7 +63,7 @@ tart.string.deparam = function(query) {
     var data = {};
     for (var i = 0; i < nvp.length; i++) {
         var equalsIndex = nvp[i].lastIndexOf('=');
-        var pair = [nvp[i].substr(0, equalsIndex), nvp[i].substr(equalsIndex + 1)]
+        var pair = [nvp[i].substr(0, equalsIndex), nvp[i].substr(equalsIndex + 1)];
 
         //var pair = nvp[i].split('=');
         var name = decodeURIComponent(pair[0]);
@@ -73,7 +73,7 @@ tart.string.deparam = function(query) {
         var first = path[1];
         if (path[2]) {
             //case of 'array[level1]' || 'array[level1][level2]'
-            path = path[2].match(/(?=\[(.*)\]$)/)[1].split('][')
+            path = path[2].match(/(?=\[(.*)\]$)/)[1].split('][');
         } else {
             //case of 'name'
             path = [];
