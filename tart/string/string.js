@@ -47,7 +47,7 @@ tart.string.deparam = function(query) {
         if (path.length > 1) {
             var dir = path.shift();
             if (typeof root[dir] == 'undefined') {
-                root[dir] = path[0] == '' ? [] : {};
+                root[dir] = (path[0] == '' || parseInt(path[0], 10) == path[0]) ? [] : {};
             }
 
             arguments.callee(root[dir], path, value);
