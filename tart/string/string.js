@@ -26,3 +26,61 @@ goog.provide('tart.string');
         return loremIpsumArray[random] + '.';
     }
 })();
+
+
+/**
+ * This function helps to decode url parameters back to a javascript object.
+ *
+ * For example, a%5Bb%5D%5B%5D=1&a%5Bb%5D%5B%5D=2 is deparam'med to
+ * { a: { b: ["1", "2"] } }
+ *
+ * This function is a modified form of an answer by Jacky Li to the question in
+ * http://stackoverflow.com/questions/1131630/javascript-jquery-param-inverse-function
+ *
+ * This version would fail on a param like [=]=20.
+ *
+ * @param {string} query Query string to deparam.
+ * @return {Object} Deparameterized string.
+ */
+tart.string.deparam = function(query) {
+    var setValue = function(root, path, value) {
+        if (path.length > 1) {
+            var dir = path.shift();
+            if (typeof root[dir] == 'undefined') {
+                root[dir] = path[0] == '' ? [] : {};
+            }
+
+            arguments.callee(root[dir], path, value);
+        } else {
+            if (root instanceof Array) {
+                root.push(value);
+            } else {
+                root[path] = value;
+            }
+        }
+    };
+    var nvp = query.split('&');
+    var data = {};
+    for (var i = 0; i < nvp.length; i++) {
+        var equalsIndex = nvp[i].lastIndexOf('=');
+        var pair = [nvp[i].substr(0, equalsIndex), nvp[i].substr(equalsIndex + 1)]
+
+        //var pair = nvp[i].split('=');
+        var name = decodeURIComponent(pair[0]);
+        var value = decodeURIComponent(pair[1]);
+
+        var path = name.match(/(^[^\[]+)(\[.*\]$)?/);
+        var first = path[1];
+        if (path[2]) {
+            //case of 'array[level1]' || 'array[level1][level2]'
+            path = path[2].match(/(?=\[(.*)\]$)/)[1].split('][')
+        } else {
+            //case of 'name'
+            path = [];
+        }
+        path.unshift(first);
+
+        setValue(data, path, value);
+    }
+    return data;
+};
