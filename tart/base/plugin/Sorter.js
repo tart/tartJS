@@ -28,14 +28,22 @@ goog.require('tart.base.plugin.BasePlugin');
  * @constructor
  */
 tart.base.plugin.Sorter = function (model) {
-    goog.base(this, model);
+    goog.events.EventTarget.call(this);
+
+    /** @protected */
+    this.model = model;
+
+    /** @protected **/
+    this.sorts = [];
+
+    this.model.params.set(this.key, this.sorts);
 };
 goog.inherits(tart.base.plugin.Sorter, tart.base.plugin.BasePlugin);
 
 /**
  * Set plugin's param
  */
-tart.base.plugin.Sorter.prototype.key = "sortParams[]";
+tart.base.plugin.Sorter.prototype.key = "sortParams";
 
 
 /**
@@ -43,5 +51,27 @@ tart.base.plugin.Sorter.prototype.key = "sortParams[]";
  * @param {string} order order by directive, which is asc or desc.
  */
 tart.base.plugin.Sorter.prototype.addSort = function (field, order) {
-    this.map.set(field, order);
+
+    /**
+     * There can be multiple condition-value pair for a field
+     */
+    var fieldSorter = goog.array.find(this.sorts, function(item){
+        return goog.object.getAnyKey(item) == field;
+    });
+
+    //and if this field did not set before create a new object
+    if (!fieldSorter) {
+        fieldSorter = {};
+    }
+
+    fieldSorter[field] = order;
+    this.model.params.get(this.key).push(fieldSorter);
+};
+
+/**
+ * clear map for plugin
+ */
+tart.base.plugin.Sorter.prototype.clear = function () {
+    this.sorts = [];
+    this.model.params.set(this.key, this.sorts);
 };
