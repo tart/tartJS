@@ -35,7 +35,7 @@ goog.inherits(tart.base.plugin.Filter, tart.base.plugin.BasePlugin);
 /**
  * Set plugins param key
  */
-tart.base.plugin.Filter.prototype.key = "filterBy_";
+tart.base.plugin.Filter.prototype.key = "filterParams";
 
 
 
