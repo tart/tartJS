@@ -74,7 +74,7 @@ tart.components.View.prototype.render = function() {
 
 /**
  * Sets base DOM tree for component
- * @param {Object} dom base DOM reference for component.
+ * @param {jQueryObject} dom base DOM reference for component.
  */
 tart.components.View.prototype.setDOM = function(dom) {
     this.$dom_ = dom;
