@@ -36,9 +36,14 @@ tart.mvc.Renderer = function(layout) {
  */
 tart.mvc.Renderer.prototype.render = function(router) {
     var viewMarkup, layout,
+        oldAction = this.currentAction,
         view = new tart.mvc.View(),
         oldLayout = this.currentLayout,
-        action = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
+        action = this.currentAction = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
+
+    // if there is an action already executed and it has a deconstructor, call it.
+     if (oldAction)
+        goog.typeOf(oldAction.deconstructor) == 'function' && oldAction.deconstructor();
 
     // execute the action
     var actionResult = router.getAction().call(action);
