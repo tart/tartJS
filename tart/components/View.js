@@ -84,7 +84,7 @@ tart.components.View.prototype.setDOM = function(dom) {
 /**
  * get current DOM reference
  *
- * @return {(Object|null|undefined)} .
+ * @return {(jQueryObject|undefined)} .
  */
 tart.components.View.prototype.getDOM = function() {
     return this.$dom_;
