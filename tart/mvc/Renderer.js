@@ -35,10 +35,18 @@ tart.mvc.Renderer = function(layout) {
  * @param {tart.mvc.uri.Router} router Application's router.
  */
 tart.mvc.Renderer.prototype.render = function(router) {
-    var viewMarkup, layout,
+    var oldLayout = this.currentLayout,
+        oldLayoutContext = this.currentLayoutContext,
+        oldViewScript = this.currentViewScript,
+        oldAction = this.currentAction,
+        viewMarkup,
+        layout,
         view = new tart.mvc.View(),
-        oldLayout = this.currentLayout,
-        action = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
+        action = this.currentAction = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
+
+    // if there is an action already executed and it has a deconstructor, call it.
+     if (oldAction)
+        goog.typeOf(oldAction.deconstructor) == 'function' && oldAction.deconstructor();
 
     // execute the action
     var actionResult = router.getAction().call(action);
@@ -46,6 +54,12 @@ tart.mvc.Renderer.prototype.render = function(router) {
     if (actionResult instanceof tart.mvc.uri.Redirection) {
         return;
     }
+
+    // if there is a view script already rendered and it has a deconstructor, call it.
+    if (oldViewScript)
+        goog.typeOf(oldViewScript.deconstructor) == 'function' && oldViewScript.deconstructor();
+
+    this.currentViewScript = action.view;
     // generate the view markup
     viewMarkup = action.getViewScript().call(action.view);
     if (viewMarkup instanceof tart.mvc.uri.Redirection) {
@@ -54,11 +68,17 @@ tart.mvc.Renderer.prototype.render = function(router) {
     // instantiate the layout, set its content and then markup.
     layout = new tart.mvc.Layout(action.view);
     layout.setContent(viewMarkup);
+
     this.currentLayout = action.getLayout();
 
     // have to reset the layout if the action's layout is different than the previous one
     if (this.currentLayout != oldLayout) {
         layout.resetLayout = true;
+
+        // if there is a layout already rendered and it has a deconstructor, call it.
+        if (oldLayoutContext)
+            goog.typeOf(oldLayout.deconstructor) == 'function' && oldLayout.deconstructor.call(oldLayoutContext);
+
         this.currentLayout.call(layout);
     }
 
@@ -69,4 +89,6 @@ tart.mvc.Renderer.prototype.render = function(router) {
     goog.typeOf(action.view.onRender) == 'function' && action.view.onRender();
     if (this.currentLayout.onViewRender)
         goog.typeOf(this.currentLayout.onViewRender) == 'function' && this.currentLayout.onViewRender.call(layout);
+
+    this.currentLayoutContext = layout;
 };
