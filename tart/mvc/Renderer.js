@@ -36,6 +36,7 @@ tart.mvc.Renderer = function(layout) {
  */
 tart.mvc.Renderer.prototype.render = function(router) {
     var oldLayout = this.currentLayout,
+        oldLayoutContext = this.currentLayoutContext,
         oldViewScript = this.currentViewScript,
         oldAction = this.currentAction,
         viewMarkup,
@@ -67,11 +68,17 @@ tart.mvc.Renderer.prototype.render = function(router) {
     // instantiate the layout, set its content and then markup.
     layout = new tart.mvc.Layout(action.view);
     layout.setContent(viewMarkup);
+
     this.currentLayout = action.getLayout();
 
     // have to reset the layout if the action's layout is different than the previous one
     if (this.currentLayout != oldLayout) {
         layout.resetLayout = true;
+
+        // if there is a layout already rendered and it has a deconstructor, call it.
+        if (oldLayoutContext)
+            goog.typeOf(oldLayout.deconstructor) == 'function' && oldLayout.deconstructor.call(oldLayoutContext);
+
         this.currentLayout.call(layout);
     }
 
@@ -82,4 +89,6 @@ tart.mvc.Renderer.prototype.render = function(router) {
     goog.typeOf(action.view.onRender) == 'function' && action.view.onRender();
     if (this.currentLayout.onViewRender)
         goog.typeOf(this.currentLayout.onViewRender) == 'function' && this.currentLayout.onViewRender.call(layout);
+
+    this.currentLayoutContext = layout;
 };
