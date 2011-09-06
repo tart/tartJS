@@ -35,10 +35,12 @@ tart.mvc.Renderer = function(layout) {
  * @param {tart.mvc.uri.Router} router Application's router.
  */
 tart.mvc.Renderer.prototype.render = function(router) {
-    var viewMarkup, layout,
+    var oldLayout = this.currentLayout,
+        oldViewScript = this.currentViewScript,
         oldAction = this.currentAction,
+        viewMarkup,
+        layout,
         view = new tart.mvc.View(),
-        oldLayout = this.currentLayout,
         action = this.currentAction = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
 
     // if there is an action already executed and it has a deconstructor, call it.
@@ -51,6 +53,12 @@ tart.mvc.Renderer.prototype.render = function(router) {
     if (actionResult instanceof tart.mvc.uri.Redirection) {
         return;
     }
+
+    // if there is a view script already rendered and it has a deconstructor, call it.
+    if (oldViewScript)
+        goog.typeOf(oldViewScript.deconstructor) == 'function' && oldViewScript.deconstructor();
+
+    this.currentViewScript = action.view;
     // generate the view markup
     viewMarkup = action.getViewScript().call(action.view);
     if (viewMarkup instanceof tart.mvc.uri.Redirection) {
