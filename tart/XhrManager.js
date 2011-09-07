@@ -18,26 +18,56 @@
 
 goog.provide('tart.XhrManager');
 
+
 /**
  * jQuery GET's wrapper
  *
  * @param {string} url url to send request.
- * @param {Object} params POST/GET parameters.
- * @param {function(string,string,XMLHttpRequest)=} callback success callback.
+ * @param {?Object} params POST/GET parameters.
+ * @param {?function(Object)} success success callback.
+ * @param {?function(Object)=} opt_fail fail callback.
  * @return {Object} .
  */
-tart.XhrManager.get = function(url, params, callback) {
-    return jQuery.get(url, params, callback, 'json');
+tart.XhrManager.get = function(url, params, success, opt_fail) {
+    return tart.XhrManager.ajax('GET', url, params, success, opt_fail);
 };
+
 
 /**
  * jQuery POST's wrapper
  *
  * @param {string} url url to send request.
- * @param {Object} params POST/GET parameters.
- * @param {function(string,string,XMLHttpRequest)=} callback success callback.
+ * @param {?Object} params POST/GET parameters.
+ * @param {?function(Object)} success success callback.
+ * @param {?function(Object)=} opt_fail fail callback.
  * @return {Object} .
  */
-tart.XhrManager.post = function(url, params, callback) {
-    return jQuery.post(url, params, callback, 'json');
+tart.XhrManager.post = function(url, params, success, opt_fail) {
+    return tart.XhrManager.ajax('POST', url, params, success, opt_fail);
+};
+
+
+/**
+ * jQuery POST's wrapper
+ *
+ * @param {string} type request type.
+ * @param {string} url url to send request.
+ * @param {?Object} params POST/GET parameters.
+ * @param {?function(Object)} success success callback.
+ * @param {?function(Object)=} opt_fail fail callback.
+ * @return {Object} .
+ */
+tart.XhrManager.ajax = function(type, url, params, success, opt_fail) {
+    return $.ajax({
+        'type': type,
+        'url': url,
+        'data': params,
+        'dataType': 'json',
+        'success': function(response) {
+            success && success(response);
+        },
+        'error': function(response) {
+            opt_fail && opt_fail(response);
+        }
+    });
 };
