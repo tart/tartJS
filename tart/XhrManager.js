@@ -25,7 +25,7 @@ goog.provide('tart.XhrManager');
  * @param {string} url url to send request.
  * @param {Object} params POST/GET parameters.
  * @param {function(Object)=} success success callback.
- * @param {function(Object)=} opt_fail fail callback.
+ * @param {?function(Object)=} opt_fail fail callback.
  * @return {Object} .
  */
 tart.XhrManager.get = function(url, params, success, opt_fail) {
@@ -39,7 +39,7 @@ tart.XhrManager.get = function(url, params, success, opt_fail) {
  * @param {string} url url to send request.
  * @param {Object} params POST/GET parameters.
  * @param {function(Object)=} success success callback.
- * @param {function(Object)=} opt_fail fail callback.
+ * @param {?function(Object)=} opt_fail fail callback.
  * @return {Object} .
  */
 tart.XhrManager.post = function(url, params, success, opt_fail) {
@@ -54,14 +54,10 @@ tart.XhrManager.post = function(url, params, success, opt_fail) {
  * @param {string} url url to send request.
  * @param {Object} params POST/GET parameters.
  * @param {function(Object)=} success success callback.
- * @param {function(Object)=} opt_fail fail callback.
+ * @param {?function(Object)=} opt_fail fail callback.
  * @return {Object} .
  */
 tart.XhrManager.ajax = function(type, url, params, success, opt_fail) {
-    if (typeof params == 'function') {
-        success = params;
-        params = null;
-    }
     return $.ajax({
         type: type,
         url: url,
@@ -75,5 +71,3 @@ tart.XhrManager.ajax = function(type, url, params, success, opt_fail) {
         }
     });
 };
-
-
