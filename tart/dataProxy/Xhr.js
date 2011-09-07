@@ -18,8 +18,10 @@
 
 goog.provide('tart.dataProxy.Xhr');
 
-goog.require('tart.dataProxy.Abstract');
 goog.require('tart.XhrManager');
+goog.require('tart.dataProxy.Abstract');
+
+
 
 /**
  * Base model to handle xhr requests
@@ -32,14 +34,15 @@ tart.dataProxy.Xhr = function() {
 };
 goog.inherits(tart.dataProxy.Xhr, tart.dataProxy.Abstract);
 
+
 /**
  * Fetch data from xhr and call a function with returned data
  * @param {function(Object)=} callback function to call with returned data.
  */
 tart.dataProxy.Xhr.prototype.fetch = function(callback) {
-    var url = this.params.get("url_");
-    this.params.remove("url_");
-    url = "" + url; //cast to string to make it type safe for XhrManager.get
+    var url = this.params.get('url_');
+    this.params.remove('url_');
+    url = '' + url; //cast to string to make it type safe for XhrManager.get
 
     var method = this.params.get('method_');
     var methodFn;
@@ -51,15 +54,15 @@ tart.dataProxy.Xhr.prototype.fetch = function(callback) {
             break;
         default:
             methodFn = tart.XhrManager.get;
-    };
+    }
 
     /**
      * get plain objects from Maps from given plugins
      */
     var pluginParams = this.params.getKeys();
-    
+
     for (var i = 0, ii = pluginParams.length; i < ii; i++) {
-        var param =  this.params.get(pluginParams[i]);
+        var param = this.params.get(pluginParams[i]);
         if (param && param.constructor == goog.structs.Map) {
             this.params.set(pluginParams[i], param.toObject());
         }
