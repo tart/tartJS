@@ -59,14 +59,14 @@ tart.XhrManager.post = function(url, params, success, opt_fail) {
  */
 tart.XhrManager.ajax = function(type, url, params, success, opt_fail) {
     return $.ajax({
-        type: type,
-        url: url,
-        data: params,
-        dataType: 'json',
-        success: function(response) {
+        'type': type,
+        'url': url,
+        'data': params,
+        'dataType': 'json',
+        'success': function(response) {
             success && success(response);
         },
-        error: function(response) {
+        'error': function(response) {
             opt_fail && opt_fail(response);
         }
     });
