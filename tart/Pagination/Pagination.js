@@ -238,9 +238,9 @@ tart.Pagination.prototype.getPrev = function() {
  * Change page to next page
  */
 tart.Pagination.prototype.next = function() {
-    var newValue = this.getNext();
-    this.triggerPageChange_(this.currentPage_, newValue);
-    this.currentPage_ = newValue;
+    var oldValue = this.currentPage_;
+    this.currentPage_ = this.getNext();
+    this.triggerPageChange_(oldValue, this.currentPage_);
 };
 
 
@@ -248,7 +248,7 @@ tart.Pagination.prototype.next = function() {
  * Change page to previous page
  */
 tart.Pagination.prototype.prev = function() {
-    var newValue = this.getPrev();
-    this.triggerPageChange_(this.currentPage_, newValue);
-    this.currentPage_ = newValue;
+    var oldValue = this.currentPage_;
+    this.currentPage_ = this.getPrev();
+    this.triggerPageChange_(oldValue, this.currentPage_);
 };
