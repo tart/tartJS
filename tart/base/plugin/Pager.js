@@ -130,3 +130,19 @@ tart.base.plugin.Pager.prototype.getTotalPage = function() {
 tart.base.plugin.Pager.prototype.getCurrentPage = function() {
     return this.pagination_.getCurrentPage();
 };
+
+
+/**
+ * @return {number} Whether there is a previous page available.
+ */
+tart.base.plugin.Pager.prototype.hasPrev = function() {
+    return this.pagination_.hasPrev();
+};
+
+
+/**
+ * @return {number} Whether there is a next page available.
+ */
+tart.base.plugin.Pager.prototype.hasNext = function() {
+    return this.pagination_.hasNext();
+};

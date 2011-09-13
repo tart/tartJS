@@ -34,10 +34,30 @@ goog.inherits(tart.CircularPagination, tart.Pagination);
  * Overriding tart.Pagination's hasPrev method, to return true for all conditions to make circular pages.
  *
  * @override
- * @return {boolean} previous page is available .
+ * @return {boolean} Whether previous page is available .
  */
 tart.CircularPagination.prototype.hasPrev = function() {
     return true;
 };
 
 
+/**
+ * Overriding tart.Pagination's hasNext method, to return true for all conditions to make circular pages.
+ *
+ * @override
+ * @return {boolean} Whether next page is available .
+ */
+tart.CircularPagination.prototype.hasNext = function() {
+    return true;
+};
+
+
+/**
+ * Overriding tart.Pagination's getTotalPage method, so that the pages never end :).
+ *
+ * @override
+ * @return {number} previous page is available .
+ */
+tart.CircularPagination.prototype.getTotalPage = function() {
+    return Infinity;
+};
