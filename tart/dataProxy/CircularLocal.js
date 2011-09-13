@@ -42,26 +42,24 @@ tart.dataProxy.CircularLocal.prototype.fetch = function(callback) {
     var fetchedData = this.getData();
     var pagerParam = this.params.get('paginationParams');
 
-    if (pagerParam) {
-        var offset = ((pagerParam.get('offset') % fetchedData.length) + fetchedData.length) % fetchedData.length;
-        var limit = pagerParam.get('limit');
-        var tmp = [];
+    if (!fetchedData || !pagerParam)
+        callback.call(this);
 
-        var pushedItems = 0;
-        for (var i = offset; i < offset + limit; i++) {
-            if (fetchedData && fetchedData[i]) {
-                tmp.push(fetchedData[i]);
-                pushedItems++;
-            }
+    var offset = ((pagerParam.get('offset') % fetchedData.length) + fetchedData.length) % fetchedData.length,
+        limit = pagerParam.get('limit'),
+        length = fetchedData.length,
+        tmp = [],
+        pos;
 
-            else {
-                var pos = i % (pushedItems);
-                tmp.push(fetchedData[pos]);
-            }
-        }
+    for (var i = offset; i < offset + limit; i++) {
+        pos = i;
+        if (i >= length)
+            pos = i % length;
 
-        fetchedData = tmp;
+        tmp.push(fetchedData[pos]);
     }
 
+    fetchedData = tmp;
+    
     callback.call(this, fetchedData);
 };
