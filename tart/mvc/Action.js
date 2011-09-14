@@ -59,6 +59,17 @@ tart.mvc.Action.prototype.getLayout = function() {
 
 
 /**
+ * Deconstructor method of this action. Developers should override this property in an action function like;
+ *
+ * this.deconstructor = function() {}
+ *
+ * and should deallocate the memory they have used in the action. This is also helpful for resolving issues that arise
+ * because of tartMVC's statefullness; such as removed but dangling DOM nodes, etc.
+ */
+tart.mvc.Action.prototype.deconstructor = null;
+
+
+/**
  * @return {tart.mvc.ViewTemplate} The view script that belongs to the action.
  */
 tart.mvc.Action.prototype.getViewScript = function() {

@@ -33,9 +33,11 @@ goog.require('tart.mvc.uri.Request');
  * @param {tart.mvc.uri.Route} defaultRoute Default URI route that is used as fallback when no appropriate
  * controller/action is found.
  * @param {tart.mvc.Renderer} renderer Renderer instance to actually execute the routing and draw the layout and view.
+ * @param {tart.mvc.uri.Router.RedirectionType=} redirectionType How the redirection will affect the url. By default, all
+ * redirections change the url.
  * @constructor
  */
-tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
+tart.mvc.uri.Router = function(basePath, defaultRoute, renderer, redirectionType) {
     this.setBasePath(basePath);
 
     /**
@@ -46,6 +48,23 @@ tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
     this.defaultRoute = defaultRoute;
     this.addRoute(this.defaultRoute);
     this.renderer_ = renderer;
+    this.redirectionType = redirectionType || tart.mvc.uri.Router.RedirectionType.CLASSICAL;
+};
+
+
+/**
+ * Constant values for redirection types.
+ * CLASSICAL makes all redirections with the url changing and reflecting the new path.
+ * SILENT_ALL makes all redirections without the url changing.
+ * SILENT_ONLY_DEFAULT makes only the error redirections silent. All the other ones are CLASSICAL.
+ *
+ * @enum
+ */
+tart.mvc.uri.Router.RedirectionType = {
+    CLASSICAL: 0,
+    SILENT_ALL: 1,
+    SILENT_ONLY_DEFAULT: 2,
+    SILENT: 3
 };
 
 
@@ -79,18 +98,24 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
  * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @param {tart.mvc.uri.Router.RedirectionType=} redirectionType How the redirection will affect the url.
  * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
-tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
+tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params, redirectionType) {
     var url,
         validParams,
         customParamArray = [],
         routeContainsCustomParams,
-        requestParams = params || {},
-        paramsLength = goog.object.getCount(requestParams),
+        requestParams = {},
+        paramsLength,
         routeParams,
-        paramString = '';
+        silentRedirect = false;
+
+    if (params && goog.typeOf(params) == 'object')
+        requestParams = params;
+
+    paramsLength = goog.object.getCount(requestParams);
 
     if (route instanceof tart.mvc.uri.Route)
         route = route.name;
@@ -99,6 +124,14 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
     }
     catch (e) {
         throw e;
+    }
+
+    if (redirectionType != tart.mvc.uri.Router.RedirectionType.CLASSICAL ||
+        redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT ||
+        this.redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT_ALL ||
+        (this.redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT_ONLY_DEFAULT &&
+             route == this.getDefaultRoute())) {
+        silentRedirect = true;
     }
 
     // we'll construct the url in this variable and we start with the given template of a route.
@@ -139,15 +172,18 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
     // construct the final url by replacing custom parameter placeholder with custom parameters
     url = this.getBasePath() + '#!/' + url.replace('*', customParamArray.join('/'));
 
-    // set the url. Since the application listens url changes; it will trigger the correct redirection
-    window.location = url;
+    if (silentRedirect)
+        // route the request but don't change the url.
+        this.route(url);
+    else // set the url. Since the application listens url changes; it will trigger the correct redirection
+        window.location = url;
 
     // since this is a redirection; return a proof that it really is; so that a renderer knows a redirection took place
     // and doesn't go on executing the previous action / view scripts' remaining tasks.
-    
+
     if (!this.redirectionReturnValue)
         this.redirectionReturnValue = new tart.mvc.uri.Redirection();
-    
+
     return this.redirectionReturnValue;
 };
 
@@ -161,15 +197,16 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
  * @param {tart.mvc.ActionTemplate} action The action that the redirection will reeolve to.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @param {tart.mvc.uri.Router.RedirectionType=} redirectionType How the redirection will affect the url.
  * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
-tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params) {
+tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params, redirectionType) {
     var route = goog.array.find(this.getRoutes(), function(route) {
         return route.controller = controller && route.action == action;
     });
 
-    return this.redirectToRoute(route.name, params);
+    return this.redirectToRoute(route.name, params, redirectionType);
 };
 
 
@@ -198,7 +235,7 @@ tart.mvc.uri.Router.prototype.getBasePath = function() {
  * If the request matches any route, this function resolves it. Or else, it will throw a tart.Err.
  * @private
  * @param {tart.mvc.uri.Request} request Request to look for a route match.
- * @return {tart.mvc.uri.Route|null} Resolved route that holds the details of handling the request. Note that this
+ * @return {?tart.mvc.uri.Route} Resolved route that holds the details of handling the request. Note that this
  * function never returns null; this is a Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.resolve_ = function(request) {
@@ -374,7 +411,7 @@ tart.mvc.uri.Router.prototype.getRoutes = function() {
 /**
  * Returns a route with a given name. If no matching route is found, this method throws a tart.Err.
  * @param {string} name Route name to look up.
- * @return {tart.mvc.uri.Route|null} Route with the given name. Note that this function never returns null; this is a
+ * @return {?tart.mvc.uri.Route} Route with the given name. Note that this function never returns null; this is a
  * Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.getRoute = function(name) {

@@ -92,7 +92,11 @@ tart.mvc.Application.prototype.getRenderer = function() {
  */
 tart.mvc.Application.prototype.getRouter = function() {
     if (!this.router_)
-        this.router_ = new tart.mvc.uri.Router(this.basePath, this.defaultRoute, this.getRenderer());
+        this.router_ = new tart.mvc.uri.Router(this.basePath,
+                                                   this.defaultRoute,
+                                                   this.getRenderer(),
+                                                   this.redirectionType);
+
     return this.router_;
 };
 
@@ -127,3 +131,11 @@ tart.mvc.Application.prototype.defaultRoute = null;
  */
 tart.mvc.Application.prototype.defaultLayout = /** @type {tart.mvc.LayoutTemplate} */ function() {
 };
+
+
+/**
+ * The default redirection type for an MVC application.
+ * @type {tart.mvc.uri.Router.RedirectionType}
+ * @protected
+ */
+tart.mvc.Application.prototype.redirectionType = tart.mvc.uri.Router.RedirectionType.CLASSICAL;
