@@ -98,18 +98,24 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
  * This method will first search for the given route and may throw a tart.Err if the requested route is undefined.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @param {tart.mvc.uri.Router.RedirectionType=} redirectionType How the redirection will affect the url.
  * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
-tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
+tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params, redirectionType) {
     var url,
         validParams,
         customParamArray = [],
         routeContainsCustomParams,
-        requestParams = params || {},
-        paramsLength = goog.object.getCount(requestParams),
+        requestParams = {},
+        paramsLength,
         routeParams,
-        paramString = '';
+        silentRedirect = false;
+
+    if (params && goog.typeOf(params) == 'object')
+        requestParams = params;
+
+    paramsLength = goog.object.getCount(requestParams);
 
     if (route instanceof tart.mvc.uri.Route)
         route = route.name;
@@ -118,6 +124,14 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
     }
     catch (e) {
         throw e;
+    }
+
+    if (redirectionType != tart.mvc.uri.Router.RedirectionType.CLASSICAL ||
+        redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT ||
+        this.redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT_ALL ||
+        (this.redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT_ONLY_DEFAULT &&
+             route == this.getDefaultRoute())) {
+        silentRedirect = true;
     }
 
     // we'll construct the url in this variable and we start with the given template of a route.
@@ -158,15 +172,18 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
     // construct the final url by replacing custom parameter placeholder with custom parameters
     url = this.getBasePath() + '#!/' + url.replace('*', customParamArray.join('/'));
 
-    // set the url. Since the application listens url changes; it will trigger the correct redirection
-    window.location = url;
+    if (silentRedirect)
+        // route the request but don't change the url.
+        this.route(url);
+    else // set the url. Since the application listens url changes; it will trigger the correct redirection
+        window.location = url;
 
     // since this is a redirection; return a proof that it really is; so that a renderer knows a redirection took place
     // and doesn't go on executing the previous action / view scripts' remaining tasks.
-    
+
     if (!this.redirectionReturnValue)
         this.redirectionReturnValue = new tart.mvc.uri.Redirection();
-    
+
     return this.redirectionReturnValue;
 };
 
@@ -180,15 +197,16 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params) {
  * @param {tart.mvc.ActionTemplate} action The action that the redirection will reeolve to.
  * @param {Object.<string, *>=} params The object that contains parameters to be sent to the route. Make sure that
  * the parameters fully match the route's requirements, otherwise a tart.Err may be thrown.
+ * @param {tart.mvc.uri.Router.RedirectionType=} redirectionType How the redirection will affect the url.
  * @return {tart.mvc.uri.Redirection} Explicitly make known that this is a redirection, so that the redirector stops
  * execution after this action.
  */
-tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params) {
+tart.mvc.uri.Router.prototype.redirectToAction = function(controller, action, params, redirectionType) {
     var route = goog.array.find(this.getRoutes(), function(route) {
         return route.controller = controller && route.action == action;
     });
 
-    return this.redirectToRoute(route.name, params);
+    return this.redirectToRoute(route.name, params, redirectionType);
 };
 
 
