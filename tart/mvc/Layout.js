@@ -127,3 +127,13 @@ tart.mvc.Layout.prototype.getContentArea = function() {
  */
 tart.mvc.Layout.prototype.onRender;
 
+
+/**
+ * Deconstructor method of this layout. Developers should override this property in an action function like;
+ *
+ * this.deconstructor = function() {}
+ *
+ * and should deallocate the memory they have used in this layout. This is also helpful for resolving issues that arise
+ * because of tartMVC's statefullness; such as removed but dangling DOM nodes, etc.
+ */
+tart.mvc.Layout.prototype.deconstructor = null;

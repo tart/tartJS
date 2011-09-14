@@ -15,8 +15,8 @@
 goog.provide('tart.mvc.Renderer');
 goog.require('tart.mvc.Action');
 goog.require('tart.mvc.Layout');
-goog.require('tart.mvc.uri.Redirection');
 goog.require('tart.mvc.View');
+goog.require('tart.mvc.uri.Redirection');
 
 
 
@@ -45,7 +45,7 @@ tart.mvc.Renderer.prototype.render = function(router) {
         action = this.currentAction = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
 
     // if there is an action already executed and it has a deconstructor, call it.
-     if (oldAction)
+    if (oldAction)
         goog.typeOf(oldAction.deconstructor) == 'function' && oldAction.deconstructor();
 
     // execute the action
