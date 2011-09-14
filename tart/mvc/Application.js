@@ -127,3 +127,11 @@ tart.mvc.Application.prototype.defaultRoute = null;
  */
 tart.mvc.Application.prototype.defaultLayout = /** @type {tart.mvc.LayoutTemplate} */ function() {
 };
+
+
+/**
+ * The default redirection type for an MVC application.
+ * @type {tart.mvc.uri.Router.RedirectionType}
+ * @protected
+ */
+tart.mvc.Application.prototype.redirectionType = tart.mvc.uri.Router.RedirectionType.CLASSICAL;
