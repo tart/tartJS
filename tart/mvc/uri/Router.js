@@ -33,9 +33,11 @@ goog.require('tart.mvc.uri.Request');
  * @param {tart.mvc.uri.Route} defaultRoute Default URI route that is used as fallback when no appropriate
  * controller/action is found.
  * @param {tart.mvc.Renderer} renderer Renderer instance to actually execute the routing and draw the layout and view.
+ * @param {tart.mvc.uri.Router.RedirectionType=} redirectionType How the redirection will affect the url. By default, all
+ * redirections change the url.
  * @constructor
  */
-tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
+tart.mvc.uri.Router = function(basePath, defaultRoute, renderer, redirectionType) {
     this.setBasePath(basePath);
 
     /**
@@ -46,6 +48,23 @@ tart.mvc.uri.Router = function(basePath, defaultRoute, renderer) {
     this.defaultRoute = defaultRoute;
     this.addRoute(this.defaultRoute);
     this.renderer_ = renderer;
+    this.redirectionType = redirectionType || tart.mvc.uri.Router.RedirectionType.CLASSICAL;
+};
+
+
+/**
+ * Constant values for redirection types.
+ * CLASSICAL makes all redirections with the url changing and reflecting the new path.
+ * SILENT_ALL makes all redirections without the url changing.
+ * SILENT_ONLY_DEFAULT makes only the error redirections silent. All the other ones are CLASSICAL.
+ *
+ * @enum
+ */
+tart.mvc.uri.Router.RedirectionType = {
+    CLASSICAL: 0,
+    SILENT_ALL: 1,
+    SILENT_ONLY_DEFAULT: 2,
+    SILENT: 3
 };
 
 
