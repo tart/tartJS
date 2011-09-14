@@ -235,7 +235,7 @@ tart.mvc.uri.Router.prototype.getBasePath = function() {
  * If the request matches any route, this function resolves it. Or else, it will throw a tart.Err.
  * @private
  * @param {tart.mvc.uri.Request} request Request to look for a route match.
- * @return {tart.mvc.uri.Route|null} Resolved route that holds the details of handling the request. Note that this
+ * @return {?tart.mvc.uri.Route} Resolved route that holds the details of handling the request. Note that this
  * function never returns null; this is a Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.resolve_ = function(request) {
@@ -411,7 +411,7 @@ tart.mvc.uri.Router.prototype.getRoutes = function() {
 /**
  * Returns a route with a given name. If no matching route is found, this method throws a tart.Err.
  * @param {string} name Route name to look up.
- * @return {tart.mvc.uri.Route|null} Route with the given name. Note that this function never returns null; this is a
+ * @return {?tart.mvc.uri.Route} Route with the given name. Note that this function never returns null; this is a
  * Google Closure Compiler fix.
  */
 tart.mvc.uri.Router.prototype.getRoute = function(name) {
