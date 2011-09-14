@@ -24,3 +24,14 @@ goog.provide('tart.mvc.View');
  */
 tart.mvc.View = function() {
 };
+
+
+/**
+ * Deconstructor method of this view. Developers should override this property in an action function like;
+ *
+ * this.deconstructor = function() {}
+ *
+ * and should deallocate the memory they have used in this view. This is also helpful for resolving issues that arise
+ * because of tartMVC's statefullness; such as removed but dangling DOM nodes, etc.
+ */
+tart.mvc.View.prototype.deconstructor = null;
