@@ -126,7 +126,7 @@ tart.mvc.uri.Router.prototype.redirectToRoute = function(route, params, redirect
         throw e;
     }
 
-    if (redirectionType != tart.mvc.uri.Router.RedirectionType.CLASSICAL ||
+    if (( redirectionType && redirectionType != tart.mvc.uri.Router.RedirectionType.CLASSICAL) ||
         redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT ||
         this.redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT_ALL ||
         (this.redirectionType == tart.mvc.uri.Router.RedirectionType.SILENT_ONLY_DEFAULT &&
