@@ -36,12 +36,18 @@ goog.provide('tart.mvc.Application');
  * Base application class for tart.mvc.
  * @constructor
  * @implements {tart.mvc.IApplication}
+ * @param {HTMLElement=} dom Optional DOM element to render the application in.
  */
-tart.mvc.Application = function() {
+tart.mvc.Application = function(dom) {
     var uri = new goog.Uri(window.location),
         uriString = uri.toString(),
         uriPath = uri.getPath(),
         myPath = '';
+
+    this.id = tart.getUid();
+
+    this.dom = dom || $(this.template_container()).appendTo('body')[0];
+
     if (goog.string.startsWith(uriPath, this.basePath)) {
         myPath = uriPath.substr(this.basePath.length - 1);
         if (myPath.length > 1 && !goog.string.endsWith(myPath, '/')) {
@@ -81,10 +87,19 @@ tart.mvc.Application = function() {
  */
 tart.mvc.Application.prototype.getRenderer = function() {
     if (!this.renderer_)
-        this.renderer_ = new tart.mvc.Renderer(this.defaultLayout);
+        this.renderer_ = new tart.mvc.Renderer(this.defaultLayout, this.dom);
 
     return this.renderer_;
 };
+
+
+/**
+ * Container template for the application. Developers may override this method for their own likes; or not use it
+ * at all if they provide a dom object to this class's constructor.
+ */
+tart.mvc.Application.prototype.template_container = function() {
+    return '<div id="' + this.id + '"></div>';
+}
 
 
 /**
