@@ -87,7 +87,7 @@ tart.mvc.Application = function(dom) {
  */
 tart.mvc.Application.prototype.getRenderer = function() {
     if (!this.renderer_)
-        this.renderer_ = new tart.mvc.Renderer(this.defaultLayout);
+        this.renderer_ = new tart.mvc.Renderer(this.defaultLayout, this.dom);
 
     return this.renderer_;
 };
