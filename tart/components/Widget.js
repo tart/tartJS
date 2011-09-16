@@ -48,7 +48,7 @@ tart.components.Widget.prototype.getPlaceholder = function () {
  * @return {string} placheolder markup.
  */
 tart.components.Widget.prototype.templates_placeholder = function () {
-    return '<div id="' + this.componentId_ + '"></div>';
+    return '<div class="widgetPlaceholder" id="' + this.componentId_ + '"></div>';
 };
 
 /**
