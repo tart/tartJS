@@ -84,7 +84,7 @@ tart.mvc.Renderer.prototype.render = function(router) {
         this.currentLayout.call(layout);
     }
 
-    layout.render();
+    layout.render(this.dom_);
 
     // call respective render callback functions; if there are any. These let the developers
     // watch out for rendering events.

@@ -50,14 +50,14 @@ tart.mvc.Layout.prototype.getContent = function() {
 /**
  * Renders the layout.
  */
-tart.mvc.Layout.prototype.render = function() {
+tart.mvc.Layout.prototype.render = function(body) {
     if (this.resetLayout == true) {
-        this.getBody().html(this.markup);
+        $(body).html(this.markup);
         this.resetLayout = false;
         goog.typeOf(this.onRender) == 'function' && this.onRender();
     }
     else {
-        this.getContentArea().html(this.getContent());
+        this.getContentArea(body).html(this.getContent());
     }
 };
 
@@ -94,27 +94,15 @@ tart.mvc.Layout.prototype.content_ = '';
 
 
 /**
- * Returns the body element for the layout. As a default, this is the <body> element; but users are free to override
- * as they implement their own applications.
- * @return {jQueryObject} The main element the layout will be placed in.
- */
-tart.mvc.Layout.prototype.getBody = function() {
-    if (!this.body) {
-        this.body = $('body');
-    }
-    return this.body;
-};
-
-
-/**
  * Returns the content are element where the content will be placed.
- * @return {jQueryObject} The main elmeent the contents will reside in.
+ * @return {jQueryObject} The main element the contents will reside in.
  */
-tart.mvc.Layout.prototype.getContentArea = function() {
+tart.mvc.Layout.prototype.getContentArea = function(body) {
+    var $body = $(body);
     if (!this.contentArea) {
-        this.contentArea = $('#content');
+        this.contentArea = $body.find('#content');
         if (this.contentArea.length == 0) {
-            this.contentArea = this.getBody();
+            this.contentArea = $body;
         }
     }
 
