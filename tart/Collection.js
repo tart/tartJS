@@ -33,6 +33,7 @@
  */
 
 goog.provide('tart.Collection');
+goog.require('goog.array');
 goog.require('goog.pubsub.PubSub');
 goog.require('tart.Err');
 
@@ -242,7 +243,7 @@ tart.Collection.prototype.removeByIndex = function(index) {
  */
 tart.Collection.prototype.removeByKey = function(key) {
     var keys = this.getKeys();
-    var index = keys.indexOf(key);
+    var index = goog.array.indexOf(keys, key);
     this.removeByIndex(index);
 };
 
