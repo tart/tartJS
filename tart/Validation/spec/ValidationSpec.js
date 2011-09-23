@@ -90,6 +90,31 @@ describe('Validation', function() {
         });
 
 
+        describe('Validation.is.numeric', function() {
+            it('should validate same strings', function () {
+                var result = validator.is.equal("osman", "osman");
+                expect(result).toBeTruthy();
+            });
+
+            it('should validate same numbers', function () {
+                var result = validator.is.equal(1453, 1453);
+                expect(result).toBeTruthy();
+            });
+
+            it('should validate empty strings', function () {
+                var result = validator.is.equal("", "");
+                expect(result).toBeTruthy();
+            });
+
+            it('should validate falsy values', function () {
+                var result = validator.is.equal("", false);
+                expect(result).toBeTruthy();
+            });
+
+
+        });
+
+
         describe('Validation.is.digitAndNonDigit', function() {
             it('should not validate text which has chars but numbers', function() {
                 var result = validator.is.digitAndNonDigit('foobar');
