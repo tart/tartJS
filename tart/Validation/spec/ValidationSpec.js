@@ -92,22 +92,22 @@ describe('Validation', function() {
 
         describe('Validation.is.equalPrimitives', function() {
             it('should validate same strings', function () {
-                var result = validator.is.equal("osman", "osman");
+                var result = validator.is.equalPrimitives("osman", "osman");
                 expect(result).toBeTruthy();
             });
 
             it('should validate same numbers', function () {
-                var result = validator.is.equal(1453, 1453);
+                var result = validator.is.equalPrimitives(1453, 1453);
                 expect(result).toBeTruthy();
             });
 
             it('should validate empty strings', function () {
-                var result = validator.is.equal("", "");
+                var result = validator.is.equalPrimitives("", "");
                 expect(result).toBeTruthy();
             });
 
             it('should validate falsy values', function () {
-                var result = validator.is.equal("", false);
+                var result = validator.is.equalPrimitives("", false);
                 expect(result).toBeTruthy();
             });
 
