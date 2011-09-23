@@ -90,7 +90,7 @@ describe('Validation', function() {
         });
 
 
-        describe('Validation.is.numeric', function() {
+        describe('Validation.is.equalPrimitives', function() {
             it('should validate same strings', function () {
                 var result = validator.is.equal("osman", "osman");
                 expect(result).toBeTruthy();
