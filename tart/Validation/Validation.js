@@ -92,6 +92,18 @@ tart.Validation.is.digitAndNonDigit = function(text) {
 
 
 /**
+ * Checks if both given arguments  are equal
+ *
+ * @param {string|number} arg1 item to be validated.
+ * @param {string|number} arg2 item to be validated.
+ * @return {boolean} true if both arguments are equal.
+ */
+tart.Validation.is.equal = function(arg1, arg2) {
+    return arg1 == arg2;
+};
+
+
+/**
  * Checks for strings' min length
  *
  * @param {string} text string to check for char length.
