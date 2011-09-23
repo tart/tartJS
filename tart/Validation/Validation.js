@@ -98,7 +98,7 @@ tart.Validation.is.digitAndNonDigit = function(text) {
  * @param {*} arg2 item to be validated.
  * @return {boolean} true if both arguments are equal.
  */
-tart.Validation.is.equalPrimitives = function(arg1, arg2) {
+tart.Validation.is.equal = function(arg1, arg2) {
     return arg1 == arg2;
 };
 

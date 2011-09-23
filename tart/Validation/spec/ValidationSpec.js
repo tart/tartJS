@@ -90,29 +90,29 @@ describe('Validation', function() {
         });
 
 
-        describe('Validation.is.equalPrimitives', function() {
+        describe('Validation.is.equal', function() {
             it('should validate same strings', function () {
-                var result = validator.is.equalPrimitives("osman", "osman");
+                var result = validator.is.equal("osman", "osman");
                 expect(result).toBeTruthy();
             });
 
             it('should validate same numbers', function () {
-                var result = validator.is.equalPrimitives(1453, 1453);
+                var result = validator.is.equal(1453, 1453);
                 expect(result).toBeTruthy();
             });
 
             it('should validate empty strings', function () {
-                var result = validator.is.equalPrimitives("", "");
+                var result = validator.is.equal("", "");
                 expect(result).toBeTruthy();
             });
 
             it('should validate falsy values', function () {
-                var result = validator.is.equalPrimitives("", false);
+                var result = validator.is.equal("", false);
                 expect(result).toBeTruthy();
             });
 
             it('should not validate falsy values with null', function () {
-                var result = validator.is.equalPrimitives(null, false);
+                var result = validator.is.equal(null, false);
                 expect(result).toBeFalsy();
             });
 
