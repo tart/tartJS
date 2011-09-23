@@ -13,6 +13,7 @@ describe('Validation', function() {
         expect(typeof validator).toEqual('object');
     });
 
+
     describe('Validation.is', function() {
 
         describe('Validation.is.email', function() {
@@ -90,6 +91,7 @@ describe('Validation', function() {
         });
 
 
+        //TODO: add more tests
         describe('Validation.is.equal', function() {
             it('should validate same strings', function () {
                 var result = validator.is.equal("osman", "osman");
@@ -100,6 +102,14 @@ describe('Validation', function() {
                 var result = validator.is.equal(1453, 1453);
                 expect(result).toBeTruthy();
             });
+
+            it('should validate numeric strings', function () {
+                var result = validator.is.equal("1453", 1453);
+                expect(result).toBeTruthy();
+            });
+
+
+
 
             it('should validate empty strings', function () {
                 var result = validator.is.equal("", "");
