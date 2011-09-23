@@ -111,6 +111,11 @@ describe('Validation', function() {
                 expect(result).toBeTruthy();
             });
 
+            it('should not validate falsy values with null', function () {
+                var result = validator.is.equalPrimitives(null, false);
+                expect(result).toBeFalsy();
+            });
+
 
         });
 
