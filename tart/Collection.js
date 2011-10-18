@@ -117,7 +117,7 @@ tart.Collection.prototype.getActiveItemKey = function() {
 /**
  * Returns active item's value.
  *
- * @return {string} returns the active value from the collection.
+ * @return {*} returns the active value from the collection.
  */
 tart.Collection.prototype.getActiveItemValue = function() {
     return this.values_[this.getActiveItemIndex()];
