@@ -38,8 +38,8 @@
  *
  *     // Having an enumerated type for events helps readability
  *     Foo.MooreMachine.Events = {
- *         CLICK: 0,
- *         DOUBLECLICK: 1
+ *         CLICK: '0',
+ *         DOUBLECLICK: '1'
  *     }
  *
  *     Foo.MooreMachine.prototype.createStates_ = function(){
@@ -79,7 +79,7 @@ goog.provide('tart.StateMachine');
 tart.StateMachine = function() {
     goog.base(this);
     /**
-     * @type {Array.<number>}
+     * @type {Array.<string>}
      * @private
      */
     this.events_ = [];
