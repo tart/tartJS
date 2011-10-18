@@ -160,7 +160,7 @@ tart.StateMachine.prototype.handleEvent_ = function(self, event) {
     return function() {
         var nextState = self.currentState.transitions[event];
         if (nextState) {
-            self.setCurrentState(nextState, arguments);
+            self.setCurrentState(nextState, Array.prototype.slice.call(arguments));
         }
     }
 };
