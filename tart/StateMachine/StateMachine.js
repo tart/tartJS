@@ -104,9 +104,9 @@ tart.StateMachine.prototype.addState = function(state) {
  * Sets the current state disregarding the previous one, and executes it's function.
  * @param {tart.State} state State to be set as the current state.
  * @param {Array.<*>=} opt_args Arguments to pass to the new state.
- * @private
+ * @protected
  */
-tart.StateMachine.prototype.setCurrentState_ = function(state, opt_args) {
+tart.StateMachine.prototype.setCurrentState = function(state, opt_args) {
     this.currentState = state;
     this.currentState.fn.apply(this, opt_args);
 };
@@ -114,13 +114,13 @@ tart.StateMachine.prototype.setCurrentState_ = function(state, opt_args) {
 
 /**
  * Starts the state machine. If it's the first time this function is called, it also lazy loads the states via
- * <code>createStates_</code> method.
+ * <code>createStates</code> method.
  */
 tart.StateMachine.prototype.startMachine = function() {
     if (this.currentState == undefined) {
         var firstState = this.createStates();
         this.bindEvents_();
-        this.setCurrentState_(firstState);
+        this.setCurrentState(firstState);
     }
 };
 
@@ -160,7 +160,7 @@ tart.StateMachine.prototype.handleEvent_ = function(self, event) {
     return function() {
         var nextState = self.currentState.transitions[event];
         if (nextState) {
-            self.setCurrentState_(nextState, arguments);
+            self.setCurrentState(nextState, arguments);
         }
     }
 };
