@@ -152,7 +152,7 @@ tart.StateMachine.prototype.bindEvents_ = function() {
  * target state becomes the current state.
  * @param {tart.StateMachine} self The State Machine instance (due to the nature of goog.pubsub.PubSub.subscribe,
  *                                 this function loses its scope. This variable corrects it).
- * @param {number} event The event to handle.
+ * @param {string} event The event to handle.
  * @return {function()} Returns a closure to use as an eventHandler.
  * @private
  */
