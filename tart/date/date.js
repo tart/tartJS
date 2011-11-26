@@ -69,3 +69,22 @@ tart.date.randomTimeInInterval = function(interval) {
 };
 
 
+(function() {
+    var date = new goog.date.DateTime();
+
+    /*
+     * Formats milliseconds by a given pattern.
+     *
+     * Usage: tart.date.formatMilliseconds(1320676229977, 'd MMMM, EEEE') returns "7 Kasım, Pazartesi".
+     * For further information about patterns, please check out datetimeformat.js under goog/i18n.
+     *
+     * @param {!number} milliseconds Milliseconds that will be formatted.
+     * @param {!string} pattern Format pattern.
+     * @return {string} Formatted date.
+     */
+    tart.date.formatMilliseconds = function(milliseconds, pattern) {
+        date.setTime(milliseconds);
+        var formatter = new goog.i18n.DateTimeFormat(pattern);
+        return formatter.format(date);
+    };
+})();
