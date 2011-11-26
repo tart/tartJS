@@ -31,7 +31,7 @@ goog.provide('tart.dom');
      * your elements under one parent div, or you will only get the first element.
      *
      * @param {string} htmlString The HTML string to convert.
-     * @return {!Node} The resulting document fragment.
+     * @return {!Element} The resulting element.
      */
     tart.dom.createElement = function(htmlString) {
         tempDiv.innerHTML = htmlString;

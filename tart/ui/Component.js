@@ -62,7 +62,7 @@ goog.inherits(tart.ui.Component, goog.events.EventTarget);
 
 /**
  * Returns the dom element attached with the Component instance.
- * @return {Node} Returns the root DOM node.
+ * @return {Element} Returns the root DOM element.
  */
 tart.ui.Component.prototype.getElement = function() {
     return this.element;
