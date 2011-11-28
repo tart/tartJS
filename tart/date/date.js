@@ -17,6 +17,7 @@
  */
 
 goog.require('goog.date.DateTime');
+goog.require('goog.i18n.DateTimeFormat');
 goog.require('goog.math');
 goog.provide('tart.date');
 goog.provide('tart.date.Date');
