@@ -45,6 +45,7 @@ tart.base.plugin.Pager = function(model, pagination) {
         var limit = that.map.get('limit');
         var newOffset = (e.newValue - 1) * limit;
         that.map.set('offset', newOffset);
+        that.model.params.set(that.key, that.map);
     });
 };
 goog.inherits(tart.base.plugin.Pager, tart.base.plugin.BasePlugin);
