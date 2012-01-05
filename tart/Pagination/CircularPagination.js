@@ -61,3 +61,16 @@ tart.CircularPagination.prototype.hasNext = function() {
 tart.CircularPagination.prototype.getTotalPage = function() {
     return Infinity;
 };
+
+
+/**
+ * @override
+ */
+tart.CircularPagination.prototype.setCurrentPage = function(page) {
+    var oldValue = this.currentPage_;
+    this.currentPage_ = page;
+
+    this.triggerPageChange_(oldValue, page);
+
+    return this;
+};
