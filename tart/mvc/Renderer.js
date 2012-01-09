@@ -44,7 +44,8 @@ tart.mvc.Renderer.prototype.render = function(router) {
         viewMarkup,
         layout,
         view = new tart.mvc.View(),
-        action = this.currentAction = new tart.mvc.Action(router.getParams(), this.defaultLayout, view);
+        controller = new (router.getController())(),
+        action = this.currentAction = new tart.mvc.Action(router.getParams(), this.defaultLayout, view, controller);
 
     // if there is an action already executed and it has a deconstructor, call it.
     if (oldAction)

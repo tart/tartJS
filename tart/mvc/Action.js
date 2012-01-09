@@ -21,11 +21,13 @@ goog.provide('tart.mvc.Action');
  * @param {Object} params Params.
  * @param {tart.mvc.LayoutTemplate} layout Layout.
  * @param {tart.mvc.View} view View.
+ * @param {tart.mvc.Controller} controller Controller.
  */
-tart.mvc.Action = function(params, layout, view) {
+tart.mvc.Action = function(params, layout, view, controller) {
     this.params = params;
     this.view = view;
     this.layout_ = layout;
+    this.controller = controller;
 };
 
 

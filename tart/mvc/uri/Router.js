@@ -367,7 +367,7 @@ tart.mvc.uri.Router.prototype.fixOddParams_ = function(params) {
 
 /**
  * Returns the active controller.
- * @return {tart.mvc.Controller} Active controller.
+ * @return {(function (new:tart.mvc.Controller))} Active controller.
  */
 tart.mvc.uri.Router.prototype.getController = function() {
     return this.controller_;

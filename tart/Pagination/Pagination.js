@@ -58,8 +58,8 @@ tart.Pagination = function() {
     /** @private */
     this.totalPage_ = 1;
 
-    /** @private */
-    this.currentPage_ = 1;
+    /** @protected */
+    this.currentPage = 1;
 
     /** @private */
     this.itemPerPage_ = 1;
@@ -85,7 +85,7 @@ tart.Pagination.EventTypes = {
  *
  * @param {string|number} oldValue old page value.
  * @param {string|number} newValue new page value.
- * @private
+ * @protected
  */
 tart.Pagination.prototype.triggerPageChange_ = function(oldValue, newValue) {
     //TODO: this event object should be '@typedef'ed
@@ -122,7 +122,7 @@ tart.Pagination.prototype.setTotalPage = function(page) {
  * @return {number} current page.
  */
 tart.Pagination.prototype.getCurrentPage = function() {
-    return this.currentPage_;
+    return this.currentPage;
 };
 
 
@@ -133,7 +133,7 @@ tart.Pagination.prototype.getCurrentPage = function() {
  * @return {tart.Pagination} .
  */
 tart.Pagination.prototype.setCurrentPage = function(page) {
-    var oldValue = this.currentPage_;
+    var oldValue = this.currentPage;
 
     //if page > totalPage
     page = (page > this.totalPage_) ? this.totalPage_ : page;
@@ -141,7 +141,7 @@ tart.Pagination.prototype.setCurrentPage = function(page) {
     //if page < 1
     page = (page < 1) ? 1 : page;
 
-    this.currentPage_ = page;
+    this.currentPage = page;
 
     this.triggerPageChange_(oldValue, page);
 
@@ -200,7 +200,7 @@ tart.Pagination.prototype.setItemPerPage = function(itemPerPage) {
  * @return {boolean} is next page available.
  */
 tart.Pagination.prototype.hasNext = function() {
-    return this.currentPage_ + 1 <= this.totalPage_;
+    return this.currentPage + 1 <= this.totalPage_;
 };
 
 
@@ -210,7 +210,7 @@ tart.Pagination.prototype.hasNext = function() {
  * @return {number} next page number.
  */
 tart.Pagination.prototype.getNext = function() {
-    return this.hasNext() ? this.currentPage_ + 1 : this.currentPage_;
+    return this.hasNext() ? this.currentPage + 1 : this.currentPage;
 };
 
 
@@ -220,7 +220,7 @@ tart.Pagination.prototype.getNext = function() {
  * @return {boolean} is previous page available.
  */
 tart.Pagination.prototype.hasPrev = function() {
-    return this.currentPage_ - 1 >= 1;
+    return this.currentPage - 1 >= 1;
 };
 
 
@@ -230,7 +230,7 @@ tart.Pagination.prototype.hasPrev = function() {
  * @return {number} previous page number.
  */
 tart.Pagination.prototype.getPrev = function() {
-    return this.hasPrev() ? this.currentPage_ - 1 : this.currentPage_;
+    return this.hasPrev() ? this.currentPage - 1 : this.currentPage;
 };
 
 
@@ -238,9 +238,9 @@ tart.Pagination.prototype.getPrev = function() {
  * Change page to next page
  */
 tart.Pagination.prototype.next = function() {
-    var oldValue = this.currentPage_;
-    this.currentPage_ = this.getNext();
-    this.triggerPageChange_(oldValue, this.currentPage_);
+    var oldValue = this.currentPage;
+    this.currentPage = this.getNext();
+    this.triggerPageChange_(oldValue, this.currentPage);
 };
 
 
@@ -248,7 +248,7 @@ tart.Pagination.prototype.next = function() {
  * Change page to previous page
  */
 tart.Pagination.prototype.prev = function() {
-    var oldValue = this.currentPage_;
-    this.currentPage_ = this.getPrev();
-    this.triggerPageChange_(oldValue, this.currentPage_);
+    var oldValue = this.currentPage;
+    this.currentPage = this.getPrev();
+    this.triggerPageChange_(oldValue, this.currentPage);
 };
