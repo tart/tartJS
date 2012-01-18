@@ -88,8 +88,8 @@ tart.Pagination.EventTypes = {
  * @protected
  */
 tart.Pagination.prototype.triggerPageChange_ = function(oldValue, newValue) {
-    //TODO: this event object should be '@typedef'ed
-    this.dispatchEvent({type: tart.Pagination.EventTypes.PAGE_CHANGED, oldValue: oldValue, newValue: newValue});
+    if (oldValue != newValue)
+        this.dispatchEvent({type: tart.Pagination.EventTypes.PAGE_CHANGED, oldValue: oldValue, newValue: newValue});
 };
 
 
