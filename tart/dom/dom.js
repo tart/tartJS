@@ -35,6 +35,6 @@ goog.provide('tart.dom');
      */
     tart.dom.createElement = function(htmlString) {
         tempDiv.innerHTML = htmlString;
-        return tempDiv.firstChild;
+        return tempDiv.removeChild(tempDiv.firstChild);
     };
 })();
