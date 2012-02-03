@@ -67,10 +67,12 @@ tart.CircularPagination.prototype.getTotalPage = function() {
  * @override
  */
 tart.CircularPagination.prototype.setCurrentPage = function(page) {
-    var oldValue = this.currentPage;
-    this.currentPage = page;
+    if (this.totalItems_ > this.itemPerPage_) {
+        var oldValue = this.currentPage;
+        this.currentPage = page;
 
-    this.triggerPageChange_(oldValue, page);
+        this.triggerPageChange_(oldValue, page);
+    }
 
     return this;
 };
