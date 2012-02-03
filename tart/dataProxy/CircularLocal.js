@@ -45,17 +45,16 @@ tart.dataProxy.CircularLocal.prototype.fetch = function(callback) {
     if (!fetchedData || !pagerParam)
         callback.call(this);
 
-    var offset = ((pagerParam.get('offset') % fetchedData.length) + fetchedData.length) % fetchedData.length,
+    var offset = pagerParam.get('offset'),
         limit = pagerParam.get('limit'),
         length = fetchedData.length,
         tmp = [],
         pos;
 
-    for (var i = offset; i < offset + limit; i++) {
-        pos = i;
-        if (i >= length)
-            pos = i % length;
+    if (limit > length) limit = length;
 
+    for (var i = offset, loopCount = offset + limit; i < loopCount; i++) {
+        pos = i % length;
         tmp.push(fetchedData[pos]);
     }
 
