@@ -54,7 +54,8 @@ tart.dataProxy.CircularLocal.prototype.fetch = function(callback) {
     if (limit > length) limit = length;
 
     for (var i = offset, loopCount = offset + limit; i < loopCount; i++) {
-        pos = i % length;
+        pos = (i % length + length) % length;
+
         tmp.push(fetchedData[pos]);
     }
 
