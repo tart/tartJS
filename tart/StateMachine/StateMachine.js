@@ -107,6 +107,7 @@ tart.StateMachine.prototype.addState = function(state) {
  * @protected
  */
 tart.StateMachine.prototype.setCurrentState = function(state, opt_args) {
+    opt_args = opt_args || [];
     this.currentState = state;
     this.currentState.fn.apply(this, opt_args);
 };
