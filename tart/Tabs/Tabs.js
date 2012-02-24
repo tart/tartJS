@@ -261,7 +261,7 @@ tart.Tabs.prototype.initOptions = function(options) {
     props.axis = options.axis || 'x';
     this.activeTab = options.activeTab || 0;
 
-    props.renderConfig = options.renderConfig || { 'append': $('body') };
+    props.renderConfig = options.renderConfig || {};
 
     props.tabPanelCssClass = options.tabPanelCssClass || '';
     props.tabContainerCssClass = options.tabContainerCssClass || '';
