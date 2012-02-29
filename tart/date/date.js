@@ -77,15 +77,18 @@ tart.date.randomTimeInInterval = function(interval) {
      * Formats milliseconds by a given pattern.
      *
      * Usage: tart.date.formatMilliseconds(1320676229977, 'd MMMM, EEEE') returns "7 Kasım, Pazartesi".
+     * If you want to format by a specific timeZone, pass timeZone difference as minute,
+     * e.g. for GMT+2 pass goog.i18n.TimeZone.createTimeZone(-120).
      * For further information about patterns, please check out datetimeformat.js under goog/i18n.
      *
      * @param {!number} milliseconds Milliseconds that will be formatted.
      * @param {!string} pattern Format pattern.
+     * @param {goog.i18n.TimeZone=} timeZone Timezone that will be used when formatting.
      * @return {string} Formatted date.
      */
-    tart.date.formatMilliseconds = function(milliseconds, pattern) {
+    tart.date.formatMilliseconds = function(milliseconds, pattern, timeZone) {
         date.setTime(milliseconds);
         var formatter = new goog.i18n.DateTimeFormat(pattern);
-        return formatter.format(date);
+        return formatter.format(date, timeZone);
     };
 })();
