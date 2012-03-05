@@ -99,6 +99,24 @@ tart.DropdownList.prototype.setActiveItemIndex = function(newIndex) {
     return false;
 };
 
+
+/**
+ * Set active item belongs to value parameter.
+ * @param {(string|number)} value of an array.
+ */
+tart.DropdownList.prototype.setActiveItemByValue = function(value) {
+    var that = this;
+
+    var items = this.getValues();
+    var index = goog.array.findIndex(items, function(item) {
+        return value == item;
+    });
+
+    that.setActiveItemIndex(index);
+};
+
+
+
 /**
  * Triggered by this.builder.dom_ element when user change the index by non-programatically way.
  * Important: This method shouldn't be called in any implementation code. Developers should use
