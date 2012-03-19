@@ -38,8 +38,9 @@ goog.inherits(tart.dataProxy.Xhr, tart.dataProxy.Abstract);
 /**
  * Fetch data from xhr and call a function with returned data
  * @param {?function(Object)} callback function to call with returned data.
+ * @param {?function(Object)} opt_fail function to call when request failed.
  */
-tart.dataProxy.Xhr.prototype.fetch = function(callback) {
+tart.dataProxy.Xhr.prototype.fetch = function(callback, opt_fail) {
     var url = this.params.get('url_');
     this.params.remove('url_');
     url = '' + url; //cast to string to make it type safe for XhrManager.get
@@ -71,5 +72,5 @@ tart.dataProxy.Xhr.prototype.fetch = function(callback) {
         }
     }
 
-    methodFn(url, this.params.toObject(), callback);
+    methodFn(url, this.params.toObject(), callback, opt_fail);
 };
