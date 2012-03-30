@@ -72,7 +72,8 @@ tart.date.randomTimeInInterval = function(interval) {
 
 (function() {
     var date = new goog.date.DateTime();
-
+    var formatterCache = {};
+    var rvCache = {};
     /*
      * Formats milliseconds by a given pattern.
      *
@@ -88,7 +89,13 @@ tart.date.randomTimeInInterval = function(interval) {
      */
     tart.date.formatMilliseconds = function(milliseconds, pattern, timeZone) {
         date.setTime(milliseconds);
-        var formatter = new goog.i18n.DateTimeFormat(pattern);
-        return formatter.format(date, timeZone);
+        var formatter = formatterCache[pattern];
+        if (!formatter) formatter = formatterCache[pattern] = new goog.i18n.DateTimeFormat(pattern);
+
+        var cacheKey = milliseconds + pattern + timeZone.getTimeZoneId();
+        var rv = rvCache[cacheKey];
+        if (!rv) rv = rvCache[cacheKey] = formatter.format(date, timeZone);
+
+        return rv;
     };
 })();
