@@ -255,11 +255,12 @@ tart.Collection.prototype.removeByKey = function(key) {
  */
 tart.Collection.prototype.setActiveItemIndex = function(newIndex) {
     // Deffensive check; active item index should not greater than total items in collection.
-    if (newIndex > this.values_.length - 1 || newIndex === undefined || isNaN(newIndex)) {
+    if (newIndex > this.values_.length - 1 || newIndex === undefined || isNaN(newIndex) || newIndex == this.activeItemIndex_) {
         return false;
     } else {
+        var oldIndex = this.activeItemIndex_;
         this.activeItemIndex_ = newIndex;
-        this.publish('indexChanged', newIndex);
+        this.publish('indexChanged', this.activeItemIndex_, oldIndex);
         return true;
     }
 };
