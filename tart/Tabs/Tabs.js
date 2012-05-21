@@ -160,7 +160,6 @@ tart.Tabs.prototype.removeTab = function(index) {
 /**
  * Sets the tab as active with the given index.
  * @param {!number} index Index number of the tab that you want to set as active.
- * @return {boolean} Whether the operation was successful.
  */
 tart.Tabs.prototype.setActiveTab = function(index) {
     if (index >= this.getTabsLength()) {
@@ -181,19 +180,11 @@ tart.Tabs.prototype.setActiveTab = function(index) {
 
     var newlyActivatedTab = this.getActiveTab();
 
-    if (!deActivatedTab.onClose || !newlyActivatedTab.onShow) { // call deactivated tab's onClose function
-        return false;
-    }
+    if (deActivatedTab.onClose && deActivatedTab != newlyActivatedTab) /* prevent double fn call on initialize */
+	        deActivatedTab.onClose(this);
 
-    if (deActivatedTab != newlyActivatedTab) { /* prevent double fn call on initialize */
-        deActivatedTab.onClose(this);
-        newlyActivatedTab.onShow(this); // call newly activated tab's onShow function
-    } else {
-        newlyActivatedTab.onShow(this); // call newly activated tab's onShow function
-    }
-
-    this.publish('tabChange', this.getActiveTab(), this);
-    return true;
+	newlyActivatedTab.onShow && newlyActivatedTab.onShow(this); // call newly activated tab's onShow function
+	this.publish('tabChange', this.getActiveTab(), this);
 };
 
 
