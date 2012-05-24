@@ -112,7 +112,7 @@ tart.ui.TooltipComponent.prototype.onInit = function() {
 };
 
 tart.ui.TooltipComponent.prototype.templates_base = function() {
-    return '<div id="' + this.id + '" class="' + this.cssClass + '"></div>';
+    return '<div id="' + this.id + '" class="' + this.cssClass + '"><div class="hedelek">s</div></div>';
 };
 
 tart.ui.TooltipComponent.prototype.position = function() {
@@ -122,25 +122,48 @@ tart.ui.TooltipComponent.prototype.position = function() {
     var coordinate;
     var handlerFn;
 
+    var horizontalShift = 0;
+    var verticalShift = 0;
+    if (refElementOffset.x < $(window).scrollLeft()) {
+        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
+    }
+    if (refElementOffset.y - $(window).scrollTop() < myElementSize.height) {
+        verticalShift = $(window).scrollTop() - refElementOffset.y - myElementSize.height;
+    }
+    if(horizontalShift >= 0) {
+        if(verticalShift >=0) {
+//            this.model.options.direction = tart.ui.TooltipComponentModel.Direction.TOP; //will be changed to this value later.
+            this.model.options.direction = tart.ui.TooltipComponentModel.Direction.LEFT;
+        }
+        else {
+            this.model.options.direction = tart.ui.TooltipComponentModel.Direction.BOTTOM;
+        }
+    }
+
     switch (this.model.options.direction) {
         case tart.ui.TooltipComponentModel.Direction.LEFT:
             handlerFn = this.positionLeft;
+            console.log("left");
             break;
         case tart.ui.TooltipComponentModel.Direction.RIGHT:
             handlerFn = this.positionRight;
+            console.log("right");
             break;
         case tart.ui.TooltipComponentModel.Direction.BOTTOM:
             handlerFn = this.positionBottom;
+            console.log("bottom");
             break;
         case tart.ui.TooltipComponentModel.Direction.TOP:
         default:
             handlerFn = this.positionTop;
+            console.log("top");
             break;
 
     }
 
     coordinate = handlerFn.call(this, refElementOffset, refElementSize, myElementSize);
 
+    console.log(verticalShift, horizontalShift, refElementOffset.y, $(window).scrollTop(), myElementSize.height);
     this.element.style.top = coordinate.y + 'px';
     this.element.style.left = coordinate.x + 'px';
 };
@@ -155,22 +178,37 @@ tart.ui.TooltipComponent.prototype.position = function() {
  * @return {goog.math.Coordinate}
  */
 tart.ui.TooltipComponent.prototype.positionLeft = function(refElementOffset, refElementSize, myElementSize) {
-    var y = refElementOffset.y;
-    var x = refElementOffset.x - myElementSize.width;
-
+    var horizontalShift = 0;
+    if (refElementOffset.x < $(window).scrollLeft()) {
+        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
+    }
+    var y = refElementOffset.y - (myElementSize.height + this.model.tipOffset + this.model.boxOffset);
+    var x = refElementOffset.x + horizontalShift ;
+//    console.log(myElementSize.width, refElementOffset.x , $(window).scrollLeft());
     return new goog.math.Coordinate(x, y);
 };
 
 tart.ui.TooltipComponent.prototype.positionTop = function(refElementOffset, refElementSize, myElementSize) {
-    var y = refElementOffset.y - myElementSize.height;
-    var x = refElementOffset.x;
-
+//    var y = refElementOffset.y - myElementSize.height;
+//    var x = refElementOffset.x;
+//
+//    return new goog.math.Coordinate(x, y);
+    var horizontalShift = 0;
+    if (refElementOffset.x < $(window).scrollLeft()) {
+        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
+    }
+    var y = refElementOffset.y - (myElementSize.height + this.model.tipOffset + this.model.boxOffset);
+    var x = refElementOffset.x + horizontalShift ;
     return new goog.math.Coordinate(x, y);
 };
 
 tart.ui.TooltipComponent.prototype.positionBottom = function(refElementOffset, refElementSize, myElementSize) {
-    var y = refElementOffset.y + myElementSize.height;
-    var x = refElementOffset.x;
+    var horizontalShift = 0;
+    if (refElementOffset.x < $(window).scrollLeft()) {
+        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
+    }
+    var y = refElementOffset.y + this.model.tipOffset + this.model.boxOffset + refElementSize.height;
+    var x = refElementOffset.x + horizontalShift;
 
     return new goog.math.Coordinate(x, y);
 };
