@@ -119,10 +119,15 @@ tart.StateMachine.prototype.setCurrentState = function(state, opt_args) {
  */
 tart.StateMachine.prototype.startMachine = function() {
     if (this.currentState == undefined) {
-        var firstState = this.createStates();
+        this.firstState = this.createStates();
         this.bindEvents_();
-        this.setCurrentState(firstState);
+        this.setCurrentState(this.firstState);
     }
+};
+
+
+tart.StateMachine.prototype.reset = function() {
+    this.firstState && this.setCurrentState(this.firstState);
 };
 
 
