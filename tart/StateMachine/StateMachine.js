@@ -129,7 +129,6 @@ tart.StateMachine.prototype.startMachine = function() {
 /**
  * This should be overridden by child classes. It holds the initialization of states and is called when the
  * <code>startMachine</code> method is called for the first time.
- * @protected
  * @return {tart.State} The first state that the machine will start with.
  */
 tart.StateMachine.prototype.createStates = goog.abstractMethod;
