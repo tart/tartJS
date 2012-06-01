@@ -208,10 +208,16 @@ tart.ui.TooltipComponent.prototype.position = function() {
 
         if (refElementOffset.y - winScrollTop >= myElementSize.height + this.model.tipOffset + this.model.boxOffset) {
             this.model.options.direction = tart.ui.TooltipComponentModel.Direction.TOP;
+            verticalTipCapShift = myElementSize.height;
         }
         else {
             this.model.options.direction = tart.ui.TooltipComponentModel.Direction.BOTTOM;
+            verticalTipCapShift = -16;
+
         }
+
+        horizontalTipCapShift = (horizontalShift >=0) ? this.model.tipOffset : (-horizontalShift >= myElementSize.width - this.model.tipOffset ) ? -horizontalShift : this.model.tipOffset - horizontalShift;
+        verticalShift = 0;
     }
     else {
         if(myWindowSize.height + winScrollTop - refElementOffset.y - myElementSize.height < 0) {
