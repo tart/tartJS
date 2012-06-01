@@ -27,9 +27,22 @@ goog.require('tart.ui.TooltipComponentModel');
  * @extends {tart.ui.Component}
  */
 tart.ui.TooltipComponent = function(refElement, options) {
-    this.element = goog.dom.getElement(this.id) || tart.dom.createElement(this.templates_base());
+    this.element = goog.dom.getElement(this.id);
     this.refElement = refElement;
     this.model = new this.modelClass(options);
+    if (!this.element) {
+        this.element = tart.dom.createElement(this.templates_base());
+        this.contentArea = tart.dom.createElement(this.templates_tTipContentArea());
+        this.cap = tart.dom.createElement(this.templates_tipCap());
+        this.element.appendChild(this.contentArea);
+        document.body.appendChild(this.element);
+        this.element.appendChild(this.cap);
+    }
+    else {
+        this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
+        this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
+    }
+
     this.bindModelEvents();
     this.bindDomEvents();
 };
