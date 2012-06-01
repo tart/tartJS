@@ -213,6 +213,13 @@ tart.ui.TooltipComponent.prototype.position = function() {
             this.model.options.direction = tart.ui.TooltipComponentModel.Direction.BOTTOM;
         }
     }
+    else {
+        if(myWindowSize.height + winScrollTop - refElementOffset.y - myElementSize.height < 0) {
+            verticalShift = myWindowSize.height + winScrollTop - refElementOffset.y - myElementSize.height;
+        }
+        if(refElementOffset.y <= winScrollTop) {
+            verticalShift = winScrollTop - refElementOffset.y;
+        }
 
     switch (this.model.options.direction) {
         case tart.ui.TooltipComponentModel.Direction.LEFT:
