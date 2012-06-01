@@ -125,6 +125,7 @@ tart.ui.TooltipComponent.prototype.reset = function() {
 
 tart.ui.TooltipComponent.prototype.onInit = function() {
     this.element.style.display = 'none';
+    goog.dom.removeNode(this.cap);
 };
 
 tart.ui.TooltipComponent.prototype.templates_base = function() {
