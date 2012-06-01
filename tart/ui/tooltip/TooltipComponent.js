@@ -162,6 +162,16 @@ tart.ui.TooltipComponent.prototype.setContent = function(content) {
     }
     this.position();
 };
+
+
+/**
+ * This method takes a reference element and uses its offSet and size values along with tooltip element's size values
+ * to calculate the right position to display the tooltip. If the toolTip can be shown on the top of the reference
+ * element, it positions the tooltip with the distance calculated by this.model's tipOffset and boxOffset values. If it
+ * is not to possible to display on top, than it looks for the suitable area to display tooltip. The possible matches
+ * are 'right', 'left', 'bottom' and as a default match 'top'.
+ *
+ **/
 tart.ui.TooltipComponent.prototype.position = function() {
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
