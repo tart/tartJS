@@ -195,6 +195,19 @@ tart.ui.TooltipComponent.prototype.position = function() {
         horizontalTipCapShift = myElementSize.width ;
     }
 
+    if (topDown) {
+        if(refElementOffset.x < winScrollLeft) {
+            horizontalShift = winScrollLeft - refElementOffset.x;
+        }
+
+        if (horizontalShift == 0) {
+            if (myElementSize.width  + (refElementOffset.x - winScrollLeft) > myWindowSize.width) {
+                horizontalShift = horizontalShift + (myWindowSize.width - myElementSize.width -  refElementOffset.x + winScrollLeft);
+            }
+        }
+
+        if (refElementOffset.y - winScrollTop >= myElementSize.height + this.model.tipOffset + this.model.boxOffset) {
+            this.model.options.direction = tart.ui.TooltipComponentModel.Direction.TOP;
         }
         else {
             this.model.options.direction = tart.ui.TooltipComponentModel.Direction.BOTTOM;
