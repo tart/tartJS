@@ -281,44 +281,27 @@ tart.ui.TooltipComponent.prototype.position = function() {
  * @return {goog.math.Coordinate}
  */
 tart.ui.TooltipComponent.prototype.positionLeft = function(refElementOffset, refElementSize, myElementSize) {
-    var horizontalShift = 0;
-    if (refElementOffset.x < $(window).scrollLeft()) {
-        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
-    }
-    var y = refElementOffset.y - (myElementSize.height + this.model.tipOffset + this.model.boxOffset);
-    var x = refElementOffset.x + horizontalShift ;
-//    console.log(myElementSize.width, refElementOffset.x , $(window).scrollLeft());
+    var y = refElementOffset.y;
+    var x = refElementOffset.x - (myElementSize.width + 8 + this.model.boxOffset);
     return new goog.math.Coordinate(x, y);
 };
 
 tart.ui.TooltipComponent.prototype.positionTop = function(refElementOffset, refElementSize, myElementSize) {
-//    var y = refElementOffset.y - myElementSize.height;
-//    var x = refElementOffset.x;
-//
-//    return new goog.math.Coordinate(x, y);
-    var horizontalShift = 0;
-    if (refElementOffset.x < $(window).scrollLeft()) {
-        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
-    }
-    var y = refElementOffset.y - (myElementSize.height + this.model.tipOffset + this.model.boxOffset);
-    var x = refElementOffset.x + horizontalShift ;
+    var y = refElementOffset.y - (myElementSize.height + 8 + this.model.boxOffset);
+    var x = refElementOffset.x ;
     return new goog.math.Coordinate(x, y);
 };
 
 tart.ui.TooltipComponent.prototype.positionBottom = function(refElementOffset, refElementSize, myElementSize) {
-    var horizontalShift = 0;
-    if (refElementOffset.x < $(window).scrollLeft()) {
-        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
-    }
-    var y = refElementOffset.y + this.model.tipOffset + this.model.boxOffset + refElementSize.height;
-    var x = refElementOffset.x + horizontalShift;
+    var y = refElementOffset.y + 8 + this.model.boxOffset + refElementSize.height;
+    var x = refElementOffset.x;
 
     return new goog.math.Coordinate(x, y);
 };
 
 tart.ui.TooltipComponent.prototype.positionRight = function(refElementOffset, refElementSize, myElementSize) {
     var y = refElementOffset.y;
-    var x = refElementOffset.x + myElementSize.width;
+    var x = refElementOffset.x + refElementSize.width + 8 + this.model.boxOffset;
 
     return new goog.math.Coordinate(x, y);
 };
