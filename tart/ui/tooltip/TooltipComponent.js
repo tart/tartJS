@@ -238,6 +238,9 @@ tart.ui.TooltipComponent.prototype.position = function() {
             verticalTipCapShift = myElementSize.height / 2 - 1;
         }
     }
+    this.element.appendChild(this.cap);
+    goog.dom.classes.remove(this.element, 'right', 'left', 'top', 'bottom');
+    goog.dom.classes.add(this.element, this.model.options.direction);
     switch (this.model.options.direction) {
         case tart.ui.TooltipComponentModel.Direction.LEFT:
             handlerFn = this.positionLeft;
