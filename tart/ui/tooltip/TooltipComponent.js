@@ -164,13 +164,17 @@ tart.ui.TooltipComponent.prototype.position = function() {
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
     var myElementSize = goog.style.getSize(this.element);
+    var myWindowSize = goog.dom.getViewportSize();
+    var winScrollTop = document.body.scrollTop || window.document.documentElement.scrollTop;
+    var winScrollLeft = document.body.scrollLeft || window.document.documentElement.scrollLeft;
     var coordinate;
     var handlerFn;
 
+    var topDown = true;
     var horizontalShift = 0;
     var verticalShift = 0;
-    if (refElementOffset.x < $(window).scrollLeft()) {
-        horizontalShift = $(window).scrollLeft() - refElementOffset.x;
+    var verticalTipCapShift = 0;
+    var horizontalTipCapShift = 0;
     }
     if (refElementOffset.y - $(window).scrollTop() < myElementSize.height) {
         verticalShift = $(window).scrollTop() - refElementOffset.y - myElementSize.height;
