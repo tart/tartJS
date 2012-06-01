@@ -83,7 +83,7 @@ tart.ui.TooltipComponent.prototype.onClick = function(e) {
 tart.ui.TooltipComponent.prototype.onHover = function(e) {
     if (e.type == goog.events.EventType.MOUSEOUT &&
         ((e.relatedTarget && goog.dom.contains(this.refElement, e.relatedTarget)) ||
-         e.relatedTarget == this.element) || e.relatedTarget == null)
+            e.relatedTarget == this.element) || e.relatedTarget == null)
         return;
     this.model.handleEvent(e.type);
 
