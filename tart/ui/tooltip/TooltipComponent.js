@@ -175,6 +175,9 @@ tart.ui.TooltipComponent.prototype.position = function() {
     var verticalShift = 0;
     var verticalTipCapShift = 0;
     var horizontalTipCapShift = 0;
+    if(this.cap) {
+        goog.dom.removeNode(this.cap);
+    }
     }
     if (refElementOffset.y - $(window).scrollTop() < myElementSize.height) {
         verticalShift = $(window).scrollTop() - refElementOffset.y - myElementSize.height;
