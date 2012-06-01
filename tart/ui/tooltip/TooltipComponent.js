@@ -265,10 +265,8 @@ tart.ui.TooltipComponent.prototype.position = function() {
     }
 
     coordinate = handlerFn.call(this, refElementOffset, refElementSize, myElementSize);
-
-    console.log(verticalShift, horizontalShift, refElementOffset.y, $(window).scrollTop(), myElementSize.height);
-    this.element.style.top = coordinate.y + 'px';
-    this.element.style.left = coordinate.x + 'px';
+    this.element.style.top = coordinate.y + verticalShift + 'px';
+    this.element.style.left = coordinate.x + horizontalShift + 'px';
 };
 
 
