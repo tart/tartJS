@@ -158,6 +158,7 @@ tart.ui.TooltipComponent.prototype.setContent = function(content) {
     if(that.cap) {
         goog.dom.removeNode(that.cap);
     }
+    this.position();
 };
 tart.ui.TooltipComponent.prototype.position = function() {
     var refElementOffset = goog.style.getPageOffset(this.refElement);
