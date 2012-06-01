@@ -241,22 +241,20 @@ tart.ui.TooltipComponent.prototype.position = function() {
     switch (this.model.options.direction) {
         case tart.ui.TooltipComponentModel.Direction.LEFT:
             handlerFn = this.positionLeft;
-            console.log("left");
             break;
         case tart.ui.TooltipComponentModel.Direction.RIGHT:
             handlerFn = this.positionRight;
-            console.log("right");
             break;
         case tart.ui.TooltipComponentModel.Direction.BOTTOM:
             handlerFn = this.positionBottom;
-            console.log("bottom");
             break;
         case tart.ui.TooltipComponentModel.Direction.TOP:
+            handlerFn = this.positionTop;
+            break;
         default:
             handlerFn = this.positionTop;
             console.log("top");
             break;
-
     }
 
     coordinate = handlerFn.call(this, refElementOffset, refElementSize, myElementSize);
