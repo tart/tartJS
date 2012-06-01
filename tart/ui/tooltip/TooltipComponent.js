@@ -113,7 +113,7 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 
 
 tart.ui.TooltipComponent.prototype.onShow = function() {
-    this.element.innerHTML = tart.getUid();
+    this.setContent(tart.getUid());
     document.body.appendChild(this.element);
     this.position();
     this.element.style.display = 'block';
