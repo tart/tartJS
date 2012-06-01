@@ -221,6 +221,17 @@ tart.ui.TooltipComponent.prototype.position = function() {
             verticalShift = winScrollTop - refElementOffset.y;
         }
 
+        if(verticalShift >= 0) {
+            verticalTipCapShift = this.model.tipOffset;
+        }
+        else {
+            verticalTipCapShift = (this.model.tipOffset - verticalShift >= myElementSize.height - this.model.tipOffset) ? myElementSize.height - this.model.tipOffset : this.model.tipOffset - verticalShift;
+        }
+
+        if(this.model.tipOffset >= myElementSize.height / 2) {
+            verticalTipCapShift = myElementSize.height / 2 - 1;
+        }
+    }
     switch (this.model.options.direction) {
         case tart.ui.TooltipComponentModel.Direction.LEFT:
             handlerFn = this.positionLeft;
