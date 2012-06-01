@@ -286,12 +286,28 @@ tart.ui.TooltipComponent.prototype.positionLeft = function(refElementOffset, ref
     return new goog.math.Coordinate(x, y);
 };
 
+/**
+ * @protected
+ *
+ * @param refElementOffset {goog.math.Coordinate}
+ * @param refElementSize {goog.math.Size}
+ * @param myElementSize {goog.math.Size}
+ * @return {goog.math.Coordinate}
+ */
 tart.ui.TooltipComponent.prototype.positionTop = function(refElementOffset, refElementSize, myElementSize) {
     var y = refElementOffset.y - (myElementSize.height + 8 + this.model.boxOffset);
     var x = refElementOffset.x ;
     return new goog.math.Coordinate(x, y);
 };
 
+/**
+ * @protected
+ *
+ * @param refElementOffset {goog.math.Coordinate}
+ * @param refElementSize {goog.math.Size}
+ * @param myElementSize {goog.math.Size}
+ * @return {goog.math.Coordinate}
+ */
 tart.ui.TooltipComponent.prototype.positionBottom = function(refElementOffset, refElementSize, myElementSize) {
     var y = refElementOffset.y + 8 + this.model.boxOffset + refElementSize.height;
     var x = refElementOffset.x;
@@ -299,6 +315,14 @@ tart.ui.TooltipComponent.prototype.positionBottom = function(refElementOffset, r
     return new goog.math.Coordinate(x, y);
 };
 
+/**
+ * @protected
+ *
+ * @param refElementOffset {goog.math.Coordinate}
+ * @param refElementSize {goog.math.Size}
+ * @param myElementSize {goog.math.Size}
+ * @return {goog.math.Coordinate}
+ */
 tart.ui.TooltipComponent.prototype.positionRight = function(refElementOffset, refElementSize, myElementSize) {
     var y = refElementOffset.y;
     var x = refElementOffset.x + refElementSize.width + 8 + this.model.boxOffset;
