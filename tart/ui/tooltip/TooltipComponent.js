@@ -139,6 +139,16 @@ tart.ui.TooltipComponent.prototype.templates_tipCap = function() {
     return '<div id="tipCap" class="cap"></div>';
 };
 
+
+tart.ui.TooltipComponent.prototype.setContent = function(content) {
+    var that = this;
+    if(that.contentArea) {
+        that.contentArea.innerHTML = content;
+    }
+    if(that.cap) {
+        goog.dom.removeNode(that.cap);
+    }
+};
 tart.ui.TooltipComponent.prototype.position = function() {
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
