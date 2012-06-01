@@ -105,6 +105,9 @@ tart.ui.TooltipComponent.prototype.bindModelEvents = function() {
 
 
 tart.ui.TooltipComponent.prototype.onWait = function() {
+    if(this.element.tooltip != this && this.element.tooltip) {
+        this.element.tooltip.reset();
+    }
     this.element.tooltip = this;
 };
 
