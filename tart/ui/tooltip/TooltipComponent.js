@@ -115,6 +115,10 @@ tart.ui.TooltipComponent.prototype.templates_base = function() {
     return '<div id="' + this.id + '" class="' + this.cssClass + '"><div class="hedelek">s</div></div>';
 };
 
+tart.ui.TooltipComponent.prototype.templates_tTipContentArea = function() {
+    return '<div class="content"></div>';
+};
+
 tart.ui.TooltipComponent.prototype.position = function() {
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
