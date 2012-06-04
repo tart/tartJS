@@ -153,7 +153,7 @@ tart.ui.TooltipComponent.prototype.templates_tipCap = function() {
 
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
     var that = this;
-    if(typeof that.contentArea == 'string') {
+    if(typeof that.content == 'string') {
         that.contentArea.innerHTML = content;
     }
     else {
