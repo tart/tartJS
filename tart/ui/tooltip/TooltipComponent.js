@@ -115,7 +115,6 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 
 
 tart.ui.TooltipComponent.prototype.onShow = function() {
-    this.setContent(tart.getUid());
     document.body.appendChild(this.element);
     this.position();
     this.element.style.display = 'block';
@@ -139,23 +138,41 @@ tart.ui.TooltipComponent.prototype.onInit = function() {
     goog.events.unlistenByKey(this.windowScrollListener);
 };
 
+/**
+ * This function returns the base of the tooltip as a string.
+ * @return {string}
+ */
 tart.ui.TooltipComponent.prototype.templates_base = function() {
-    return '<div id="' + this.id + '" class="' + this.cssClass + '"><div class="hedelek">s</div></div>';
+    return '<div id="' + this.id + '" class="' + this.cssClass + '"></div>';
 };
 
+/**
+ * This function returns the content area of the tooltip as a string.
+ * @return {string}
+ */
 tart.ui.TooltipComponent.prototype.templates_tTipContentArea = function() {
     return '<div class="content"></div>';
 };
 
+/**
+ * This function returns the tipCap of the tooltip as a string.
+ * @return {string}
+ */
 tart.ui.TooltipComponent.prototype.templates_tipCap = function() {
     return '<div id="tipCap" class="cap"></div>';
 };
 
-
+/**
+ * This function takes a string or an element to append into the content area of the tooltip.
+ * @param content {string | Element}
+ */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
     var that = this;
-    if(that.contentArea) {
+    if(typeof that.content == 'string') {
         that.contentArea.innerHTML = content;
+    }
+    else {
+        that.contentArea.appendChild(content)
     }
     if(that.cap) {
         goog.dom.removeNode(that.cap);
