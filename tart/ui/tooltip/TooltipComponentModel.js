@@ -129,7 +129,7 @@ tart.ui.TooltipComponentModel.Direction = {
 };
 
 
-tart.ui.TooltipComponentModel.prototype.direction = tart.ui.TooltipComponentModel.Direction.LEFT;
+tart.ui.TooltipComponentModel.prototype.direction = tart.ui.TooltipComponentModel.Direction.TOP;
 
 
 /**
