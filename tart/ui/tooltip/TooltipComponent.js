@@ -175,7 +175,7 @@ tart.ui.TooltipComponent.prototype.setContent = function(content) {
         that.contentArea.innerHTML = content;
     }
     else {
-        that.contentArea.appendChild(content)
+        that.contentArea.appendChild(content);
     }
     if(that.cap) {
         goog.dom.removeNode(that.cap);
