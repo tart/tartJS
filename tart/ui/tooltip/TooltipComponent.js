@@ -84,7 +84,7 @@ tart.ui.TooltipComponent.prototype.onClick = function(e) {
 
 tart.ui.TooltipComponent.prototype.onHover = function(e) {
     if (e.type == goog.events.EventType.MOUSEOUT &&
-        ((e.relatedTarget && goog.dom.contains(this.refElement, e.relatedTarget)) ||
+        ((e.relatedTarget && goog.dom.contains(this.element, e.relatedTarget)) ||
             e.relatedTarget == this.element) || e.relatedTarget == null)
         return;
     this.model.handleEvent(e.type);
@@ -92,6 +92,9 @@ tart.ui.TooltipComponent.prototype.onHover = function(e) {
 };
 
 tart.ui.TooltipComponent.prototype.onBoxMouseout = function(e) {
+    if(goog.dom.contains(this.element, e.relatedTarget)) {
+        return false;
+    };
     if (e.relatedTarget != this.refElement)
         this.model.handleEvent(e.type);
 };
