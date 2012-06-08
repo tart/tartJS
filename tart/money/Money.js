@@ -69,10 +69,10 @@ tart.Money.prototype.getFraction = function() {
     //http://stackoverflow.com/questions/588004/is-javascripts-math-broken/588053#588053
     var mathFix = ((this.amount_).toFixed(2) - this.getCapital()).toFixed(2);
 
-    var result = parseInt(mathFix * 100, 10).toString();
+    var result = mathFix.substr(-2);
 
-    if (result == '0') {
-        result = result + '0'; // converts to "00" end of fraction which is finishes with "0".
+    if (result.length == 1) {
+        result = '0' + result;
     }
 
     return result;
