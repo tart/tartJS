@@ -289,7 +289,6 @@ tart.ui.TooltipComponent.prototype.position = function() {
             break;
         default:
             handlerFn = this.positionTop;
-            console.log("top");
             break;
     }
 
