@@ -71,7 +71,7 @@ tart.ui.TooltipComponentModel.prototype.type = tart.ui.TooltipComponentModel.Typ
  *
  * @type {number}
  */
-tart.ui.TooltipComponentModel.prototype.tipOffset = 15;
+tart.ui.TooltipComponentModel.prototype.tipOffset = 20;
 
 
 /**
