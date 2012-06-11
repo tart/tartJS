@@ -136,7 +136,6 @@ tart.ui.TooltipComponent.prototype.reset = function() {
 
 tart.ui.TooltipComponent.prototype.onInit = function() {
     this.element.style.display = 'none';
-    goog.dom.removeNode(this.cap);
     goog.events.unlistenByKey(this.windowResizeListener);
     goog.events.unlistenByKey(this.windowScrollListener);
 };
