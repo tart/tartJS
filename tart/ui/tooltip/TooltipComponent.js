@@ -117,7 +117,6 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 tart.ui.TooltipComponent.prototype.onShow = function() {
     document.body.appendChild(this.element);
     this.position();
-    this.element.style.display = 'block';
 
     this.windowResizeListener = goog.events.listen(window, goog.events.EventType.RESIZE, function(e) {
         this.position();
@@ -178,9 +177,7 @@ tart.ui.TooltipComponent.prototype.setContent = function(content) {
     else {
         that.contentArea.appendChild(content);
     }
-    if(that.cap) {
-        goog.dom.removeNode(that.cap);
-    }
+
     this.position();
 };
 
@@ -211,9 +208,6 @@ tart.ui.TooltipComponent.prototype.position = function() {
     var verticalShift = 0;
     var verticalTipCapShift = 0;
     var horizontalTipCapShift = 0;
-    if(this.cap) {
-        goog.dom.removeNode(this.cap);
-    }
 
     if (refElementSize.width < this.model.offsetThreshold) {
         this.model.tipOffset = refElementSize.width / 2;
@@ -316,7 +310,7 @@ tart.ui.TooltipComponent.prototype.position = function() {
 tart.ui.TooltipComponent.prototype.positionLeft = function(refElementOffset, refElementSize, myElementSize) {
     var y = refElementOffset.y - 16;
     var x = refElementOffset.x - (myElementSize.width );
-    
+
     return new goog.math.Coordinate(x, y);
 };
 
