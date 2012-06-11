@@ -34,16 +34,13 @@ tart.ui.TooltipComponent = function(refElement, options) {
     this.model = new this.modelClass(options);
     if (!this.element) {
         this.element = tart.dom.createElement(this.templates_base());
-        this.contentArea = tart.dom.createElement(this.templates_tTipContentArea());
-        this.cap = tart.dom.createElement(this.templates_tipCap());
-        this.element.appendChild(this.contentArea);
         document.body.appendChild(this.element);
-        this.element.appendChild(this.cap);
     }
-    else {
-        this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
-        this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
-    }
+
+    this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
+    this.wrapper = goog.dom.getElementsByClass('wrapper', this.element)[0];
+    this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
+
 
     this.bindModelEvents();
     this.bindDomEvents();
@@ -94,7 +91,7 @@ tart.ui.TooltipComponent.prototype.onHover = function(e) {
 tart.ui.TooltipComponent.prototype.onBoxMouseout = function(e) {
     if(goog.dom.contains(this.element, e.relatedTarget)) {
         return false;
-    };
+    }
     if (e.relatedTarget != this.refElement)
         this.model.handleEvent(e.type);
 };
@@ -145,7 +142,12 @@ tart.ui.TooltipComponent.prototype.onInit = function() {
  * @return {string}
  */
 tart.ui.TooltipComponent.prototype.templates_base = function() {
-    return '<div id="' + this.id + '" class="' + this.cssClass + '"></div>';
+    return '<div id="' + this.id + '" class="' + this.cssClass + '">' +
+        '<div class="wrapper">' +
+        '<div class="content"></div>' +
+        '<div class="cap"></div>' +
+        '</div>' +
+        '</div>';
 };
 
 /**
@@ -192,9 +194,12 @@ tart.ui.TooltipComponent.prototype.setContent = function(content) {
  *
  **/
 tart.ui.TooltipComponent.prototype.position = function() {
+    this.element.style.display = 'block';
+
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
     var myElementSize = goog.style.getSize(this.element);
+    var myWrapperSize = goog.style.getSize(this.wrapper);
     var myWindowSize = goog.dom.getViewportSize();
     var winScrollTop = document.body.scrollTop || window.document.documentElement.scrollTop;
     var winScrollLeft = document.body.scrollLeft || window.document.documentElement.scrollLeft;
@@ -223,7 +228,7 @@ tart.ui.TooltipComponent.prototype.position = function() {
     if (myWindowSize.width + winScrollLeft - refElementOffset.x < 2 * this.model.tipOffset) {
         topDown = false;
         this.model.options.direction = tart.ui.TooltipComponentModel.Direction.LEFT;
-        horizontalTipCapShift = myElementSize.width ;
+        horizontalTipCapShift = myWrapperSize.width ;
     }
 
     if (topDown) {
@@ -232,22 +237,21 @@ tart.ui.TooltipComponent.prototype.position = function() {
         }
 
         if (horizontalShift == 0) {
-            if (myElementSize.width  + (refElementOffset.x - winScrollLeft) > myWindowSize.width) {
-                horizontalShift = horizontalShift + (myWindowSize.width - myElementSize.width -  refElementOffset.x + winScrollLeft);
+            if (myWrapperSize.width  + (refElementOffset.x - winScrollLeft) > myWindowSize.width) {
+                horizontalShift = horizontalShift + (myWindowSize.width - myWrapperSize.width -  refElementOffset.x + winScrollLeft);
             }
         }
 
         if (refElementOffset.y - winScrollTop >= myElementSize.height + this.model.tipOffset + this.model.boxOffset) {
             this.model.options.direction = tart.ui.TooltipComponentModel.Direction.TOP;
-            verticalTipCapShift = myElementSize.height;
+            verticalTipCapShift = myWrapperSize.height;
         }
         else {
             this.model.options.direction = tart.ui.TooltipComponentModel.Direction.BOTTOM;
             verticalTipCapShift = -16;
-
         }
 
-        horizontalTipCapShift = (horizontalShift >=0) ? this.model.tipOffset : (-horizontalShift >= myElementSize.width - this.model.tipOffset ) ? -horizontalShift : this.model.tipOffset - horizontalShift;
+        horizontalTipCapShift = (horizontalShift >=0) ? this.model.tipOffset : (-horizontalShift >= myWrapperSize.width - this.model.tipOffset ) ? -horizontalShift : this.model.tipOffset - horizontalShift;
         verticalShift = 0;
     }
     else {
@@ -270,7 +274,7 @@ tart.ui.TooltipComponent.prototype.position = function() {
         }
     }
 
-    this.element.appendChild(this.cap);
+    this.wrapper.appendChild(this.cap);
     goog.dom.classes.remove(this.element, 'right', 'left', 'top', 'bottom');
     goog.dom.classes.add(this.element, this.model.options.direction);
     this.cap.style.top = verticalTipCapShift + 'px';
