@@ -115,6 +115,7 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 
 
 tart.ui.TooltipComponent.prototype.onShow = function() {
+    this.contentArea.innerHTML = (this.templates_loading());
     document.body.appendChild(this.element);
     this.position();
 
@@ -150,19 +151,12 @@ tart.ui.TooltipComponent.prototype.templates_base = function() {
 };
 
 /**
- * This function returns the content area of the tooltip as a string.
+ * This function returns the loading message content.
+ *
  * @return {string}
  */
-tart.ui.TooltipComponent.prototype.templates_tTipContentArea = function() {
-    return '<div class="content"></div>';
-};
-
-/**
- * This function returns the tipCap of the tooltip as a string.
- * @return {string}
- */
-tart.ui.TooltipComponent.prototype.templates_tipCap = function() {
-    return '<div id="tipCap" class="cap"></div>';
+tart.ui.TooltipComponent.prototype.templates_loading = function() {
+    return '<div class="loading"></div>';
 };
 
 /**
@@ -170,12 +164,12 @@ tart.ui.TooltipComponent.prototype.templates_tipCap = function() {
  * @param content {string | Element}
  */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
-    var that = this;
-    if(typeof that.content == 'string') {
-        that.contentArea.innerHTML = content;
+    if(typeof this.content == 'string') {
+        this.contentArea.innerHTML = content;
     }
     else {
-        that.contentArea.appendChild(content);
+        this.contentArea.innerHTML = '';
+        this.contentArea.appendChild(content);
     }
 
     this.position();
