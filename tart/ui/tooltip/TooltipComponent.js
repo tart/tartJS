@@ -150,19 +150,10 @@ tart.ui.TooltipComponent.prototype.templates_base = function() {
 };
 
 /**
- * This function returns the content area of the tooltip as a string.
+ * This function returns the loading message content.
+ *
  * @return {string}
  */
-tart.ui.TooltipComponent.prototype.templates_tTipContentArea = function() {
-    return '<div class="content"></div>';
-};
-
-/**
- * This function returns the tipCap of the tooltip as a string.
- * @return {string}
- */
-tart.ui.TooltipComponent.prototype.templates_tipCap = function() {
-    return '<div id="tipCap" class="cap"></div>';
 };
 
 /**
