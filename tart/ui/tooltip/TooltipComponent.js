@@ -115,6 +115,7 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 
 
 tart.ui.TooltipComponent.prototype.onShow = function() {
+    this.contentArea.innerHTML = (this.templates_loading());
     document.body.appendChild(this.element);
     this.position();
 
