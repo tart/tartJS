@@ -154,6 +154,8 @@ tart.ui.TooltipComponent.prototype.templates_base = function() {
  *
  * @return {string}
  */
+tart.ui.TooltipComponent.prototype.templates_loading = function() {
+    return '<div class="loading"></div>';
 };
 
 /**
