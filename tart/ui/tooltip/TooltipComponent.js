@@ -164,12 +164,12 @@ tart.ui.TooltipComponent.prototype.templates_loading = function() {
  * @param content {string | Element}
  */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
-    var that = this;
-    if(typeof that.content == 'string') {
-        that.contentArea.innerHTML = content;
+    if(typeof this.content == 'string') {
+        this.contentArea.innerHTML = content;
     }
     else {
-        that.contentArea.appendChild(content);
+        this.contentArea.innerHTML = '';
+        this.contentArea.appendChild(content);
     }
 
     this.position();
