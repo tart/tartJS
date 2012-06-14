@@ -164,9 +164,7 @@ tart.ui.TooltipComponent.prototype.templates_loading = function() {
  */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
     if(typeof content == 'string') {
-        this.contentArea.innerHTML = '';
-        var contentElement = tart.dom.createElement(content);
-        this.contentArea.appendChild(contentElement);
+        this.contentArea.innerHTML = content;
     }
     else {
         this.contentArea.innerHTML = '';
