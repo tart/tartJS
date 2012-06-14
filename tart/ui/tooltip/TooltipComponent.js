@@ -151,12 +151,11 @@ tart.ui.TooltipComponent.prototype.templates_base = function() {
 };
 
 /**
- * This function returns the loading message content.
- *
+ * This function returns the content area of the tooltip as a string.
  * @return {string}
  */
 tart.ui.TooltipComponent.prototype.templates_loading = function() {
-    return '<div class="loading"></div>';
+    return '<div class="loadContainer"><div class="loading"></div></div>';
 };
 
 /**
@@ -164,7 +163,7 @@ tart.ui.TooltipComponent.prototype.templates_loading = function() {
  * @param content {string | Element}
  */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
-    if(typeof this.content == 'string') {
+    if(typeof content == 'string') {
         this.contentArea.innerHTML = content;
     }
     else {
