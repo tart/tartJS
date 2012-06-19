@@ -30,27 +30,18 @@ tart.mvc.uri.Request = function(uriString, router) {
         requestPath;
 
     var fragment = uri.getFragment();
-
-    this.customQuery = '';
-    if (fragment.indexOf('?') > 0) {
-        uri.setFragment(fragment.substr(0, fragment.indexOf('?')));
-        this.customQuery = fragment.substr(fragment.indexOf('?') + 1);
-    }
-
-    var fragment = uri.getFragment();
-
     //@TODO We should implement pushing extra parameters to the request parameters, as supporting both 
     //"url?key=value" and "url/key/value"
     var parameters = fragment.split('?');
     if (parameters.length > 0) {
-        uri.setFragment(parameters[0]);
+        fragment = parameters[0];
         this.customQuery = parameters[1];
     }
 
     if (uri.hasFragment() && !goog.string.endsWith(basePath, '#!/'))
         basePath = basePath + '#!/';
 
-    requestPath = uri.getPath() + (uri.hasFragment() ? '#' + uri.getFragment() : '');
+    requestPath = uri.getPath() + (uri.hasFragment() ? '#' + fragment : '');
 
     if (goog.string.startsWith(requestPath, basePath))
         this.path = requestPath.substr(basePath.length);
@@ -68,6 +59,6 @@ tart.mvc.uri.Request = function(uriString, router) {
 
 
 /**
- * Custom query field of Request object. This field holds extra parameter which followed by "?".
+ * @param {string|null} Custom query field of Request object. This field holds extra parameter which followed by "?".
  */
 tart.mvc.uri.Request.prototype.customQuery = null;
