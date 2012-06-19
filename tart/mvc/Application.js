@@ -99,7 +99,7 @@ tart.mvc.Application.prototype.getRenderer = function() {
  */
 tart.mvc.Application.prototype.template_container = function() {
     return '<div id="' + this.id + '"></div>';
-}
+};
 
 
 /**
