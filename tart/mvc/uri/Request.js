@@ -29,6 +29,14 @@ tart.mvc.uri.Request = function(uriString, router) {
         uri = new goog.Uri(uriString),
         requestPath;
 
+    var fragment = uri.getFragment();
+
+    this.customQuery = '';
+    if (fragment.indexOf('?') > 0) {
+        uri.setFragment(fragment.substr(0, fragment.indexOf('?')));
+        this.customQuery = fragment.substr(fragment.indexOf('?') + 1);
+    }
+
     if (uri.hasFragment() && !goog.string.endsWith(basePath, '#!/'))
         basePath = basePath + '#!/';
 
