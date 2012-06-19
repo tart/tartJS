@@ -86,7 +86,7 @@ tart.mvc.uri.Router.prototype.route = function(uri) {
     }
 
     this.setCurrentRoute_(route);
-    this.process_(this.request.params);
+    this.process_(this.request);
     this.renderer_.render(this);
 };
 
@@ -281,13 +281,14 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
 /**
  * This function sets the current route and the related controllers, actions and parameters.
  * @private
- * @param {Array} params Request to be processed.
+ * @param {tart.mvc.uri.Request} request Request to be processed.
  */
-tart.mvc.uri.Router.prototype.process_ = function(params) {
+tart.mvc.uri.Router.prototype.process_ = function(request) {
     var route = this.getCurrentRoute();
     this.setController_(route.controller);
     this.setAction_(route.action);
-    this.setParams_(params);
+    this.setParams_(request.params);
+    this.setCustomQuery_(request.customQuery);
 };
 
 
@@ -306,6 +307,24 @@ tart.mvc.uri.Router.prototype.setCurrentRoute_ = function(route) {
  */
 tart.mvc.uri.Router.prototype.getCurrentRoute = function() {
     return this.currentRoute_;
+};
+
+/**
+ * Sets custom query parameter.
+ * @param {string} customQuery Retrieved key and parameter pair from uri followed by ? to set as customQuery.
+ * @private
+ */
+tart.mvc.uri.Router.prototype.setCustomQuery_ = function(customQuery) {
+    this.customQuery_ = customQuery;
+};
+
+
+/**
+ * Returns custom query parameter.
+ * @return {string} customQuery Retrieved key and parameter pair from uri.
+ */
+tart.mvc.uri.Router.prototype.getCustomQuery = function() {
+    return this.customQuery_;
 };
 
 
