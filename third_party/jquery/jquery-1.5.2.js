@@ -175,7 +175,7 @@
                         // HANDLE: $(expr, context)
                         // (which is just equivalent to: $(context).find(expr)
                     } else {
-                        return this.constructor( context ).find( selector );
+                        return $( context ).find( selector );
                     }
 
                     // HANDLE: $(function)
