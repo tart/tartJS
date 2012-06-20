@@ -311,7 +311,7 @@ tart.mvc.uri.Router.prototype.getCurrentRoute = function() {
 
 /**
  * Sets custom query parameter.
- * @param {string} customQuery Retrieved key and parameter pair from uri followed by ? to set as customQuery.
+ * @param {?string} customQuery Retrieved key and parameter pair from uri followed by ? to set as customQuery.
  * @private
  */
 tart.mvc.uri.Router.prototype.setCustomQuery_ = function(customQuery) {
@@ -321,7 +321,7 @@ tart.mvc.uri.Router.prototype.setCustomQuery_ = function(customQuery) {
 
 /**
  * Returns custom query parameter.
- * @return {string} customQuery Retrieved key and parameter pair from uri.
+ * @return {?string} customQuery Retrieved key and parameter pair from uri.
  */
 tart.mvc.uri.Router.prototype.getCustomQuery = function() {
     return this.customQuery_;

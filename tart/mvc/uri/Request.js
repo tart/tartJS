@@ -59,6 +59,7 @@ tart.mvc.uri.Request = function(uriString, router) {
 
 
 /**
- * @param {string|null} Custom query field of Request object. This field holds extra parameter which followed by "?".
+ * @type {?string} Custom query field of Request object. This field holds extra parameter which followed by "?".
  */
 tart.mvc.uri.Request.prototype.customQuery = null;
+
