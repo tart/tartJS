@@ -69,7 +69,7 @@ tart.Money.prototype.getFraction = function() {
     //http://stackoverflow.com/questions/588004/is-javascripts-math-broken/588053#588053
     var mathFix = ((this.amount_).toFixed(2) - this.getCapital()).toFixed(2);
 
-    var result = mathFix.substr(-2);
+    var result = mathFix.substr(2,2);
 
     if (result.length == 1) {
         result = '0' + result;
