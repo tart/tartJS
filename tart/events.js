@@ -4,7 +4,11 @@
 // @author Sönmez Kartal <sonmez.kartal@tart.com.tr>
 
 /**
- * @fileoverview Event types.
+ * @fileoverview Event Manager.
+ *
+ * Provides browser event handling routines.
+ *
+ * This module extends goog.events for additional support.
  */
 
 goog.provide('tart.events');
