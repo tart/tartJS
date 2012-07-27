@@ -7,6 +7,7 @@
 goog.provide('tart.ui.ComponentManager');
 goog.require('tart.events');
 goog.require('goog.array');
+goog.require('goog.events.EventType');
 
 /**
  * @fileoverview Registry for tart.ui.DlgComponent. Manages DOM event interactions for these components.
