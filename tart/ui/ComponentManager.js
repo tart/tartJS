@@ -55,7 +55,7 @@ tart.ui.ComponentManager.eventTypes = [
 /**
  * Listens load event to start listening body for handleEvent
  */
-tart.ui.ComponentManager.prototype.initHandlers = function() {
+tart.ui.ComponentManager.initHandlers = function() {
     tart.ui.ComponentManager.init = true;
 
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
