@@ -7,6 +7,7 @@
 goog.provide('tart.ui.ComponentManager');
 goog.require('tart.events');
 goog.require('goog.array');
+goog.require('goog.events.EventType');
 
 /**
  * @fileoverview Registry for tart.ui.DlgComponent. Manages DOM event interactions for these components.
@@ -55,7 +56,7 @@ tart.ui.ComponentManager.eventTypes = [
 /**
  * Listens load event to start listening body for handleEvent
  */
-tart.ui.ComponentManager.prototype.initHandlers = function() {
+tart.ui.ComponentManager.initHandlers = function() {
     tart.ui.ComponentManager.init = true;
 
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
@@ -111,7 +112,7 @@ tart.ui.ComponentManager.handleEvent = function (e) {
  * @param e
  * @param handlers
  * @param selectors
- * @return {Boolean}
+ * @return {boolean}
  */
 tart.ui.ComponentManager.callHandler = function(cmp, e, handlers, selectors){
     var rv = true;
