@@ -111,7 +111,7 @@ tart.ui.ComponentManager.handleEvent = function (e) {
  * @param e
  * @param handlers
  * @param selectors
- * @return {Boolean}
+ * @return {boolean}
  */
 tart.ui.ComponentManager.callHandler = function(cmp, e, handlers, selectors){
     var rv = true;
