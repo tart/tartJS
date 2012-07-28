@@ -24,7 +24,7 @@ goog.provide('tart.dom');
     var tempDiv = document.createElement('div');
 
     /**
-     * Stripped down version of goog.dom.htmlToDocumentFragment. It's performance is fantastic across all browsers.
+     * Stripped down version of goog.dom.htmlToDocumentFragment. Performance is fantastic across all browsers.
      *
      * This version won't work with <code><script></code> and <code><style></code> tags in IE.
      * Also, it requires only one element in the top hieararchy, which basically means you have to combine
