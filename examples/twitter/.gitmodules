@@ -1,0 +1,3 @@
+[submodule "js/library/tartJS"]
+	path = js/library/tartJS
+	url = git://github.com/tart/tartJS.git
