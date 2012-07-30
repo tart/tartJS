@@ -1,0 +1,9 @@
+body { width: 960px; margin: 0 auto; }
+
+.tweetContainer { overflow: hidden; }
+.component { width: 50%; float: left; }
+.component h2 { text-align: center; color: #333; }
+.tweet { color: #666; font-family: Arial; font-size: 14px; padding: 10px; }
+.tweet .author { color: #333; font-weight: bold; }
+
+.footer { padding: 20px; text-align: right; font-size: 12px; color: red; }
