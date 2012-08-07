@@ -47,11 +47,9 @@ tart.components.Carousel.Template.prototype.carouselWidth = 780;
  * @return {string} footer markup.
  */
 tart.components.Carousel.Template.prototype.footer = function() {
-    var markup = '<div class="pager rounded">' +
-        '<div class="pagerItems">' +
-        '</div>' +
-                 '</div>';
-    return markup;
+    return '<div class="pager rounded">' +
+				'<div class="pagerItems"></div>' +
+           '</div>';
 };
 
 
@@ -61,17 +59,15 @@ tart.components.Carousel.Template.prototype.footer = function() {
  * @return {string} base markup.
  */
 tart.components.Carousel.Template.prototype.base = function() {
-
-    var markup = '<div class="carousel loading">' +
-                this.header() +
-                '<span class="navigation next" title="next"></span>' +
-                '<span class="navigation prev" title="previous"></span>' +
-                '<div class="contentsWrapper">' +
-                    '<div class="contents">' +
-                    '</div>' +
-                '</div>' +
-                this.footer();
-    return markup;
+	return '<div class="carousel loading">' +
+				this.header() +
+            	'<span class="navigation next" title="next"></span>' +
+            	'<span class="navigation prev" title="previous"></span>' +
+            	'<div class="contentsWrapper">' +
+               		'<div class="contents"></div>' +
+           		'</div>' +
+           		this.footer();
+			'</div>';
 };
 
 
