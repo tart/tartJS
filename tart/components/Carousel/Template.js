@@ -66,7 +66,7 @@ tart.components.Carousel.Template.prototype.base = function() {
             	'<div class="contentsWrapper">' +
                		'<div class="contents"></div>' +
            		'</div>' +
-           		this.footer();
+           		this.footer() +
 			'</div>';
 };
 
