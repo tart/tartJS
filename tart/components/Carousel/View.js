@@ -217,3 +217,16 @@ tart.components.Carousel.View.prototype.handleNavigationButtons = function(hasNe
     if (!hasNext) $pagerNext.hide();
     if (!hasPrev) $pagerPrev.hide();
 };
+
+
+/**
+ * No results handler
+ * 
+ */
+tart.components.Carousel.View.prototype.noResults = function() {
+    this.getDOM().removeClass('loading');
+    var carouselText = this.template.noResults();
+    this.get(this.domMappings.ITEMS).html(carouselText);
+    this.itemsAppended(carouselText);
+    this.activeItems = carouselText;
+};
