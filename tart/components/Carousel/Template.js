@@ -90,3 +90,12 @@ tart.components.Carousel.Template.prototype.pagerItem = function(pageNum, select
     var selectedClass = selected ? 'selected' : '';
     return '<span class="' + selectedClass + '" title="' + pageNum + ' "></span>';
 };
+
+
+/**
+ * @return {string}
+ */
+tart.components.Carousel.Template.prototype.noResults = function() {
+	return '';
+};
+

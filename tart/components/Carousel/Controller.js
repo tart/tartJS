@@ -65,16 +65,19 @@ tart.components.Carousel.Controller.prototype.itemCount = 5;
  * @param {number} totalItemCount total item count.
  */
 tart.components.Carousel.Controller.prototype.buildCarouselAction = function(visibleItems, totalItemCount) {
-    //build carousel
-    this.view.buildCarouselItems(visibleItems);
-    //build pagination
-    this.modelPager.setTotalItems(totalItemCount);
-    if (totalItemCount > this.itemCount) {
-        this.view.buildPager(this.modelPager);
-    }
-    else {
-        this.view.handleNavigationButtons(false, false);
-    }
+    if (visibleItems.length == 0)
+		this.view.noResults();
+	else {
+	    //build carousel
+	    this.view.buildCarouselItems(visibleItems);
+	    //build pagination
+	    this.modelPager.setTotalItems(totalItemCount);
+	    if (totalItemCount > this.itemCount) {
+	        this.view.buildPager(this.modelPager);
+	    }
+	}
+    
+	this.view.handleNavigationButtons(this.modelPager.hasNext(), this.modelPager.hasPrev());
 };
 
 
