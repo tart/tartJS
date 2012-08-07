@@ -140,14 +140,8 @@ tart.components.Carousel.Controller.prototype.bindEvents = function() {
         that.view.handleNavigationButtons(that.modelPager.hasNext(), that.modelPager.hasPrev());
     });
 
-    //bind button events
-    that.view.get(that.view.domMappings.NEXT).bind('click', function(e) {
-        e.preventDefault();
-        that.nextAction();
-    });
-
-    that.view.get(that.view.domMappings.PREV).bind('click', function(e) {
-        e.preventDefault();
-        that.prevAction();
-    });
+    goog.events.listen(that.view.get(that.view.domMappings.NEXT)[0], goog.events.EventType.CLICK,
+	        this.nextAction, false, this);
+    goog.events.listen(that.view.get(that.view.domMappings.PREV)[0], goog.events.EventType.CLICK,
+	        this.prevAction, false, this);
 };
