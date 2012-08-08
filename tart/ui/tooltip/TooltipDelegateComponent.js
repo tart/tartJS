@@ -26,13 +26,15 @@ goog.require('tart.dom');
 
 /**
  *
- * @param selector
+ * @param {string} selector The selector needed for registration to TooltipComponentManager.
+ * @param {tart.ui.TooltipComponentManager} tooltipComponentManager selector The selector needed for registration to TooltipComponentManager.
  * @constructor
  */
-tart.ui.TooltipDelegateComponent = function(selector) {
-//    this.id = tart.getUid();
-    tart.ui.TooltipComponentManager.set(this);
+tart.ui.TooltipDelegateComponent = function(selector, tooltipComponentManager) {
     goog.base(this);
+    this.selector = selector && selector;
+//    tuttur.Registry.get('tooltipComponentManager').set(this);
+    tooltipComponentManager.set(this);
 };
 goog.inherits(tart.ui.TooltipDelegateComponent, tart.ui.DlgComponent);
 
@@ -91,7 +93,7 @@ tart.ui.TooltipDelegateComponent.prototype.templates_base = function() {
  * @return {string}
  */
 tart.ui.TooltipDelegateComponent.prototype.templates_wrapper = function() {
-    return '<div id="' + tart.getUid() + '" class="wrapper">HEdelek</div>';
+    return '<div id="' + tart.getUid() + '" class="wrapper"></div>';
 };
 
 
@@ -100,7 +102,7 @@ tart.ui.TooltipDelegateComponent.prototype.templates_wrapper = function() {
  * @return {string}
  */
 tart.ui.TooltipDelegateComponent.prototype.templates_content = function() {
-    return '<div id="' + tart.getUid() + '" class="content">HEdelek</div>';
+    return '<div id="' + tart.getUid() + '" class="content">' + this.id + '</div>';
 };
 
 
@@ -119,5 +121,12 @@ tart.ui.TooltipDelegateComponent.prototype.templates_cap = function() {
  */
 tart.ui.TooltipDelegateComponent.prototype.templates_spare = function() {
 
+};
+
+/**
+ *
+ */
+tart.ui.TooltipDelegateComponent.prototype.disposeInternal = function() {
+    tuttur.Registry.get('tooltipComponentManager').remove(this);
 };
 
