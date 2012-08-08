@@ -12,19 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @fileoverview
- */
 
 goog.provide('tart.ui.TooltipComponentManager');
 goog.require('tart.events');
 goog.require('goog.array');
 goog.require('goog.events.EventType');
 
+/**
+ * @fileoverview Registry for tart.ui.TooltipDelegateComponent.
+ */
 
-/** @type {Object.<string, tart.ui.TooltipDelegateComponent>} */
-tart.ui.TooltipComponentManager.components = {};
-tart.ui.TooltipComponentManager.init = false;
+
+
+/**
+ *
+ * @constructor
+ */
+tart.ui.TooltipComponentManager = function() {
+    //    this.components = {};
+    //    this.selectors = {};
+    /** @type {Object.<string, tart.ui.Component>} */
+    this.components = {};
+    this.init = false;
+//    this.initHandlers();
+};
 
 
 /**
@@ -33,12 +44,12 @@ tart.ui.TooltipComponentManager.init = false;
  * @param {Node} child Refers DOM node that will be used for finding parent component.
  * @return {tart.ui.TooltipDelegateComponent} Parent node.
  */
-tart.ui.TooltipComponentManager.getParentCmp = function(child) {
+tart.ui.TooltipComponentManager.prototype.getParentCmp = function(child) {
     var node = child, cmp;
 
     do {
-        if (cmp = (tart.ui.TooltipComponentManager.components[node.getAttribute && node.getAttribute('data-cmp')])) {}
-        else if (cmp = tart.ui.TooltipComponentManager.components[node.id])
+        if (cmp = (this.components[node.getAttribute && node.getAttribute('data-cmp')])) {}
+        else if (cmp = this.components[node.id])
             child.setAttribute('data-cmp', node.id);
 
         if (cmp) break;
@@ -52,7 +63,7 @@ tart.ui.TooltipComponentManager.getParentCmp = function(child) {
  * Keeps event types.
  * @type {Array.<goog.events.EventType>}
  */
-tart.ui.TooltipComponentManager.eventTypes = [
+tart.ui.TooltipComponentManager.prototype.eventTypes = [
     goog.events.EventType.CLICK
 //    goog.events.EventType.MOUSEOVER,
 //    goog.events.EventType.MOUSEOUT,
@@ -61,13 +72,27 @@ tart.ui.TooltipComponentManager.eventTypes = [
 //    goog.events.EventType.SCROLL
 ];
 
+
+/**
+ *
+ */
+tart.ui.TooltipComponentManager.prototype.initHandlers = function () {
+    this.init = true;
+
+    goog.events.listen(window, goog.events.EventType.LOAD, function() {
+        goog.events.listen(document.body, this.eventTypes, this.handleEvent);
+    });
+    console.log("initHandlers");
+};
+
+
 /**
  *
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
-tart.ui.TooltipComponentManager.handleEvent = function (e) {
-//    var cmp = tart.ui.ComponentManager.getParentCmp(e.target),
-//        handlers = cmp && cmp.events && cmp.events[e.type];
+tart.ui.TooltipComponentManager.prototype.handleEvent = function (e) {
+    var cmp = this.getParentCmp(e.target),
+        handlers = cmp && cmp.events && cmp.events[e.type];
 //
 //    // fire mouseenter event too
 //    if (e.type == goog.events.EventType.MOUSEOVER) {
@@ -87,35 +112,38 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
 //        }
 //    }
 //
-//    if (handlers) {
-//        var selectors = goog.object.getKeys(handlers);
-//
-//        // call handlers of event's target and its ancestors
-//        do {
-//            if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
-//                if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget) &&
-//                    tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
-//            }
-//            else if (tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
-//        } while ((e.target = e.target.parentNode) && e.target != cmp.getElement());
-//    }
+    if (handlers) {
+        var selectors = goog.object.getKeys(handlers);
+
+        // call handlers of event's target and its ancestors
+        do {
+            if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
+                if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget) &&
+                    tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
+            }
+            else if (tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
+        } while ((e.target = e.target.parentNode) && e.target != cmp.getElement());
+    }
 };
 
-/**
- *
- * @param e
- */
-tart.ui.TooltipComponentManager.handleEvent = function (e) {
-    console.log("hede");
-};
+///**
+// *
+// * @param {goog.events.Event} e
+// */
+//tart.ui.TooltipComponentManager.handleEvent = function (e) {
+//    console.log("handleEvent");
+//};
 
 
 /**
  *
  * @param {tart.ui.TooltipDelegateComponent} cmp Component which will be set to components.
  */
-tart.ui.TooltipComponentManager.set = function (cmp) {
-    console.log("hede");
+tart.ui.TooltipComponentManager.prototype.set = function (cmp) {
+    if (!tart.ui.TooltipComponentManager.init)
+//        tart.ui.TooltipComponentManager.initHandlers();
+
+    this.components[cmp.selector] = cmp;
 };
 
 
