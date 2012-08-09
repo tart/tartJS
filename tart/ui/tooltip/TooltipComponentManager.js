@@ -23,66 +23,53 @@ goog.require('goog.events.EventType');
  */
 
 
-
-/**
- *
- * @constructor
- */
-tart.ui.TooltipComponentManager = function() {
-    //    this.components = {};
-    //    this.selectors = {};
-    /** @type {Object.<string, tart.ui.Component>} */
-    this.components = {};
-    this.init = false;
-//    this.initHandlers();
-};
-
-
-/**
- * Returns parent component (if available) of a given DOM node.
- *
- * @param {Node} child Refers DOM node that will be used for finding parent component.
- * @return {tart.ui.TooltipDelegateComponent} Parent node.
- */
-tart.ui.TooltipComponentManager.prototype.getParentCmp = function(child) {
-    var node = child, cmp;
-
-    do {
-        if (cmp = (this.components[node.getAttribute && node.getAttribute('data-cmp')])) {}
-        else if (cmp = this.components[node.id])
-            child.setAttribute('data-cmp', node.id);
-
-        if (cmp) break;
-    } while (node = node.parentNode);
-
-    return cmp;
-};
+/** @type {Object.<string, tart.ui.TooltipDelegateComponent>} */
+tart.ui.TooltipComponentManager.components = [];
+tart.ui.TooltipComponentManager.init = false;
 
 
 /**
  * Keeps event types.
  * @type {Array.<goog.events.EventType>}
  */
-tart.ui.TooltipComponentManager.prototype.eventTypes = [
-    goog.events.EventType.CLICK
-//    goog.events.EventType.MOUSEOVER,
-//    goog.events.EventType.MOUSEOUT,
-//    tart.events.EventType.MOUSEENTER,
-//    tart.events.EventType.MOUSELEAVE,
-//    goog.events.EventType.SCROLL
+tart.ui.TooltipComponentManager.eventTypes = [
+    goog.events.EventType.CLICK,
+    goog.events.EventType.MOUSEOVER,
+    goog.events.EventType.MOUSEOUT,
+    tart.events.EventType.MOUSEENTER,
+    tart.events.EventType.MOUSELEAVE,
+    goog.events.EventType.SCROLL
 ];
 
 
 /**
  *
  */
-tart.ui.TooltipComponentManager.prototype.initHandlers = function () {
-    this.init = true;
+tart.ui.TooltipComponentManager.initHandlers = function () {
+    tart.ui.TooltipComponentManager.init = true;
 
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
-        goog.events.listen(document.body, this.eventTypes, this.handleEvent);
+        goog.events.listen(document.body, tart.ui.TooltipComponentManager.eventTypes, tart.ui.TooltipComponentManager.handleEvent);
     });
     console.log("initHandlers");
+};
+
+/**
+ *
+ * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
+ */
+tart.ui.TooltipComponentManager.getEventRelatedComponents = function (e) {
+    var keys = goog.object.getKeys(tart.ui.TooltipComponentManager.components);
+    var cmp;
+    for(var key in keys) {
+        if(tart.ui.TooltipComponentManager.matchesSelector(e.target, keys[key]))
+            cmp = tart.ui.TooltipComponentManager.components[keys[key]];
+    }
+//    return goog.array.map(tart.ui.TooltipComponentManager.components, function(selector){
+//        if(tart.ui.TooltipComponentManager.matchesSelector(e.target, selector))
+//            return tart.ui.TooltipComponentManager.components[selector];
+//    });
+    return cmp;
 };
 
 
@@ -90,9 +77,13 @@ tart.ui.TooltipComponentManager.prototype.initHandlers = function () {
  *
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
-tart.ui.TooltipComponentManager.prototype.handleEvent = function (e) {
-    var cmp = this.getParentCmp(e.target),
-        handlers = cmp && cmp.events && cmp.events[e.type];
+tart.ui.TooltipComponentManager.handleEvent = function (e) {
+    var cmp = tart.ui.TooltipComponentManager.getEventRelatedComponents(e);
+    console.log("handling event");
+//    cmp && cmp.handleEvent(e);
+//    var cmp = tart.ui.TooltipComponentManager.components[e.type];
+//    var cmp = tart.ui.TooltipComponentManager.getParentCmp(e.target),
+//        handlers = cmp && cmp.events && cmp.events[e.type];
 //
 //    // fire mouseenter event too
 //    if (e.type == goog.events.EventType.MOUSEOVER) {
@@ -112,38 +103,56 @@ tart.ui.TooltipComponentManager.prototype.handleEvent = function (e) {
 //        }
 //    }
 //
-    if (handlers) {
-        var selectors = goog.object.getKeys(handlers);
-
-        // call handlers of event's target and its ancestors
-        do {
-            if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
-                if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget) &&
-                    tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
-            }
-            else if (tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
-        } while ((e.target = e.target.parentNode) && e.target != cmp.getElement());
-    }
+    if (cmp)
+        tart.ui.TooltipComponentManager.callHandler(cmp, e);
 };
 
-///**
-// *
-// * @param {goog.events.Event} e
-// */
-//tart.ui.TooltipComponentManager.handleEvent = function (e) {
-//    console.log("handleEvent");
-//};
+
+/**
+ *
+ * @param {tart.ui.TooltipDelegateComponent} cmp
+ * @param  {goog.events.Event} e
+ * @return {boolean}
+ */
+tart.ui.TooltipComponentManager.callHandler = function(cmp, e){
+    var rv = true;
+    rv = cmp.handleIncomingEvent(e);
+    return rv;
+};
+
+/**
+ *
+ * @param el
+ * @param selector
+ * @return {*}
+ */
+tart.ui.TooltipComponentManager.matchesSelector = function(el, selector) {
+    return $(el).is(selector);
+};
 
 
 /**
  *
  * @param {tart.ui.TooltipDelegateComponent} cmp Component which will be set to components.
  */
-tart.ui.TooltipComponentManager.prototype.set = function (cmp) {
+tart.ui.TooltipComponentManager.set = function (cmp) {
     if (!tart.ui.TooltipComponentManager.init)
+        tart.ui.TooltipComponentManager.initHandlers();
+//    if(!tart.ui.TooltipComponentManager.components[cmp.selector])
+//        tart.ui.TooltipComponentManager.components[cmp.selector] = [];
+    tart.ui.TooltipComponentManager.components[cmp.selector] = cmp;
+};
+
+
+/**
+ *
+ * @param {tart.ui.TooltipDelegateComponent} cmp Component which will be set to components.
+ */
+tart.ui.TooltipComponentManager.remove = function (cmp) {
+    if (!tart.ui.TooltipComponentManager.init);
 //        tart.ui.TooltipComponentManager.initHandlers();
 
-    this.components[cmp.selector] = cmp;
+//        this.components[cmp.selector] = cmp;
 };
 
 
