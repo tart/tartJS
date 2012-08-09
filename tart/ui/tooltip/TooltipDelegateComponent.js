@@ -30,11 +30,11 @@ goog.require('tart.dom');
  * @param {tart.ui.TooltipComponentManager} tooltipComponentManager selector The selector needed for registration to TooltipComponentManager.
  * @constructor
  */
-tart.ui.TooltipDelegateComponent = function(selector, tooltipComponentManager) {
+tart.ui.TooltipDelegateComponent = function(selector) {
     goog.base(this);
     this.selector = selector && selector;
 //    tuttur.Registry.get('tooltipComponentManager').set(this);
-    tooltipComponentManager.set(this);
+    tuttur.Registry.get('tooltipComponentManager').set(this);
 };
 goog.inherits(tart.ui.TooltipDelegateComponent, tart.ui.DlgComponent);
 
@@ -62,6 +62,15 @@ tart.ui.TooltipDelegateComponent.prototype.getPlaceholder = function() {
  */
 tart.ui.TooltipDelegateComponent.prototype.render = function() {
     console.log("rendered.");
+};
+
+
+/**
+ * Event handling proof...
+ * @param {goog.events.BrowserEvent} e
+ */
+tart.ui.TooltipDelegateComponent.prototype.handleIncomingEvent = function(e) {
+    console.log("handled event coming from " + e.target.classList[0] + " " + e.target.className + " " + e.target.innerHTML);
 };
 
 
