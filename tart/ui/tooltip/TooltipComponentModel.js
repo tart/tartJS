@@ -92,6 +92,15 @@ tart.ui.TooltipComponentModel.prototype.offsetThreshold = 30;
 
 
 /**
+ * If the size of the reference element is greater than this threshold, the tip should be placed at a distance of
+ * tipOffset. Else, the tip should point to the center of the reference element.
+ *
+ * @type {tart.ui.TooltipComponentManager}
+ */
+tart.ui.TooltipComponentModel.prototype.tooltipComponentManager = tuttur.Registry.get('tooltipComponentManager');
+
+
+/**
  * Events that this model dispatches at corresponding states
  *
  * @enum {string}
@@ -211,6 +220,16 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
  */
 tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
     this.stateMachine.publish(type);
+};
+
+
+/**
+ * @return {tart.ui.TooltipComponentManager} rv
+ */
+tart.ui.TooltipComponentModel.prototype.getTooltipComponentManager = function() {
+    var rv;
+    rv = tuttur.Registry.get('tooltipComponentManager') && tuttur.Registry.get('tooltipComponentManager');
+    return rv;
 };
 
 

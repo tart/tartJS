@@ -58,7 +58,7 @@ tart.ui.TooltipComponentManager.initHandlers = function () {
  *
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
-tart.ui.TooltipComponentManager.getEventRelatedComponents = function (e) {
+tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (e) {
     var keys = goog.object.getKeys(tart.ui.TooltipComponentManager.components);
     var cmp;
     for(var key in keys) {
@@ -78,7 +78,7 @@ tart.ui.TooltipComponentManager.getEventRelatedComponents = function (e) {
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
 tart.ui.TooltipComponentManager.handleEvent = function (e) {
-    var cmp = tart.ui.TooltipComponentManager.getEventRelatedComponents(e);
+    var cmp = tart.ui.TooltipComponentManager.getSelectorRelatedComponents(e);
     console.log("handling event");
 //    cmp && cmp.handleEvent(e);
 //    var cmp = tart.ui.TooltipComponentManager.components[e.type];
@@ -138,8 +138,6 @@ tart.ui.TooltipComponentManager.matchesSelector = function(el, selector) {
 tart.ui.TooltipComponentManager.set = function (cmp) {
     if (!tart.ui.TooltipComponentManager.init)
         tart.ui.TooltipComponentManager.initHandlers();
-//    if(!tart.ui.TooltipComponentManager.components[cmp.selector])
-//        tart.ui.TooltipComponentManager.components[cmp.selector] = [];
     tart.ui.TooltipComponentManager.components[cmp.selector] = cmp;
 };
 
