@@ -28,7 +28,7 @@ goog.require('tart.dom');
 /**
  *
  * @param {string} selector The selector needed for registration to TooltipComponentManager.
- * @param {string} tooltipComponentManager selector The selector needed for registration to TooltipComponentManager.
+ * @param {string=} tooltipComponentManager selector The selector needed for registration to TooltipComponentManager.
  * @constructor
  */
 tart.ui.TooltipDelegateComponent = function(selector, options) {
@@ -36,6 +36,10 @@ tart.ui.TooltipDelegateComponent = function(selector, options) {
     this.selector = selector && selector;
     this.model = new this.modelClass(options);
     this.model.getTooltipComponentManager().set(this);
+
+    this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
+    this.wrapper = goog.dom.getElementsByClass('wrapper', this.element)[0];
+    this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
 };
 
 goog.inherits(tart.ui.TooltipDelegateComponent, tart.ui.DlgComponent);
@@ -47,6 +51,14 @@ tart.ui.TooltipDelegateComponent.prototype.modelClass = tart.ui.TooltipComponent
  */
 tart.ui.TooltipDelegateComponent.prototype.onLoaded = function() {
 
+};
+
+/** @override */
+tart.ui.TooltipDelegateComponent.prototype.bindModelEvents = function() {
+    goog.events.listen(this.model, tart.ui.TooltipComponentModel.EventType.SHOW, this.onShow, undefined, this);
+    goog.events.listen(this.model, tart.ui.TooltipComponentModel.EventType.INIT, this.onInit, undefined, this);
+    goog.events.listen(this.model, tart.ui.TooltipComponentModel.EventType.CLICK_WAIT, this.onWait, undefined,
+        this);
 };
 
 
@@ -92,7 +104,7 @@ tart.ui.TooltipDelegateComponent.prototype.onBoxMouseout = function(e) {
 
 tart.ui.TooltipDelegateComponent.prototype.onShow = function() {
     this.contentArea.innerHTML = (this.templates_loading());
-    document.body.appendChild(this.element);
+//    document.body.appendChild(this.element);
     this.position();
 
     this.windowResizeListener = goog.events.listen(window, goog.events.EventType.RESIZE, function(e) {
@@ -127,6 +139,10 @@ tart.ui.TooltipDelegateComponent.prototype.render = function() {
  * @param {goog.events.BrowserEvent} e
  */
 tart.ui.TooltipDelegateComponent.prototype.handleIncomingEvent = function(e) {
+    if(e.type == this.model.type) {
+        console.log(e.type);
+        this.setContent(e.target.className);
+    }
     console.log("handled event coming from " + e.target.classList[0] + " " + e.target.className + " " + e.target.innerHTML);
 };
 
@@ -382,6 +398,16 @@ tart.ui.TooltipDelegateComponent.prototype.templates_cap = function() {
 tart.ui.TooltipDelegateComponent.prototype.templates_spare = function() {
 
 };
+
+
+/**
+ * This function returns the content area of the tooltip as a string.
+ * @return {string}
+ */
+tart.ui.TooltipDelegateComponent.prototype.templates_loading = function() {
+    return '<div class="loadContainer"><div class="loading"></div></div>';
+};
+
 
 /**
  *
