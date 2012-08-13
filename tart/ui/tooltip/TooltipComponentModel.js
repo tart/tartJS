@@ -224,6 +224,7 @@ tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
 
 
 /**
+ * This function is subject to change.
  * @return {tart.ui.TooltipComponentManager} rv
  */
 tart.ui.TooltipComponentModel.prototype.getTooltipComponentManager = function() {

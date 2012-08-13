@@ -43,6 +43,17 @@ tart.ui.TooltipComponentManager.eventTypes = [
 
 
 /**
+ * Keeps event types.
+ * @type {Array.<goog.events.EventType>}
+ */
+tart.ui.TooltipComponentManager.eventTypeMap = {
+    'mouseover': 'hover',
+    'mouseout': 'hover',
+    'click': 'click'
+};
+
+
+/**
  *
  */
 tart.ui.TooltipComponentManager.initHandlers = function () {
@@ -79,8 +90,8 @@ tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (e) {
  */
 tart.ui.TooltipComponentManager.handleEvent = function (e) {
     var cmp = tart.ui.TooltipComponentManager.getSelectorRelatedComponents(e);
-    console.log("handling event");
-//    cmp && cmp.handleEvent(e);
+    console.log("handling event " + e.type);
+    cmp && cmp.model.options.type == tart.ui.TooltipComponentManager.eventTypeMap[e.type] && tart.ui.TooltipComponentManager.callHandler(cmp, e);
 //    var cmp = tart.ui.TooltipComponentManager.components[e.type];
 //    var cmp = tart.ui.TooltipComponentManager.getParentCmp(e.target),
 //        handlers = cmp && cmp.events && cmp.events[e.type];
@@ -103,8 +114,8 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
 //        }
 //    }
 //
-    if (cmp)
-        tart.ui.TooltipComponentManager.callHandler(cmp, e);
+//    if (cmp)
+//        tart.ui.TooltipComponentManager.callHandler(cmp, e);
 };
 
 
