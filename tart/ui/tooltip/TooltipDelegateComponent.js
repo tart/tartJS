@@ -28,18 +28,20 @@ goog.require('tart.dom');
 /**
  *
  * @param {string} selector The selector needed for registration to TooltipComponentManager.
- * @param {string=} tooltipComponentManager selector The selector needed for registration to TooltipComponentManager.
  * @constructor
  */
 tart.ui.TooltipDelegateComponent = function(selector, options) {
-    goog.base(this);
+
     this.selector = selector && selector;
     this.model = new this.modelClass(options);
-    this.model.getTooltipComponentManager().set(this);
+    goog.base(this);
 
-    this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
+    this.model.getTooltipComponentManager().set(this);
+//    this.element = goog.dom.getElementById(this.id);
+    this.contentArea = goog.dom.getElementsByClass('content', this.element())[0];
     this.wrapper = goog.dom.getElementsByClass('wrapper', this.element)[0];
     this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
+
 };
 
 goog.inherits(tart.ui.TooltipDelegateComponent, tart.ui.DlgComponent);
@@ -83,6 +85,7 @@ tart.ui.TooltipDelegateComponent.prototype.onClick = function(e) {
     }, false, this);
 };
 
+
 tart.ui.TooltipDelegateComponent.prototype.onHover = function(e) {
     if (e.type == goog.events.EventType.MOUSEOUT &&
         ((e.relatedTarget && goog.dom.contains(this.element, e.relatedTarget)) ||
@@ -91,6 +94,7 @@ tart.ui.TooltipDelegateComponent.prototype.onHover = function(e) {
     this.model.handleEvent(e.type);
 
 };
+
 
 tart.ui.TooltipDelegateComponent.prototype.onBoxMouseout = function(e) {
     if(goog.dom.contains(this.element, e.relatedTarget)) {
@@ -115,9 +119,11 @@ tart.ui.TooltipDelegateComponent.prototype.onShow = function() {
     }, false, this);
 };
 
+
 tart.ui.TooltipDelegateComponent.prototype.reset = function() {
     this.model.reset(); // sends to onInit
 };
+
 
 tart.ui.TooltipDelegateComponent.prototype.onInit = function() {
     this.element.style.display = 'none';
@@ -139,10 +145,22 @@ tart.ui.TooltipDelegateComponent.prototype.render = function() {
  * @param {goog.events.BrowserEvent} e
  */
 tart.ui.TooltipDelegateComponent.prototype.handleIncomingEvent = function(e) {
-    if(e.type == this.model.type) {
-        console.log(e.type);
-        this.setContent(e.target.className);
+    var that = this;
+    console.log(e.type);
+    console.log(that.model.options.type);
+
+    switch (that.model.options.type) {
+        case tart.ui.TooltipComponentModel.Type.CLICK:
+            that.onClick(e);
+            break;
+        case tart.ui.TooltipComponentModel.Type.HOVER:
+        default:
+            that.onHover(e);
     }
+
+
+        this.setContent(e.target.className);
+
     console.log("handled event coming from " + e.target.classList[0] + " " + e.target.className + " " + e.target.innerHTML);
 };
 
