@@ -19,11 +19,11 @@ goog.require('goog.array');
 goog.require('goog.events.EventType');
 
 /**
- * @fileoverview Registry for tart.ui.TooltipDelegateComponent.
+ * @fileoverview Registry for tart.ui.TooltipDelegatedComponent.
  */
 
 
-/** @type {Object.<string, tart.ui.TooltipDelegateComponent>} */
+/** @type {Object.<string, tart.ui.TooltipDelegatedComponent>} */
 tart.ui.TooltipComponentManager.components = [];
 tart.ui.TooltipComponentManager.init = false;
 
@@ -121,7 +121,7 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
 
 /**
  *
- * @param {tart.ui.TooltipDelegateComponent} cmp
+ * @param {tart.ui.TooltipDelegatedComponent} cmp
  * @param  {goog.events.Event} e
  * @return {boolean}
  */
@@ -144,7 +144,7 @@ tart.ui.TooltipComponentManager.matchesSelector = function(el, selector) {
 
 /**
  *
- * @param {tart.ui.TooltipDelegateComponent} cmp Component which will be set to components.
+ * @param {tart.ui.TooltipDelegatedComponent} cmp Component which will be set to components.
  */
 tart.ui.TooltipComponentManager.set = function (cmp) {
     if (!tart.ui.TooltipComponentManager.init)
@@ -155,7 +155,7 @@ tart.ui.TooltipComponentManager.set = function (cmp) {
 
 /**
  *
- * @param {tart.ui.TooltipDelegateComponent} cmp Component which will be set to components.
+ * @param {tart.ui.TooltipDelegatedComponent} cmp Component which will be set to components.
  */
 tart.ui.TooltipComponentManager.remove = function (cmp) {
     if (!tart.ui.TooltipComponentManager.init);
