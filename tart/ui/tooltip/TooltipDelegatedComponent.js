@@ -37,20 +37,9 @@ tart.ui.TooltipDelegatedComponent = function(selector, options) {
     this.selector = selector && selector;
     this.model = new this.modelClass(options);
     this.model.getTooltipComponentManager().set(this);
-//    goog.base(this);
-
-    this.element = this.getElement(this.id);
-
-//    this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
-    this.contentArea = this.getChild(this.mappings.CONTENT)[0];
-
-//    this.wrapper = goog.dom.getElementsByClass('wrapper', this.element)[0];
-    this.wrapper = this.getChild(this.mappings.WRAPPER)[0];
-
-//    this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
-    this.cap = this.getChild(this.mappings.CAP)[0];
 
     this.bindModelEvents();
+
 };
 
 goog.inherits(tart.ui.TooltipDelegatedComponent, tart.ui.DlgComponent);
@@ -109,12 +98,13 @@ tart.ui.TooltipDelegatedComponent.prototype.onBoxMouseout = function(e) {
     if(goog.dom.contains(this.element, e.relatedTarget)) {
         return false;
     }
-    if (e.relatedTarget != this.refElement)
+
+    if(!tart.ui.TooltipComponentManager.matchesSelector(e.relatedTarget, this.selector))
         this.model.handleEvent(e.type);
 };
 
 
-tart.ui.TooltipComponent.prototype.onWait = function() {
+tart.ui.TooltipDelegatedComponent.prototype.onWait = function() {
     if(this.element.tooltip != this && this.element.tooltip) {
         this.element.tooltip.reset();
     }
@@ -123,21 +113,16 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 
 
 tart.ui.TooltipDelegatedComponent.prototype.onShow = function() {
-    this.contentArea.innerHTML = (this.templates_loading());
+    this.getChild(this.mappings.CONTENT)[0].innerHTML = this.templates_loading();
 //    document.body.appendChild(this.element);
     this.position();
 
     this.windowResizeListener = goog.events.listen(window, goog.events.EventType.RESIZE, function(e) {
-        this.position();
+        this.position(e);
     }, false, this);
     this.windowScrollListener = goog.events.listen(window, goog.events.EventType.SCROLL, function(e) {
-        this.position();
+        this.position(e);
     }, false, this);
-};
-
-
-tart.ui.TooltipDelegatedComponent.prototype.reset = function() {
-    this.model.reset(); // sends to onInit
 };
 
 
@@ -145,6 +130,11 @@ tart.ui.TooltipDelegatedComponent.prototype.onInit = function() {
     this.element.style.display = 'none';
     goog.events.unlistenByKey(this.windowResizeListener);
     goog.events.unlistenByKey(this.windowScrollListener);
+};
+
+
+tart.ui.TooltipDelegatedComponent.prototype.reset = function() {
+    this.model.reset(); // sends to onInit
 };
 
 
@@ -175,7 +165,8 @@ tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(e) {
     }
 
 
-        this.setContent(e.target.className);
+//        this.setContent(e.target.className);
+        this.setContent(e);
 
     console.log("handled event coming from " + e.target.classList[0] + " " + e.target.className + " " + e.target.innerHTML);
 };
@@ -186,9 +177,9 @@ tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(e) {
  *
  */
 tart.ui.TooltipDelegatedComponent.prototype.mappings = {
-    CONTENT: 'content',
-    WRAPPER: 'wrapper',
-    CAP: 'cap',
+    CONTENT: '.content',
+    WRAPPER: '.wrapper',
+    CAP: '.cap',
     FIRST_CLASS : '',
     SECOND_CLASS : ''
 };
@@ -197,18 +188,18 @@ tart.ui.TooltipDelegatedComponent.prototype.mappings = {
 
 /**
  * This function takes a string or an element to append into the content area of the tooltip.
- * @param content {string | Element}
+ * @param {goog.events.BrowserEvent} e
  */
-tart.ui.TooltipDelegatedComponent.prototype.setContent = function(content) {
-    if(typeof content == 'string') {
-        this.contentArea.innerHTML = content;
+tart.ui.TooltipDelegatedComponent.prototype.setContent = function(e) {
+    if(typeof e.target.className == 'string') {
+        this.getChild(this.mappings.CONTENT)[0].innerHTML = e.target.className;
     }
     else {
-        this.contentArea.innerHTML = '';
-        this.contentArea.appendChild(content);
+        this.getChild(this.mappings.CONTENT)[0].innerHTML = '';
+        this.getChild(this.mappings.CONTENT)[0].appendChild(e.target.className);
     }
 
-    this.position();
+    this.position(e);
 };
 
 
@@ -217,16 +208,17 @@ tart.ui.TooltipDelegatedComponent.prototype.setContent = function(content) {
  * to calculate the right position to display the tooltip. If the toolTip can be shown on the top of the reference
  * element, it positions the tooltip with the distance calculated by this.model's tipOffset and boxOffset values. If it
  * is not to possible to display on top, than it looks for the suitable area to display tooltip. The possible matches
- * are 'right', 'left', 'bottom' and as a default match 'top'.
+ * are 'right', 'left', 'bottom' and the default match 'top'.
  *
+ * @param {goog.events.BrowserEvent} e
  **/
-tart.ui.TooltipDelegatedComponent.prototype.position = function() {
+tart.ui.TooltipDelegatedComponent.prototype.position = function(e) {
     this.element.style.display = 'block';
-
-    var refElementOffset = goog.style.getPageOffset(this.refElement);
-    var refElementSize = goog.style.getSize(this.refElement);
+//    this.refElement = e.target;
+    var refElementOffset = goog.style.getPageOffset(e.target);
+    var refElementSize = goog.style.getSize(e.target);
     var myElementSize = goog.style.getSize(this.element);
-    var myWrapperSize = goog.style.getSize(this.wrapper);
+    var myWrapperSize = goog.style.getSize(this.getChild(this.mappings.WRAPPER)[0]);
     var myWindowSize = goog.dom.getViewportSize();
     var winScrollTop = document.body.scrollTop || window.document.documentElement.scrollTop;
     var winScrollLeft = document.body.scrollLeft || window.document.documentElement.scrollLeft;
@@ -298,11 +290,11 @@ tart.ui.TooltipDelegatedComponent.prototype.position = function() {
         }
     }
 
-    this.wrapper.appendChild(this.cap);
+    this.getChild(this.mappings.WRAPPER)[0].appendChild(this.getChild(this.mappings.CAP)[0]);
     goog.dom.classes.remove(this.element, 'right', 'left', 'top', 'bottom');
     goog.dom.classes.add(this.element, this.model.options.direction);
-    this.cap.style.top = verticalTipCapShift + 'px';
-    this.cap.style.left = horizontalTipCapShift + 'px';
+    this.getChild(this.mappings.CAP)[0].style.top = verticalTipCapShift + 'px';
+    this.getChild(this.mappings.CAP)[0].style.left = horizontalTipCapShift + 'px';
 
     switch (this.model.options.direction) {
         case tart.ui.TooltipComponentModel.Direction.LEFT:
