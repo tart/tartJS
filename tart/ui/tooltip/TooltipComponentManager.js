@@ -62,7 +62,7 @@ tart.ui.TooltipComponentManager.initHandlers = function () {
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
         goog.events.listen(document.body, tart.ui.TooltipComponentManager.eventTypes, tart.ui.TooltipComponentManager.handleEvent);
     });
-    console.log("initHandlers");
+    console.log("TCM initHandlers");
 };
 
 /**
@@ -70,6 +70,7 @@ tart.ui.TooltipComponentManager.initHandlers = function () {
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
 tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (e) {
+    console.log("tcm getSelectorRelatedComp");
     var keys = goog.object.getKeys(tart.ui.TooltipComponentManager.components);
     var cmp;
     for(var key in keys) {
@@ -89,30 +90,33 @@ tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (e) {
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
 tart.ui.TooltipComponentManager.handleEvent = function (e) {
+    console.log("TCM.handleEvent");
     var cmp = tart.ui.TooltipComponentManager.getSelectorRelatedComponents(e);
-    console.log("handling event " + e.type);
+    var hede = cmp && cmp.model && cmp.model.options && cmp.model.options.type && cmp.model.options.type;
+    console.log("tcm handling event " + e.type + " for component's " + hede);
+    // fire mouseenter event too
+    if (e.type == goog.events.EventType.MOUSEOVER) {
+        if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
+            var a = new goog.events.BrowserEvent(e.getBrowserEvent());
+            a.type = tart.events.EventType.MOUSEENTER;
+            tart.ui.TooltipComponentManager.handleEvent(a);
+        }
+    }
+
+    // fire mouseleave event too
+    else if (e.type == goog.events.EventType.MOUSEOUT) {
+        if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
+            var a = new goog.events.BrowserEvent(e.getBrowserEvent());
+            a.type = tart.events.EventType.MOUSELEAVE;
+            tart.ui.TooltipComponentManager.handleEvent(a);
+        }
+    }
     cmp && cmp.model.options.type == tart.ui.TooltipComponentManager.eventTypeMap[e.type] && tart.ui.TooltipComponentManager.callHandler(cmp, e);
 //    var cmp = tart.ui.TooltipComponentManager.components[e.type];
 //    var cmp = tart.ui.TooltipComponentManager.getParentCmp(e.target),
 //        handlers = cmp && cmp.events && cmp.events[e.type];
 //
-//    // fire mouseenter event too
-//    if (e.type == goog.events.EventType.MOUSEOVER) {
-//        if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
-//            var a = new goog.events.BrowserEvent(e.getBrowserEvent());
-//            a.type = tart.events.EventType.MOUSEENTER;
-//            tart.ui.ComponentManager.handleEvent(a);
-//        }
-//    }
-//
-//    // fire mouseleave event too
-//    else if (e.type == goog.events.EventType.MOUSEOUT) {
-//        if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
-//            var a = new goog.events.BrowserEvent(e.getBrowserEvent());
-//            a.type = tart.events.EventType.MOUSELEAVE;
-//            tart.ui.ComponentManager.handleEvent(a);
-//        }
-//    }
+
 //
 //    if (cmp)
 //        tart.ui.TooltipComponentManager.callHandler(cmp, e);
@@ -126,6 +130,7 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
  * @return {boolean}
  */
 tart.ui.TooltipComponentManager.callHandler = function(cmp, e){
+    console.log("==> tcm callHandler");
     var rv = true;
     rv = cmp.handleIncomingEvent(e);
     return rv;
