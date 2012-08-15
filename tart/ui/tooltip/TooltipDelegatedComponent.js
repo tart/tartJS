@@ -32,7 +32,7 @@ goog.require('goog.dom');
  * @constructor
  */
 tart.ui.TooltipDelegatedComponent = function(selector, options) {
-    console.log("TDC.cons");
+//    console.log("TDC.cons");
 
     this.id = tart.getUid();
     this.selector = selector && selector;
@@ -56,7 +56,7 @@ tart.ui.TooltipDelegatedComponent.prototype.onLoaded = function() {
 
 /** @override */
 tart.ui.TooltipDelegatedComponent.prototype.bindModelEvents = function() {
-    console.log("bindModelEvents");
+//    console.log("bindModelEvents");
     goog.events.listen(this.model, tart.ui.TooltipComponentModel.EventType.SHOW, this.onShow, undefined, this);
     goog.events.listen(this.model, tart.ui.TooltipComponentModel.EventType.INIT, this.onInit, undefined, this);
     goog.events.listen(this.model, tart.ui.TooltipComponentModel.EventType.CLICK_WAIT, this.onWait, undefined,
@@ -69,7 +69,7 @@ tart.ui.TooltipDelegatedComponent.prototype.bindModelEvents = function() {
  * @return {string}
  */
 tart.ui.TooltipDelegatedComponent.prototype.getPlaceholder = function() {
-    console.log("got place holder.");
+//    console.log("got place holder.");
     return(this.templates_base());
 };
 
@@ -89,8 +89,8 @@ tart.ui.TooltipDelegatedComponent.prototype.onClick = function(e) {
 
 tart.ui.TooltipDelegatedComponent.prototype.onHover = function(e) {
     console.log(">>>> onHover");
-    this.setContent(e);
-    if (e.type == goog.events.EventType.MOUSEOUT &&
+//    this.setContent(e);
+    if ((e.type == goog.events.EventType.MOUSEOUT || e.type == goog.events.EventType.MOUSELEAVE)&&
         ((e.relatedTarget && goog.dom.contains(this.element, e.relatedTarget)) ||
             e.relatedTarget == this.element) || e.relatedTarget == null)
         return;
@@ -106,25 +106,26 @@ tart.ui.TooltipDelegatedComponent.prototype.onBoxMouseout = function(e) {
         return false;
     }
 
-    if(!tart.ui.TooltipComponentManager.matchesSelector(e.relatedTarget, this.selector))
+//    if(!tart.ui.TooltipComponentManager.matchesSelector(e.relatedTarget, this.selector))
+    if(!goog.dom.contains(this.refElement, e.relatedTarget))
         this.model.handleEvent(e.type);
 };
 
 
 tart.ui.TooltipDelegatedComponent.prototype.onWait = function() {
     console.log("----onWait");
-    if(this.element.tooltip != this && this.element.tooltip) {
-        this.element.tooltip.reset();
+    if(this.getChild(this.mappings.TOOLTIP)[0] != this && this.getChild(this.mappings.TOOLTIP)[0]) {
+        this.getChild(this.mappings.TOOLTIP)[0].reset();
     }
-    this.element.tooltip = this;
+    this.getChild(this.mappings.TOOLTIP)[0] = this;
 };
 
 
-tart.ui.TooltipDelegatedComponent.prototype.onShow = function() {
+tart.ui.TooltipDelegatedComponent.prototype.onShow = function(e) {
     console.log("----onShow");
     this.getChild(this.mappings.CONTENT)[0].innerHTML = this.templates_loading();
 //    document.body.appendChild(this.element);
-    this.position();
+    this.position(e);
 
     this.windowResizeListener = goog.events.listen(window, goog.events.EventType.RESIZE, function(e) {
         this.position(e);
@@ -162,8 +163,11 @@ tart.ui.TooltipDelegatedComponent.prototype.render = function() {
  */
 tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(e) {
     var that = this;
-    console.log("==> TDC handleIncomingEvent: " + e.type + " model type: " + that.model.options.type);
-    console.log("targ: " + e.target.className + "relTarg" + e.relatedTarget.className);
+//    console.log("==> TDC handleIncomingEvent: " + e.type + " model type: " + that.model.options.type);
+//    console.log("targ: " + e.target.className + "relTarg" + e.relatedTarget.className);
+
+    that.refElement = e.target;
+    this.setContent(e);
 
     switch (that.model.options.type) {
         case tart.ui.TooltipComponentModel.Type.CLICK:
@@ -171,16 +175,16 @@ tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(e) {
             break;
         case tart.ui.TooltipComponentModel.Type.HOVER:
         default:
-            if(e.type == goog.events.EventType.MOUSEOUT)
+            if(e.type == goog.events.EventType.MOUSEOUT || e.type == goog.events.EventType.MOUSELEAVE)
                 that.onBoxMouseout(e);
-            else if(e.type == goog.events.EventType.MOUSEOVER)
+            else if(e.type == goog.events.EventType.MOUSEOVER || e.type == goog.events.EventType.MOUSEENTER)
                 that.onHover(e);
     }
 
 
 //        this.setContent(e.target.className);
 
-    console.log("===>> TDC HIE handled event coming from " + e.target.classList[0] + " " + e.target.className + " " + e.target.innerHTML);
+//    console.log("===>> TDC HIE handled event coming from " + e.target.classList[0] + " " + e.target.className + " " + e.target.innerHTML);
 };
 
 
@@ -189,6 +193,7 @@ tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(e) {
  *
  */
 tart.ui.TooltipDelegatedComponent.prototype.mappings = {
+    TOOLTIP : ".tTip",
     CONTENT: '.content',
     WRAPPER: '.wrapper',
     CAP: '.cap',
@@ -232,8 +237,10 @@ tart.ui.TooltipDelegatedComponent.prototype.position = function(e) {
     console.log("position");
     this.element.style.display = 'block';
 //    this.refElement = e.target;
-    var refElementOffset = goog.style.getPageOffset(e.target);
-    var refElementSize = goog.style.getSize(e.target);
+//    var refElementOffset = goog.style.getPageOffset(e.target);
+    var refElementOffset = goog.style.getPageOffset(this.refElement);
+//    var refElementSize = goog.style.getSize(e.target);
+    var refElementSize = goog.style.getSize(this.refElement);
     var myElementSize = goog.style.getSize(this.element);
     var myWrapperSize = goog.style.getSize(this.getChild(this.mappings.WRAPPER)[0]);
     var myWindowSize = goog.dom.getViewportSize();
