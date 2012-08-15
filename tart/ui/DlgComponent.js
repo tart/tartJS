@@ -24,7 +24,7 @@
 goog.provide('tart.ui.DlgComponent');
 goog.require('goog.dom.query');
 goog.require('tart.ui.ComponentManager');
-goog.reqiure('goog.events.EventTarget');
+goog.require('goog.events.EventTarget');
 
 
 /**
