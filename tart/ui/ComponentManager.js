@@ -47,6 +47,9 @@ tart.ui.ComponentManager.eventTypes = [
     goog.events.EventType.CLICK,
     goog.events.EventType.MOUSEOVER,
     goog.events.EventType.MOUSEOUT,
+    goog.events.EventType.MOUSEMOVE,
+    goog.events.EventType.MOUSEDOWN,
+    goog.events.EventType.MOUSEUP,
     tart.events.EventType.MOUSEENTER,
     tart.events.EventType.MOUSELEAVE,
     goog.events.EventType.SCROLL
