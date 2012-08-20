@@ -328,7 +328,7 @@ var MediaElementAudioSourceNode = function() {};
  */
 var JavaScriptAudioNode = function() {};
 
-/** @type {EventListener} */
+/** @type {EventListener|Function} */
 JavaScriptAudioNode.prototype.onaudioprocess;
 
 /**
