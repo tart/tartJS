@@ -122,6 +122,12 @@ AudioContext.prototype.createChannelMerger = function() {};
  */
 AudioContext.prototype.createDynamicsCompressor = function() {};
 
+
+/**
+ * @return {WaveShaperNode}
+ */
+AudioContext.prototype.createWaveShaper = function() {};
+
 /**
  * @constructor
  */
