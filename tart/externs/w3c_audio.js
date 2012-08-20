@@ -122,6 +122,12 @@ AudioContext.prototype.createChannelMerger = function() {};
  */
 AudioContext.prototype.createDynamicsCompressor = function() {};
 
+
+/**
+ * @return {WaveShaperNode}
+ */
+AudioContext.prototype.createWaveShaper = function() {};
+
 /**
  * @constructor
  */
@@ -322,7 +328,7 @@ var MediaElementAudioSourceNode = function() {};
  */
 var JavaScriptAudioNode = function() {};
 
-/** @type {EventListener} */
+/** @type {EventListener|Function} */
 JavaScriptAudioNode.prototype.onaudioprocess;
 
 /**
