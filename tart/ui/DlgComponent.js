@@ -44,7 +44,7 @@ goog.inherits(tart.ui.DlgComponent, goog.events.EventTarget);
 
 /**
  * Returns the dom element attached with the Component instance.
- * @return {?Node}
+ * @return {?Element}
  */
 tart.ui.DlgComponent.prototype.getElement = function() {
     var rv = this.element;
