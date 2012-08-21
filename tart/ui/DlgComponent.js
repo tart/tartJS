@@ -26,6 +26,7 @@ goog.require('goog.dom.query');
 goog.require('tart.ui.ComponentManager');
 goog.require('goog.events.EventTarget');
 goog.require('tart');
+goog.require('tart.dom');
 
 
 /**
@@ -91,8 +92,15 @@ tart.ui.DlgComponent.prototype.getChild = function (selector) {
 /**
  * This method should be called after the DlgComponent is inserted into the document. Any work (rendering child
  * components, updating DOM, etc.) should be done in this method.
+ *
+ * @param {Element} opt_base Optional element to render this item into.
  */
-tart.ui.DlgComponent.prototype.render = function() {};
+tart.ui.DlgComponent.prototype.render = function(opt_base) {
+    if (opt_base) {
+        this.element = tart.dom.createElement(this.getPlaceholder());
+        opt_base.appendChild(this.element);
+    }
+};
 
 
 /**
