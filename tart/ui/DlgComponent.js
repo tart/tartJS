@@ -89,6 +89,13 @@ tart.ui.DlgComponent.prototype.getChild = function (selector) {
 
 
 /**
+ * This method should be called after the DlgComponent is inserted into the document. Any work (rendering child
+ * components, updating DOM, etc.) should be done in this method.
+ */
+tart.ui.DlgComponent.prototype.render = function() {};
+
+
+/**
  * Template of the root element. This method can be overridden if necessary. Other templates should be named with the
  * templates_ prefix as necessary. Also this template carries related component's id.
  * @return {string}
