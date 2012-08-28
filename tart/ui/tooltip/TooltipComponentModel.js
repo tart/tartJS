@@ -193,7 +193,7 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
         switch (that.options.type) {
             case tart.ui.TooltipComponentModel.Type.CLICK:
                 INIT.transitions[this.smEvents.CLICK] = CLICK_WAIT;
-//                CLICK_WAIT.transitions[this.smEvents.BODY_CLICK] = INIT;
+                CLICK_WAIT.transitions[this.smEvents.BODY_CLICK] = INIT;
                 CLICK_WAIT.transitions[this.smEvents.TIMEOUT] = SHOW;
                 SHOW.transitions[this.smEvents.BODY_CLICK] = INIT;
                 SHOW.transitions[this.smEvents.CLICK] = INIT;
