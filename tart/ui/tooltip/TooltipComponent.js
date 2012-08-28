@@ -125,6 +125,8 @@ tart.ui.TooltipComponent.prototype.onShow = function() {
     this.windowScrollListener = goog.events.listen(window, goog.events.EventType.SCROLL, function(e) {
         this.position();
     }, false, this);
+    this.element.style.display = 'block';
+
 };
 
 tart.ui.TooltipComponent.prototype.reset = function() {

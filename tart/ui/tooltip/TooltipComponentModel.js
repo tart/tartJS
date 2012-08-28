@@ -18,6 +18,7 @@
 
 goog.provide('tart.ui.TooltipComponentModel');
 goog.require('tart.ui.ComponentModel');
+goog.require('tart.events');
 
 
 
@@ -26,7 +27,7 @@ goog.require('tart.ui.ComponentModel');
  * @extends {tart.ui.ComponentModel}
  */
 tart.ui.TooltipComponentModel = function(options) {
-    console.log("model.const");
+//    console.log("model.const");
     options = options || {};
     this.options = {};
     this.options.timeout = options.timeout || this.timeout;
@@ -43,7 +44,7 @@ goog.inherits(tart.ui.TooltipComponentModel, tart.ui.ComponentModel);
  *
  * @type {number}
  */
-tart.ui.TooltipComponentModel.prototype.timeout = 0;
+tart.ui.TooltipComponentModel.prototype.timeout = 400;
 
 
 /**
@@ -123,7 +124,7 @@ tart.ui.TooltipComponentModel.SMEventType = {
     BODY_CLICK: 'bodyClick',
     MOUSEOVER: goog.events.EventType.MOUSEOVER,
     MOUSEOUT: goog.events.EventType.MOUSEOUT,
-    MOUSELEAVE: goog.events.EventType.MOUSELEAVE,
+    MOUSELEAVE: tart.events.EventType.MOUSELEAVE,
     CLICK: goog.events.EventType.CLICK
 };
 
@@ -147,7 +148,7 @@ tart.ui.TooltipComponentModel.prototype.direction = tart.ui.TooltipComponentMode
  * @protected
  */
 tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
-//    console.log("model.initStateMachine");
+    console.log("model.initStateMachine");
     var that = this;
     this.mEvents = tart.ui.TooltipComponentModel.EventType;
 
@@ -192,7 +193,7 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
         switch (that.options.type) {
             case tart.ui.TooltipComponentModel.Type.CLICK:
                 INIT.transitions[this.smEvents.CLICK] = CLICK_WAIT;
-                CLICK_WAIT.transitions[this.smEvents.BODY_CLICK] = INIT;
+//                CLICK_WAIT.transitions[this.smEvents.BODY_CLICK] = INIT;
                 CLICK_WAIT.transitions[this.smEvents.TIMEOUT] = SHOW;
                 SHOW.transitions[this.smEvents.BODY_CLICK] = INIT;
                 SHOW.transitions[this.smEvents.CLICK] = INIT;
@@ -223,6 +224,8 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
  * @param {string} type
  */
 tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
+    console.log("published: " +type);
+
     this.stateMachine.publish(type);
 };
 
