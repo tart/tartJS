@@ -101,7 +101,6 @@ tart.ui.TooltipDelegatedComponent.prototype.onHover = function(e) {
     e.stopPropagation();
 
     this.bodyListen = goog.events.listen(document.body, goog.events.EventType.MOUSEOVER, function(e) {
-        debugger;
         console.log("this bodylisten : " + this.bodyListen);
         console.log("bodylisten : " + e.type);
         if (goog.dom.contains(this.element, e.target) || goog.dom.contains(this.refElement, e.target)) {
