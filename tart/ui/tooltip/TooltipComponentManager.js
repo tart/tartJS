@@ -135,22 +135,23 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
         if (cmp.model.options.type == tart.ui.TooltipComponentManager.eventTypeMap[e.type]) {
             if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
                 if (e.relatedTarget && !goog.dom.contains(refElement, e.relatedTarget)) {
-                    console.log("1");
+                    console.log("mouselu 1");
                 tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
                 }
                 else  {
-                    console.log("2");
+                    console.log("mouselu 2");
                 tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
                 }
             }
             else if (e.type == goog.events.EventType.CLICK) {
                 tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
 
-                console.log("else");
+                console.log("clickli else");
     //            tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement)
             }
         }
         else {
+            console.log("cmp'li else");
 //            cmp.reset();
         }
 
