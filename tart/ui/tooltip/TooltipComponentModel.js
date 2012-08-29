@@ -27,7 +27,6 @@ goog.require('tart.events');
  * @extends {tart.ui.ComponentModel}
  */
 tart.ui.TooltipComponentModel = function(options) {
-//    console.log("model.const");
     options = options || {};
     this.options = {};
     this.options.timeout = options.timeout || this.timeout;
@@ -125,6 +124,7 @@ tart.ui.TooltipComponentModel.SMEventType = {
     MOUSEOVER: goog.events.EventType.MOUSEOVER,
     MOUSEOUT: goog.events.EventType.MOUSEOUT,
     MOUSELEAVE: tart.events.EventType.MOUSELEAVE,
+    MOUSEENTER: tart.events.EventType.MOUSEENTER,
     CLICK: goog.events.EventType.CLICK
 };
 
@@ -148,7 +148,6 @@ tart.ui.TooltipComponentModel.prototype.direction = tart.ui.TooltipComponentMode
  * @protected
  */
 tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
-    console.log("model.initStateMachine");
     var that = this;
     this.mEvents = tart.ui.TooltipComponentModel.EventType;
 
@@ -202,10 +201,9 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
 
             case tart.ui.TooltipComponentModel.Type.HOVER:
             default:
-                INIT.transitions[this.smEvents.MOUSEOVER] = HOVER_WAIT;
-                HOVER_WAIT.transitions[this.smEvents.MOUSEOUT] = INIT;
+                INIT.transitions[this.smEvents.MOUSEENTER] = HOVER_WAIT;
+                HOVER_WAIT.transitions[this.smEvents.MOUSELEAVE] = INIT;
                 HOVER_WAIT.transitions[this.smEvents.TIMEOUT] = SHOW;
-                SHOW.transitions[this.smEvents.MOUSEOUT] = INIT;
                 SHOW.transitions[this.smEvents.MOUSELEAVE] = INIT;
         }
 
@@ -224,8 +222,6 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
  * @param {string} type
  */
 tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
-    console.log("published: " +type);
-
     this.stateMachine.publish(type);
 };
 
