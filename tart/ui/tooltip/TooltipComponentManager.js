@@ -61,13 +61,11 @@ tart.ui.TooltipComponentManager.eventTypeMap = {
  */
 tart.ui.TooltipComponentManager.initHandlers = function () {
     tart.ui.TooltipComponentManager.init = true;
-    if(tart.ui.TooltipComponentManager.components)
-        //console.log("comp var " + tart.ui.TooltipComponentManager.components.length);
+//    if(tart.ui.TooltipComponentManager.components)
 
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
         goog.events.listen(document.body, tart.ui.TooltipComponentManager.eventTypes, tart.ui.TooltipComponentManager.handleEvent);
     });
-    console.log("TCM initHandlers");
 };
 
 /**
@@ -75,7 +73,6 @@ tart.ui.TooltipComponentManager.initHandlers = function () {
  * @param {Node} target Browser Events that was binded to component, will handle.
  */
 tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (target) {
-//    //console.log("tcm getSelectorRelatedComp");
     var keys = goog.object.getKeys(tart.ui.TooltipComponentManager.components);
     var cmp;
     for(var key in keys) {
@@ -93,9 +90,6 @@ tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (target)
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
 tart.ui.TooltipComponentManager.handleEvent = function (e) {
-    console.log("TCM.handleEvent");
-    console.log("TCM bodylisten : " + e.type);
-
     var selectors = tart.ui.TooltipComponentManager.components;
 
     var refElement = e.target;
@@ -103,13 +97,9 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
     do {
         cmp = tart.ui.TooltipComponentManager.getSelectorRelatedComponents(refElement);
         if(cmp) {
-//            e.target = refElement;
             break;
         }
     } while (refElement = refElement.parentNode && !cmp && refElement.nodeName != "BODY")
-
-    var hede = cmp && cmp.model && cmp.model.options && cmp.model.options.type && cmp.model.options.type;
-
 
     if(!cmp) cmp = tart.ui.TooltipComponentManager.getSelectorRelatedComponents(e.relatedTarget);
 
@@ -133,31 +123,18 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
 
     if (cmp) {
         if (cmp.model.options.type == tart.ui.TooltipComponentManager.eventTypeMap[e.type]) {
+
             if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
+
                 if (e.relatedTarget && !goog.dom.contains(refElement, e.relatedTarget)) {
-                    console.log("mouselu 1");
-                tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
-                }
-                else  {
-                    console.log("mouselu 2");
                 tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
                 }
             }
             else if (e.type == goog.events.EventType.CLICK) {
                 tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
-
-                console.log("clickli else");
-    //            tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement)
             }
         }
-        else {
-            console.log("cmp'li else");
-//            cmp.reset();
-        }
-
     }
-    else console.log("cmp'siz else");
-
 };
 
 
@@ -169,10 +146,8 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
  * @return {boolean}
  */
 tart.ui.TooltipComponentManager.callHandler = function(cmp, e, refElement){
-    console.log("==> tcm callHandler");
     var rv = true;
     rv = cmp.handleIncomingEvent(refElement, e);
-//    rv = cmp.model.handleEvent(refElement, e);
     return rv;
 };
 
