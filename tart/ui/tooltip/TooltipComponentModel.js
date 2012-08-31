@@ -227,6 +227,8 @@ tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
 
 
 /**
+ * This function returns back the registry which is needed to register a TooltipDelegatedComponent.
+ * 
  * This function is subject to change.
  * @return {tart.ui.TooltipComponentManager} rv
  */
