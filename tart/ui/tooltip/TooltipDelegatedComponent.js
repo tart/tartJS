@@ -70,7 +70,11 @@ tart.ui.TooltipDelegatedComponent.prototype.getPlaceholder = function() {
     return(this.templates_base());
 };
 
-
+/**
+ * This is the function to manage the click events handling process. It also uses additional event listeners with this purpose.
+ *
+ * @param {goog.events.BrowserEvent} e
+ */
 tart.ui.TooltipDelegatedComponent.prototype.onClick = function(e) {
     e.stopPropagation();
     this.model.handleEvent(e.type);
@@ -84,6 +88,12 @@ tart.ui.TooltipDelegatedComponent.prototype.onClick = function(e) {
 };
 
 
+/**
+ * This is the function to manage the mouseOver events handling process. It also uses additional event listeners with
+ * this purpose.
+ *
+ * @param {goog.events.BrowserEvent} e
+ */
 tart.ui.TooltipDelegatedComponent.prototype.onHover = function(e) {
     this.model.handleEvent(e.type);
     this.bodyListen = goog.events.listen(document.body, goog.events.EventType.MOUSEOVER, function(e) {
@@ -99,6 +109,11 @@ tart.ui.TooltipDelegatedComponent.prototype.onHover = function(e) {
 };
 
 
+/**
+ * This is the function to manage the mouseOut handling process.
+ *
+ * @param {goog.events.BrowserEvent} e
+ */
 tart.ui.TooltipDelegatedComponent.prototype.onBoxMouseout = function(e) {
     if(goog.dom.contains(this.element, e.relatedTarget) && (goog.dom.contains(this.element, e.target) || goog.dom.contains(this.refElement, e.target))) {
         return;
@@ -113,6 +128,14 @@ tart.ui.TooltipDelegatedComponent.prototype.onBoxMouseout = function(e) {
 };
 
 
+/**
+ * This function is being used as a part of the process occuring due to changes within the state machine of this
+ * component's model. onWait state is being used to handle the timeout function which is necessary to prevent the system
+ * to display the tooltips immediately. When the tooltips are being immediately after the triggering actions, the visual
+ * chaos detoriates the general view of the page. So, a little delay in this displaying action, triggers the right
+ * displaying action on the right time.
+ *
+ */
 tart.ui.TooltipDelegatedComponent.prototype.onWait = function() {
     this.element.style.display = 'none';
 
@@ -123,6 +146,12 @@ tart.ui.TooltipDelegatedComponent.prototype.onWait = function() {
 };
 
 
+/**
+ * OnShow function is the function which makes the preparances needed to display the tooltip. When using the tooltips
+ * inheriting from TooltipDelegateComponent, this function must be overrided for dedicated purposes.
+ *
+ * @param {goog.events.BrowserEvent} e
+ */
 tart.ui.TooltipDelegatedComponent.prototype.onShow = function(e) {
     var that = this;
     this.setContent(e);
@@ -136,6 +165,11 @@ tart.ui.TooltipDelegatedComponent.prototype.onShow = function(e) {
 };
 
 
+/**
+ * This function is being triggered with the state change of this component's model's state machine into "INIT" state.
+ * Init state is the state which the tooltip is being concealed and component is being reset in a manner.
+ *
+ */
 tart.ui.TooltipDelegatedComponent.prototype.onInit = function() {
     this.element.style.display = 'none';
     goog.events.unlistenByKey(this.windowResizeListener);
@@ -143,6 +177,10 @@ tart.ui.TooltipDelegatedComponent.prototype.onInit = function() {
 };
 
 
+/**
+ * As seen below, this function resets the component via it's model.
+ *
+ */
 tart.ui.TooltipDelegatedComponent.prototype.reset = function() {
     this.model.reset(); // sends to onInit
 };
@@ -157,7 +195,11 @@ tart.ui.TooltipDelegatedComponent.prototype.render = function() {
 
 
 /**
- * Event handling proof...
+ * This function is the first gate of this component. When an event triggers the TooltipComponentManager to activate
+ * the TooltipDelegatedComponent, TCM checks it's registry to find the correct component and if it finds a related
+ * component, calls this function as a handler. This function, then, checks the event and executes the correct function
+ * to handle incoming event.
+ *
  * @param {goog.events.BrowserEvent} e
  */
 tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(refElement, e) {
@@ -199,6 +241,7 @@ tart.ui.TooltipDelegatedComponent.prototype.mappings = {
 
 /**
  * This function takes a string or an element to append into the content area of the tooltip.
+ *
  * @param {goog.events.BrowserEvent} e
  */
 tart.ui.TooltipDelegatedComponent.prototype.setContent = function(e) {
