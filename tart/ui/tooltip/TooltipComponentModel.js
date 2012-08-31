@@ -18,6 +18,7 @@
 
 goog.provide('tart.ui.TooltipComponentModel');
 goog.require('tart.ui.ComponentModel');
+goog.require('tart.events');
 
 
 
@@ -42,7 +43,7 @@ goog.inherits(tart.ui.TooltipComponentModel, tart.ui.ComponentModel);
  *
  * @type {number}
  */
-tart.ui.TooltipComponentModel.prototype.timeout = 0;
+tart.ui.TooltipComponentModel.prototype.timeout = 400;
 
 
 /**
@@ -92,6 +93,15 @@ tart.ui.TooltipComponentModel.prototype.offsetThreshold = 30;
 
 
 /**
+ * If the size of the reference element is greater than this threshold, the tip should be placed at a distance of
+ * tipOffset. Else, the tip should point to the center of the reference element.
+ *
+ * @type {tart.ui.TooltipComponentManager}
+ */
+tart.ui.TooltipComponentModel.prototype.tooltipComponentManager = tuttur.Registry.get('tooltipComponentManager');
+
+
+/**
  * Events that this model dispatches at corresponding states
  *
  * @enum {string}
@@ -113,6 +123,8 @@ tart.ui.TooltipComponentModel.SMEventType = {
     BODY_CLICK: 'bodyClick',
     MOUSEOVER: goog.events.EventType.MOUSEOVER,
     MOUSEOUT: goog.events.EventType.MOUSEOUT,
+    MOUSELEAVE: tart.events.EventType.MOUSELEAVE,
+    MOUSEENTER: tart.events.EventType.MOUSEENTER,
     CLICK: goog.events.EventType.CLICK
 };
 
@@ -189,10 +201,10 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
 
             case tart.ui.TooltipComponentModel.Type.HOVER:
             default:
-                INIT.transitions[this.smEvents.MOUSEOVER] = HOVER_WAIT;
-                HOVER_WAIT.transitions[this.smEvents.MOUSEOUT] = INIT;
+                INIT.transitions[this.smEvents.MOUSEENTER] = HOVER_WAIT;
+                HOVER_WAIT.transitions[this.smEvents.MOUSELEAVE] = INIT;
                 HOVER_WAIT.transitions[this.smEvents.TIMEOUT] = SHOW;
-                SHOW.transitions[this.smEvents.MOUSEOUT] = INIT;
+                SHOW.transitions[this.smEvents.MOUSELEAVE] = INIT;
         }
 
         this.addState(INIT);
@@ -211,6 +223,19 @@ tart.ui.TooltipComponentModel.prototype.initStateMachine = function() {
  */
 tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
     this.stateMachine.publish(type);
+};
+
+
+/**
+ * This function returns back the registry which is needed to register a TooltipDelegatedComponent.
+ * 
+ * This function is subject to change.
+ * @return {tart.ui.TooltipComponentManager} rv
+ */
+tart.ui.TooltipComponentModel.prototype.getTooltipComponentManager = function() {
+    var rv;
+    rv = tuttur.Registry.get('tooltipComponentManager') && tuttur.Registry.get('tooltipComponentManager');
+    return rv;
 };
 
 
