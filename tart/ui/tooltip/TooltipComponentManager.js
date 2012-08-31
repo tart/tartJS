@@ -57,6 +57,8 @@ tart.ui.TooltipComponentManager.eventTypeMap = {
 
 
 /**
+ * This is the function which initiates the listening process for the events listed on
+ * tart.ui.TooltipComponentManager.eventTypes object.
  *
  */
 tart.ui.TooltipComponentManager.initHandlers = function () {
@@ -69,6 +71,8 @@ tart.ui.TooltipComponentManager.initHandlers = function () {
 };
 
 /**
+ *This function takes a node and checks if it is matching any of the selectors within TooltipComponentManager's
+ * components object.
  *
  * @param {Node} target Browser Events that was binded to component, will handle.
  */
@@ -86,6 +90,9 @@ tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (target)
 
 
 /**
+ *This function captures an event (which is predefined within this component manager to be captured) and checks the
+ * target and it's ancestors (or predecessors) to be related with a component listed in it's components list. If
+ * there's a related component, this function calls the related handler to handle this event.
  *
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
@@ -139,6 +146,8 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
 
 
 /**
+ * Takes a TooltipDelegatedComponent, and calls it's handler (handleIncomingEvent) to handle the event (e) which is
+ * related with "refElement".
  *
  * @param {tart.ui.TooltipDelegatedComponent} cmp
  * @param  {goog.events.Event} e
@@ -163,6 +172,7 @@ tart.ui.TooltipComponentManager.matchesSelector = function(el, selector) {
 
 
 /**
+ * Sets the components object to register a component and it's selector value.
  *
  * @param {tart.ui.TooltipDelegatedComponent} cmp Component which will be set to components.
  */
@@ -174,6 +184,7 @@ tart.ui.TooltipComponentManager.set = function (cmp) {
 
 
 /**
+ *Removes a component from components list.
  *
  * @param {tart.ui.TooltipDelegatedComponent} cmp Component which will be set to components.
  */
