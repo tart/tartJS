@@ -87,6 +87,6 @@ goog.addDependency('../../../tart/tart.js', ['tart'], []);
 goog.addDependency('../../../tart/ui/Component.js', ['tart.ui.Component'], ['goog.events.EventTarget', 'tart', 'tart.dom']);
 goog.addDependency('../../../tart/ui/ComponentManager.js', ['tart.ui.ComponentManager'], ['goog.array', 'goog.events.EventType', 'tart.events']);
 goog.addDependency('../../../tart/ui/ComponentModel.js', ['tart.ui.ComponentModel'], ['goog.events.EventTarget']);
-goog.addDependency('../../../tart/ui/DlgComponent.js', ['tart.ui.DlgComponent'], ['goog.dom.query', 'goog.events.EventTarget', 'tart.ui.ComponentManager']);
+goog.addDependency('../../../tart/ui/DlgComponent.js', ['tart.ui.DlgComponent'], ['goog.dom.query', 'goog.events.EventTarget', 'tart', 'tart.dom', 'tart.ui.ComponentManager']);
 goog.addDependency('../../../tart/ui/tooltip/TooltipComponent.js', ['tart.ui.TooltipComponent'], ['goog.dom', 'goog.dom.query', 'goog.style', 'tart.ui.Component', 'tart.ui.TooltipComponentModel']);
 goog.addDependency('../../../tart/ui/tooltip/TooltipComponentModel.js', ['tart.ui.TooltipComponentModel'], ['tart.StateMachine', 'tart.ui.ComponentModel']);
