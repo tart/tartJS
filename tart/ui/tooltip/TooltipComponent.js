@@ -21,6 +21,7 @@ goog.require('goog.style');
 goog.require('goog.dom');
 goog.require('goog.dom.query');
 goog.require('tart.ui.TooltipComponentModel');
+goog.require('tart.ui.Component');
 
 
 
