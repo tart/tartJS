@@ -26,22 +26,23 @@ goog.provide('tart.date.DateRange');
 /**
  * @constructor
  * @extends {goog.date.DateRange}
+ * @inheritDoc
  */
-tart.date.DateRange = function() {
-    goog.base(this);
+tart.date.DateRange = function(startDate, endDate) {
+    goog.base(this, startDate, endDate);
 };
 goog.inherits(tart.date.DateRange, goog.date.DateRange);
 
 
 /**
- * Returns the range that includes the thirty days that end yesterday.
+ * Returns the range that includes the thirty days that end today.
  * @param {goog.date.Date=} opt_today The date to consider today.
  *     Defaults to today.
- * @return {goog.date.DateRange} The range that includes the thirty days that
- *     end yesterday.
+ * @return {goog.date.DateRange} The range that includes the thirty days that end today.
  */
 tart.date.DateRange.last30Days = function(opt_today) {
-    var today = goog.date.DateRange.cloneOrCreate_(opt_today);
-    var yesterday = goog.date.DateRange.offsetInDays_(today, -1);
-    return new goog.date.DateRange(goog.date.DateRange.offsetInDays_(today, -30), yesterday);
+    var today = opt_today || new goog.date.Date();
+    var month = today.clone();
+    month.add(new goog.date.Interval(goog.date.Interval.DAYS, -30));
+    return new goog.date.DateRange(month, today);
 };
