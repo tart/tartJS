@@ -23,7 +23,6 @@ goog.require('goog.structs.Map');
 /**
  * Base model to handle xhr requests
  *
- * @extends {tart.base.Model}
  * @constructor
  */
 tart.dataProxy.Abstract = function() {
