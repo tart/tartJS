@@ -18,6 +18,7 @@
 
 goog.provide('tart.ui.TooltipComponentModel');
 goog.require('tart.ui.ComponentModel');
+goog.require('tart.StateMachine');
 
 
 
