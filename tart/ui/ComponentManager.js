@@ -61,8 +61,7 @@ tart.ui.ComponentManager.eventTypes = [
  */
 tart.ui.ComponentManager.initHandlers = function() {
     tart.ui.ComponentManager.init = true;
-
-    goog.events.listen(window, goog.events.EventType.LOAD, function() {
+    $(document).ready(function(){
         goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, tart.ui.ComponentManager.handleEvent);
     });
 };
