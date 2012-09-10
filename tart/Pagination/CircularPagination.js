@@ -61,8 +61,7 @@ tart.CircularPagination.prototype.getNext = function() {
 
 
 /**
- * Get previous page of circular pagination.
- * @return {Number} Prev page number.
+ * @override
  */
 tart.CircularPagination.prototype.getPrev = function() {
     return this.currentPage == 1 ? this.getTotalPage() : this.currentPage - 1;
