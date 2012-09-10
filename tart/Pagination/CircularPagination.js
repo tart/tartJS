@@ -53,13 +53,19 @@ tart.CircularPagination.prototype.hasNext = function() {
 
 
 /**
- * Overriding tart.Pagination's getTotalPage method, so that the pages never end :).
- *
  * @override
- * @return {number} previous page is available .
  */
-tart.CircularPagination.prototype.getTotalPage = function() {
-    return Infinity;
+tart.CircularPagination.prototype.getNext = function() {
+    return this.currentPage == this.getTotalPage() ? 1 : this.currentPage + 1;
+};
+
+
+/**
+ * Get previous page of circular pagination.
+ * @return {Number} Prev page number.
+ */
+tart.CircularPagination.prototype.getPrev = function() {
+    return this.currentPage == 1 ? this.getTotalPage() : this.currentPage - 1;
 };
 
 
