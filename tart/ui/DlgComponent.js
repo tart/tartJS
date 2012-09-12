@@ -104,6 +104,15 @@ tart.ui.DlgComponent.prototype.render = function(opt_base) {
 
 
 /**
+ * Returns the id of this component.
+ * @return {string} The id of this component.
+ */
+tart.ui.DlgComponent.prototype.getId = function() {
+    return this.id;
+}
+
+
+/**
  * Template of the root element. This method can be overridden if necessary. Other templates should be named with the
  * templates_ prefix as necessary. Also this template carries related component's id.
  * @return {string}
