@@ -148,7 +148,7 @@ tart.ui.ComponentManager.set = function(cmp) {
     if (!tart.ui.ComponentManager.init)
         tart.ui.ComponentManager.initHandlers();
 
-    tart.ui.ComponentManager.components[cmp.id] = cmp;
+    tart.ui.ComponentManager.components[cmp.getId()] = cmp;
 };
 
 
@@ -157,5 +157,5 @@ tart.ui.ComponentManager.set = function(cmp) {
  * @param {tart.ui.DlgComponent} cmp Component which will be removed from components.
  */
 tart.ui.ComponentManager.remove = function(cmp) {
-    delete tart.ui.ComponentManager.components[cmp.id];
+    delete tart.ui.ComponentManager.components[cmp.getId()];
 };
