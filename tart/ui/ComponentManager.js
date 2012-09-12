@@ -136,7 +136,7 @@ tart.ui.ComponentManager.callHandler = function(cmp, e, handlers, selectors){
  * @return {*}
  */
 tart.ui.ComponentManager.matchesSelector = function(el, selector) {
-    return $(el).is(selector);
+    return goog.array.indexOf(goog.dom.query(selector), el) >= 0;
 };
 
 
@@ -148,7 +148,7 @@ tart.ui.ComponentManager.set = function(cmp) {
     if (!tart.ui.ComponentManager.init)
         tart.ui.ComponentManager.initHandlers();
 
-    tart.ui.ComponentManager.components[cmp.id] = cmp;
+    tart.ui.ComponentManager.components[cmp.getId()] = cmp;
 };
 
 
@@ -157,5 +157,5 @@ tart.ui.ComponentManager.set = function(cmp) {
  * @param {tart.ui.DlgComponent} cmp Component which will be removed from components.
  */
 tart.ui.ComponentManager.remove = function(cmp) {
-    delete tart.ui.ComponentManager.components[cmp.id];
+    delete tart.ui.ComponentManager.components[cmp.getId()];
 };
