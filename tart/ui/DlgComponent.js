@@ -127,4 +127,6 @@ tart.ui.DlgComponent.prototype.templates_base = function() {
  */
 tart.ui.DlgComponent.prototype.disposeInternal = function() {
     tart.ui.ComponentManager.remove(this);
+    this.element = null;
+    this.id = null;
 };
