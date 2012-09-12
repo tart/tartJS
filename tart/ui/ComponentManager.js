@@ -136,7 +136,7 @@ tart.ui.ComponentManager.callHandler = function(cmp, e, handlers, selectors){
  * @return {*}
  */
 tart.ui.ComponentManager.matchesSelector = function(el, selector) {
-    return $(el).is(selector);
+    return goog.array.indexOf(goog.dom.query(selector), el) >= 0;
 };
 
 
