@@ -44,7 +44,7 @@ tart.ui.TooltipComponentManager.eventTypes = [
 
 /**
  * Keeps event types.
- * @type {Array.<goog.events.EventType>}
+ * @type {Object}
  */
 tart.ui.TooltipComponentManager.eventTypeMap = {
     'mouseover': 'hover',
@@ -74,7 +74,8 @@ tart.ui.TooltipComponentManager.initHandlers = function () {
  *This function takes a node and checks if it is matching any of the selectors within TooltipComponentManager's
  * components object.
  *
- * @param {Node} target Browser Events that was binded to component, will handle.
+ * @param {Node|boolean|null} target Browser Events that was binded to component, will handle.
+ * @return {tart.ui.TooltipDelegatedComponent|null|undefined}
  */
 tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (target) {
     var keys = goog.object.getKeys(tart.ui.TooltipComponentManager.components);
@@ -85,7 +86,10 @@ tart.ui.TooltipComponentManager.getSelectorRelatedComponents = function (target)
             break;
         }
     }
-    return cmp;
+//    if(cmp)
+        return cmp;
+//    else
+//        return false;
 };
 
 
@@ -128,12 +132,12 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
         }
     }
 
-    if (cmp) {
+    if (cmp && (typeof refElement != 'boolean')) {
         if (cmp.model.options.type == tart.ui.TooltipComponentManager.eventTypeMap[e.type]) {
 
             if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
 
-                if (e.relatedTarget && !goog.dom.contains(refElement, e.relatedTarget)) {
+                if (e.relatedTarget && refElement && !goog.dom.contains(refElement, e.relatedTarget)) {
                 tart.ui.TooltipComponentManager.callHandler(cmp, e, refElement);
                 }
             }
@@ -150,9 +154,9 @@ tart.ui.TooltipComponentManager.handleEvent = function (e) {
  * related with "refElement".
  *
  * @param {tart.ui.TooltipDelegatedComponent} cmp
- * @param  {goog.events.Event} e
+ * @param  {goog.events.BrowserEvent} e
  * @param {Node} refElement
- * @return {boolean}
+ * @return {boolean|undefined}
  */
 tart.ui.TooltipComponentManager.callHandler = function(cmp, e, refElement){
     var rv = true;

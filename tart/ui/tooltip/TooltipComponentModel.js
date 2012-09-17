@@ -23,11 +23,16 @@ goog.require('tart.events');
 
 
 /**
+ *
+ * @param {Object=} registry Registry to subscribe TooltipDelegatedComponents to.
+ * @param {Object=} options Arbitrary options.
  * @constructor
  * @extends {tart.ui.ComponentModel}
  */
-tart.ui.TooltipComponentModel = function(options) {
+tart.ui.TooltipComponentModel = function(registry, options) {
     options = options || {};
+    this.registry = registry;
+    this.tooltipComponentManager = this.registry && this.registry.get('tooltipComponentManager');
     this.options = {};
     this.options.timeout = options.timeout || this.timeout;
     this.options.type = options.type || this.type;
@@ -90,15 +95,6 @@ tart.ui.TooltipComponentModel.prototype.boxOffset = 3;
  * @type {number}
  */
 tart.ui.TooltipComponentModel.prototype.offsetThreshold = 30;
-
-
-/**
- * If the size of the reference element is greater than this threshold, the tip should be placed at a distance of
- * tipOffset. Else, the tip should point to the center of the reference element.
- *
- * @type {tart.ui.TooltipComponentManager}
- */
-tart.ui.TooltipComponentModel.prototype.tooltipComponentManager = tuttur.Registry.get('tooltipComponentManager');
 
 
 /**
@@ -230,12 +226,9 @@ tart.ui.TooltipComponentModel.prototype.handleEvent = function(type) {
  * This function returns back the registry which is needed to register a TooltipDelegatedComponent.
  * 
  * This function is subject to change.
- * @return {tart.ui.TooltipComponentManager} rv
  */
 tart.ui.TooltipComponentModel.prototype.getTooltipComponentManager = function() {
-    var rv;
-    rv = tuttur.Registry.get('tooltipComponentManager') && tuttur.Registry.get('tooltipComponentManager');
-    return rv;
+    return this.tooltipComponentManager;
 };
 
 

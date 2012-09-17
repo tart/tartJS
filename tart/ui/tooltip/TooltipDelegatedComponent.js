@@ -30,12 +30,15 @@ goog.require('goog.dom');
 /**
  *
  * @param {string} selector The selector needed for registration to TooltipComponentManager.
+ * @param {Object} registry Registry to subscribe to.
+ * @param {Object=} options Arbitrary options.
  * @constructor
+ * @extends {tart.ui.DlgComponent}
  */
-tart.ui.TooltipDelegatedComponent = function(selector, options) {
+tart.ui.TooltipDelegatedComponent = function(selector, registry, options) {
     this.id = tart.getUid();
     this.selector = selector && selector;
-    this.model = new this.modelClass(options);
+    this.model = new this.modelClass(registry, options);
     this.model.getTooltipComponentManager().set(this);
 
     this.bindModelEvents();
@@ -206,7 +209,7 @@ tart.ui.TooltipDelegatedComponent.prototype.handleIncomingEvent = function(refEl
     var that = this;
 
     that.refElement = refElement;
-    this.setContent(e);   //bunu değiştir (çarşamba)
+    this.setContent(e);
 
 
         switch (that.model.options.type) {
@@ -248,7 +251,7 @@ tart.ui.TooltipDelegatedComponent.prototype.setContent = function(e) {
     if(e.type != goog.events.EventType.MOUSEOUT) {
 
         this.getChild(this.mappings.CONTENT)[0].innerHTML = this.templates_loading();
-        this.position();
+        this.position(e);
 
         if(typeof this.refElement.className == 'string') {
             this.getChild(this.mappings.CONTENT)[0].innerHTML = this.refElement.className;
@@ -496,9 +499,9 @@ tart.ui.TooltipDelegatedComponent.prototype.templates_loading = function() {
 
 
 /**
- *
+ * @override
  */
 tart.ui.TooltipDelegatedComponent.prototype.disposeInternal = function() {
-    tuttur.Registry.get('tooltipComponentManager').remove(this);
+    this.model.getTooltipComponentManager().remove(this);
 };
 
