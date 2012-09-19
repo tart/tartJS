@@ -34,7 +34,7 @@ tart.ui.TooltipComponent = function(refElement, options) {
     this.refElement = refElement;
     this.model = new this.modelClass(options);
     if (!this.element) {
-        this.element = tart.dom.createElement(this.templates_base());
+        this.element = /** @type {Element} */(tart.dom.createElement(this.templates_base()));
         document.body.appendChild(this.element);
     }
 
