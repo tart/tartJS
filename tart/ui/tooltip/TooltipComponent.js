@@ -38,9 +38,9 @@ tart.ui.TooltipComponent = function(refElement, options) {
         document.body.appendChild(this.element);
     }
 
-    this.contentArea = goog.dom.getElementsByClass('content', this.element)[0];
-    this.wrapper = goog.dom.getElementsByClass('wrapper', this.element)[0];
-    this.cap = goog.dom.getElementsByClass('cap', this.element)[0];
+    this.contentArea = goog.dom.getElementsByClass('content', /** @type {Element} */(this.element))[0];
+    this.wrapper = goog.dom.getElementsByClass('wrapper', /** @type {Element} */(this.element))[0];
+    this.cap = goog.dom.getElementsByClass('cap', /** @type {Element} */(this.element))[0];
 
 
     this.bindModelEvents();
@@ -189,7 +189,7 @@ tart.ui.TooltipComponent.prototype.position = function() {
 
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
-    var myElementSize = goog.style.getSize(this.element);
+    var myElementSize = goog.style.getSize(/** @type {Element} */(this.element));
     var myWrapperSize = goog.style.getSize(this.wrapper);
     var myWindowSize = goog.dom.getViewportSize();
     var winScrollTop = document.body.scrollTop || window.document.documentElement.scrollTop;
