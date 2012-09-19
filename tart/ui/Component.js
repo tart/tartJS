@@ -51,7 +51,7 @@ goog.require('tart.dom');
  */
 tart.ui.Component = function() {
     this.id = tart.getUid();
-    this.element = tart.dom.createElement(this.templates_base());
+    this.element = /** @type {Element} */(tart.dom.createElement(this.templates_base()));
 
     this.createElements();
     this.bindModelEvents();
