@@ -117,6 +117,11 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 
 tart.ui.TooltipComponent.prototype.onShow = function() {
     this.contentArea.innerHTML = (this.templates_loading());
+    this.loadingKey = true;
+    this.initStateListener = goog.events.listen(this.model, this.model.mEvents.INIT, function(e) {
+        this.loadingKey = false;
+        goog.events.unlistenByKey(this.initStateListener);
+    }, false, this);
     document.body.appendChild(this.element);
     this.position();
 
@@ -164,15 +169,16 @@ tart.ui.TooltipComponent.prototype.templates_loading = function() {
  * @param content {string | Element}
  */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
-    if(typeof content == 'string') {
-        this.contentArea.innerHTML = content;
+    if( this.loadingKey) {
+        if(typeof content == 'string') {
+            this.contentArea.innerHTML = content;
+        }
+        else {
+            this.contentArea.innerHTML = '';
+            this.contentArea.appendChild(content);
+        }
+        this.position();
     }
-    else {
-        this.contentArea.innerHTML = '';
-        this.contentArea.appendChild(content);
-    }
-
-    this.position();
 };
 
 
