@@ -52,7 +52,10 @@ tart.ui.ComponentManager.eventTypes = [
     goog.events.EventType.MOUSEUP,
     tart.events.EventType.MOUSEENTER,
     tart.events.EventType.MOUSELEAVE,
-    goog.events.EventType.SCROLL
+    goog.events.EventType.SCROLL,
+    goog.events.EventType.KEYUP,
+    goog.events.EventType.FOCUSIN,
+    goog.events.EventType.FOCUSOUT
 ];
 
 
