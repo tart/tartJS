@@ -124,7 +124,7 @@ tart.ui.input.DateComponent.prototype.onKeyPress = function(e) {
 
 
 /**
- * Dispatches an event in case of focusing into the component and cleans the text area if no text entrance was made.
+ * Cleans the text area if no text entrance was made.
  */
 tart.ui.input.DateComponent.prototype.onFocusIn = function() {
     var dateInputArea = this.getChild(this.mappings.INPUT)[0];
@@ -134,7 +134,7 @@ tart.ui.input.DateComponent.prototype.onFocusIn = function() {
 
 
 /**
- * Dispatches an event after focusOut action which carries the date in milisecs.
+ * Dispatches an event after focusOut action which carries the date in milliseconds.
  */
 tart.ui.input.DateComponent.prototype.onFocusOut = function() {
     if (this.dateString == '')
@@ -146,7 +146,8 @@ tart.ui.input.DateComponent.prototype.onFocusOut = function() {
  * Resets the text area, date string and formatted date string parameters.
  */
 tart.ui.input.DateComponent.prototype.resetInputArea = function() {
-    this.dateString = '';
+    if (this.dateString.length > 0)
+        this.dateString = '';
     var dateInputArea = this.getChild(this.mappings.INPUT)[0];
     dateInputArea.value = 'GG/AA/YYYY';
     this.formattedDateString = '';
@@ -167,7 +168,7 @@ tart.ui.input.DateComponent.prototype.templates_base = function() {
 
 /**
  * DateComponent domMappings.
- * @type {Object}
+ * @enum {string}
  */
 tart.ui.input.DateComponent.prototype.mappings = {
     INPUT: '.dateInput'
