@@ -95,7 +95,7 @@ tart.ui.input.RevealingPassword.prototype.resetInputArea = function() {
 
 /**
  * RevealingPassword domMappings.
- * @type {Object}
+ * @enum {string}
  */
 tart.ui.input.RevealingPassword.prototype.mappings = {
     INPUT: '.passwordInput',
