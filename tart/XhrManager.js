@@ -23,7 +23,7 @@ goog.provide('tart.XhrManager');
  * jQuery GET's wrapper
  *
  * @param {string} url url to send request.
- * @param {?Object} params POST/GET parameters.
+ * @param {Object} params POST/GET parameters.
  * @param {?function(Object)} success success callback.
  * @param {?function(Object)=} opt_fail fail callback.
  * @param {string=} opt_dataType data type.
@@ -38,7 +38,7 @@ tart.XhrManager.get = function(url, params, success, opt_fail, opt_dataType) {
  * jQuery POST's wrapper
  *
  * @param {string} url url to send request.
- * @param {?Object} params POST/GET parameters.
+ * @param {Object} params POST/GET parameters.
  * @param {?function(Object)} success success callback.
  * @param {?function(Object)=} opt_fail fail callback.
  * @param {string=} opt_dataType data type.
@@ -54,7 +54,7 @@ tart.XhrManager.post = function(url, params, success, opt_fail, opt_dataType) {
  *
  * @param {string} type request type.
  * @param {string} url url to send request.
- * @param {?Object} params POST/GET parameters.
+ * @param {Object} params POST/GET parameters.
  * @param {?function(Object)} success success callback.
  * @param {?function(Object)=} opt_fail fail callback.
  * @param {string=} opt_dataType data type.
