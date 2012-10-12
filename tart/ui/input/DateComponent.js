@@ -42,13 +42,12 @@ goog.inherits(tart.ui.input.DateComponent, tart.ui.DlgComponent);
 
 /**
  * Returns the date in milliseconds format.
- * @return {number} time in milliseconds.
+ * @return {Date} date in Date format.
  */
 tart.ui.input.DateComponent.prototype.getDateTime = function() {
     var formattedDateString = this.dateString.slice(2, 4) + '/' + this.dateString.slice(0, 2) + '/' +
         this.dateString.slice(4, this.dateString.length);
-    var date = new Date(formattedDateString);
-    return date.getTime();
+    return new Date(formattedDateString);
 };
 
 
