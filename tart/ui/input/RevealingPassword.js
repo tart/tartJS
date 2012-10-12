@@ -77,10 +77,10 @@ tart.ui.input.RevealingPassword.prototype.toggleDisplay = function() {
  */
 tart.ui.input.RevealingPassword.prototype.templates_base = function() {
     return '<span id="' + this.id + '">' +
-        '<input name="passwordInput" id="passwordInputArea"tabindex="120" type="password"' +
-        'class="textForm passwordInput tInput" minlength="6" value=""/>' +
-        '<span class="visibilityToggler"></span>' +
-        '</span>';
+                '<input name="passwordInput" id="passwordInputArea" type="password"' +
+                'class="textForm passwordInput" minlength="6" value=""/>' +
+                '<span class="visibilityToggler">O</span>' +
+           '</span>';
 };
 
 
