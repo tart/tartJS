@@ -26,10 +26,11 @@ goog.provide('tart.XhrManager');
  * @param {?Object} params POST/GET parameters.
  * @param {?function(Object)} success success callback.
  * @param {?function(Object)=} opt_fail fail callback.
+ * @param {string=} opt_dataType data type.
  * @return {Object} .
  */
-tart.XhrManager.get = function(url, params, success, opt_fail) {
-    return tart.XhrManager.ajax('GET', url, params, success, opt_fail);
+tart.XhrManager.get = function(url, params, success, opt_fail, opt_dataType) {
+    return tart.XhrManager.ajax('GET', url, params, success, opt_fail, opt_dataType);
 };
 
 
@@ -40,10 +41,11 @@ tart.XhrManager.get = function(url, params, success, opt_fail) {
  * @param {?Object} params POST/GET parameters.
  * @param {?function(Object)} success success callback.
  * @param {?function(Object)=} opt_fail fail callback.
+ * @param {string=} opt_dataType data type.
  * @return {Object} .
  */
-tart.XhrManager.post = function(url, params, success, opt_fail) {
-    return tart.XhrManager.ajax('POST', url, params, success, opt_fail);
+tart.XhrManager.post = function(url, params, success, opt_fail, opt_dataType) {
+    return tart.XhrManager.ajax('POST', url, params, success, opt_fail, opt_dataType);
 };
 
 
@@ -55,14 +57,15 @@ tart.XhrManager.post = function(url, params, success, opt_fail) {
  * @param {?Object} params POST/GET parameters.
  * @param {?function(Object)} success success callback.
  * @param {?function(Object)=} opt_fail fail callback.
+ * @param {string=} opt_dataType data type.
  * @return {Object} .
  */
-tart.XhrManager.ajax = function(type, url, params, success, opt_fail) {
+tart.XhrManager.ajax = function(type, url, params, success, opt_fail, opt_dataType) {
     return $.ajax({
         'type': type,
         'url': url,
         'data': params,
-        'dataType': 'json',
+        'dataType': opt_dataType || 'json',
         'success': function(response) {
             success && success(response);
         },
