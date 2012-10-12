@@ -33,13 +33,13 @@ goog.require('tart.ui.DlgComponent');
 /**
  * @constructor
  * @extends {tart.ui.DlgComponent}
- * @param {{minLength: number}} options
+ * @param {{minLength: number}=} opt_options
  */
-tart.ui.input.RevealingPassword = function(options) {
+tart.ui.input.RevealingPassword = function(opt_options) {
     goog.base(this);
 
     this.displayPassword = false;
-    this.minLength = options && options.minLength || 6;
+    this.minLength = opt_options && opt_options.minLength || 6;
 };
 goog.inherits(tart.ui.input.RevealingPassword, tart.ui.DlgComponent);
 
@@ -77,9 +77,9 @@ tart.ui.input.RevealingPassword.prototype.toggleDisplay = function() {
  */
 tart.ui.input.RevealingPassword.prototype.templates_base = function() {
     return '<span id="' + this.id + '">' +
-        '<input name="passwordInput" id="passwordInputArea" tabindex="120" type="password"' +
-        'class="textForm passwordInput" minlength="6" value=""/>' +
-        '<span class="visibilityToggler">O</span>' +
+        '<input name="passwordInput" id="passwordInputArea"tabindex="120" type="password"' +
+        'class="textForm passwordInput tInput" minlength="6" value=""/>' +
+        '<span class="visibilityToggler"></span>' +
         '</span>';
 };
 
