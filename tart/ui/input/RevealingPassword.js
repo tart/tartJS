@@ -77,7 +77,7 @@ tart.ui.input.RevealingPassword.prototype.toggleDisplay = function() {
  */
 tart.ui.input.RevealingPassword.prototype.templates_base = function() {
     return '<span id="' + this.id + '">' +
-                '<input name="passwordInput" id="passwordInputArea" type="password"' +
+                '<input name="passwordInput" class="passwordInputArea" type="password"' +
                 'class="textForm passwordInput" minlength="6" value=""/>' +
                 '<span class="visibilityToggler"></span>' +
            '</span>';

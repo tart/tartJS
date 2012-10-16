@@ -159,7 +159,7 @@ tart.ui.input.DateComponent.prototype.resetInputArea = function() {
  */
 tart.ui.input.DateComponent.prototype.templates_base = function() {
     return '<span id="' + this.id + '">' +
-        '<input name="dateInput" id="dateInputArea" type="text"' +
+        '<input name="dateInput" class="dateInputArea" type="text"' +
         'class="textForm numberOnly dateInput" minlength="1" maxlength="8" value="GG/AA/YYYY"/>' +
         '</span>';
 };
