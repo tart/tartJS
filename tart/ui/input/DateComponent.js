@@ -43,7 +43,7 @@ goog.inherits(tart.ui.input.DateComponent, tart.ui.DlgComponent);
 tart.ui.input.DateComponent.prototype.getDateTime = function() {
     var dateInputArea = this.getChild(this.mappings.INPUT)[0];
     var dateInput = dateInputArea.value;
-    var formattedDateString = dateInput.slice(3, 5) + '/' + this.dateString.slice(0, 2) + '/' +
+    var formattedDateString = dateInput.slice(3, 5) + '/' + dateInput.slice(0, 2) + '/' +
     dateInput.slice(5, dateInput.length);
     return new Date(formattedDateString);
 };
@@ -101,8 +101,8 @@ tart.ui.input.DateComponent.prototype.resetInputArea = function() {
  */
 tart.ui.input.DateComponent.prototype.templates_base = function() {
     return '<span id="' + this.id + '">' +
-        '<input name="dateInput" id="dateInputArea" type="text"' +
-        'class="textForm numberOnly dateInput" minlength="1" maxlength="10" value="GG/AA/YYYY"/>' +
+        '<input name="dateInput" type="text" class="textForm numberOnly dateInput dateInputArea" minlength="1" ' +
+        'maxlength="10" value="GG/AA/YYYY"/>' +
         '</span>';
 };
 
