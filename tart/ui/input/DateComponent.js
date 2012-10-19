@@ -32,93 +32,37 @@ goog.require('tart.ui.DlgComponent');
  */
 tart.ui.input.DateComponent = function() {
     goog.base(this);
-
-    this.dateString = '';
-    this.formattedDateString = '';
-
 };
 goog.inherits(tart.ui.input.DateComponent, tart.ui.DlgComponent);
 
 
 /**
- * Returns the date in milliseconds format.
+ * Returns the date in Date format.
  * @return {Date} date in Date format.
  */
 tart.ui.input.DateComponent.prototype.getDateTime = function() {
-    var formattedDateString = this.dateString.slice(2, 4) + '/' + this.dateString.slice(0, 2) + '/' +
-        this.dateString.slice(4, this.dateString.length);
+    var dateInputArea = this.getChild(this.mappings.INPUT)[0];
+    var dateInput = dateInputArea.value;
+    var formattedDateString = dateInput.slice(3, 5) + '/' + this.dateString.slice(0, 2) + '/' +
+    dateInput.slice(5, dateInput.length);
     return new Date(formattedDateString);
 };
 
 
 /**
- * Checks the keyCode carried in with the keyPress event and uses it if it's the code of 'return' (13), 'backspace' (8),
- * 'slash' (191) or any number (48 < keyCode < 57).
+ * Reformats the text entered, in order to display it in a visual style adjusted with predefined style.
  *
  * @param {goog.events.BrowserEvent} e keyPress Event.
  */
 tart.ui.input.DateComponent.prototype.onKeyPress = function(e) {
     var dateInputArea = this.getChild(this.mappings.INPUT)[0];
-    if (e.keyCode == 8 || e.keyCode == 13 || e.keyCode == 191 || (e.keyCode >= 48 && e.keyCode <= 57) ||
-        (e.keyCode >= 96 && e.keyCode <= 105)) {
-        var dateInputAreaText = '';
-        var dateString = this.dateString;
-        if (e.keyCode == 8 && dateString.length > 0) {
-            dateString = dateString.slice(0, -1);
-            dateInputAreaText = dateString;
-            this.dateString = dateString;
-        }
-
-        if (e.keyCode == 13)
-            return;
-
-        if (e.keyCode != 8 && e.keyCode != 13 && ((e.keyCode >= 48 && e.keyCode <= 57) ||
-            (e.keyCode >= 96 && e.keyCode <= 105)) && dateString.length < 8) {
-            dateString += e.keyCode % 48;
-        }
-
-        if (dateString.length <= 2) {
-            if (dateString.length == 1 && e.keyCode == 191) {
-                dateString = '0' + dateString;
-                dateInputAreaText = dateString.slice(0, dateString.length) + '/';
-            }
-            else {
-                dateInputAreaText = dateString.slice(0, dateString.length);
-                if ((dateString.length == 2 && e.keyCode == 191) ||
-                    (dateString.length == 0 && e.keyCode != 191 && e.keyCode != 8))
-                    dateInputAreaText += '/';
-            }
-            this.dateString = dateString;
-        }
-        else {
-            if (dateString.length > 2 && dateString.length <= 4) {
-                dateInputAreaText = dateString.slice(0, 2) + '/';
-                if (e.keyCode == 191) {
-                    if (dateString.length == 3)
-                        dateString = dateString.slice(0, 2) + '0' + dateString.slice(2, 3);
-                    dateInputAreaText += dateString.slice(2, 4) + '/';
-                }
-                else
-                    dateInputAreaText += dateString.slice(2, dateString.length);
-                this.dateString = dateString;
-            }
-            else if (dateString.length > 4) {
-                dateInputAreaText = dateString.slice(0, 2) + '/' + dateString.slice(2, 4) + '/' +
-                    dateString.slice(4, dateString.length);
-                this.dateString = dateString;
-            }
-        }
-
-        if (dateInputAreaText == '') {
-            this.formattedDateString = '';
-        }
-        else {
-            this.formattedDateString = dateInputAreaText;
-            dateInputArea.value = dateInputAreaText;
-        }
-    }
-    else
-        dateInputArea.value = this.formattedDateString;
+    var textToChange = dateInputArea.value;
+    textToChange = textToChange.replace(/^(\d{1,1}\/)/, '0$1');
+    textToChange = textToChange.replace(/(\/)(\d{1,1})(\/)/, '$10$2');
+    textToChange = textToChange.replace(/[^\d]/g, '');
+    textToChange = textToChange.replace(/^(\d{0,2})(\d{0,2})(\d{0,4})(\d{0,})/g, '$1/$2/$3');
+    textToChange = textToChange.replace(/\/{0,}$/, '');
+    dateInputArea.value = textToChange;
 };
 
 
@@ -127,7 +71,7 @@ tart.ui.input.DateComponent.prototype.onKeyPress = function(e) {
  */
 tart.ui.input.DateComponent.prototype.onFocusIn = function() {
     var dateInputArea = this.getChild(this.mappings.INPUT)[0];
-    if (this.dateString == '')
+    if (dateInputArea.value == 'GG/AA/YYYY')
         dateInputArea.value = '';
 };
 
@@ -136,7 +80,8 @@ tart.ui.input.DateComponent.prototype.onFocusIn = function() {
  * Dispatches an event after focusOut action which carries the date in milliseconds.
  */
 tart.ui.input.DateComponent.prototype.onFocusOut = function() {
-    if (this.dateString == '')
+    var dateInputArea = this.getChild(this.mappings.INPUT)[0];
+    if (dateInputArea.value == '')
         this.resetInputArea();
 };
 
@@ -145,11 +90,8 @@ tart.ui.input.DateComponent.prototype.onFocusOut = function() {
  * Resets the text area, date string and formatted date string parameters.
  */
 tart.ui.input.DateComponent.prototype.resetInputArea = function() {
-    if (this.dateString.length > 0)
-        this.dateString = '';
     var dateInputArea = this.getChild(this.mappings.INPUT)[0];
     dateInputArea.value = 'GG/AA/YYYY';
-    this.formattedDateString = '';
 };
 
 
@@ -159,8 +101,8 @@ tart.ui.input.DateComponent.prototype.resetInputArea = function() {
  */
 tart.ui.input.DateComponent.prototype.templates_base = function() {
     return '<span id="' + this.id + '">' +
-        '<input name="dateInput" class="dateInputArea" type="text"' +
-        'class="textForm numberOnly dateInput" minlength="1" maxlength="8" value="GG/AA/YYYY"/>' +
+        '<input name="dateInput" id="dateInputArea" type="text"' +
+        'class="textForm numberOnly dateInput" minlength="1" maxlength="10" value="GG/AA/YYYY"/>' +
         '</span>';
 };
 
