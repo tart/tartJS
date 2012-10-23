@@ -55,7 +55,8 @@ tart.ui.ComponentManager.eventTypes = [
     goog.events.EventType.SCROLL,
     goog.events.EventType.KEYUP,
     goog.events.EventType.FOCUSIN,
-    goog.events.EventType.FOCUSOUT
+    goog.events.EventType.FOCUSOUT,
+    goog.events.EventType.TOUCHSTART
 ];
 
 
