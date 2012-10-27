@@ -67,6 +67,13 @@ AudioContext.prototype.decodeAudioData = function(audioData, successCallback,
  */
 AudioContext.prototype.createBufferSource = function() {};
 
+
+/**
+ * @param {MediaStream} mediaStream
+ * @return {MediaStreamAudioSourceNode}
+ */
+AudioContext.prototype.createMediaStreamSource = function(mediaStream) {};
+
 /**
  * @param {number} bufferSize
  * @param {number} numberOfInputs
@@ -160,6 +167,19 @@ AudioNode.prototype.numberOfOutputs;
  * @private
  */
 var AudioSourceNode = function() {};
+
+
+/**
+ * @constructor
+ * @extends {AudioSourceNode}
+ * @private
+ */
+var MediaStreamAudioSourceNode = function() {};
+
+/**
+ * @constructor
+ */
+var MediaStream = function () {};
 
 /**
  * @constructor
@@ -294,6 +314,9 @@ AudioBufferSourceNode.prototype.gain;
 
 /** @type {AudioParam} */
 AudioBufferSourceNode.prototype.playbackRate;
+
+/** @type {number} */
+AudioBufferSourceNode.prototype.playbackState;
 
 /** @type {boolean} */
 AudioBufferSourceNode.prototype.loop;
@@ -698,3 +721,5 @@ Audio.prototype.mozWriteAudio = function(buffer) {};
  * @return {number}
  */
 Audio.prototype.mozCurrentSampleOffset = function() {};
+
+navigator.webkitGetUserMedia = function(opt_options, callback) {};
