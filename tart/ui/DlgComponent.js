@@ -37,7 +37,7 @@ goog.require('tart.dom');
 tart.ui.DlgComponent = function() {
     this.id = tart.getUid();
 
-    tart.ui.ComponentManager.set(this);
+    tart.ui.ComponentManager.getInstance().set(this);
     this.bindModelEvents();
 };
 goog.inherits(tart.ui.DlgComponent, goog.events.EventTarget);
@@ -126,7 +126,7 @@ tart.ui.DlgComponent.prototype.templates_base = function() {
  * @override
  */
 tart.ui.DlgComponent.prototype.disposeInternal = function() {
-    tart.ui.ComponentManager.remove(this);
+    tart.ui.ComponentManager.getInstance().remove(this);
     this.element = null;
     this.id = null;
 };

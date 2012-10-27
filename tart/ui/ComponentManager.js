@@ -13,9 +13,18 @@ goog.require('goog.events.EventType');
  * @fileoverview Registry for tart.ui.DlgComponent. Manages DOM event interactions for these components.
  */
 
-/** @type {Object.<string, tart.ui.DlgComponent>} */
-tart.ui.ComponentManager.components = {};
-tart.ui.ComponentManager.init = false;
+
+/**
+ *
+ * @constructor
+ */
+tart.ui.ComponentManager = function() {
+    /** @type {Object.<string, tart.ui.DlgComponent>} */
+    this.components = {};
+
+    this.initHandlers();
+};
+goog.addSingletonGetter(tart.ui.ComponentManager);
 
 
 /**
@@ -24,12 +33,12 @@ tart.ui.ComponentManager.init = false;
  * @param {Node} child Refers DOM node that will be used for finding parent component.
  * @return {tart.ui.DlgComponent} Parent node.
  */
-tart.ui.ComponentManager.getParentCmp = function(child) {
+tart.ui.ComponentManager.prototype.getParentCmp = function(child) {
     var node = child, cmp;
 
     do {
-        if (cmp = (tart.ui.ComponentManager.components[node.getAttribute && node.getAttribute('data-cmp')])) {}
-        else if (cmp = tart.ui.ComponentManager.components[node.id])
+        if (cmp = (this.components[node.getAttribute && node.getAttribute('data-cmp')])) {}
+        else if (cmp = this.components[node.id])
             child.setAttribute('data-cmp', node.id);
 
         if (cmp) break;
@@ -63,12 +72,10 @@ tart.ui.ComponentManager.eventTypes = [
 /**
  * Listens load event to start listening body for handleEvent
  */
-tart.ui.ComponentManager.initHandlers = function() {
-    tart.ui.ComponentManager.init = true;
-
+tart.ui.ComponentManager.prototype.initHandlers = function() {
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
-        goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, tart.ui.ComponentManager.handleEvent);
-    });
+        goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this.handleEvent, false, this);
+    }, false, this);
 };
 
 
@@ -76,8 +83,8 @@ tart.ui.ComponentManager.initHandlers = function() {
  *
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
-tart.ui.ComponentManager.handleEvent = function (e) {
-    var cmp = tart.ui.ComponentManager.getParentCmp(e.target),
+tart.ui.ComponentManager.prototype.handleEvent = function (e) {
+    var cmp = this.getParentCmp(e.target),
         handlers = cmp && cmp.events && cmp.events[e.type];
 
     // fire mouseenter event too
@@ -85,7 +92,7 @@ tart.ui.ComponentManager.handleEvent = function (e) {
         if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
             var a = new goog.events.BrowserEvent(e.getBrowserEvent());
             a.type = tart.events.EventType.MOUSEENTER;
-            tart.ui.ComponentManager.handleEvent(a);
+            this.handleEvent(a);
         }
     }
 
@@ -94,7 +101,7 @@ tart.ui.ComponentManager.handleEvent = function (e) {
         if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
             var a = new goog.events.BrowserEvent(e.getBrowserEvent());
             a.type = tart.events.EventType.MOUSELEAVE;
-            tart.ui.ComponentManager.handleEvent(a);
+            this.handleEvent(a);
         }
     }
 
@@ -105,9 +112,9 @@ tart.ui.ComponentManager.handleEvent = function (e) {
         do {
             if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
                 if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget) &&
-                    tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
+                    this.callHandler(cmp, e, handlers, selectors) === false) break;
             }
-            else if (tart.ui.ComponentManager.callHandler(cmp, e, handlers, selectors) === false) break;
+            else if (this.callHandler(cmp, e, handlers, selectors) === false) break;
         } while ((e.target = e.target.parentNode) && e.target != cmp.getElement());
     }
 };
@@ -121,14 +128,14 @@ tart.ui.ComponentManager.handleEvent = function (e) {
  * @param selectors
  * @return {boolean}
  */
-tart.ui.ComponentManager.callHandler = function(cmp, e, handlers, selectors){
+tart.ui.ComponentManager.prototype.callHandler = function(cmp, e, handlers, selectors){
     var rv = true;
     goog.array.forEach(selectors, function(selector) {
         // event's target equals to handler's selector
-        if (tart.ui.ComponentManager.matchesSelector(e.target, selector)) {
+        if (this.matchesSelector(e.target, selector)) {
             rv = handlers[selector].call(cmp, e);
         }
-    });
+    }, this);
     return rv;
 };
 
@@ -139,7 +146,7 @@ tart.ui.ComponentManager.callHandler = function(cmp, e, handlers, selectors){
  * @param selector
  * @return {*}
  */
-tart.ui.ComponentManager.matchesSelector = function(el, selector) {
+tart.ui.ComponentManager.prototype.matchesSelector = function(el, selector) {
     return goog.array.indexOf(goog.dom.query(selector), el) >= 0;
 };
 
@@ -148,11 +155,8 @@ tart.ui.ComponentManager.matchesSelector = function(el, selector) {
  * Set given component.
  * @param {tart.ui.DlgComponent} cmp Component which will be set to components.
  */
-tart.ui.ComponentManager.set = function(cmp) {
-    if (!tart.ui.ComponentManager.init)
-        tart.ui.ComponentManager.initHandlers();
-
-    tart.ui.ComponentManager.components[cmp.getId()] = cmp;
+tart.ui.ComponentManager.prototype.set = function(cmp) {
+    this.components[cmp.getId()] = cmp;
 };
 
 
@@ -160,6 +164,6 @@ tart.ui.ComponentManager.set = function(cmp) {
  * Removes given component.
  * @param {tart.ui.DlgComponent} cmp Component which will be removed from components.
  */
-tart.ui.ComponentManager.remove = function(cmp) {
-    delete tart.ui.ComponentManager.components[cmp.getId()];
+tart.ui.ComponentManager.prototype.remove = function(cmp) {
+    delete this.components[cmp.getId()];
 };
