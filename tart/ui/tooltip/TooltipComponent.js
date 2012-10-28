@@ -35,6 +35,7 @@ tart.ui.TooltipComponent = function(refElement, options) {
     this.model = new this.modelClass(options);
     if (!this.element) {
         this.element = /** @type {Element} */(tart.dom.createElement(this.templates_base()));
+        this.element.style.display = 'none';
         document.body.appendChild(this.element);
     }
 
@@ -118,6 +119,7 @@ tart.ui.TooltipComponent.prototype.onWait = function() {
 tart.ui.TooltipComponent.prototype.onShow = function() {
     this.contentArea.innerHTML = (this.templates_loading());
     document.body.appendChild(this.element);
+    this.element.style.display = 'inline-block';
     this.position();
 
     this.windowResizeListener = goog.events.listen(window, goog.events.EventType.RESIZE, function(e) {
@@ -185,8 +187,6 @@ tart.ui.TooltipComponent.prototype.setContent = function(content) {
  *
  **/
 tart.ui.TooltipComponent.prototype.position = function() {
-    this.element.style.display = 'block';
-
     var refElementOffset = goog.style.getPageOffset(this.refElement);
     var refElementSize = goog.style.getSize(this.refElement);
     var myElementSize = goog.style.getSize(this.element);
