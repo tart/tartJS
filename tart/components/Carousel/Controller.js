@@ -83,7 +83,7 @@ tart.components.Carousel.Controller.prototype.buildCarouselAction = function(vis
 
 /**
  * Go to page in given direction
- * @param {String} direction move direction.
+ * @param {string} direction move direction.
  * @param {Number} pageNumber page number to go.
  */
 tart.components.Carousel.Controller.prototype.goToPageAction = function(direction, pageNumber) {
