@@ -93,7 +93,7 @@ tart.ui.DlgComponent.prototype.getChild = function (selector) {
  * This method should be called after the DlgComponent is inserted into the document. Any work (rendering child
  * components, updating DOM, etc.) should be done in this method.
  *
- * @param {Element} opt_base Optional element to render this item into.
+ * @param {Element=} opt_base Optional element to render this item into.
  */
 tart.ui.DlgComponent.prototype.render = function(opt_base) {
     if (opt_base) {
