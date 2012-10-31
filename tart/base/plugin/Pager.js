@@ -42,7 +42,7 @@ tart.base.plugin.Pager = function(model, pagination) {
      * Change offset on page change events
      */
     goog.events.listen(that.pagination_, tart.Pagination.EventTypes.PAGE_CHANGED, function(e) {
-        var limit = that.map.get('limit');
+        var limit = parseInt(that.map.get('limit'), 10);
         var newOffset = (e.newValue - 1) * limit;
         that.map.set('offset', newOffset);
         that.model.params.set(that.key, that.map);

@@ -83,7 +83,7 @@ tart.components.Carousel.Template.prototype.carouselItems = goog.abstractMethod;
 /**
  *
  * @param {number} pageNum is number of selected page.
- * @param {string} selected class.
+ * @param {boolean} selected class.
  * @return {string} markup.
  */
 tart.components.Carousel.Template.prototype.pagerItem = function(pageNum, selected) {
