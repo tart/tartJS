@@ -71,7 +71,7 @@ tart.mvc.uri.Router.RedirectionType = {
 /**
  * Responsible for routing the incoming request to appropriate controller and actions with appropriate parameters.
  * The application routes are added to the uri.Router instance.
- * @param {string} uri The URI to parse.
+ * @param {string=} uri The URI to parse.
  */
 tart.mvc.uri.Router.prototype.route = function(uri) {
     var route;
