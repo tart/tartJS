@@ -56,12 +56,13 @@ goog.provide('tart.components.View');
  * @constructor
  */
 tart.components.View = function() {
-    /** @private */
-    this.$dom_ = undefined;
-
     /** @protected */
     this.$domCache_ = {};
 };
+
+
+/** @type {jQueryObject} */
+tart.components.View.prototype.$dom_;
 
 
 /**
