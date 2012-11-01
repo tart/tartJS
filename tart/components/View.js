@@ -56,12 +56,13 @@ goog.provide('tart.components.View');
  * @constructor
  */
 tart.components.View = function() {
-    /** @private */
-    this.$dom_ = undefined;
-
-    /** @private */
-    this.$domCache_ = {};
+    /** @protected */
+    this.$domCache = {};
 };
+
+
+/** @type {jQueryObject} */
+tart.components.View.prototype.$dom;
 
 
 /**
@@ -77,7 +78,7 @@ tart.components.View.prototype.render = function() {
  * @param {jQueryObject} dom base DOM reference for component.
  */
 tart.components.View.prototype.setDOM = function(dom) {
-    this.$dom_ = dom;
+    this.$dom = dom;
 };
 
 
@@ -87,13 +88,13 @@ tart.components.View.prototype.setDOM = function(dom) {
  * @return {(jQueryObject|undefined)} .
  */
 tart.components.View.prototype.getDOM = function() {
-    return this.$dom_;
+    return this.$dom;
 };
 
 
 /**
  * Get item, which is indicated on domMappings node
- * Cache them to $domCache_ and return item
+ * Cache them to $domCache and return item
  *
  * @param {string} key Object key from domMappings node.
  * @return {Object} found object after traverse.
@@ -101,12 +102,12 @@ tart.components.View.prototype.getDOM = function() {
 tart.components.View.prototype.get = function(key) {
     //TODO: make it owrk with closure
     //TODO: find or filter ???
-    if (!this.$dom_) {
+    if (!this.$dom) {
         throw new Error('DOM not set yet');
     }
 
-    this.$domCache_[key] = this.$domCache_[key] || this.$dom_.find(key);
-    return this.$domCache_[key];
+    this.$domCache[key] = this.$domCache[key] || this.$dom.find(key);
+    return this.$domCache[key];
 };
 
 
@@ -116,5 +117,5 @@ tart.components.View.prototype.get = function(key) {
  * your cache. TODO: Make this default with a deconstructor for view
  */
 tart.components.View.prototype.clearCache = function() {
-    this.$domCache_ = {};
+    this.$domCache = {};
 };
