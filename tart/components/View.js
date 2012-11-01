@@ -59,7 +59,7 @@ tart.components.View = function() {
     /** @private */
     this.$dom_ = undefined;
 
-    /** @private */
+    /** @protected */
     this.$domCache_ = {};
 };
 
