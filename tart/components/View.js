@@ -37,14 +37,13 @@
  *
  * var subView = new SubViewClass();
  *
- * var dummyDiv = $('<div>').append(subView.render());
+ * var dummyDiv = tart.dom.createElement(subView.render());
  *
  * subView.setDOM(dummyDiv);
  * subView.get(subView.domMappings.HEADER);
  *
  *  Known issues:
  *  - Templates will be injected withing Templates object
- *  - jQuery dependency should be removed
  */
 
 goog.provide('tart.components.View');
@@ -57,12 +56,12 @@ goog.provide('tart.components.View');
  */
 tart.components.View = function() {
     /** @protected */
-    this.$domCache = {};
+    this.domCache = {};
 };
 
 
-/** @type {jQueryObject} */
-tart.components.View.prototype.$dom;
+/** @type {Element} */
+tart.components.View.prototype.dom;
 
 
 /**
@@ -75,39 +74,37 @@ tart.components.View.prototype.render = function() {
 
 /**
  * Sets base DOM tree for component
- * @param {jQueryObject} dom base DOM reference for component.
+ * @param {Element} dom base DOM reference for component.
  */
 tart.components.View.prototype.setDOM = function(dom) {
-    this.$dom = dom;
+    this.dom = dom;
 };
 
 
 /**
  * get current DOM reference
  *
- * @return {(jQueryObject|undefined)} .
+ * @return {Element}
  */
 tart.components.View.prototype.getDOM = function() {
-    return this.$dom;
+    return this.dom;
 };
 
 
 /**
  * Get item, which is indicated on domMappings node
- * Cache them to $domCache and return item
+ * Cache them to domCache and return item
  *
  * @param {string} key Object key from domMappings node.
  * @return {Object} found object after traverse.
  */
 tart.components.View.prototype.get = function(key) {
-    //TODO: make it owrk with closure
-    //TODO: find or filter ???
-    if (!this.$dom) {
+    if (!this.dom) {
         throw new Error('DOM not set yet');
     }
 
-    this.$domCache[key] = this.$domCache[key] || this.$dom.find(key);
-    return this.$domCache[key];
+    this.domCache[key] = this.domCache[key] || goog.dom.query(key, this.dom);
+    return this.domCache[key];
 };
 
 
@@ -117,5 +114,5 @@ tart.components.View.prototype.get = function(key) {
  * your cache. TODO: Make this default with a deconstructor for view
  */
 tart.components.View.prototype.clearCache = function() {
-    this.$domCache = {};
+    this.domCache = {};
 };
