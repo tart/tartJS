@@ -32,7 +32,7 @@ tart.components.Widget = function() {
  * Render component in its placholder
  */
 tart.components.Widget.prototype.render = function () {
-    $('#' + this.componentId_).html(this.controller.getDOM());
+    goog.dom.getElement(this.componentId_).appendChild(this.controller.getDOM());
 };
 
 /**
