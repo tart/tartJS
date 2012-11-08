@@ -68,16 +68,22 @@ tart.mvc.Application = function(dom) {
         /** @private */
         this.history_ = new goog.History(false);
         this.initRouting();
-        historyCallback = function(e) {
-            that.getRouter().route();
-        }
+
         /**
          * every time the URI changes, this.router_ routes the request to the appropriate controller/action.
          */
-        goog.events.listen(this.history_, goog.history.EventType.NAVIGATE, historyCallback);
+        goog.events.listen(this.history_, goog.history.EventType.NAVIGATE, this.onNavigate, false, this);
 
         this.history_.setEnabled(true);
     }
+};
+
+
+/**
+ * @protected
+ */
+tart.mvc.Application.prototype.onNavigate = function() {
+    this.getRouter().route();
 };
 
 
@@ -94,8 +100,8 @@ tart.mvc.Application.prototype.getRenderer = function() {
 
 
 /**
- * Container template for the application. Developers may override this method for their own likes; or not use it
- * at all if they provide a dom object to this class's constructor.
+ * @return {string} Container template for the application. Developers may override this method for their own likes;
+ * or not use it at all if they provide a dom object to this class's constructor.
  */
 tart.mvc.Application.prototype.template_container = function() {
     return '<div id="' + this.id + '"></div>';
