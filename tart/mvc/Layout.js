@@ -99,8 +99,8 @@ tart.mvc.Layout.prototype.content_ = '';
  */
 tart.mvc.Layout.prototype.getContentArea = function(body) {
     if (!this.contentArea) {
-        this.contentArea = goog.dom.query('[id="content"]', body);
-        if (this.contentArea.length == 0) {
+        this.contentArea = goog.dom.query('[id="content"]', body)[0];
+        if (!this.contentArea) {
             this.contentArea = body;
         }
     }
