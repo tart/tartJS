@@ -512,7 +512,7 @@ jQueryObject.prototype.animate = function(properties, arg2, easing, callback) {}
 
 
 /**
- * @param {(string|Element|jQueryObject|function(number,string))=} arg1
+ * @param {(string|Element|Array|jQueryObject|function(number,string))=} arg1
  * @return {jQueryObject}
  */
 jQueryObject.prototype.append = function(arg1) {};

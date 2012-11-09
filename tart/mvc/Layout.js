@@ -52,13 +52,12 @@ tart.mvc.Layout.prototype.getContent = function() {
  */
 tart.mvc.Layout.prototype.render = function(body) {
     if (this.resetLayout == true) {
-        $(body).html(this.markup);
+        body.innerHTML = this.markup;
         this.resetLayout = false;
         goog.typeOf(this.onRender) == 'function' && this.onRender();
     }
-    else {
-        this.getContentArea(body).html(this.getContent());
-    }
+    else
+        this.getContentArea(body).innerHTML = this.getContent();
 };
 
 
@@ -95,14 +94,14 @@ tart.mvc.Layout.prototype.content_ = '';
 
 /**
  * Returns the content are element where the content will be placed.
- * @return {jQueryObject} The main element the contents will reside in.
+ * @param {Element} body
+ * @return {Element} The main element the contents will reside in.
  */
 tart.mvc.Layout.prototype.getContentArea = function(body) {
-    var $body = $(body);
     if (!this.contentArea) {
-        this.contentArea = $body.find('#content');
+        this.contentArea = goog.dom.query('[id="content"]', body);
         if (this.contentArea.length == 0) {
-            this.contentArea = $body;
+            this.contentArea = body;
         }
     }
 
