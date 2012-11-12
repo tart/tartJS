@@ -68,7 +68,7 @@ tart.components.View.prototype.dom;
  * Render abstract method, which all subclasses should implement
  */
 tart.components.View.prototype.render = function() {
-    throw new Error('Not implemneted yet');
+    throw new Error('Not implemented yet');
 };
 
 
@@ -94,6 +94,8 @@ tart.components.View.prototype.getDOM = function() {
 /**
  * Get item, which is indicated on domMappings node
  * Cache them to domCache and return item
+ * Example of usage with an id as selector:
+ * this.get("[id='elementId']") or this.get("[id=elementId]")
  *
  * @param {string} key Object key from domMappings node.
  * @return {{length: number}} found object after traverse.
