@@ -30,4 +30,4 @@ tart.components.Carousel.Widget.prototype.controllerClass = tart.components.Caro
 
 tart.components.Carousel.Widget.prototype.init = function() {
     this.controller.model.getItems(true);
-}
+};

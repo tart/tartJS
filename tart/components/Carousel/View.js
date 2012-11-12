@@ -40,12 +40,13 @@ tart.components.Carousel.View.prototype.templateClass = tart.components.Carousel
  * @param {Array.<Object>} itemArray carousel data array.
  */
 tart.components.Carousel.View.prototype.buildCarouselItems = function(itemArray) {
-    this.getDOM().removeClass('loading');
-    var carouselText = this.template.carouselItems(itemArray);
+    goog.dom.classes.remove(this.getDOM(), 'loading');
+    var carouselItems = this.template.carouselItems(itemArray);
 
-    this.get(this.domMappings.ITEMS).html(carouselText);
-    this.itemsAppended(carouselText);
-    this.activeItems = carouselText;
+    this.get(this.domMappings.ITEMS)[0].innerHTML = '';
+    goog.dom.appendChild(this.get(this.domMappings.ITEMS)[0], carouselItems);
+    this.itemsAppended(carouselItems);
+    this.activeItems = carouselItems;
 };
 
 
@@ -66,12 +67,8 @@ tart.components.Carousel.View.prototype.render = function() {
  * @protected
  */
 tart.components.Carousel.View.prototype.getAllCarouselItemsDomReference = function() {
-    var carouselItems = this.get(this.domMappings.ITEMS);
-
-    //TODO: there should be more efficent way to find all direct childs
-    var allCarouselItems = carouselItems.find('>*');
-
-    return allCarouselItems;
+    var carouselItems = this.get(this.domMappings.ITEMS)[0];
+    return goog.dom.getChildren(carouselItems);
 };
 
 
@@ -86,7 +83,7 @@ tart.components.Carousel.View.prototype.move = function(direction, diff, moveCou
     var that = this;
 
     if (diff.length > 0) {
-        var carouselItems = that.get(that.domMappings.ITEMS);
+        var carouselItems = $(that.get(that.domMappings.ITEMS));
 
         //prevent glitch on rapid movements
         carouselItems.stop(true, true);
@@ -95,9 +92,9 @@ tart.components.Carousel.View.prototype.move = function(direction, diff, moveCou
 
         var moveWidth = this.template.properties.CAROUSEL_WIDTH;
 
-        var allCarouselItems = that.getAllCarouselItemsDomReference();
+        var allCarouselItems = $(that.getAllCarouselItemsDomReference());
 
-        var markup = this.template.carouselItems(diff);
+        var markup = $(this.template.carouselItems(diff));
         this.activeItems = markup;
 
         for (var i = 0; i < markup.length; i++) {
@@ -120,7 +117,7 @@ tart.components.Carousel.View.prototype.move = function(direction, diff, moveCou
 
         }
 
-        carouselItems.animate({ 'margin-left': marginLeft }, 500, function() {
+        carouselItems.animate({ 'margin-left': marginLeft }, 500, '', function(){
             allCarouselItems.detach();
             carouselItems.css('margin-left', '0px');
         });
@@ -135,8 +132,7 @@ tart.components.Carousel.View.prototype.itemsAppended = function(items) {
  * Method to hide previous button.
  */
 tart.components.Carousel.View.prototype.hidePrev = function() {
-    var that = this;
-    that.get(that.domMappings.PREV).hide();
+    goog.style.showElement(this.get(this.domMappings.PREV)[0], false);
 };
 
 
@@ -146,36 +142,36 @@ tart.components.Carousel.View.prototype.hidePrev = function() {
  */
 tart.components.Carousel.View.prototype.buildPager = function(pager) {
     var that = this;
-    var $pager = that.get(that.domMappings.PAGER);
+    var pagerElement = that.get(that.domMappings.PAGER)[0];
 
     var totalPage = pager.getTotalPage();
 
-    var $navigation = that.get(that.domMappings.NAVIGATION);
+    var navigation = that.get(that.domMappings.NAVIGATION)[0];
 
     if (totalPage > 1) { //show pager if only totalPage > 1
-        if ($pager.length > 0) {
-            var $pagerItems = $pager.find(that.domMappings.PAGER_ITEMS);
+        if (pagerElement.length > 0) {
+            var pagerItems = goog.dom.query(pagerElement, that.domMappings.PAGER_ITEMS)[0];
 
             //for each pager create pager button and attach event
             for (var i = 1; i <= totalPage; i++) {
                 (function(i) {
-                    var selected = (i == 1) ? true : false;
-                    var $pagerItem = $(that.template.pagerItem(i, selected));
+                    var selected = (i == 1);
+                    var pagerItem = tart.dom.createElement(that.template.pagerItem(i, selected))[0];
 
-                    $pagerItem.click(function() {
+                    goog.events.listen(pagerItem, goog.events.EventType.CLICK, function(){
                         pager.setCurrentPage(i);
                     });
 
-                    $pagerItems.append($pagerItem);
-                    that.pagerItemsCache[i] = $pagerItem;
+                    goog.dom.appendChild(pagerItems, pagerItem);
+                    that.pagerItemsCache[i] = pagerItem;
 
                 })(i);
             }
 
-            $pager.show();
+            goog.style.showElement(pagerElement, true);
         }
 
-        $navigation.show();
+        goog.style.showElement(navigation, true);
 
         if (!pager.hasPrev()) that.hidePrev();
 
@@ -183,8 +179,8 @@ tart.components.Carousel.View.prototype.buildPager = function(pager) {
     }
     else {
         //hide pager if totalPage < 2
-        $pager.hide();
-        $navigation.hide();
+        pagerElement.hide();
+        navigation.hide();
     }
 };
 
@@ -195,11 +191,11 @@ tart.components.Carousel.View.prototype.buildPager = function(pager) {
  */
 tart.components.Carousel.View.prototype.setPageSelected = function(pageNum) {
     var that = this;
-    var $pager = that.get(that.domMappings.PAGER);
-    var $pagerItems = $pager.find(that.domMappings.PAGER_ITEMS).find(that.domMappings.PAGER_ITEM);
+    var pager = that.get(that.domMappings.PAGER)[0];
+    var pagerItems = goog.dom.query(goog.dom.query(pager, that.domMappings.PAGER_ITEMS)[0], that.domMappings.PAGER_ITEM)[0];
 
-    $pagerItems.removeClass('selected');
-    that.pagerItemsCache[pageNum] && that.pagerItemsCache[pageNum].addClass('selected');
+    goog.dom.classes.remove(pagerItems, 'selected');
+    that.pagerItemsCache[pageNum] && goog.dom.classes.add(that.pagerItemsCache[pageNum], 'selected');
 };
 
 
@@ -209,24 +205,24 @@ tart.components.Carousel.View.prototype.setPageSelected = function(pageNum) {
  * @param {boolean} hasPrev Whether there is a next page.
  */
 tart.components.Carousel.View.prototype.handleNavigationButtons = function(hasNext, hasPrev) {
-    var $pagerNext = this.get(this.domMappings.NEXT);
-    var $pagerPrev = this.get(this.domMappings.PREV);
-    $pagerNext.show();
-    $pagerPrev.show();
+    var pagerNext = this.get(this.domMappings.NEXT)[0];
+    var pagerPrev = this.get(this.domMappings.PREV)[0];
+    goog.style.showElement(pagerNext, true);
+    goog.style.showElement(pagerPrev, true);
 
-    if (!hasNext) $pagerNext.hide();
-    if (!hasPrev) $pagerPrev.hide();
+    if (!hasNext)     goog.style.showElement(pagerNext, false);
+    if (!hasPrev)     goog.style.showElement(pagerPrev, false);
 };
 
 
 /**
  * No results handler
- * 
+ *
  */
 tart.components.Carousel.View.prototype.noResults = function() {
-    this.getDOM().removeClass('loading');
+    goog.dom.classes.remove(this.getDOM(), 'loading');
     var carouselText = this.template.noResults();
-    this.get(this.domMappings.ITEMS).html(carouselText);
+    this.get(this.domMappings.ITEMS).innerHTML = carouselText;
     this.itemsAppended(carouselText);
     this.activeItems = carouselText;
 };

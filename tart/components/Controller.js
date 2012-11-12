@@ -69,7 +69,9 @@ tart.components.Controller = function(opt_model, opt_view) {
  * @return {Element} generated DOM of attached View object.
  */
 tart.components.Controller.prototype.buildDOM = function() {
-    var dom = /** @type {Element} */ tart.dom.createElement(this.view.render());
+    var dom = this.view.render();
+    if(goog.isString(dom))
+        dom = /** @type {Element} */(tart.dom.createElement(dom));
     this.view.setDOM(dom);
     return dom;
 };
