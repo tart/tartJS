@@ -75,7 +75,7 @@ tart.components.Carousel.Template.prototype.base = function() {
  * Markup for carousel group
  *
  * @param {Array.<*>} itemArray carousel items.
- * @return {(jQueryObject|null)} base markup.
+ * @return {(Node)} base markup.
  */
 tart.components.Carousel.Template.prototype.carouselItems = goog.abstractMethod;
 

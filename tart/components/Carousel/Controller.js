@@ -121,7 +121,7 @@ tart.components.Carousel.Controller.prototype.bindEvents = function() {
     goog.events.listen(that.model, tart.components.Carousel.Model.EventTypes.ITEMS_LOADED, function(e) {
         that.buildCarouselAction(e.visibleItems, e.totalItemCount);
         if (e.visibleItems.length > 0) {
-            that.view.getDOM().css('display', 'block');
+            goog.style.setStyle(that.view.getDOM(), 'display', 'block');
         }
     });
 
