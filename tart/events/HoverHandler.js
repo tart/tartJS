@@ -35,6 +35,7 @@ goog.require('goog.events.EventTarget');
  * Tracks and fires mouseenter and mouseleave events on DOM elements.
  *
  * @constructor
+ * @extends {goog.events.EventTarget}
  * @param {Element=} opt_el Optional element to bind mouseover and mouseout events to. Default is document.body.
  */
 tart.events.HoverHandler = function(opt_el) {
@@ -47,7 +48,8 @@ goog.inherits(tart.events.HoverHandler, goog.events.EventTarget);
 
 
 /**
- * @override
+ * This handles the underlying events and dispatches a new event.
+ * @param {goog.events.BrowserEvent} e  The underlying browser event.
  */
 tart.events.HoverHandler.prototype.handleEvent = function(e) {
     // fire mouseenter event

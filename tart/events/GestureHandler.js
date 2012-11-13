@@ -42,6 +42,7 @@ goog.require('goog.events.EventTarget');
  * Tracks and fires gestures on touch enabled devices.
  *
  * @constructor
+ * @extends {goog.events.EventTarget}
  * @param {Element=} opt_el Optional element to bind mouseover and mouseout events to. Default is document.body.
  */
 tart.events.GestureHandler = function(opt_el) {
@@ -58,7 +59,8 @@ goog.inherits(tart.events.GestureHandler, goog.events.EventTarget);
 
 
 /**
- * @override
+ * This handles the underlying events and dispatches a new event.
+ * @param {goog.events.BrowserEvent} e  The underlying browser event.
  */
 tart.events.GestureHandler.prototype.handleEvent = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
