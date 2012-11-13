@@ -64,10 +64,10 @@ tart.mvc.Application = function(dom) {
             throw new tart.Err('No default route is set.', 'tartMVC Application Exception');
 
         var historyCallback, that = this;
-        var hiddenInput = tart.dom.createElement('input');
+        var hiddenInput = /** @type {HTMLInputElement} */(tart.dom.createElement('input'));
 
         /** @private */
-        this.history_ = new goog.History(false, false, hiddenInput);
+        this.history_ = new goog.History(false, undefined, hiddenInput);
         this.initRouting();
 
         /**
