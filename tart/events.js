@@ -21,5 +21,7 @@ goog.provide('tart.events');
  */
 tart.events.EventType = {
     MOUSEENTER: 'mouseenter',
-    MOUSELEAVE: 'mouseleave'
+    MOUSELEAVE: 'mouseleave',
+    TAP: 'tap',
+    SWIPE: 'swipe'
 };
