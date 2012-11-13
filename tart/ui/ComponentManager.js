@@ -8,6 +8,8 @@ goog.provide('tart.ui.ComponentManager');
 goog.require('tart.events');
 goog.require('goog.array');
 goog.require('goog.events.EventType');
+goog.require('tart.events.HoverHandler');
+goog.require('tart.events.GestureHandler');
 
 /**
  * @fileoverview Registry for tart.ui.DlgComponent. Manages DOM event interactions for these components.
@@ -21,7 +23,8 @@ goog.require('goog.events.EventType');
 tart.ui.ComponentManager = function() {
     /** @type {Object.<string, tart.ui.DlgComponent>} */
     this.components = {};
-
+    this.gestureHandler = new tart.events.GestureHandler();
+    this.hoverHandler = new tart.events.HoverHandler();
     this.initHandlers();
 };
 goog.addSingletonGetter(tart.ui.ComponentManager);
@@ -61,11 +64,14 @@ tart.ui.ComponentManager.eventTypes = [
     goog.events.EventType.MOUSEUP,
     tart.events.EventType.MOUSEENTER,
     tart.events.EventType.MOUSELEAVE,
+    tart.events.EventType.TAP,
+    tart.events.EventType.SWIPE,
     goog.events.EventType.SCROLL,
     goog.events.EventType.KEYUP,
     goog.events.EventType.FOCUSIN,
     goog.events.EventType.FOCUSOUT,
     goog.events.EventType.TOUCHSTART,
+    goog.events.EventType.TOUCHMOVE,
     goog.events.EventType.TOUCHEND
 ];
 
@@ -75,7 +81,9 @@ tart.ui.ComponentManager.eventTypes = [
  */
 tart.ui.ComponentManager.prototype.initHandlers = function() {
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
-        goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this.handleEvent, false, this);
+        goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this);
+        goog.events.listen(this.hoverHandler, [tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE], this);
+        goog.events.listen(this.gestureHandler, [tart.events.EventType.TAP, tart.events.EventType.SWIPE], this);
     }, false, this);
 };
 
@@ -85,26 +93,16 @@ tart.ui.ComponentManager.prototype.initHandlers = function() {
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
 tart.ui.ComponentManager.prototype.handleEvent = function (e) {
+    // var es = [tart.events.EventType.TAP, tart.events.EventType.SWIPE, tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE];
+    // if (goog.array.contains(es, e.type)) {
+    //     var el = goog.dom.getElement('content');
+    //     var el2 = goog.dom.query('.view.home.index');
+    //     if (el2[0]) el.innerHTML = '';
+
+    //     el.innerHTML += e.type + ' on #' + e.target.id + '.' + e.target.className + '<br/>';
+    // }
     var cmp = this.getParentCmp(e.target),
         handlers = cmp && cmp.events && cmp.events[e.type];
-
-    // fire mouseenter event too
-    if (e.type == goog.events.EventType.MOUSEOVER) {
-        if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
-            var a = new goog.events.BrowserEvent(e.getBrowserEvent());
-            a.type = tart.events.EventType.MOUSEENTER;
-            this.handleEvent(a);
-        }
-    }
-
-    // fire mouseleave event too
-    else if (e.type == goog.events.EventType.MOUSEOUT) {
-        if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
-            var a = new goog.events.BrowserEvent(e.getBrowserEvent());
-            a.type = tart.events.EventType.MOUSELEAVE;
-            this.handleEvent(a);
-        }
-    }
 
     if (handlers) {
         var selectors = goog.object.getKeys(handlers);
