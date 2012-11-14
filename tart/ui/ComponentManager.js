@@ -65,7 +65,10 @@ tart.ui.ComponentManager.eventTypes = [
     tart.events.EventType.MOUSEENTER,
     tart.events.EventType.MOUSELEAVE,
     tart.events.EventType.TAP,
-    tart.events.EventType.SWIPE,
+    tart.events.EventType.SWIPE_LEFT,
+    tart.events.EventType.SWIPE_RIGHT,
+    tart.events.EventType.SWIPE_UP,
+    tart.events.EventType.SWIPE_DOWN,
     goog.events.EventType.SCROLL,
     goog.events.EventType.KEYUP,
     goog.events.EventType.FOCUSIN,
@@ -83,7 +86,8 @@ tart.ui.ComponentManager.prototype.initHandlers = function() {
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
         goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this);
         goog.events.listen(this.hoverHandler, [tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE], this);
-        goog.events.listen(this.gestureHandler, [tart.events.EventType.TAP, tart.events.EventType.SWIPE], this);
+        goog.events.listen(this.gestureHandler, [tart.events.EventType.TAP, tart.events.EventType.SWIPE_LEFT,
+            tart.events.EventType.SWIPE_UP, tart.events.EventType.SWIPE_DOWN, tart.events.EventType.SWIPE_RIGHT], this);
     }, false, this);
 };
 

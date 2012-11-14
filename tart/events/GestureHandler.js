@@ -65,18 +65,54 @@ goog.inherits(tart.events.GestureHandler, goog.events.EventTarget);
 tart.events.GestureHandler.prototype.handleEvent = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
         var startTarget = e.target;
-        var endListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHEND, function(ee) {
+        var tapEndListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHEND, function(ee) {
             var endTarget = ee.target;
             if (startTarget == endTarget) {
                 var a = new goog.events.BrowserEvent(e.getBrowserEvent());
                 a.type = tart.events.EventType.TAP;
                 this.dispatchEvent(a);
             }
-            goog.events.unlistenByKey(moveListener);
+            goog.events.unlistenByKey(tapMoveListener);
         }, false, this);
 
-        var moveListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHMOVE, function(me) {
-            goog.events.unlistenByKey(endListener);
+        var tapMoveListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHMOVE, function(me) {
+            goog.events.unlistenByKey(tapEndListener);
+        }, false, this);
+    }
+
+    if (e.type == goog.events.EventType.TOUCHSTART) {
+        var swipeStartPoint = e.getBrowserEvent().touches[0];
+        swipeStartPoint = {
+            x: swipeStartPoint.pageX,
+            y: swipeStartPoint.pageY
+        }
+
+        var swipeTimeout = setTimeout(function() {
+            goog.events.unlistenByKey(swipeEndListener);
+        }, 600);
+
+        var swipeEndListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHEND, function(ee) {
+            var swipeEndPoint = ee.getBrowserEvent().changedTouches[0];
+            swipeEndPoint = {
+                x: swipeEndPoint.pageX,
+                y: swipeEndPoint.pageY
+            }
+            if (swipeStartPoint.x - swipeEndPoint.x > 60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 30) {
+                ee.type = tart.events.EventType.SWIPE_LEFT;
+                this.dispatchEvent(ee);
+            }
+            else if (swipeStartPoint.x - swipeEndPoint.x < -60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 30) {
+                ee.type = tart.events.EventType.SWIPE_RIGHT;
+                this.dispatchEvent(ee);
+            }
+            else if (swipeStartPoint.y - swipeStartPoint.y > 60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 30) {
+                ee.type = tart.events.EventType.SWIPE_DOWN;
+                this.dispatchEvent(ee);
+            }
+            else if (swipeStartPoint.y - swipeEndPoint.y < -60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 30) {
+                ee.type = tart.events.EventType.SWIPE_UP;
+                this.dispatchEvent(ee);
+            }
         }, false, this);
     }
 };

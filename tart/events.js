@@ -23,5 +23,8 @@ tart.events.EventType = {
     MOUSEENTER: 'mouseenter',
     MOUSELEAVE: 'mouseleave',
     TAP: 'tap',
-    SWIPE: 'swipe'
+    SWIPE_RIGHT: 'swipeRight',
+    SWIPE_UP: 'swipeUp',
+    SWIPE_LEFT: 'swipeLeft',
+    SWIPE_DOWN: 'swipeDown'
 };
