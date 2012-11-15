@@ -97,19 +97,19 @@ tart.events.GestureHandler.prototype.handleEvent = function(e) {
                 x: swipeEndPoint.pageX,
                 y: swipeEndPoint.pageY
             }
-            if (swipeStartPoint.x - swipeEndPoint.x > 60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 30) {
+            if (swipeStartPoint.x - swipeEndPoint.x > 60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 60) {
                 ee.type = tart.events.EventType.SWIPE_LEFT;
                 this.dispatchEvent(ee);
             }
-            else if (swipeStartPoint.x - swipeEndPoint.x < -60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 30) {
+            else if (swipeStartPoint.x - swipeEndPoint.x < -60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 60) {
                 ee.type = tart.events.EventType.SWIPE_RIGHT;
                 this.dispatchEvent(ee);
             }
-            else if (swipeStartPoint.y - swipeStartPoint.y > 60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 30) {
+            else if (swipeStartPoint.y - swipeStartPoint.y > 60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 60) {
                 ee.type = tart.events.EventType.SWIPE_DOWN;
                 this.dispatchEvent(ee);
             }
-            else if (swipeStartPoint.y - swipeEndPoint.y < -60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 30) {
+            else if (swipeStartPoint.y - swipeEndPoint.y < -60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 60) {
                 ee.type = tart.events.EventType.SWIPE_UP;
                 this.dispatchEvent(ee);
             }
