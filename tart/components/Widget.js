@@ -24,15 +24,15 @@ goog.provide('tart.components.Widget');
  * @constructor
  */
 tart.components.Widget = function() {
-    /** @private */
-    this.componentId_ = tart.getUid();
+    /** @protected */
+    this.componentId = tart.getUid();
 };
 
 /**
  * Render component in its placholder
  */
 tart.components.Widget.prototype.render = function () {
-    goog.dom.getElement(this.componentId_).appendChild(this.controller.getDOM());
+    goog.dom.getElement(this.componentId).appendChild(this.controller.getDOM());
 };
 
 /**
@@ -48,7 +48,7 @@ tart.components.Widget.prototype.getPlaceholder = function () {
  * @return {string} placheolder markup.
  */
 tart.components.Widget.prototype.templates_placeholder = function () {
-    return '<div class="widgetPlaceholder" id="' + this.componentId_ + '"></div>';
+    return '<div class="widgetPlaceholder" id="' + this.componentId + '"></div>';
 };
 
 /**
@@ -56,6 +56,6 @@ tart.components.Widget.prototype.templates_placeholder = function () {
  * @return {Number} component id.
  */
 tart.components.Widget.prototype.getId = function () {
-    return this.componentId_;
+    return this.componentId;
 };
 
