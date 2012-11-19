@@ -94,11 +94,12 @@ tart.ui.DlgComponent.prototype.getChild = function (selector) {
  * components, updating DOM, etc.) should be done in this method.
  *
  * @param {Element=} opt_base Optional element to render this item into.
+ * @param {number=} opt_index Place to render element in base element's children list.
  */
-tart.ui.DlgComponent.prototype.render = function(opt_base) {
+tart.ui.DlgComponent.prototype.render = function(opt_base, opt_index) {
     if (opt_base) {
         this.element = tart.dom.createElement(this.getPlaceholder());
-        opt_base.appendChild(this.element);
+        goog.dom.insertChildAt(opt_base, this.element, opt_index);
     }
 };
 
