@@ -99,7 +99,7 @@ tart.ui.DlgComponent.prototype.getChild = function (selector) {
 tart.ui.DlgComponent.prototype.render = function(opt_base, opt_index) {
     if (opt_base) {
         this.element = tart.dom.createElement(this.getPlaceholder());
-        goog.dom.insertChildAt(opt_base, this.element, opt_index);
+        opt_base.insertBefore(this.element, opt_base.childNodes[opt_index] || null);
     }
 };
 
