@@ -59,10 +59,20 @@ goog.inherits(tart.events.GestureHandler, goog.events.EventTarget);
 
 
 /**
- * This handles the underlying events and dispatches a new event.
- * @param {goog.events.BrowserEvent} e  The underlying browser event.
+ * This handles the underlying events and dispatches a new event if applicable.
+ * @param {goog.events.BrowserEvent} e The underlying browser event.
  */
 tart.events.GestureHandler.prototype.handleEvent = function(e) {
+    this.handleTap(e);
+    this.handleSwipes(e);
+};
+
+
+/**
+ * Handles the underlying events and dispatches a new tap event if applicable.
+ * @param {goog.events.BrowserEvent} e The underlying browser event.
+ */
+tart.events.GestureHandler.prototype.handleTap = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
         var startTarget = e.target;
         var tapEndListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHEND, function(ee) {
@@ -79,7 +89,14 @@ tart.events.GestureHandler.prototype.handleEvent = function(e) {
             goog.events.unlistenByKey(tapEndListener);
         }, false, this);
     }
+};
 
+
+/**
+ * Handles the underlying events and dispatches a new swipe event if applicable.
+ * @param {goog.events.BrowserEvent} e The underlying browser event.
+ */
+tart.events.GestureHandler.prototype.handleSwipes = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
         var swipeStartPoint = e.getBrowserEvent().touches[0];
         swipeStartPoint = {
