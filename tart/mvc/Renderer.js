@@ -24,7 +24,7 @@ goog.require('tart.mvc.uri.Redirection');
  * @constructor
  * @param {tart.mvc.LayoutTemplate} layout The default layout of the application. This layout will be used when an
  * action chooses not to set its own layout.
- * @param {HTMLElement} dom DOM element this renderer will render the application in.
+ * @param {Element} dom DOM element this renderer will render the application in.
  */
 tart.mvc.Renderer = function(layout, dom) {
     this.defaultLayout = layout;

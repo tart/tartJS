@@ -24,7 +24,7 @@ goog.require('tart.mvc.Renderer');
  * @extends {tart.mvc.Renderer}
  * @param {tart.mvc.LayoutTemplate} layout The default layout of the application. This layout will be used when an
  * action chooses not to set its own layout.
- * @param {HTMLElement} dom DOM element this renderer will render the application in.
+ * @param {Element} dom DOM element this renderer will render the application in.
  */
 tart.mvc.MobileRenderer = function(layout, dom) {
     goog.base(this, layout, dom);

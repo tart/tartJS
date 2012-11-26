@@ -46,7 +46,12 @@ tart.mvc.Application = function(dom) {
 
     this.id = tart.getUid();
 
-    this.dom = dom || $(this.template_container()).appendTo('body')[0];
+    if (dom)
+        this.dom = dom;
+    else {
+        this.dom = /** @type {Element} */(tart.dom.createElement(this.template_container()));
+        goog.dom.appendChild(document.body, this.dom);
+    }
 
     if (goog.string.startsWith(uriPath, this.basePath)) {
         myPath = uriPath.substr(this.basePath.length - 1);
