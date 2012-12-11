@@ -134,7 +134,7 @@ tart.base.plugin.Pager.prototype.getCurrentPage = function() {
 
 
 /**
- * @return {number} Whether there is a previous page available.
+ * @return {boolean} Whether there is a previous page available.
  */
 tart.base.plugin.Pager.prototype.hasPrev = function() {
     return this.pagination_.hasPrev();
@@ -142,7 +142,7 @@ tart.base.plugin.Pager.prototype.hasPrev = function() {
 
 
 /**
- * @return {number} Whether there is a next page available.
+ * @return {boolean} Whether there is a next page available.
  */
 tart.base.plugin.Pager.prototype.hasNext = function() {
     return this.pagination_.hasNext();
