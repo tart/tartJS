@@ -22,14 +22,17 @@ goog.require('goog.math');
 goog.provide('tart.date');
 goog.provide('tart.date.Date');
 
+
+
 /**
  * @constructor
  * @extends {goog.date.Date}
  */
 tart.date.Date = function() {
     goog.base(this);
-}
+};
 goog.inherits(tart.date.Date, goog.date.Date);
+
 
 /**
  * Returns a random time.
@@ -99,3 +102,17 @@ tart.date.randomTimeInInterval = function(interval) {
         return rv;
     };
 })();
+
+
+/**
+ * Get day from given date.
+ *
+ * Subtracts the modulo of a full day time from given dates timestamp.
+ *
+ * @param {Date} date Date.
+ * @return {Date} Day.
+ */
+tart.date.getDay = function(date) {
+    var timestamp = date.getTime();
+    return new Date(timestamp - (timestamp % (1000 * 60 * 60 * 24)));
+};
