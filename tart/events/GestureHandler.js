@@ -35,6 +35,7 @@
 goog.provide('tart.events.GestureHandler');
 goog.require('goog.dom');
 goog.require('goog.events.EventTarget');
+goog.require('goog.math.Coordinate');
 
 
 
@@ -98,37 +99,43 @@ tart.events.GestureHandler.prototype.handleTap = function(e) {
  */
 tart.events.GestureHandler.prototype.handleSwipes = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
-        var swipeStartPoint = e.getBrowserEvent().touches[0];
-        swipeStartPoint = {
-            x: swipeStartPoint.pageX,
-            y: swipeStartPoint.pageY
-        }
+        var touches = [];
+        touches.push(e.getBrowserEvent());
 
-        var swipeTimeout = setTimeout(function() {
-            goog.events.unlistenByKey(swipeEndListener);
-        }, 600);
+        var swipeMoveListener = goog.events.listen(document.body, goog.events.EventType.TOUCHMOVE, function(e) {
+            touches.push(e.getBrowserEvent());
 
-        var swipeEndListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHEND, function(ee) {
-            var swipeEndPoint = ee.getBrowserEvent().changedTouches[0];
-            swipeEndPoint = {
-                x: swipeEndPoint.pageX,
-                y: swipeEndPoint.pageY
-            }
-            if (swipeStartPoint.x - swipeEndPoint.x > 60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 60) {
-                ee.type = tart.events.EventType.SWIPE_LEFT;
-                this.dispatchEvent(ee);
-            }
-            else if (swipeStartPoint.x - swipeEndPoint.x < -60 && Math.abs(swipeStartPoint.y - swipeEndPoint.y) < 60) {
-                ee.type = tart.events.EventType.SWIPE_RIGHT;
-                this.dispatchEvent(ee);
-            }
-            else if (swipeStartPoint.y - swipeStartPoint.y > 60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 60) {
-                ee.type = tart.events.EventType.SWIPE_DOWN;
-                this.dispatchEvent(ee);
-            }
-            else if (swipeStartPoint.y - swipeEndPoint.y < -60 && Math.abs(swipeStartPoint.x - swipeEndPoint.x) < 60) {
-                ee.type = tart.events.EventType.SWIPE_UP;
-                this.dispatchEvent(ee);
+            // Filter the touches
+            var date = e.getBrowserEvent().timeStamp;
+            touches = goog.array.filter(touches, function(touch) {
+                return touch.timeStamp > date - 100;
+            });
+
+            if (touches.length > 1) {
+                var firstTouch = new goog.math.Coordinate(touches[0].pageX, touches[0].pageY);
+                var lastTouch = new goog.math.Coordinate(touches[touches.length - 1].pageX,
+                    touches[touches.length - 1].pageY);
+
+                // calculate distance. must be min 60px
+                var distance = goog.math.Coordinate.distance(firstTouch, lastTouch);
+                if (distance < 60) return;
+
+                // calculate angle.
+                var angle = goog.math.angle(firstTouch.x, firstTouch.y, lastTouch.x, lastTouch.y);
+
+                var eventType = tart.events.EventType.SWIPE_RIGHT;
+                if (angle > 45 && angle < 135) {
+                    eventType = tart.events.EventType.SWIPE_UP;
+                }
+                else if (angle > 135 && angle < 225) {
+                    eventType = tart.events.EventType.SWIPE_LEFT;
+                }
+                else if (angle > 225 && angle < 315) {
+                    eventType = tart.events.EventType.SWIPE_DOWN;
+                }
+                e.type = eventType;
+                this.dispatchEvent(e);
+                goog.events.unlistenByKey(swipeMoveListener);
             }
         }, false, this);
     }
