@@ -59,3 +59,13 @@ tart.storage.Storage.prototype.set = function(key, value) {
 tart.storage.Storage.prototype.get = function(key) {
     return JSON.parse(localStorage.getItem(key));
 };
+
+
+/**
+ * Remove value from storage.
+ *
+ * @param {string} key Key of the associated pair.
+ */
+tart.storage.Storage.prototype.remove = function(key) {
+    localStorage.removeItem(key);
+};
