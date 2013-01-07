@@ -49,8 +49,8 @@ goog.require('goog.math.Coordinate');
 tart.events.GestureHandler = function(opt_el) {
     goog.base(this);
 
-    var target = opt_el || document.body;
-    goog.events.listen(target, [
+    this.el = opt_el || document.body;
+    goog.events.listen(this.el, [
         goog.events.EventType.TOUCHSTART,
         goog.events.EventType.TOUCHMOVE,
         goog.events.EventType.TOUCHEND],
@@ -76,7 +76,7 @@ tart.events.GestureHandler.prototype.handleEvent = function(e) {
 tart.events.GestureHandler.prototype.handleTap = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
         var startTarget = e.target;
-        var tapEndListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHEND, function(ee) {
+        var tapEndListener = goog.events.listenOnce(this.el, goog.events.EventType.TOUCHEND, function(ee) {
             var endTarget = ee.target;
             if (startTarget == endTarget) {
                 var a = new goog.events.BrowserEvent(e.getBrowserEvent());
@@ -86,7 +86,7 @@ tart.events.GestureHandler.prototype.handleTap = function(e) {
             goog.events.unlistenByKey(tapMoveListener);
         }, false, this);
 
-        var tapMoveListener = goog.events.listenOnce(document.body, goog.events.EventType.TOUCHMOVE, function(me) {
+        var tapMoveListener = goog.events.listenOnce(this.el, goog.events.EventType.TOUCHMOVE, function(me) {
             goog.events.unlistenByKey(tapEndListener);
         }, false, this);
     }
@@ -102,7 +102,7 @@ tart.events.GestureHandler.prototype.handleSwipes = function(e) {
         var touches = [];
         touches.push(e.getBrowserEvent());
 
-        var swipeMoveListener = goog.events.listen(document.body, goog.events.EventType.TOUCHMOVE, function(e) {
+        var swipeMoveListener = goog.events.listen(this.el, goog.events.EventType.TOUCHMOVE, function(e) {
             touches.push(e.getBrowserEvent());
 
             // Filter the touches
@@ -139,7 +139,7 @@ tart.events.GestureHandler.prototype.handleSwipes = function(e) {
             }
         }, false, this);
 
-        goog.events.listen(document.body, goog.events.EventType.TOUCHEND, function() {
+        goog.events.listen(this.el, goog.events.EventType.TOUCHEND, function() {
             goog.events.unlistenByKey(swipeMoveListener);
         }, false, this);
     }
