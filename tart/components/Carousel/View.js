@@ -222,7 +222,7 @@ tart.components.Carousel.View.prototype.handleNavigationButtons = function(hasNe
 tart.components.Carousel.View.prototype.noResults = function() {
     goog.dom.classes.remove(this.getDOM(), 'loading');
     var carouselText = this.template.noResults();
-    this.get(this.domMappings.ITEMS).innerHTML = carouselText;
+    this.get(this.domMappings.ITEMS)[0].innerHTML = carouselText;
     this.itemsAppended(carouselText);
     this.activeItems = carouselText;
 };
