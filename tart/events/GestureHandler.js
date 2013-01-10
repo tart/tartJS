@@ -75,6 +75,8 @@ tart.events.GestureHandler.prototype.handleEvent = function(e) {
  */
 tart.events.GestureHandler.prototype.handleTap = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
+        if (this.preventingDefault) e.getBrowserEvent().preventDefault();
+
         var startTarget = e.target;
         var tapEndListener = goog.events.listenOnce(this.el, goog.events.EventType.TOUCHEND, function(ee) {
             var endTarget = ee.target;
@@ -143,4 +145,16 @@ tart.events.GestureHandler.prototype.handleSwipes = function(e) {
             goog.events.unlistenByKey(swipeMoveListener);
         }, false, this);
     }
+};
+
+
+/**
+ * A setter method of preventingDefault property. If that property is true,
+ * default functionality of touching event will be prevented, which can
+ * be scrolling, clicking, pinch to zoom gesture etc.
+ *
+ * @param {boolean} val preventDefault() will be called if this is true.
+ */
+tart.events.GestureHandler.prototype.setPreventDefault = function(val) {
+    this.preventingDefault = val;
 };
