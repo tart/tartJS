@@ -57,7 +57,9 @@ tart.storage.Storage.prototype.set = function(key, value) {
 * @return {*} Value of the item.
 */
 tart.storage.Storage.prototype.get = function(key) {
-    return JSON.parse(localStorage.getItem(key));
+    var val = localStorage.getItem(key);
+    if (val === null) return null;
+    return JSON.parse(val);
 };
 
 
