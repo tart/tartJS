@@ -66,6 +66,9 @@ tart.XhrManager.ajax = function(type, url, params, success, opt_fail, opt_dataTy
         'url': url,
         'data': params,
         'dataType': opt_dataType || 'json',
+        'xhrFields': {
+               'withCredentials': true
+        },
         'success': function(response) {
             success && success(response);
         },
