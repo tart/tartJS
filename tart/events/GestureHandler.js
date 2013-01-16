@@ -102,21 +102,24 @@ tart.events.GestureHandler.prototype.handleTap = function(e) {
 tart.events.GestureHandler.prototype.handleSwipes = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
         var touches = [];
-        touches.push(e.getBrowserEvent());
 
         var swipeMoveListener = goog.events.listen(this.el, goog.events.EventType.TOUCHMOVE, function(e) {
-            touches.push(e.getBrowserEvent());
+            var browserEvent = e.getBrowserEvent();
+            var changedTouch = browserEvent.changedTouches[0];
+            touches.push(browserEvent.timeStamp, changedTouch.pageX, changedTouch.pageY);
 
             // Filter the touches
-            var date = e.getBrowserEvent().timeStamp;
-            touches = goog.array.filter(touches, function(touch) {
-                return touch.timeStamp > date - 100;
+            var date = browserEvent.timeStamp;
+            touches = goog.array.filter(touches, function(touch, index, arr) {
+                var relatedTimeStamp = arr[index - (index % 3)];
+                return relatedTimeStamp > date - 100;
             });
 
-            if (touches.length > 1) {
-                var firstTouch = new goog.math.Coordinate(touches[0].pageX, touches[0].pageY);
-                var lastTouch = new goog.math.Coordinate(touches[touches.length - 1].pageX,
-                    touches[touches.length - 1].pageY);
+
+            if ((touches.length / 3) > 1) {
+                var firstTouch = new goog.math.Coordinate(touches[1], touches[2]);
+                var lastTouch = new goog.math.Coordinate(touches[touches.length - 2],
+                    touches[touches.length - 1]);
 
                 // calculate distance. must be min 60px
                 var distance = goog.math.Coordinate.distance(firstTouch, lastTouch);
