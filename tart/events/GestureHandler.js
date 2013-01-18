@@ -102,6 +102,9 @@ tart.events.GestureHandler.prototype.handleTap = function(e) {
 tart.events.GestureHandler.prototype.handleSwipes = function(e) {
     if (e.type == goog.events.EventType.TOUCHSTART) {
         var touches = [];
+        var browserEvent = e.getBrowserEvent();
+        var changedTouch = browserEvent.changedTouches[0];
+        touches.push(browserEvent.timeStamp, changedTouch.pageX, changedTouch.pageY);
 
         var swipeMoveListener = goog.events.listen(this.el, goog.events.EventType.TOUCHMOVE, function(e) {
             var browserEvent = e.getBrowserEvent();
@@ -112,7 +115,7 @@ tart.events.GestureHandler.prototype.handleSwipes = function(e) {
             var date = browserEvent.timeStamp;
             touches = goog.array.filter(touches, function(touch, index, arr) {
                 var relatedTimeStamp = arr[index - (index % 3)];
-                return relatedTimeStamp > date - 100;
+                return relatedTimeStamp > date - 250;
             });
 
 
