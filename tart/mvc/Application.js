@@ -155,8 +155,9 @@ tart.mvc.Application.prototype.defaultRoute = null;
 /**
  * The default layout view of the application.
  * @protected
+ * @type {tart.mvc.LayoutTemplate}
  */
-tart.mvc.Application.prototype.defaultLayout = /** @type {tart.mvc.LayoutTemplate} */ function() {
+tart.mvc.Application.prototype.defaultLayout = function() {
 };
 
 
