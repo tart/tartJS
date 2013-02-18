@@ -71,3 +71,20 @@ tart.storage.Storage.prototype.get = function(key) {
 tart.storage.Storage.prototype.remove = function(key) {
     localStorage.removeItem(key);
 };
+
+
+/**
+ * Clear all values from storage.
+ */
+tart.storage.Storage.prototype.clear = function() {
+    localStorage.clear();
+};
+
+
+/**
+ * Get the number of stored key-value pairs.
+ * @return {number} Number of stored elements
+ */
+tart.storage.Storage.prototype.getCount = function() {
+    return localStorage.length;
+};
