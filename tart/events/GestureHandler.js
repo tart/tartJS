@@ -147,7 +147,7 @@ tart.events.GestureHandler.prototype.handleSwipes = function(e) {
             }
         }, false, this);
 
-        goog.events.listen(this.el, goog.events.EventType.TOUCHEND, function() {
+        goog.events.listenOnce(this.el, goog.events.EventType.TOUCHEND, function() {
             goog.events.unlistenByKey(swipeMoveListener);
         }, false, this);
     }
