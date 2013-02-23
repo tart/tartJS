@@ -14,19 +14,18 @@
 
 /**
  * @fileoverview GestureHandler adds the ability to capture gesture events on touch enabled devices.
- * It listens to 'touchstart', 'touchmove' and 'touchend' events and generates 'tap' events with
+ * It listens to 'touchstart', 'touchmove' and 'touchend' events and generates 'tap' or 'swipe' events with
  * inherent heuristics.
  *
- * Currently, the tap algorithm begins with a touchstart, checks for touchend. Any touchmove cancels the tap event,
- * and if a touchend is captured without a touchmove after a touchstart; it's registered as a tap, and the
- * GestureHandler dispatches a tap event.
+ * Currently, the tap algorithm begins with a touchstart, checks for touchend. Any touchmove greater than 3px
+ * cancels the tap event, and if a touchend is captured without a touchmove after a touchstart;
+ * it's registered as a tap, and the GestureHandler dispatches a tap event on the touchend target.
  *
- * Swipe and other gestures are not yet supported.
+ * Swipe up, left, right and down gestures are also supported.
  *
  * Example usage:
  *
- * var handler = new tart.events.GestureHandler(elementToListen); // default is body.
- * goog.events.listen(handler, tart.events.EventType.TAP, function() {
+ * goog.events.listen(document.body, tart.events.EventType.TAP, function() {
  *     console.log('tapped!');
  * });
  *
@@ -43,124 +42,87 @@ goog.require('goog.math.Coordinate');
  * Tracks and fires gestures on touch enabled devices.
  *
  * @constructor
- * @extends {goog.events.EventTarget}
- * @param {Element=} opt_el Optional element to bind mouseover and mouseout events to. Default is document.body.
  */
-tart.events.GestureHandler = function(opt_el) {
-    goog.base(this);
-
-    this.el = opt_el || document.body;
-    goog.events.listen(this.el, [
-        goog.events.EventType.TOUCHSTART,
-        goog.events.EventType.TOUCHMOVE,
-        goog.events.EventType.TOUCHEND],
-    this);
+tart.events.GestureHandler = function() {
+    goog.events.listen(document.body, goog.events.EventType.TOUCHSTART, this.onTouchstart, false, this);
+    goog.events.listen(document.body, goog.events.EventType.TOUCHMOVE, this.onTouchmove, false, this);
+    goog.events.listen(document.body, goog.events.EventType.TOUCHEND, this.onTouchend, false, this);
 };
-goog.inherits(tart.events.GestureHandler, goog.events.EventTarget);
+goog.addSingletonGetter(tart.events.GestureHandler);
 
 
-/**
- * This handles the underlying events and dispatches a new event if applicable.
- * @param {goog.events.BrowserEvent} e The underlying browser event.
- */
-tart.events.GestureHandler.prototype.handleEvent = function(e) {
-    this.handleTap(e);
-    this.handleSwipes(e);
+
+tart.events.GestureHandler.prototype.onTouchstart = function(e) {
+    this.isInMotion = true;
+    this.canTap = true;
+    this.canSwipe = true;
+
+    var browserEvent = e.getBrowserEvent();
+    var changedTouch = browserEvent.changedTouches[0];
+
+    this.touches = [browserEvent.timeStamp, changedTouch.pageX, changedTouch.pageY];
 };
 
 
-/**
- * Handles the underlying events and dispatches a new tap event if applicable.
- * @param {goog.events.BrowserEvent} e The underlying browser event.
- */
-tart.events.GestureHandler.prototype.handleTap = function(e) {
-    if (e.type == goog.events.EventType.TOUCHSTART) {
-        if (this.preventingDefault) e.getBrowserEvent().preventDefault();
+tart.events.GestureHandler.prototype.onTouchmove = function(e) {
+    var touches = this.touches,
+        browserEvent = e.getBrowserEvent(),
+        changedTouch = browserEvent.changedTouches[0];
 
-        var startTarget = e.target;
-        var tapEndListener = goog.events.listenOnce(this.el, goog.events.EventType.TOUCHEND, function(ee) {
-            var endTarget = ee.target;
-            if (startTarget == endTarget) {
-                var a = new goog.events.BrowserEvent(e.getBrowserEvent());
-                a.type = tart.events.EventType.TAP;
-                this.dispatchEvent(a);
-            }
-            goog.events.unlistenByKey(tapMoveListener);
-        }, false, this);
+    if (Math.abs(changedTouch.pageX - touches[1]) > 3 ||
+        Math.abs(changedTouch.pageY - touches[2]) > 3)
+        this.canTap = false;
 
-        var tapMoveListener = goog.events.listenOnce(this.el, goog.events.EventType.TOUCHMOVE, function(me) {
-            goog.events.unlistenByKey(tapEndListener);
-        }, false, this);
-    }
-};
-
-
-/**
- * Handles the underlying events and dispatches a new swipe event if applicable.
- * @param {goog.events.BrowserEvent} e The underlying browser event.
- */
-tart.events.GestureHandler.prototype.handleSwipes = function(e) {
-    if (e.type == goog.events.EventType.TOUCHSTART) {
-        var touches = [];
-        var browserEvent = e.getBrowserEvent();
-        var changedTouch = browserEvent.changedTouches[0];
+    if (this.canSwipe) {
         touches.push(browserEvent.timeStamp, changedTouch.pageX, changedTouch.pageY);
 
-        var swipeMoveListener = goog.events.listen(this.el, goog.events.EventType.TOUCHMOVE, function(e) {
-            var browserEvent = e.getBrowserEvent();
-            var changedTouch = browserEvent.changedTouches[0];
-            touches.push(browserEvent.timeStamp, changedTouch.pageX, changedTouch.pageY);
-
-            // Filter the touches
-            var date = browserEvent.timeStamp;
-            touches = goog.array.filter(touches, function(touch, index, arr) {
-                var relatedTimeStamp = arr[index - (index % 3)];
-                return relatedTimeStamp > date - 250;
-            });
+        // Filter the touches
+        var date = browserEvent.timeStamp;
+        touches = goog.array.filter(touches, function(touch, index, arr) {
+            var relatedTimeStamp = arr[index - (index % 3)];
+            return relatedTimeStamp > date - 250;
+        });
 
 
-            if ((touches.length / 3) > 1) {
-                var firstTouch = new goog.math.Coordinate(touches[1], touches[2]);
-                var lastTouch = new goog.math.Coordinate(touches[touches.length - 2],
-                    touches[touches.length - 1]);
+        if ((touches.length / 3) > 1) {
+            var firstTouch = new goog.math.Coordinate(touches[1], touches[2]);
+            var lastTouch = new goog.math.Coordinate(touches[touches.length - 2],
+                touches[touches.length - 1]);
 
-                // calculate distance. must be min 60px
-                var distance = goog.math.Coordinate.distance(firstTouch, lastTouch);
-                if (distance < 60) return;
+            // calculate distance. must be min 60px
+            var distance = goog.math.Coordinate.distance(firstTouch, lastTouch);
+            if (distance < 60) return;
 
-                // calculate angle.
-                var angle = goog.math.angle(firstTouch.x, firstTouch.y, lastTouch.x, lastTouch.y);
+            // calculate angle.
+            var angle = goog.math.angle(firstTouch.x, firstTouch.y, lastTouch.x, lastTouch.y);
 
-                var eventType = tart.events.EventType.SWIPE_RIGHT;
-                if (angle > 45 && angle < 135) {
-                    eventType = tart.events.EventType.SWIPE_UP;
-                }
-                else if (angle > 135 && angle < 225) {
-                    eventType = tart.events.EventType.SWIPE_LEFT;
-                }
-                else if (angle > 225 && angle < 315) {
-                    eventType = tart.events.EventType.SWIPE_DOWN;
-                }
-                e.type = eventType;
-                this.dispatchEvent(e);
-                goog.events.unlistenByKey(swipeMoveListener);
+            var eventType = tart.events.EventType.SWIPE_RIGHT;
+            if (angle > 45 && angle < 135) {
+                eventType = tart.events.EventType.SWIPE_UP;
             }
-        }, false, this);
+            else if (angle > 135 && angle < 225) {
+                eventType = tart.events.EventType.SWIPE_LEFT;
+            }
+            else if (angle > 225 && angle < 315) {
+                eventType = tart.events.EventType.SWIPE_DOWN;
+            }
 
-        goog.events.listenOnce(this.el, goog.events.EventType.TOUCHEND, function() {
-            goog.events.unlistenByKey(swipeMoveListener);
-        }, false, this);
+            var swipe = document.createEvent("Event");
+            swipe.initEvent(eventType, true, true);
+            e.target.dispatchEvent(swipe);
+
+            this.canSwipe = false;
+        }
     }
 };
 
 
-/**
- * A setter method of preventingDefault property. If that property is true,
- * default functionality of touching event will be prevented, which can
- * be scrolling, clicking, pinch to zoom gesture etc.
- *
- * @param {boolean} val preventDefault() will be called if this is true.
- */
-tart.events.GestureHandler.prototype.setPreventDefault = function(val) {
-    this.preventingDefault = val;
+tart.events.GestureHandler.prototype.onTouchend = function(e) {
+    this.isInMotion = false;
+    if (this.canTap) {
+
+        var tap = document.createEvent("Event");
+        tap.initEvent(tart.events.EventType.TAP, true, true);
+        e.target.dispatchEvent(tap);
+    }
 };

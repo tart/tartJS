@@ -23,7 +23,7 @@ goog.require('tart.events.GestureHandler');
 tart.ui.ComponentManager = function() {
     /** @type {Object.<string, tart.ui.DlgComponent>} */
     this.components = {};
-    this.gestureHandler = new tart.events.GestureHandler();
+    this.gestureHandler = tart.events.GestureHandler.getInstance();
     this.hoverHandler = new tart.events.HoverHandler();
     this.initHandlers();
 };
@@ -86,8 +86,6 @@ tart.ui.ComponentManager.prototype.initHandlers = function() {
     goog.events.listen(window, goog.events.EventType.LOAD, function() {
         goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this);
         goog.events.listen(this.hoverHandler, [tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE], this);
-        goog.events.listen(this.gestureHandler, [tart.events.EventType.TAP, tart.events.EventType.SWIPE_LEFT,
-            tart.events.EventType.SWIPE_UP, tart.events.EventType.SWIPE_DOWN, tart.events.EventType.SWIPE_RIGHT], this);
     }, false, this);
 };
 
