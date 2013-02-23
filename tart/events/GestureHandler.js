@@ -120,6 +120,15 @@ tart.events.GestureHandler.prototype.onTouchmove = function(e) {
 tart.events.GestureHandler.prototype.onTouchend = function(e) {
     this.isInMotion = false;
     if (this.canTap) {
+        var touches = this.touches,
+            browserEvent = e.getBrowserEvent(),
+            changedTouch = browserEvent.changedTouches[0];
+
+        if (Math.abs(changedTouch.pageX - touches[1]) > 3 ||
+            Math.abs(changedTouch.pageY - touches[2]) > 3) {
+            this.canTap = false;
+            return;
+        }
 
         var tap = document.createEvent("Event");
         tap.initEvent(tart.events.EventType.TAP, true, true);
