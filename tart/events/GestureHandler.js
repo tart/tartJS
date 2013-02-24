@@ -42,11 +42,15 @@ goog.require('goog.math.Coordinate');
  * Tracks and fires gestures on touch enabled devices.
  *
  * @constructor
+ * @param {Element=} opt_el Provided, gesture handler will track gesture events on this element. The default
+ *                          value is document.body; but an optional root element is inevitable for iframe's.
  */
-tart.events.GestureHandler = function() {
-    goog.events.listen(document.body, goog.events.EventType.TOUCHSTART, this.onTouchstart, false, this);
-    goog.events.listen(document.body, goog.events.EventType.TOUCHMOVE, this.onTouchmove, false, this);
-    goog.events.listen(document.body, goog.events.EventType.TOUCHEND, this.onTouchend, false, this);
+tart.events.GestureHandler = function(opt_el) {
+    this.el = opt_el || document.body;
+
+    goog.events.listen(this.el, goog.events.EventType.TOUCHSTART, this.onTouchstart, false, this);
+    goog.events.listen(this.el, goog.events.EventType.TOUCHMOVE, this.onTouchmove, false, this);
+    goog.events.listen(this.el, goog.events.EventType.TOUCHEND, this.onTouchend, false, this);
 };
 goog.addSingletonGetter(tart.events.GestureHandler);
 
