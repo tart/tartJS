@@ -32,7 +32,9 @@ tart.components.Widget = function() {
  * Render component in its placholder
  */
 tart.components.Widget.prototype.render = function () {
-    goog.dom.getElement(this.componentId_).appendChild(this.controller.getDOM());
+	var el = goog.dom.getElement(this.componentId_);
+	if (!el) el = goog.dom.query('#' + this.componentId_, rd.current.contentDocument)[0];
+    el.appendChild(this.controller.getDOM());
 };
 
 /**

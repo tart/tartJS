@@ -33,10 +33,12 @@ goog.require('tart.dom');
  * Base class for all tuttur components.
  * @extends {goog.events.EventTarget}
  * @constructor
+ *
+ * @param {Element=} opt_base Optional base element.
  */
-tart.ui.DlgComponent = function() {
+tart.ui.DlgComponent = function(opt_base) {
     this.id = tart.getUid();
-
+    this.base = opt_base;
     tart.ui.ComponentManager.getInstance().set(this);
     this.bindModelEvents();
 };
@@ -49,7 +51,7 @@ goog.inherits(tart.ui.DlgComponent, goog.events.EventTarget);
  */
 tart.ui.DlgComponent.prototype.getElement = function() {
     var rv = this.element;
-    if (!rv) rv = this.element = goog.dom.getElement(this.id);
+    if (!rv) rv = this.element = goog.dom.query("[id='" + this.id + "']", this.base)[0];
     return rv;
 };
 

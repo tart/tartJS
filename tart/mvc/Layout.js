@@ -46,18 +46,62 @@ tart.mvc.Layout.prototype.getContent = function() {
     return this.content_;
 };
 
+var rd = {};
+rd.z = 0;
+rd.current = null;
 
 /**
  * Renders the layout.
+ * @param {Element} body
+ * @param {string=} opt_routeName
  */
-tart.mvc.Layout.prototype.render = function(body) {
+tart.mvc.Layout.prototype.render = function(body, opt_routeName) {
     if (this.resetLayout == true) {
         body.innerHTML = this.markup;
         this.resetLayout = false;
         goog.typeOf(this.onRender) == 'function' && this.onRender();
     }
-    else
-        this.getContentArea(body).innerHTML = this.getContent();
+    else {
+        // this.getContentArea(body).innerHTML = this.getContent();
+    }
+
+    if (rd[opt_routeName]) {
+        rd[opt_routeName].style.webkitTransform = 'translate3d(0,0,' + (++rd.z) + 'px)';
+        rd.current && rd[opt_routeName] != rd.current && (rd.current.style.webkitTransform = 'translate3d(200%, 200%, 0)');
+    }
+    else {
+        rd.current && rd[opt_routeName] != rd.current && (rd.current.style.webkitTransform = 'translate3d(200%,200%,0)');
+        // rd[opt_routeName] = tart.dom.createElement('<div style="height: 100%; position:absolute; top:0;left:0; height: 100%; width: 640px; overflow:hidden; webkit-transform:translate3d(0,0,0)"></div>');
+        rd[opt_routeName] = tart.dom.createElement('<iframe style="height: 100%; position:absolute; top:0;left:0; height: 100%; width: 640px; -webkit-transform:translate3d(0,0,0)"></iframe>');
+
+        this.getContentArea(body).appendChild(rd[opt_routeName]);
+
+        var contentBuf = [];
+
+        contentBuf.push('<!DOCTYPE html>');
+        contentBuf.push('<html><head>', '<link type="text/css" rel="stylesheet" media="all" href="css/style.css"><link type="text/css" rel="stylesheet" media="all" href="css/reset.css"><link type="text/css" rel="stylesheet" media="all" href="css/application.css">        <link type="text/css" rel="stylesheet" media="all" href="css/fonts.css"><link type="text/css" rel="stylesheet" media="all" href="css/tm.ui.css">        <link type="text/css" rel="stylesheet" media="all" href="css/draw.css">        <link type="text/css" rel="stylesheet" media="all" href="css/draw-sidebar.css">        <link type="text/css" rel="stylesheet" media="all" href="css/coupon.css">        <link type="text/css" rel="stylesheet" media="all" href="css/layout.css">        <link type="text/css" rel="stylesheet" media="all" href="css/betSlip.css">        <link type="text/css" rel="stylesheet" media="all" href="css/navigationBar.css">        <link type="text/css" rel="stylesheet" media="all" href="css/playerProfile.css">        <link type="text/css" rel="stylesheet" media="all" href="css/sidebar.css">        <link type="text/css" rel="stylesheet" media="all" href="css/tabBar.css">        <link type="text/css" rel="stylesheet" media="all" href="css/logistration.css">        <link type="text/css" rel="stylesheet" media="all" href="css/resetPassword.css">        <link type="text/css" rel="stylesheet" media="all" href="css/dialog.css">        <link type="text/css" rel="stylesheet" media="all" href="css/social.css">        <link type="text/css" rel="stylesheet" media="all" href="css/banking.css">        <link type="text/css" rel="stylesheet" media="all" href="css/notificationCenter.css">        <link type="text/css" rel="stylesheet" media="all" href="css/settings.css">        <link type="text/css" rel="stylesheet" media="all" href="css/nextBet.css">        <link type="text/css" rel="stylesheet" media="all" href="css/systemKeyboard.css">',
+         '</head><body>' + this.getContent() + '</body></html>');
+
+        // Cannot manipulate iframe content until it is in a document.
+        goog.dom.iframe.writeContent(rd[opt_routeName], contentBuf.join(''));
+        rd[opt_routeName].handler = new tart.events.GestureHandler(rd[opt_routeName].contentWindow.document.body);
+        goog.events.listen(rd[opt_routeName].contentWindow.document.body, [tart.events.EventType.TAP,
+            tart.events.EventType.SWIPE_LEFT,
+            tart.events.EventType.SWIPE_RIGHT], function(e) {
+            var ev = document.createEvent("UIEvents");
+            ev.initUIEvent(e.type, true, true, window, 1309);
+            ev.target = e.target;
+            ev.relatedTarget = e.target;
+            // debugger;
+            // goog.events.dispatchEvent(this.getContentArea(body), ev);
+            this.getContentArea(body).dispatchEvent(ev);
+        }, false, this);
+
+        // goog.events.listen(rd[opt_routeName].handler, [tart.events.EventType.SWIPE_LEFT, tart.events.EventType.SWIPE_RIGHT], function(e) {
+        //     tm.Registry.get('navigationBar').toggleSidebar();
+        // });
+    }
+    rd.current = rd[opt_routeName];
 };
 
 

@@ -92,7 +92,7 @@ tart.mvc.MobileRenderer.prototype.render = function(router) {
         goog.typeOf(oldViewScript.deconstructor) == 'function' && oldViewScript.deconstructor();
 
     if (!isSameView || (isSameView && action.refresh != false) || !oldViewScript)
-        layout.render(this.dom_);
+        layout.render(this.dom_, controller.name);
 
 
 
