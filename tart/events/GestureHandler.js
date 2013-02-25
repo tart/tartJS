@@ -73,8 +73,8 @@ tart.events.GestureHandler.prototype.onTouchmove = function(e) {
         browserEvent = e.getBrowserEvent(),
         changedTouch = browserEvent.changedTouches[0];
 
-    if (Math.abs(changedTouch.pageX - touches[1]) > 3 ||
-        Math.abs(changedTouch.pageY - touches[2]) > 3)
+    if (Math.abs(changedTouch.pageX - touches[1]) > 20 ||
+        Math.abs(changedTouch.pageY - touches[2]) > 20)
         this.canTap = false;
 
     if (this.canSwipe) {
@@ -128,8 +128,8 @@ tart.events.GestureHandler.prototype.onTouchend = function(e) {
             browserEvent = e.getBrowserEvent(),
             changedTouch = browserEvent.changedTouches[0];
 
-        if (Math.abs(changedTouch.pageX - touches[1]) > 3 ||
-            Math.abs(changedTouch.pageY - touches[2]) > 3) {
+        if (Math.abs(changedTouch.pageX - touches[1]) > 20 ||
+            Math.abs(changedTouch.pageY - touches[2]) > 20) {
             this.canTap = false;
             return;
         }
