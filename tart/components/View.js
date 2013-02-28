@@ -66,6 +66,8 @@ tart.components.View.prototype.dom;
 
 /**
  * Render abstract method, which all subclasses should implement
+ * @throws {Error}
+ * @return {string}
  */
 tart.components.View.prototype.render = function() {
     throw new Error('Not implemented yet');
