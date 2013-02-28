@@ -90,6 +90,7 @@ tart.mvc.Renderer.prototype.render = function(router) {
     // call respective render callback functions; if there are any. These let the developers
     // watch out for rendering events.
     goog.typeOf(action.view.onRender) == 'function' && action.view.onRender();
+    goog.typeOf(action.onRender) == 'function' && action.onRender();
     if (this.currentLayout.onViewRender)
         goog.typeOf(this.currentLayout.onViewRender) == 'function' && this.currentLayout.onViewRender.call(layout);
 

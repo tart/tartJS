@@ -82,6 +82,6 @@ tart.components.Controller.prototype.buildDOM = function() {
  *
  * @return {Element} DOM reference.
  */
-tart.components.Controller.prototype.getDOM = function() {
-    return this.view.getDOM();
+tart.components.Controller.prototype.getDOM = function(root) {
+    return this.view.getDOM(root);
 };
