@@ -70,10 +70,11 @@ tart.components.Controller = function(opt_model, opt_view) {
  */
 tart.components.Controller.prototype.buildDOM = function() {
     var dom = this.view.render();
+    // TODO : render should always be string so we should remove string check.
     if(goog.isString(dom))
         dom = /** @type {Element} */(tart.dom.createElement(dom));
-    this.view.setDOM(dom);
-    return dom;
+    this.view.setDOM(/** @type {Element} */(dom));
+    return /** @type {Element} */ (dom);
 };
 
 
