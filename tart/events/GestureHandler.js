@@ -55,6 +55,13 @@ tart.events.GestureHandler = function(opt_el) {
 goog.addSingletonGetter(tart.events.GestureHandler);
 
 
+/**
+ * iOS 6.0(+?) requires the target element to be manually derived.
+ * @type {Boolean}
+ */
+tart.events.GestureHandler.prototype.deviceIsIOSWithBadTarget = navigator.userAgent.match(/iPhone/i) &&
+    (/OS ([6-9]|\d{2})_\d/).test(navigator.userAgent);
+
 
 tart.events.GestureHandler.prototype.onTouchstart = function(e) {
     this.isInMotion = true;
@@ -136,6 +143,13 @@ tart.events.GestureHandler.prototype.onTouchend = function(e) {
 
         var tap = document.createEvent("Event");
         tap.initEvent(tart.events.EventType.TAP, true, true);
-        e.target.dispatchEvent(tap);
+
+        // Target element fix for iOS6+
+        var targetElement = e.target;
+        if (this.deviceIsIOSWithBadTarget)
+            targetElement = document.elementFromPoint(changedTouch.pageX - window.pageXOffset,
+                changedTouch.pageY - window.pageYOffset);
+
+        targetElement.dispatchEvent(tap);
     }
 };
