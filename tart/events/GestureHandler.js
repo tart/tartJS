@@ -57,7 +57,7 @@ goog.addSingletonGetter(tart.events.GestureHandler);
 
 /**
  * iOS 6.0(+?) requires the target element to be manually derived.
- * @type {Boolean}
+ * @type {?boolean}
  */
 tart.events.GestureHandler.prototype.deviceIsIOSWithBadTarget = navigator.userAgent.match(/iPhone/i) &&
     (/OS ([6-9]|\d{2})_\d/).test(navigator.userAgent);
