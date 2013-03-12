@@ -29,6 +29,7 @@
 
 
 goog.provide('tart.storage.Storage');
+goog.require('goog.json');
 
 
 
@@ -47,7 +48,15 @@ tart.storage.Storage = function() {
 * @param {*} value Value of the pair to be stored. The value will be stored serialized.
 */
 tart.storage.Storage.prototype.set = function(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    var val;
+    try {
+        val = JSON.stringify(value);
+    }
+    catch (e) {
+        val = goog.json.serialize(value);
+    }
+
+    localStorage.setItem(key, val);
 };
 
 
@@ -57,9 +66,17 @@ tart.storage.Storage.prototype.set = function(key, value) {
 * @return {*} Value of the item.
 */
 tart.storage.Storage.prototype.get = function(key) {
-    var val = localStorage.getItem(key);
-    if (val === null) return null;
-    return JSON.parse(val);
+    var rv = null,
+        val = localStorage.getItem(key);
+
+    try {
+        rv = JSON.parse(val);
+    }
+    catch (e) {
+        rv = goog.json.parse(val);
+    }
+
+    return rv;
 };
 
 
