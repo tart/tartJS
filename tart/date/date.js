@@ -107,12 +107,22 @@ tart.date.randomTimeInInterval = function(interval) {
 /**
  * Get day from given date.
  *
- * Subtracts the modulo of a full day time from given dates timestamp.
- *
  * @param {Date} date Date.
  * @return {Date} Day.
  */
 tart.date.getDay = function(date) {
     var timestamp = date.getTime();
-    return new Date(timestamp - (timestamp % (1000 * 60 * 60 * 24)));
+    return new Date(tart.date.getDayTimestamp(timestamp));
+};
+
+
+/**
+ * Get day timestamp from given timestamp.
+ * Subtracts the modulo of a full day time from given timestamp.
+ *
+ * @param {number} timestamp Timestamp.
+ * @return {number} Day.
+ */
+tart.date.getDayTimestamp = function(timestamp) {
+    return timestamp - (timestamp % (1000 * 60 * 60 * 24));
 };
