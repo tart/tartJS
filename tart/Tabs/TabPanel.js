@@ -26,6 +26,7 @@
 */
 
 goog.provide('tart.TabPanel');
+goog.require('goog.pubsub.PubSub');
 
 
 
@@ -34,13 +35,16 @@ goog.provide('tart.TabPanel');
  * Options object should include a title as tab's title and html as panel's default html
  * If Options object is ommited, an empty string will appended as tab title and panel html
  * @constructor
+ * @extends {goog.pubsub.PubSub}
  * @param {Object=} options Customized options for panel instance.
  */
 tart.TabPanel = function(options) {
+    goog.base(this);
     this.initOptions(options);
     this.$tab = $(this.templates_tab());
     this.$panel = $(this.templates_panel());
 };
+goog.inherits(tart.TabPanel, goog.pubsub.PubSub);
 
 
 /**
