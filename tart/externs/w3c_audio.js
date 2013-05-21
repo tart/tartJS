@@ -141,7 +141,7 @@ AudioContext.prototype.createWaveShaper = function() {};
 var AudioNode = function() {};
 
 /**
- * @param {AudioNode} destination
+ * @param {AudioNode|AudioParam} destination
  * @param {number=} output
  * @param {number=} input
  */
@@ -723,3 +723,21 @@ Audio.prototype.mozWriteAudio = function(buffer) {};
 Audio.prototype.mozCurrentSampleOffset = function() {};
 
 navigator.webkitGetUserMedia = function(opt_options, callback) {};
+
+/**
+ * @constructor
+ * @extends {AudioNode}
+ */
+var OscillatorNode = function() {};
+
+/**
+ * @type {AudioParam}
+ */
+OscillatorNode.prototype.frequency;
+
+OscillatorNode.prototype.start = function(a) {};
+
+/**
+ * @return {OscillatorNode}
+ */
+AudioContext.prototype.createOscillator = function() {};
