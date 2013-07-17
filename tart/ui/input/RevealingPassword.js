@@ -68,6 +68,7 @@ tart.ui.input.RevealingPassword.prototype.toggleDisplay = function() {
         passwordArea.type = 'text';
     else
         passwordArea.type = 'password';
+    passwordArea.focus();
 };
 
 
