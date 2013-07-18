@@ -126,9 +126,9 @@ tart.ui.TooltipComponentModel.Direction = {
     TOP: 'top',
     BOTTOM: 'bottom',
     LEFT: 'left',
-    RIGHT: 'right'
+    RIGHT: 'right',
+    TOP_LEFT: 'topLeft'
 };
-
 
 tart.ui.TooltipComponentModel.prototype.direction = tart.ui.TooltipComponentModel.Direction.TOP;
 
