@@ -17,11 +17,11 @@
  */
 
 goog.provide('tart.ui.TooltipComponent');
-goog.require('goog.style');
 goog.require('goog.dom');
 goog.require('goog.dom.query');
-goog.require('tart.ui.TooltipComponentModel');
+goog.require('goog.style');
 goog.require('tart.ui.Component');
+goog.require('tart.ui.TooltipComponentModel');
 
 
 
@@ -84,14 +84,14 @@ tart.ui.TooltipComponent.prototype.onClick = function(e) {
 tart.ui.TooltipComponent.prototype.onHover = function(e) {
     if (e.type == goog.events.EventType.MOUSEOUT &&
         ((e.relatedTarget && goog.dom.contains(this.element, e.relatedTarget)) ||
-            e.relatedTarget == this.element) || e.relatedTarget == null || goog.dom.contains(this.refElement, e.relatedTarget))
+        e.relatedTarget == this.element) || e.relatedTarget == null || goog.dom.contains(this.refElement, e.relatedTarget))
         return;
     this.model.handleEvent(e.type);
 
 };
 
 tart.ui.TooltipComponent.prototype.onBoxMouseout = function(e) {
-    if(goog.dom.contains(this.element, e.relatedTarget)) {
+    if (goog.dom.contains(this.element, e.relatedTarget)) {
         return false;
     }
     if (e.relatedTarget != this.refElement)
@@ -109,7 +109,7 @@ tart.ui.TooltipComponent.prototype.bindModelEvents = function() {
 
 
 tart.ui.TooltipComponent.prototype.onWait = function() {
-    if(this.element.tooltip != this && this.element.tooltip) {
+    if (this.element.tooltip != this && this.element.tooltip) {
         this.element.tooltip.reset();
     }
     this.element.tooltip = this;
@@ -140,6 +140,7 @@ tart.ui.TooltipComponent.prototype.onInit = function() {
     goog.events.unlistenByKey(this.windowScrollListener);
 };
 
+
 /**
  * This function returns the base of the tooltip as a string.
  * @return {string}
@@ -153,6 +154,7 @@ tart.ui.TooltipComponent.prototype.templates_base = function() {
         '</div>';
 };
 
+
 /**
  * This function returns the content area of the tooltip as a string.
  * @return {string}
@@ -161,12 +163,13 @@ tart.ui.TooltipComponent.prototype.templates_loading = function() {
     return '<div class="loadContainer"><div class="loading"></div></div>';
 };
 
+
 /**
  * This function takes a string or an element to append into the content area of the tooltip.
  * @param content {string | Element}
  */
 tart.ui.TooltipComponent.prototype.setContent = function(content) {
-    if(typeof content == 'string') {
+    if (typeof content == 'string') {
         this.contentArea.innerHTML = content;
     }
     else {
@@ -207,7 +210,8 @@ tart.ui.TooltipComponent.prototype.position = function() {
         this.model.tipOffset = refElementSize.width / 2;
     }
 
-    if((refElementOffset.x < winScrollLeft) && (refElementOffset.x + refElementSize.width - winScrollLeft < 2 * this.model.tipOffset)) {
+    if ((refElementOffset.x < winScrollLeft) &&
+        (refElementOffset.x + refElementSize.width - winScrollLeft < 2 * this.model.tipOffset)) {
         topDown = false;
         this.model.options.direction = tart.ui.TooltipComponentModel.Direction.RIGHT;
         horizontalTipCapShift = -8;
@@ -216,22 +220,26 @@ tart.ui.TooltipComponent.prototype.position = function() {
     if (myWindowSize.width + winScrollLeft - refElementOffset.x < 2 * this.model.tipOffset) {
         topDown = false;
         this.model.options.direction = tart.ui.TooltipComponentModel.Direction.LEFT;
-        horizontalTipCapShift = myWrapperSize.width ;
+        horizontalTipCapShift = myWrapperSize.width;
     }
 
     if (topDown) {
-        if(refElementOffset.x < winScrollLeft) {
+        if (refElementOffset.x < winScrollLeft) {
             horizontalShift = winScrollLeft - refElementOffset.x;
         }
 
         if (horizontalShift == 0) {
-            if (myWrapperSize.width  + (refElementOffset.x - winScrollLeft) > myWindowSize.width) {
-                horizontalShift = horizontalShift + (myWindowSize.width - myWrapperSize.width -  refElementOffset.x + winScrollLeft);
+            if (myWrapperSize.width + (refElementOffset.x - winScrollLeft) > myWindowSize.width &&
+                this.model.options.direction != tart.ui.TooltipComponentModel.Direction.TOP_LEFT) {
+                horizontalShift = horizontalShift +
+                    (myWindowSize.width - myWrapperSize.width - refElementOffset.x + winScrollLeft);
             }
         }
 
         if (refElementOffset.y - winScrollTop >= myElementSize.height + this.model.tipOffset + this.model.boxOffset) {
-            this.model.options.direction = tart.ui.TooltipComponentModel.Direction.TOP;
+            if (this.model.options.direction != tart.ui.TooltipComponentModel.Direction.TOP_LEFT) {
+                this.model.options.direction = tart.ui.TooltipComponentModel.Direction.TOP;
+            }
             verticalTipCapShift = myWrapperSize.height;
         }
         else {
@@ -239,31 +247,39 @@ tart.ui.TooltipComponent.prototype.position = function() {
             verticalTipCapShift = -16;
         }
 
-        horizontalTipCapShift = (horizontalShift >=0) ? this.model.tipOffset : (-horizontalShift >= myWrapperSize.width - this.model.tipOffset ) ? -horizontalShift : this.model.tipOffset - horizontalShift;
+        if (this.model.options.direction == tart.ui.TooltipComponentModel.Direction.TOP_LEFT) {
+            horizontalTipCapShift = myWrapperSize.width - 36;
+        } else {
+            horizontalTipCapShift = (horizontalShift >= 0) ? this.model.tipOffset :
+                (-horizontalShift >= myWrapperSize.width - this.model.tipOffset) ?
+                -horizontalShift : this.model.tipOffset - horizontalShift;
+        }
+
         verticalShift = 0;
     }
     else {
-        if(myWindowSize.height + winScrollTop - refElementOffset.y - myElementSize.height < 0) {
+        if (myWindowSize.height + winScrollTop - refElementOffset.y - myElementSize.height < 0) {
             verticalShift = myWindowSize.height + winScrollTop - refElementOffset.y - myElementSize.height;
         }
-        if(refElementOffset.y <= winScrollTop) {
+        if (refElementOffset.y <= winScrollTop) {
             verticalShift = winScrollTop - refElementOffset.y;
         }
 
-        if(verticalShift >= 0) {
+        if (verticalShift >= 0) {
             verticalTipCapShift = this.model.tipOffset;
         }
         else {
-            verticalTipCapShift = (this.model.tipOffset - verticalShift >= myElementSize.height - this.model.tipOffset) ? myElementSize.height - this.model.tipOffset : this.model.tipOffset - verticalShift;
+            verticalTipCapShift = (this.model.tipOffset - verticalShift >= myElementSize.height - this.model.tipOffset) ?
+                myElementSize.height - this.model.tipOffset : this.model.tipOffset - verticalShift;
         }
 
-        if(this.model.tipOffset >= myElementSize.height / 2) {
+        if (this.model.tipOffset >= myElementSize.height / 2) {
             verticalTipCapShift = myElementSize.height / 2 - 1;
         }
     }
 
     this.wrapper.appendChild(this.cap);
-    goog.dom.classes.remove(this.element, 'right', 'left', 'top', 'bottom');
+    goog.dom.classes.remove(this.element, 'right', 'left', 'top', 'bottom', 'topLeft');
     goog.dom.classes.add(this.element, this.model.options.direction);
     this.cap.style.top = verticalTipCapShift + 'px';
     this.cap.style.left = horizontalTipCapShift + 'px';
@@ -280,6 +296,9 @@ tart.ui.TooltipComponent.prototype.position = function() {
             break;
         case tart.ui.TooltipComponentModel.Direction.TOP:
             handlerFn = this.positionTop;
+            break;
+        case tart.ui.TooltipComponentModel.Direction.TOP_LEFT:
+            handlerFn = this.positionTopLeft;
             break;
         default:
             handlerFn = this.positionTop;
@@ -302,10 +321,11 @@ tart.ui.TooltipComponent.prototype.position = function() {
  */
 tart.ui.TooltipComponent.prototype.positionLeft = function(refElementOffset, refElementSize, myElementSize) {
     var y = refElementOffset.y - 16;
-    var x = refElementOffset.x - (myElementSize.width );
+    var x = refElementOffset.x - (myElementSize.width);
 
     return new goog.math.Coordinate(x, y);
 };
+
 
 /**
  * @protected
@@ -316,11 +336,28 @@ tart.ui.TooltipComponent.prototype.positionLeft = function(refElementOffset, ref
  * @return {goog.math.Coordinate}
  */
 tart.ui.TooltipComponent.prototype.positionTop = function(refElementOffset, refElementSize, myElementSize) {
-    var y = refElementOffset.y - (myElementSize.height );
+    var y = refElementOffset.y - (myElementSize.height);
     var x = refElementOffset.x - 16;
 
     return new goog.math.Coordinate(x, y);
 };
+
+
+/**
+ * @protected
+ *
+ * @param refElementOffset {goog.math.Coordinate}
+ * @param refElementSize {goog.math.Size}
+ * @param myElementSize {goog.math.Size}
+ * @return {goog.math.Coordinate}
+ */
+tart.ui.TooltipComponent.prototype.positionTopLeft = function(refElementOffset, refElementSize, myElementSize) {
+    var y = refElementOffset.y - (myElementSize.height);
+    var x = refElementOffset.x - (myElementSize.width) + 80;
+
+    return new goog.math.Coordinate(x, y);
+};
+
 
 /**
  * @protected
@@ -336,6 +373,7 @@ tart.ui.TooltipComponent.prototype.positionBottom = function(refElementOffset, r
 
     return new goog.math.Coordinate(x, y);
 };
+
 
 /**
  * @protected
