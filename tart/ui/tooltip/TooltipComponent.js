@@ -55,6 +55,14 @@ tart.ui.TooltipComponent.prototype.id = 'tartTooltip';
 tart.ui.TooltipComponent.prototype.cssClass = 'tartTooltip';
 
 
+/** @param {Element} refElement Reference element. */
+tart.ui.TooltipComponent.prototype.setRefElement = function(refElement) {
+    this.unbindDomEvents();
+    this.refElement = refElement;
+    this.bindDomEvents();
+};
+
+
 /** @override */
 tart.ui.TooltipComponent.prototype.bindDomEvents = function() {
     switch (this.model.options.type) {
@@ -96,6 +104,19 @@ tart.ui.TooltipComponent.prototype.onBoxMouseout = function(e) {
     }
     if (e.relatedTarget != this.refElement)
         this.model.handleEvent(e.type);
+};
+
+
+/** Unbind DOM event listeners of reference element. */
+tart.ui.TooltipComponent.prototype.unbindDomEvents = function() {
+    var clickListeners = goog.events.getListeners(this.refElement, goog.events.EventType.CLICK, false),
+        mouseOverListeners = goog.events.getListeners(this.refElement, goog.events.EventType.MOUSEOVER, false),
+        mouseOutListeners = goog.events.getListeners(this.refElement, goog.events.EventType.MOUSEOUT, false),
+        listeners = goog.array.concat(clickListeners, mouseOverListeners, mouseOutListeners);
+
+    goog.array.forEach(listeners, function(listener) {
+        goog.events.unlistenByKey(listener);
+    });
 };
 
 
