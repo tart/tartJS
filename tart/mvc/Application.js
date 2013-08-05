@@ -29,6 +29,7 @@ goog.require('tart.mvc.Renderer');
 goog.require('tart.mvc.uri.Route');
 goog.require('tart.mvc.uri.Router');
 goog.provide('tart.mvc.Application');
+goog.require('tart.dom');
 
 
 
