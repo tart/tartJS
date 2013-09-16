@@ -109,13 +109,13 @@ tart.events.GestureHandler.prototype.onTouchmove = function(e) {
 
             var eventType = tart.events.EventType.SWIPE_RIGHT;
             if (angle > 45 && angle < 135) {
-                eventType = tart.events.EventType.SWIPE_UP;
+                eventType = tart.events.EventType.SWIPE_DOWN;
             }
             else if (angle > 135 && angle < 225) {
                 eventType = tart.events.EventType.SWIPE_LEFT;
             }
             else if (angle > 225 && angle < 315) {
-                eventType = tart.events.EventType.SWIPE_DOWN;
+                eventType = tart.events.EventType.SWIPE_UP;
             }
 
             var swipe = document.createEvent("Event");
