@@ -25,7 +25,9 @@ tart.ui.ComponentManager = function() {
     this.components = {};
     this.gestureHandler = tart.events.GestureHandler.getInstance();
     this.hoverHandler = new tart.events.HoverHandler();
-    this.initHandlers();
+
+    goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this);
+    goog.events.listen(this.hoverHandler, [tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE], this);
 };
 goog.addSingletonGetter(tart.ui.ComponentManager);
 
@@ -77,17 +79,6 @@ tart.ui.ComponentManager.eventTypes = [
     goog.events.EventType.TOUCHMOVE,
     goog.events.EventType.TOUCHEND
 ];
-
-
-/**
- * Listens load event to start listening body for handleEvent
- */
-tart.ui.ComponentManager.prototype.initHandlers = function() {
-    goog.events.listen(window, goog.events.EventType.LOAD, function() {
-        goog.events.listen(document.body, tart.ui.ComponentManager.eventTypes, this);
-        goog.events.listen(this.hoverHandler, [tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE], this);
-    }, false, this);
-};
 
 
 /**
