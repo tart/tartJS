@@ -95,14 +95,6 @@ tart.ui.ComponentManager.prototype.initHandlers = function() {
  * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
  */
 tart.ui.ComponentManager.prototype.handleEvent = function (e) {
-    // var es = [tart.events.EventType.TAP, tart.events.EventType.SWIPE, tart.events.EventType.MOUSEENTER, tart.events.EventType.MOUSELEAVE];
-    // if (goog.array.contains(es, e.type)) {
-    //     var el = goog.dom.getElement('content');
-    //     var el2 = goog.dom.query('.view.home.index');
-    //     if (el2[0]) el.innerHTML = '';
-
-    //     el.innerHTML += e.type + ' on #' + e.target.id + '.' + e.target.className + '<br/>';
-    // }
     var cmp = this.getParentCmp(e.target),
         handlers = cmp && cmp.events && cmp.events[e.type];
 
