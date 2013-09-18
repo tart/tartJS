@@ -52,6 +52,10 @@ tart.mvc.MobileRenderer.prototype.render = function(router) {
     if (oldAction)
         goog.typeOf(oldAction.deconstructor) == 'function' && oldAction.deconstructor();
 
+    if (this.currentLayout && this.currentLayout.beforeViewRender)
+        goog.typeOf(this.currentLayout.beforeViewRender) == 'function' &&
+        this.currentLayout.beforeViewRender.call(layout);
+
     // execute the action
     var actionResult = router.getAction().call(action);
 
