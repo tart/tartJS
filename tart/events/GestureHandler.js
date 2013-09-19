@@ -86,6 +86,10 @@ tart.events.GestureHandler.prototype.onTouchmove = function(e) {
 
     if (this.canSwipe) {
         touches.push(browserEvent.timeStamp, changedTouch.pageX, changedTouch.pageY);
+        if (+new Date() > touches[0] + 100) {
+            this.canSwipe = false;
+            return;
+        }
 
         // Filter the touches
         var date = browserEvent.timeStamp;
