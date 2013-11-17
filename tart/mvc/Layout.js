@@ -16,6 +16,7 @@
  * @fileoverview The instances of this class will hold the root HTML markups for the MVC application.
  */
 goog.provide('tart.mvc.Layout');
+goog.require('goog.dom.query');
 goog.require('tart.mvc.View');
 
 

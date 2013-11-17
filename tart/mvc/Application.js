@@ -20,6 +20,7 @@
 goog.require('goog.History');
 goog.require('goog.debug.ErrorHandler');
 goog.require('goog.events');
+goog.require('tart.dom');
 goog.require('tart.mvc.Action');
 goog.require('tart.mvc.Controller');
 goog.require('tart.mvc.IApplication');
