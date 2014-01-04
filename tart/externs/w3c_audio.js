@@ -878,6 +878,7 @@ var MediaStream = function() {};
 
 navigator.webkitGetUserMedia = function(opt_options, callback) {};
 navigator.mozGetUserMedia = function(opt_options, callback) {};
+navigator.getUserMedia = function(opt_options, callback, errCallback) {};
 
 /**
  *
