@@ -196,7 +196,7 @@ OfflineAudioCompletionEvent.prototype.renderedBuffer;
 var AudioNode = function() {};
 
 /**
- * @param {AudioNode} destination
+ * @param {AudioNode|AudioParam} destination
  * @param {number=} output
  * @param {number=} input
  */
