@@ -29,15 +29,19 @@ tart.components.Widget = function() {
 };
 
 /**
- * Render component in its placholder
+ * Renders the component in a given element or in its placeholder that should already be in the DOM.
+ *
+ * @param {HTMLElement=} rootEl If provided, the widget will render into this rootEl.
+ *                              Otherwise, it will look for its placeholder in DOM.
  */
 tart.components.Widget.prototype.render = function (rootEl) {
-    goog.dom.getElement(rootEl || this.componentId_).appendChild(this.controller.getDOM());
+    rootEl = rootEl || goog.dom.getElement(this.componentId_);
+    rootEl.appendChild(this.controller.getDOM());
 };
 
 /**
  * Get placeholder template
- * @return {string} placheolder markup.
+ * @return {string} placeholder markup.
  */
 tart.components.Widget.prototype.getPlaceholder = function () {
     return this.templates_placeholder();
@@ -45,7 +49,7 @@ tart.components.Widget.prototype.getPlaceholder = function () {
 
 /**
  * Component's placeholder template
- * @return {string} placheolder markup.
+ * @return {string} placeholder markup.
  */
 tart.components.Widget.prototype.templates_placeholder = function () {
     return '<div class="widgetPlaceholder" id="' + this.componentId_ + '"></div>';
