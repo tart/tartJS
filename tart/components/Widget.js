@@ -31,8 +31,8 @@ tart.components.Widget = function() {
 /**
  * Render component in its placholder
  */
-tart.components.Widget.prototype.render = function () {
-    goog.dom.getElement(this.componentId_).appendChild(this.controller.getDOM());
+tart.components.Widget.prototype.render = function (rootEl) {
+    goog.dom.getElement(rootEl || this.componentId_).appendChild(this.controller.getDOM());
 };
 
 /**
