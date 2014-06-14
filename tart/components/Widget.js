@@ -31,7 +31,7 @@ tart.components.Widget = function() {
 /**
  * Renders the component in a given element or in its placeholder that should already be in the DOM.
  *
- * @param {HTMLElement=} rootEl If provided, the widget will render into this rootEl.
+ * @param {Element=} rootEl If provided, the widget will render into this rootEl.
  *                              Otherwise, it will look for its placeholder in DOM.
  */
 tart.components.Widget.prototype.render = function (rootEl) {
