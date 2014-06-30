@@ -19,6 +19,8 @@
 goog.require('tart');
 goog.provide('tart.components.Widget');
 
+
+
 /**
  * Base widget
  * @constructor
