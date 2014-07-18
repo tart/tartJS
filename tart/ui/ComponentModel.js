@@ -30,7 +30,7 @@ goog.require('goog.events.EventTarget');
  * @extends {goog.events.EventTarget}
  */
 tart.ui.ComponentModel = function() {
-
+    goog.base(this);
 };
 goog.inherits(tart.ui.ComponentModel, goog.events.EventTarget);
 
