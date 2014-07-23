@@ -62,7 +62,7 @@ tart.Validation.is.truthy = function(value) {
  * @return {boolean} true if text contains any char or number.
  */
 tart.Validation.is.notOnlySpace = function(text) {
-    var result = $.trim(text).length > 0;
+    var result = text.replace(/^\s+|\s+$/g, '').length > 0;
     return result;
 };
 
