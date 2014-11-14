@@ -87,17 +87,17 @@ tart.date.randomTimeInInterval = function(interval) {
      *
      * @param {!number} milliseconds Milliseconds that will be formatted.
      * @param {!string} pattern Format pattern.
-     * @param {goog.i18n.TimeZone=} timeZone Timezone that will be used when formatting.
+     * @param {goog.i18n.TimeZone=} opt_timeZone Timezone that will be used when formatting.
      * @return {string} Formatted date.
      */
-    tart.date.formatMilliseconds = function(milliseconds, pattern, timeZone) {
+    tart.date.formatMilliseconds = function(milliseconds, pattern, opt_timeZone) {
         date.setTime(milliseconds);
         var formatter = formatterCache[pattern];
         if (!formatter) formatter = formatterCache[pattern] = new goog.i18n.DateTimeFormat(pattern);
 
-        var cacheKey = milliseconds + pattern + timeZone.getTimeZoneId();
+        var cacheKey = milliseconds + pattern + (opt_timeZone ? opt_timeZone.getTimeZoneId() : '');
         var rv = rvCache[cacheKey];
-        if (!rv) rv = rvCache[cacheKey] = formatter.format(date, timeZone);
+        if (!rv) rv = rvCache[cacheKey] = formatter.format(date, opt_timeZone);
 
         return rv;
     };
