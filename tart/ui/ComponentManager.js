@@ -33,23 +33,35 @@ goog.addSingletonGetter(tart.ui.ComponentManager);
 
 
 /**
- * Returns parent component (if available) of a given DOM node.
+ * Returns parent components (if available) of a given DOM node.
  *
- * @param {Node} child Refers DOM node that will be used for finding parent component.
- * @return {tart.ui.DlgComponent} Parent node.
+ * @private
+ *
+ * @param {Node} child DOM node that will be used for finding parent components.
+ * @return {Array.<tart.ui.DlgComponent>} Parent components.
  */
-tart.ui.ComponentManager.prototype.getParentCmp = function(child) {
-    var node = child, cmp;
+tart.ui.ComponentManager.prototype.getParentComponents_ = function(child) {
+    var node = child, cmps = [], cmp, ids;
+
+    if (ids = node.getAttribute && node.getAttribute('data-cmp')) {
+        ids.split(',').forEach(function(id) {
+            if (id) cmps.push(this.components[id]);
+        }, this);
+
+        return cmps;
+    }
+
+    ids = [];
 
     do {
-        if (cmp = (this.components[node.getAttribute && node.getAttribute('data-cmp')])) {}
-        else if (cmp = this.components[node.id])
-            child.setAttribute('data-cmp', node.id);
-
-        if (cmp) break;
+        if (cmp = this.components[node.id]) {
+            cmps.push(cmp);
+            ids.push(node.id);
+        }
     } while (node = node.parentNode);
 
-    return cmp;
+    child.setAttribute('data-cmp', ids.join(','));
+    return cmps;
 };
 
 
@@ -82,29 +94,59 @@ tart.ui.ComponentManager.eventTypes = [
 
 
 /**
- *
- * @param {goog.events.BrowserEvent} e Browser Events that was binded to component, will handle.
+ * @param {goog.events.BrowserEvent} e Browser event to be executed.
  */
 tart.ui.ComponentManager.prototype.handleEvent = function (e) {
-    var cmp = this.getParentCmp(e.target),
-        handlers = cmp && cmp.events && cmp.events[e.type];
+    var cmps = this.getParentComponents_(e.target),
+        broken = false;
 
-    if (handlers) {
-        var selectors = goog.object.getKeys(handlers);
+    do {
+        if (broken) break;
 
-        // call handlers of event's target and its ancestors
-        do {
-            if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
-                if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget) &&
-                    this.callHandler(cmp, e, handlers, selectors) === false) break;
+        if (e.type == tart.events.EventType.MOUSEENTER || e.type == tart.events.EventType.MOUSELEAVE) {
+            if (e.relatedTarget && !goog.dom.contains(e.target, e.relatedTarget)) {
+                broken = this.callHandlers_(cmps, e);
             }
-            else if (this.callHandler(cmp, e, handlers, selectors) === false) break;
-        } while ((e.target = e.target.parentNode) && e.target != cmp.getElement());
-    }
+        }
+        else {
+            broken = this.callHandlers_(cmps, e);
+        }
+    } while (e.target = e.target.parentNode);
 };
 
 
 /**
+ * Given a list of components, checks whether any component would respond to the given event and if so, executes the
+ * event handler defined in the component.
+ *
+ * @private
+ *
+ * @param {Array.<tart.ui.DlgComponent>} cmps Array of components to look for handlers about the event's target.
+ * @param {goog.events.BrowserEvent} e Browser event that will be executed for the target.
+ */
+tart.ui.ComponentManager.prototype.callHandlers_ = function(cmps, e) {
+    var broken = false;
+
+    for (var i = 0; i < cmps.length; i++) {
+        var cmp = cmps[i];
+        var handlers = cmp && cmp.events && cmp.events[e.type];
+
+        if (!handlers) continue;
+
+        var selectors = goog.object.getKeys(handlers);
+
+        if (this.callHandler_(cmp, e, handlers, selectors) === false) {
+            broken = true;
+            break;
+        }
+    }
+
+    return broken;
+};
+
+
+/**
+ * @private
  *
  * @param cmp
  * @param e
@@ -112,7 +154,7 @@ tart.ui.ComponentManager.prototype.handleEvent = function (e) {
  * @param selectors
  * @return {boolean}
  */
-tart.ui.ComponentManager.prototype.callHandler = function(cmp, e, handlers, selectors){
+tart.ui.ComponentManager.prototype.callHandler_ = function(cmp, e, handlers, selectors){
     var rv = true;
     goog.array.forEach(selectors, function(selector) {
         // event's target equals to handler's selector
