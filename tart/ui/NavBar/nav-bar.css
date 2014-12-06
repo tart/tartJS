@@ -1,0 +1,45 @@
+nav-bar, back-button, logo, share {
+    display: block;
+    position: absolute;
+}
+
+nav-bar {
+    height: 90px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.8);
+    -webkit-transform: translate3d(0,0,99999px)
+}
+
+logo {
+    left: 50%;
+    margin-left: -39px;
+    height: 100px;
+    font-size: 78px;
+    padding-top: 3px;
+    display: block;
+    position: absolute;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.14);
+}
+
+menu-button {
+    right: 0px;
+    height: 90px;
+    font-size: 50px;
+    padding-top: 5px;
+    display: block;
+    position: absolute;
+    text-shadow: 0 0 5px rgba(0,0,0,.14);
+    width:100px;
+}
+
+back-button {
+    height: 90px;
+    width: 110px;
+    font-size: 36px;
+    padding: 3px 36px;
+    text-align: left;
+    display: none;
+}
