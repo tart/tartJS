@@ -35,12 +35,11 @@ goog.addSingletonGetter(tart.ui.ComponentManager);
 /**
  * Returns parent components (if available) of a given DOM node.
  *
- * @private
  *
  * @param {Node} child DOM node that will be used for finding parent components.
  * @return {Array.<tart.ui.DlgComponent>} Parent components.
  */
-tart.ui.ComponentManager.prototype.getParentComponents_ = function(child) {
+tart.ui.ComponentManager.prototype.getParentComponents = function(child) {
     var node = child, cmps = [], cmp, ids;
 
     if (ids = node.getAttribute && node.getAttribute('data-cmp')) {
@@ -97,7 +96,7 @@ tart.ui.ComponentManager.eventTypes = [
  * @param {goog.events.BrowserEvent} e Browser event to be executed.
  */
 tart.ui.ComponentManager.prototype.handleEvent = function (e) {
-    var cmps = this.getParentComponents_(e.target),
+    var cmps = this.getParentComponents(e.target),
         broken = false;
 
     do {
