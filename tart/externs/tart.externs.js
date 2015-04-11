@@ -25,7 +25,4 @@ console.trace = function() {};
 /** @param {...} var_args */
 console.dir = function(var_args) {};
 
-var JSON = {};
-JSON.stringify = function(object) {};
-JSON.parse = function(string) {};
 var localStorage = {};

@@ -242,7 +242,7 @@ tart.mvc.uri.Router.prototype.resolve_ = function(request) {
     var response, route, responseValue, responseArray, that = this;
 
     // Find a matching route in our routes list
-    route = goog.array.find(this.routes_, function(/** @type {tart.mvc.uri.Route} */ route) {
+    route = goog.array.find(this.routes_, function(/** tart.mvc.uri.Route */ route) {
         if (response = request.path.match(route.format)) { // response holds the parameters if the format matches
             var fragments = [];
 

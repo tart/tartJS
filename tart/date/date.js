@@ -77,7 +77,7 @@ tart.date.randomTimeInInterval = function(interval) {
     var date = new goog.date.DateTime();
     var formatterCache = {};
     var rvCache = {};
-    /*
+    /**
      * Formats milliseconds by a given pattern.
      *
      * Usage: tart.date.formatMilliseconds(1320676229977, 'd MMMM, EEEE') returns "7 Kasım, Pazartesi".
