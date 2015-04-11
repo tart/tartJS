@@ -82,7 +82,7 @@ tart.xhr = function(options, opt_callback, opt_context) {
             data = e.target.response;
         }
 
-        opt_callback && opt_callback.call(opt_context || goog.global, err, data, req.status);
+        opt_callback && opt_callback.call(opt_context || goog.global, err, /** @type {Object} */(data), req.status);
     };
     req.withCredentials = true;
     req.send(JSON.stringify(opts.data));

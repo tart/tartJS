@@ -6,4 +6,4 @@
 	url = https://github.com/pivotal/jasmine.git
 [submodule "third_party/goog"]
 	path = third_party/goog
-	url = git://github.com/tart/Google-Closure-Library.git
+	url = https://github.com/tart/closure-library.git

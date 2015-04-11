@@ -18,7 +18,6 @@
 
 goog.provide('tart.ui.TooltipComponent');
 goog.require('goog.dom');
-goog.require('goog.dom.query');
 goog.require('goog.style');
 goog.require('tart.ui.Component');
 goog.require('tart.ui.TooltipComponentModel');
@@ -300,8 +299,8 @@ tart.ui.TooltipComponent.prototype.position = function() {
     }
 
     this.wrapper.appendChild(this.cap);
-    goog.dom.classes.remove(this.element, 'right', 'left', 'top', 'bottom', 'topLeft');
-    goog.dom.classes.add(this.element, this.model.options.direction);
+    goog.dom.classlist.remove(this.element, 'right', 'left', 'top', 'bottom', 'topLeft');
+    goog.dom.classlist.add(this.element, this.model.options.direction);
     this.cap.style.top = verticalTipCapShift + 'px';
     this.cap.style.left = horizontalTipCapShift + 'px';
 

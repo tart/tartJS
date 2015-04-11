@@ -40,7 +40,7 @@ tart.components.Carousel.View.prototype.templateClass = tart.components.Carousel
  * @param {Array.<Object>} itemArray carousel data array.
  */
 tart.components.Carousel.View.prototype.buildCarouselItems = function(itemArray) {
-    goog.dom.classes.remove(this.getDOM(), 'loading');
+    goog.dom.classlist.remove(this.getDOM(), 'loading');
     var carouselItems = this.template.carouselItems(itemArray);
 
     this.get(this.domMappings.ITEMS)[0].innerHTML = '';
@@ -150,7 +150,7 @@ tart.components.Carousel.View.prototype.buildPager = function(pager) {
 
     if (totalPage > 1) { //show pager if only totalPage > 1
         if (pagerElement.length > 0) {
-            var pagerItems = goog.dom.query(pagerElement, that.domMappings.PAGER_ITEMS)[0];
+            var pagerItems = pagerElement.querySelectorAll(that.domMappings.PAGER_ITEMS)[0];
 
             //for each pager create pager button and attach event
             for (var i = 1; i <= totalPage; i++) {
@@ -192,10 +192,12 @@ tart.components.Carousel.View.prototype.buildPager = function(pager) {
 tart.components.Carousel.View.prototype.setPageSelected = function(pageNum) {
     var that = this;
     var pager = that.get(that.domMappings.PAGER)[0];
-    var pagerItems = goog.dom.query(goog.dom.query(pager, that.domMappings.PAGER_ITEMS)[0], that.domMappings.PAGER_ITEM)[0];
+    var pagerItems = pager.querySelector(that.domMappings.PAGER_ITEMS).querySelectorAll(that.domMappings.PAGER_ITEM);
+    goog.array.forEach(pagerItems, function(pagerItem) {
+        goog.dom.classlist.remove(pagerItem, 'selected');
+    });
 
-    goog.dom.classes.remove(pagerItems, 'selected');
-    that.pagerItemsCache[pageNum] && goog.dom.classes.add(that.pagerItemsCache[pageNum], 'selected');
+    that.pagerItemsCache[pageNum] && goog.dom.classlist.add(that.pagerItemsCache[pageNum], 'selected');
 };
 
 
@@ -220,7 +222,7 @@ tart.components.Carousel.View.prototype.handleNavigationButtons = function(hasNe
  *
  */
 tart.components.Carousel.View.prototype.noResults = function() {
-    goog.dom.classes.remove(this.getDOM(), 'loading');
+    goog.dom.classlist.remove(this.getDOM(), 'loading');
     var carouselText = this.template.noResults();
     this.get(this.domMappings.ITEMS)[0].innerHTML = carouselText;
     this.itemsAppended(carouselText);

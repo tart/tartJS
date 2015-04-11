@@ -16,7 +16,6 @@
  * @fileoverview The instances of this class will hold the root HTML markups for the MVC application.
  */
 goog.provide('tart.mvc.Layout');
-goog.require('goog.dom.query');
 goog.require('tart.mvc.View');
 
 
@@ -100,7 +99,7 @@ tart.mvc.Layout.prototype.content_ = '';
  */
 tart.mvc.Layout.prototype.getContentArea = function(body) {
     if (!this.contentArea) {
-        this.contentArea = goog.dom.query('[id="content"]', body)[0];
+        this.contentArea = body.querySelector('[id="content"]');
         if (!this.contentArea) {
             this.contentArea = body;
         }

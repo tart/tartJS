@@ -39,7 +39,7 @@ goog.inherits(mvcapp.Application, tart.mvc.Application);
 /**
  * @inheritDoc
  */
-mvcapp.Application.prototype.basePath = '/tart/mvc/test/#!/';
+mvcapp.Application.prototype.basePath = '/tart/mvc/test/';
 
 
 /**

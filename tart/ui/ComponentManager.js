@@ -165,6 +165,8 @@ tart.ui.ComponentManager.prototype.callHandler_ = function(cmp, e, handlers, sel
 };
 
 
+
+
 /**
  *
  * @param el
@@ -172,7 +174,7 @@ tart.ui.ComponentManager.prototype.callHandler_ = function(cmp, e, handlers, sel
  * @return {*}
  */
 tart.ui.ComponentManager.prototype.matchesSelector = function(el, selector) {
-    return goog.array.indexOf(goog.dom.query(selector), el) >= 0;
+    return goog.array.indexOf(document.querySelectorAll(selector), el) >= 0;
 };
 
 

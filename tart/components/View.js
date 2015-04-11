@@ -107,7 +107,7 @@ tart.components.View.prototype.get = function(key) {
         throw new Error('DOM not set yet');
     }
 
-    this.domCache[key] = this.domCache[key] || goog.dom.query(key, this.dom);
+    this.domCache[key] = this.domCache[key] || this.dom.querySelectorAll(key);
     return this.domCache[key];
 };
 
