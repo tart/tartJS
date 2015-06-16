@@ -57,7 +57,7 @@ tart.ui.TabBarView.prototype.activateItem = function(index) {
 
     this.deactivateActiveItem();
     var item = this.getChild(this.mappings.ITEM)[index];
-    goog.dom.classes.add(item, 'active');
+    goog.dom.classlist.add(item, 'active');
 
     if (this.views && this.views[index])
         this.vm.setCurrentView(this.views[index], true);
@@ -85,7 +85,7 @@ tart.ui.TabBarView.prototype.activateItemByName = function(name) {
 tart.ui.TabBarView.prototype.deactivateActiveItem = function() {
     var activeItem = this.getChild(this.mappings.ACTIVE);
     if (activeItem && activeItem.length)
-        goog.dom.classes.remove(activeItem[0], 'active');
+        goog.dom.classlist.remove(activeItem[0], 'active');
 };
 
 
