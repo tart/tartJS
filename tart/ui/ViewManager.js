@@ -192,7 +192,7 @@ tart.ui.ViewManager.prototype.toggleSidebar = function() {
 /**
  * Initializes touch event handlers for all touch end and touch move events ocurring on the root element.
  *
- * @private
+ * @protected
  */
 tart.ui.ViewManager.prototype.initTouchEvents_ = function() {
     goog.events.listen(this.rootEl, goog.events.EventType.TOUCHMOVE, this.onTouchMove_, false, this);
@@ -203,7 +203,7 @@ tart.ui.ViewManager.prototype.initTouchEvents_ = function() {
 /**
  * Handles touch move events and decides how the view transitions should occur.
  *
- * @private
+ * @protected
  * @param {goog.events.Event} e Touch move event.
  */
 tart.ui.ViewManager.prototype.onTouchMove_ = function(e) {
@@ -254,7 +254,7 @@ tart.ui.ViewManager.prototype.onTouchMove_ = function(e) {
 /**
  * Handles touch end events and decides how the view transitions should follow.
  *
- * @private
+ * @protected
  * @param {goog.events.Event} e Touch end event.
  */
 tart.ui.ViewManager.prototype.onTouchEnd_ = function(e) {
@@ -291,7 +291,7 @@ tart.ui.ViewManager.prototype.onTouchEnd_ = function(e) {
 /**
  * Handles touch end event when they occur in a back gesture.
  *
- * @private
+ * @protected
  * @param {goog.events.Event} e Touch end event.
  */
 tart.ui.ViewManager.prototype.backGestureTouchEnd_ = function(e) {
@@ -344,7 +344,7 @@ tart.ui.ViewManager.prototype.backGestureTouchEnd_ = function(e) {
 /**
  * Handle touch move events when they occur in a back gesture.
  *
- * @private
+ * @protected
  * @param {goog.events.Event} e Touch end event.
  */
 tart.ui.ViewManager.prototype.backGestureTouchMove_ = function(e) {
@@ -380,7 +380,7 @@ tart.ui.ViewManager.prototype.backGestureTouchMove_ = function(e) {
 /**
  * Close sidebar touch move functionality.
  *
- * @private
+ * @protected
  * @param {goog.events.Event} e X coordinate difference.
  */
 tart.ui.ViewManager.prototype.closeSidebarTouchMove_ = function(e) {
@@ -409,7 +409,7 @@ tart.ui.ViewManager.prototype.closeSidebarTouchMove_ = function(e) {
 /**
  * Toggles the sidebar on or off according to a given state.
  *
- * @private
+ * @protected
  * @param {boolean} state Whether to open or close the sidebar.
  */
 tart.ui.ViewManager.prototype.toggleSidebar_ = function(state) {
@@ -449,7 +449,7 @@ tart.ui.ViewManager.prototype.toggleSidebar_ = function(state) {
 /**
  * Close sidebar touch move functionality.
  *
- * @private
+ * @protected
  * @param {goog.events.Event} e X coordinate difference.
  */
 tart.ui.ViewManager.prototype.openSidebarTouchMove_ = function(e) {
