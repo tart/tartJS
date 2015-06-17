@@ -85,6 +85,9 @@ tart.ui.DlgComponent.prototype.getChild = function (selector) {
     if (el)
         rv = el.querySelectorAll(selector);
 
+    if (rv.length == 0)
+        rv = null;
+
     return rv;
 };
 
