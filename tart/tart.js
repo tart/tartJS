@@ -37,10 +37,16 @@ tart.XhrOptions;
 
 
 /**
+ * @typedef {function(boolean=, Object=, number=)}
+ */
+tart.XhrCallback;
+
+
+/**
  * Makes XHR requests with given options. This is
  *
  * @param {tart.XhrOptions|string} options Options for this method. This can also be a simple string denoting the URL.
- * @param {function(boolean=, Object=, number=)=} opt_callback Callback to execute when the request ends.
+ * @param {tart.XhrCallback=} opt_callback Callback to execute when the request ends.
  *                                                          It will be invoked with errors, data and status code.
  * @param {Object=} opt_context The context of the callback to be applied.
  */
