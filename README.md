@@ -6,6 +6,8 @@ It provides rapid and responsive mobile app infrastructure.
 
 Join us on [![tartJS Slack](http://slack.tartjs.org/badge.svg)](http://slack.tartjs.org) for anything about tartJS.
 
+Track issues on [![tartJS HuBoard](https://img.shields.io/github/issues/tart/tartjs.svg?style=flat&label=HuBoard)](https://huboard.com/tart/tartJS)
+
 Closure Compiler optimizes, checks and cleans up your annotated JavaScript code with best minification rates while helping you to catch errors.
 
 
