@@ -23,6 +23,10 @@ Add tartJS to your project as a submodule:
 
 ### Boilerplates/Examples
 
+* For TodoMVC implementation and generic boilerplate:
+
+    http://github.com/tart/tartjs-todomvc
+
 * For working mobile project:
 
     https://github.com/tart/tartjs-mobile-demo
@@ -56,11 +60,13 @@ See [Annotating JavaScript for the Closure Compiler](https://developers.google.c
 
     [Pedalboard.js](http://dashersw.github.io/pedalboard.js/)
 
-* Example TV show mobile app (useful as a boilerplate):
+* Example TodoMVC application (useful as a web application boilerplate):
+
+    [tartjs-todomvc](https://github.com/tart/tartjs-todomvc)
+
+* Example TV show mobile app (useful as a mobile boilerplate):
 
     [tartjs-mobile-demo](https://github.com/tart/tartjs-mobile-demo)
-
-
 
 ## Contributing
 
