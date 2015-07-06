@@ -62,6 +62,7 @@
  *
  *     var myMachine = new Foo.MooreMachine();
  *     myMachine.startMachine();
+ * </code>
  */
 
 goog.require('goog.array');
