@@ -4,7 +4,7 @@ tartJS
 tartJS is a performance-focused JavaScript framework based on well-tested Google Closure Tools suite.
 It provides rapid and responsive mobile app infrastructure.
 
-Join us on [![tartJS Slack](http://slack.tartjs.org/badge.svg)](http://slack.tartjs.org) for anything about tartJS.
+Check out [the documentation](http://tart.js.org/docs) and join us on [![tartJS Slack](http://slack.tartjs.org/badge.svg)](http://slack.tartjs.org) for anything about tartJS.
 
 Track issues on [![tartJS HuBoard](https://img.shields.io/github/issues/tart/tartjs.svg?style=flat&label=HuBoard)](https://huboard.com/tart/tartJS)
 
