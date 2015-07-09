@@ -48,7 +48,9 @@ tart.ui.ViewManager.prototype.topIndex = 1;
  * @param {boolean=} opt_canGoBack Whether this view keeps history so that one can go back to the previous view.
  */
 tart.ui.ViewManager.prototype.pull = function(view, opt_canGoBack) {
-    if (!view.rendered) view.render(this.rootEl, this.topIndex += 2);
+    this.topIndex += 2;
+    if (!view.rendered) view.render(this.rootEl, this.topIndex);
+    else view.index = this.topIndex;
 
     var currentView = this.currentView;
 
@@ -76,7 +78,9 @@ tart.ui.ViewManager.prototype.pull = function(view, opt_canGoBack) {
     setTimeout(function() {
         currentView.getElement().style.webkitTransitionDuration = '0.35s';
         view.getElement().style.webkitTransform = 'translate3d(0, 0, ' + view.index + 'px)';
+        view.getElement().style.zIndex = view.index;
         currentView.getElement().style.webkitTransform = 'translate3d(-30%, 0, ' + currentView.index + 'px)';
+        currentView.getElement().style.zIndex = currentView.index;
         view.getElement().style['boxShadow'] = '0 0 24px black';
     }, 50);
 
@@ -114,7 +118,9 @@ tart.ui.ViewManager.prototype.push = function() {
             currentView.getElement().style.webkitTransitionDuration = '0.35s';
 
             lastView.getElement().style.webkitTransform = 'translate3d(0, 0, ' + lastView.index + 'px)';
+            lastView.getElement().style.zIndex = lastView.index;
             currentView.getElement().style.webkitTransform = 'translate3d(100%, 0, ' + currentView.index + 'px)';
+            currentView.getElement().style.zIndex = currentView.index;
             currentView.getElement().style['boxShadow'] = '0 0 0 black';
         });
     });
@@ -147,7 +153,8 @@ tart.ui.ViewManager.prototype.setCurrentView = function(view, opt_noDispose) {
         }, 1000);
     } else if (currentView) {
         currentView.getElement().style.webkitTransitionDuration = '0s';
-        currentView.getElement().style.webkitTransform = 'translate3d(100%, 0, ' + currentView.index + 'px)';
+        currentView.getElement().style.webkitTransform = 'translate3d(100%, 0, 0)';
+        currentView.getElement().style.zIndex = currentView.index;
     }
 
     view.index = this.topIndex += 2;
@@ -162,13 +169,12 @@ tart.ui.ViewManager.prototype.setCurrentView = function(view, opt_noDispose) {
 
     this.history = [];
 
-    var translation = 'translate3d(0, 0, ' + view.index + 'px)';
+    var translation = 'translate3d(0, 0, 0px)';
     view.getElement().style.webkitTransitionDuration = '0s';
 
     if (this.state == tart.ui.ViewManager.State.SIDEBAR_OPEN) {
-        translation = 'translate3d(' + (128 - tart.ui.View.WIDTH) + 'px, 0, ' + view.index + 'px)';
-
-        view.getElement().style.webkitTransform = translation;
+        view.getElement().style.webkitTransform = 'translate3d(' + (128 - tart.ui.View.WIDTH) + 'px, 0, 0px)';;
+        view.getElement().style.zIndex = view.index;
         this.toggleSidebar_(false);
 
         return;
