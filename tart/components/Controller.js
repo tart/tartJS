@@ -16,18 +16,19 @@
  * @fileoverview tart.components.Controller is a base class for all components Controller's.
  *
  * Example usage:
+ *
  *      var ViewClass = function () {
- *          goog.base(this);
+ *           goog.base(this);
  *      };
  *      goog.inherits(ViewClass, tart.components.View);
  *
  *      ViewClass.prototype.render = function () {
- *          return "<h1>Foo</h1>";
+ *           return "<h1>Foo</h1>";
  *      };
  *      var view = new ViewClass();
  *
  *      var ModelClass = function () {
- *          goog.base(this);
+ *           goog.base(this);
  *      };
  *      goog.inherits(ModelClass, tart.base.Model);
  *
@@ -35,7 +36,7 @@
  *      var model = new ModelClass();
  *
  *      var ControllerClass = function () {
- *          goog.base(this);
+ *           goog.base(this);
  *      };
  *      goog.inherits(ControllerClass, tart.components.Controller);
  *

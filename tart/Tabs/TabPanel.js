@@ -17,11 +17,10 @@
  *
  * Example Usage:
  *
- *
- * var panel1 = new tart.TabPanel({
- *    title: 'Tab 1',
- *    html: 'This is a basic text'
- * });
+ *     var panel1 = new tart.TabPanel({
+ *          title: 'Tab 1',
+ *          html: 'This is a basic text'
+ *     });
  *
 */
 

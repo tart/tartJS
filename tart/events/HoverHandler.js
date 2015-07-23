@@ -18,10 +18,10 @@
  *
  * Example usage:
  *
- * var handler = new tart.events.HoverHandler(elementToListen); // default is body.
- * goog.events.listen(handler, tart.events.EventType.MOUSEENTER, function() {
- *     console.log("i'm on hover");
- * });
+ *     var handler = new tart.events.HoverHandler(elementToListen); // default is body.
+ *     goog.events.listen(handler, tart.events.EventType.MOUSEENTER, function() {
+ *          console.log("i'm on hover");
+ *     });
  *
  */
 

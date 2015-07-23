@@ -33,7 +33,9 @@
 * of parameters passed in. In these cases, you may need to annotate the type
 * of the result in your code, so the JSCompiler understands which type you're
 * expecting. For example:
-*    <code>var elt = /** @type {Element} * / (foo.get(0));</code>
+*
+*     var elt = /** @type {Element} * / (foo.get(0));
+*
 * @see http://api.jquery.com/
 * @externs
 */
@@ -1438,4 +1440,3 @@ jQuery.format = function(text) {};
 
 jQuery.ajaxTransport = function(a, b) {};
 jQuery.ajaxPrefilter = function(a) {};
-

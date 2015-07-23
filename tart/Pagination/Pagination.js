@@ -17,22 +17,22 @@
  *
  * Example usage:
  *
- *  var paginator = new tart.Pagination();
+ *     var paginator = new tart.Pagination();
  *
- *  paginator.setTotalPage(5);
- *  paginator.setCurrentPage(2);
+ *     paginator.setTotalPage(5);
+ *     paginator.setCurrentPage(2);
  *
- *  goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
- *      console.log("page changed");
- *      console.log("old page : " + e.oldValue);
- *      console.log("new page : " + e.newValue);
- *  });
+ *     goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+ *          console.log("page changed");
+ *          console.log("old page : " + e.oldValue);
+ *          console.log("new page : " + e.newValue);
+ *     });
  *
- *  paginator.setCurrentPage(4); // oldPage : 2, newPage : 4
- *  paginator.setCurrentPage(7); // oldPage : 4, newpage : 5 (totalPage)
- *  paginator.prev(); // oldPage : 5, newPage: 4
- *  paginator.setCurrentPage(0); // oldPage : 4, newpage : 1 (at least 1)
- *  paginator.next(); // oldPage : 1, newPage : 2
+ *     paginator.setCurrentPage(4); // oldPage : 2, newPage : 4
+ *     paginator.setCurrentPage(7); // oldPage : 4, newpage : 5 (totalPage)
+ *     paginator.prev(); // oldPage : 5, newPage: 4
+ *     paginator.setCurrentPage(0); // oldPage : 4, newpage : 1 (at least 1)
+ *     paginator.next(); // oldPage : 1, newPage : 2
  *
  */
 

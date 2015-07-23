@@ -17,14 +17,15 @@
  * only allows you to store strings. tart.storage.Storage can store any type of object via serialization.
  *
  * Example usage:
- * var storage = new tart.storage.Storage();
- * storage.set('foo', {bar: 'baz'});
- * storage.get('foo');
- * // you can still iterate through localStorage as before with for .. in;
- * for (var key in localStorage) {
- *     var object = storage.get(key);
- *     //do something with the object
- * }
+ *
+ *     var storage = new tart.storage.Storage();
+ *     storage.set('foo', {bar: 'baz'});
+ *     storage.get('foo');
+ *     // you can still iterate through localStorage as before with for .. in;
+ *     for (var key in localStorage) {
+ *          var object = storage.get(key);
+ *          //do something with the object
+ *     }
  */
 
 

@@ -18,18 +18,19 @@
  * active item changes.
  *
  * Example usage:
- * var items = { foo : 'bar' };
- * var list = new tart.Collection(items);
+ *
+ *     var items = { foo : 'bar' };
+ *     var list = new tart.Collection(items);
  *
  * OR
  *
- * var items = ['A','B', 'C', 'D'];
- * var list = new tart.Collection(items);
+ *     var items = ['A','B', 'C', 'D'];
+ *     var list = new tart.Collection(items);
  *
  * OR
  *
- * var items = { foo : 'bar', baz:'zoo' };
- * var list = new tart.Collection(items, 1); // Set activeItemIndex to 1
+ *     var items = { foo : 'bar', baz:'zoo' };
+ *     var list = new tart.Collection(items, 1); // Set activeItemIndex to 1
  */
 
 goog.provide('tart.Collection');

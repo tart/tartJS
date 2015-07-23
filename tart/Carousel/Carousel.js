@@ -17,45 +17,46 @@
  * which handles next and previous events and gets visible items on viewport.
  *
  * Example usage:
- *  var items = [
- *     {name : 'one'},
- *     {name : 'two'},
- *     {name : 'three'},
- *     {name : 'four'},
- *     {name : 'five'},
- *     {name : 'six'},
- *     {name : 'seven'}
- *  ]; //seven items
  *
- *  var carousel = new tart.Carousel(items);
+ *     var items = [
+ *          {name : 'one'},
+ *          {name : 'two'},
+ *          {name : 'three'},
+ *          {name : 'four'},
+ *          {name : 'five'},
+ *          {name : 'six'},
+ *          {name : 'seven'}
+ *     ]; //seven items
  *
- *  carousel.setItemPerViewport(2); //only 2 items is visibile
+ *     var carousel = new tart.Carousel(items);
  *
- *  goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
- *      console.info('items moved next');
- *      console.log (e.itemsToBeRemoved);
- *      console.log (e.itemsToBeInserted);
- *      console.info(carousel.getVisibleItems());
- *  });
+ *     carousel.setItemPerViewport(2); //only 2 items is visibile
  *
- *  goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
- *      console.info('items moved prev');
- *      console.log (e.itemsToBeRemoved);
- *      console.log (e.itemsToBeInserted);
- *      console.info(carousel.getVisibleItems());
- *  });
+ *     goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+ *          console.info('items moved next');
+ *          console.log (e.itemsToBeRemoved);
+ *          console.log (e.itemsToBeInserted);
+ *          console.info(carousel.getVisibleItems());
+ *     });
  *
- *  //items : 'one', 'two'
- *  carousel.next(1);
- *  //items : 'two', 'three'
- *  carousel.next(4);
- *  //items : 'six', 'seven'
- *  carousel.next(1);
- *  //items : 'six', 'seven' which is end of items, for circular navigation use tart.CircularCarousel instead
- *  carousel.prev(1);
- *  //items : 'five', 'six'
- *  carousel.prev(99999);
- *  //items : 'one', 'two'
+ *     goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
+ *          console.info('items moved prev');
+ *          console.log (e.itemsToBeRemoved);
+ *          console.log (e.itemsToBeInserted);
+ *          console.info(carousel.getVisibleItems());
+ *     });
+ *
+ *     //items : 'one', 'two'
+ *     carousel.next(1);
+ *     //items : 'two', 'three'
+ *     carousel.next(4);
+ *     //items : 'six', 'seven'
+ *     carousel.next(1);
+ *     //items : 'six', 'seven' which is end of items, for circular navigation use tart.CircularCarousel instead
+ *     carousel.prev(1);
+ *     //items : 'five', 'six'
+ *     carousel.prev(99999);
+ *     //items : 'one', 'two'
  */
 
 goog.provide('tart.Carousel');
