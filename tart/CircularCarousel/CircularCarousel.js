@@ -17,36 +17,37 @@
  * handles next and previous events and gets visible items on viewport.
  *
  * Example usage:
- *  var items = [
- *     {name : 'one'},
- *     {name : 'two'},
- *     {name : 'three'},
- *     {name : 'four'},
- *     {name : 'five'},
- *     {name : 'six'},
- *     {name : 'seven'}
- *  ]; //seven items
  *
- *  var carousel = new tart.CircularCarousel(items);
+ *     var items = [
+ *         {name : 'one'},
+ *         {name : 'two'},
+ *         {name : 'three'},
+ *         {name : 'four'},
+ *         {name : 'five'},
+ *         {name : 'six'},
+ *         {name : 'seven'}
+ *     ]; //seven items
  *
- *  carousel.setItemPerViewport(2); //only 2 items is visibile
+ *     var carousel = new tart.CircularCarousel(items);
  *
- *  goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
- *      console.info('items moved next');
- *      console.log (e.itemsToBeRemoved);
- *      console.log (e.itemsToBeInserted);
- *      console.info(carousel.getVisibleItems());
- *  });
+ *     carousel.setItemPerViewport(2); //only 2 items is visibile
  *
- *  goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
- *      console.info('items moved prev');
- *      console.log (e.itemsToBeRemoved);
- *      console.log (e.itemsToBeInserted);
- *      console.info(carousel.getVisibleItems());
- *  });
+ *     goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+ *         console.info('items moved next');
+ *         console.log (e.itemsToBeRemoved);
+ *         console.log (e.itemsToBeInserted);
+ *         console.info(carousel.getVisibleItems());
+ *     });
  *
- *  carousel.prev(3);
- *  carousel.next(1);
+ *     goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
+ *         console.info('items moved prev');
+ *         console.log (e.itemsToBeRemoved);
+ *         console.log (e.itemsToBeInserted);
+ *         console.info(carousel.getVisibleItems());
+ *     });
+ *
+ *     carousel.prev(3);
+ *     carousel.next(1);
  */
 
 goog.provide('tart.CircularCarousel');

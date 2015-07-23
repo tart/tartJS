@@ -16,6 +16,7 @@
  * @fileoverview tart.components.Controller is a base class for all components Controller's.
  *
  * Example usage:
+ *
  *      var ViewClass = function () {
  *          goog.base(this);
  *      };

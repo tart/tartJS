@@ -1,0 +1,44 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["closure", "jsdoc"]
+    },
+    "source": {
+	"include": ["tart", "README.md"],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "opts": {
+        "template": "node_modules/jaguarjs-jsdoc",
+        "encoding": "utf8",
+        "destination": "docs/",
+        "recurse": true
+    },
+    "plugins": ["plugins/markdown"],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        },
+    	"applicationName": "TartJS",
+    	"disqus": "",
+    	"googleAnalytics": "",
+    	"openGraph": {
+      	    "title": "",
+            "type": "",
+            "image": "",
+            "site_name": "",
+            "url": ""
+    	},
+    	"meta": {
+            "title": "tartJS",
+            "description": "",
+            "keyword": ""
+    	},
+        "linenums": true
+    },
+    "markdown": {
+	"tags": []
+    }
+}

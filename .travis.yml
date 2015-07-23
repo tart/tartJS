@@ -1,0 +1,15 @@
+sudo: false
+language: node_js
+node_js:
+- '0.12'
+install:
+- npm -d install
+- npm install -g gulp
+before_script:
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "Travis-CI"
+script:
+- gulp travis
+env:
+  global:
+  - secure: DeieQoup1BuwAfLvz+2oRNQKEf2mrO65MsgMoBpWZirhRZvoYnzuWFVonByA6EyNPAzgzZI5Kk64aZaogbg9CzZu+mhkAuJE7m4+KgouE517wjbba8IseEFdyZ951I/VdaFp0PC33Xff32SB8L5xlzY+GnIzIUqTwa2rlogD7RA=

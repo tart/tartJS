@@ -17,15 +17,15 @@
  *
  * Example usage:
  *
- * var form = $("form");
- * var validationForSubmit = function (errors) {
- *     //do some stuff with 'errors' object
- * };
- * var validationForBlur = function (errors) {
- *     //do some stuff with 'errors' object
- * };
- * tart.FormValidator(form).validateOnSubmit(validationForSubmit);
- * tart.FormValidator(form).validateOnBlur(validateOnBlur);
+ *     var form = $("form");
+ *     var validationForSubmit = function (errors) {
+ *         //do some stuff with 'errors' object
+ *     };
+ *     var validationForBlur = function (errors) {
+ *         //do some stuff with 'errors' object
+ *     };
+ *     tart.FormValidator(form).validateOnSubmit(validationForSubmit);
+ *     tart.FormValidator(form).validateOnBlur(validateOnBlur);
  *
  * More examples can be seen from spec/FormValidationSpec.js file
  */

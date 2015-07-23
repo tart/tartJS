@@ -18,29 +18,29 @@
  * Example Usage:
  *
  *
- * var tabPanel = new tart.Tabs({
- *      activeTab: 1
- *  });
+ *     var tabPanel = new tart.Tabs({
+ *         activeTab: 1
+ *     });
  *
- * var panel1 = new tart.TabPanel({
- *    title: 'Tab 1',
- *    html: 'This is a basic text'
- * });
- * var panel2 = new tart.TabPanel({
- *     title: 'Tab 2',
- *    html: 'Lorem ipsum dolor sit amet'
- * });
- * var panel3 = new tart.TabPanel({
- *     title: 'Tab 3',
- *     html: 'Lorem ipsum dolor sit amet is a dummy text'
- * });
+ *     var panel1 = new tart.TabPanel({
+ *         title: 'Tab 1',
+ *         html: 'This is a basic text'
+ *     });
+ *     var panel2 = new tart.TabPanel({
+ *         title: 'Tab 2',
+ *         html: 'Lorem ipsum dolor sit amet'
+ *     });
+ *     var panel3 = new tart.TabPanel({
+ *         title: 'Tab 3',
+ *         html: 'Lorem ipsum dolor sit amet is a dummy text'
+ *     });
  *
- * tabPanel.addTabPanel(panel1);
- * tabPanel.addTabPanel(panel2);
- * tabPanel.addTabPanel(panel3);
+ *     tabPanel.addTabPanel(panel1);
+ *     tabPanel.addTabPanel(panel2);
+ *     tabPanel.addTabPanel(panel3);
  *
- * var dom = tabPanel.buildDOM();
- * $('body').append(dom);
+ *     var dom = tabPanel.buildDOM();
+ *     $('body').append(dom);
  *
 */
 
