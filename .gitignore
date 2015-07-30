@@ -7,3 +7,5 @@ compiled/*
 /atlassian-ide-plugin.xml
 compiled.js
 SpecRunnerCompiled.html
+node_modules
+docs

@@ -30,7 +30,7 @@
  * until the first call to <code>startMachine</code> method.
  *
  * Example usage:
- * <code>
+ *
  *     Foo.MooreMachine = function(){
  *         goog.base(this);
  *     }
@@ -62,6 +62,7 @@
  *
  *     var myMachine = new Foo.MooreMachine();
  *     myMachine.startMachine();
+ *
  */
 
 goog.require('goog.array');

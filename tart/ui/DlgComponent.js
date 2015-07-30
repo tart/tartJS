@@ -77,7 +77,7 @@ tart.ui.DlgComponent.prototype.bindModelEvents = function() {
  * Returns children of component's element
  * @param {string} selector Expression which is searching in component element. This is kind of $ for selecting
  * dom element.
- * @return ({length: number})
+ * @return {{length: number}}
  */
 tart.ui.DlgComponent.prototype.getChild = function (selector) {
     var rv = null, el = this.getElement();

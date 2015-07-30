@@ -16,14 +16,15 @@
  * @fileoverview Dropdown list class is an example of an HTML select box.
  *
  * Example usage:
- * var items        = {key1:'val1',key2:'val2',key3:'val3'};
- * var builder      = new tart.DropdownBuilder('elementId');
- * var selectedItem = 1;
- * var list = new tart.DropdownList(items, builder, selectedItem);
- * list.getAll(); // Outputs [{key1:'val1'},{key2:'val2'},{key3:'val3'}]
- * list.getDOM(); // Returns a select (dropdown) menu in jquery format jQuery(select#elementId)
- * list.setActiveItemIndex(2); // Sets key3:val3 option element selected property to TRUE;
- * list.getActiveItemIndex(); // Returns an Object { key3="val3" }
+ *
+ *     var items        = {key1:'val1',key2:'val2',key3:'val3'};
+ *     var builder      = new tart.DropdownBuilder('elementId');
+ *     var selectedItem = 1;
+ *     var list = new tart.DropdownList(items, builder, selectedItem);
+ *     list.getAll(); // Outputs [{key1:'val1'},{key2:'val2'},{key3:'val3'}]
+ *     list.getDOM(); // Returns a select (dropdown) menu in jquery format jQuery(select#elementId)
+ *     list.setActiveItemIndex(2); // Sets key3:val3 option element selected property to TRUE;
+ *     list.getActiveItemIndex(); // Returns an Object { key3="val3" }
  */
 
 goog.provide('tart.DropdownList');

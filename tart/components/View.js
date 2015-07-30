@@ -17,30 +17,30 @@
  *
  * Example usage:
  *
- * SubViewClass = function() {
- *     goog.base(this);
+ *     SubViewClass = function() {
+ *         goog.base(this);
  *
- *     this.domMappings = {
- *         HEADER: 'h1'
+ *         this.domMappings = {
+ *             HEADER: 'h1'
+ *         };
  *     };
- * };
- * goog.inherits(SubViewClass, tart.components.View);
+ *     goog.inherits(SubViewClass, tart.components.View);
  *
- * SubViewClass.prototype.templates_header = function(text) {
- *     text = text || '';
- *     return '<h1>' + text + '</h1>';
- * };
+ *     SubViewClass.prototype.templates_header = function(text) {
+ *         text = text || '';
+ *         return '<h1>' + text + '</h1>';
+ *     };
  *
- * SubViewClass.prototype.render = function() {
- *    return this.templates_header();
- * };
+ *     SubViewClass.prototype.render = function() {
+ *         return this.templates_header();
+ *     };
  *
- * var subView = new SubViewClass();
+ *     var subView = new SubViewClass();
  *
- * var dummyDiv = tart.dom.createElement(subView.render());
+ *     var dummyDiv = tart.dom.createElement(subView.render());
  *
- * subView.setDOM(dummyDiv);
- * subView.get(subView.domMappings.HEADER);
+ *     subView.setDOM(dummyDiv);
+ *     subView.get(subView.domMappings.HEADER);
  *
  *  Known issues:
  *  - Templates will be injected withing Templates object

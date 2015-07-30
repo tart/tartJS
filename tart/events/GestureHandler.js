@@ -25,9 +25,9 @@
  *
  * Example usage:
  *
- * goog.events.listen(document.body, tart.events.EventType.TAP, function() {
- *     console.log('tapped!');
- * });
+ *     goog.events.listen(document.body, tart.events.EventType.TAP, function() {
+ *         console.log('tapped!');
+ *     });
  *
  */
 
