@@ -3373,7 +3373,7 @@
     <section>
         <article class="readme"><h1>tartJS</h1><p>tartJS is a performance-focused JavaScript framework based on well-tested Google Closure Tools suite.
 It provides rapid and responsive mobile app infrastructure.</p>
-<p>Join us on <a target="_blank" href="http://slack.tartjs.org"><img src="http://slack.tartjs.org/badge.svg" alt="tartJS Slack"></a> for anything about tartJS.</p>
+<p>Check out <a target="_blank" href="http://tart.js.org/docs">the documentation</a> and join us on <a target="_blank" href="http://slack.tartjs.org"><img src="http://slack.tartjs.org/badge.svg" alt="tartJS Slack"></a> for anything about tartJS.</p>
 <p>Track issues on <a target="_blank" href="https://huboard.com/tart/tartJS"><img src="https://img.shields.io/github/issues/tart/tartjs.svg?style=flat&amp;label=HuBoard" alt="tartJS HuBoard"></a></p>
 <p>Closure Compiler optimizes, checks and cleans up your annotated JavaScript code with best minification rates while helping you to catch errors.</p>
 <h2>Getting Started</h2><h3>From scratch</h3><p>Add tartJS to your project as a submodule:</p>
@@ -3888,8 +3888,8 @@ limitations under the License.</p></article>
         
             <div class="description"><p>tart.Carousel is an event driven Carousel/Image Slider class
 which handles next and previous events and gets visible items on viewport.</p>
-<p>Example usage:
- var items = [
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>var items = [
     {name : 'one'},
     {name : 'two'},
     {name : 'three'},
@@ -3897,32 +3897,37 @@ which handles next and previous events and gets visible items on viewport.</p>
     {name : 'five'},
     {name : 'six'},
     {name : 'seven'}
- ]; //seven items</p>
-<p> var carousel = new tart.Carousel(items);</p>
-<p> carousel.setItemPerViewport(2); //only 2 items is visibile</p>
-<p> goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
-     console.info('items moved next');
-     console.log (e.itemsToBeRemoved);
-     console.log (e.itemsToBeInserted);
-     console.info(carousel.getVisibleItems());
- });</p>
-<p> goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
-     console.info('items moved prev');
-     console.log (e.itemsToBeRemoved);
-     console.log (e.itemsToBeInserted);
-     console.info(carousel.getVisibleItems());
- });</p>
-<p> //items : 'one', 'two'
- carousel.next(1);
- //items : 'two', 'three'
- carousel.next(4);
- //items : 'six', 'seven'
- carousel.next(1);
- //items : 'six', 'seven' which is end of items, for circular navigation use tart.CircularCarousel instead
- carousel.prev(1);
- //items : 'five', 'six'
- carousel.prev(99999);
- //items : 'one', 'two'</p></div>
+]; //seven items
+
+var carousel = new tart.Carousel(items);
+
+carousel.setItemPerViewport(2); //only 2 items is visibile
+
+goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+    console.info('items moved next');
+    console.log (e.itemsToBeRemoved);
+    console.log (e.itemsToBeInserted);
+    console.info(carousel.getVisibleItems());
+});
+
+goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
+    console.info('items moved prev');
+    console.log (e.itemsToBeRemoved);
+    console.log (e.itemsToBeInserted);
+    console.info(carousel.getVisibleItems());
+});
+
+//items : 'one', 'two'
+carousel.next(1);
+//items : 'two', 'three'
+carousel.next(4);
+//items : 'six', 'seven'
+carousel.next(1);
+//items : 'six', 'seven' which is end of items, for circular navigation use tart.CircularCarousel instead
+carousel.prev(1);
+//items : 'five', 'six'
+carousel.prev(99999);
+//items : 'one', 'two'</code></pre></div>
         
         
         
@@ -3998,8 +4003,8 @@ which handles next and previous events and gets visible items on viewport.</p>
         
             <div class="description"><p>tart.CircularCarousel is an event driven Carousel/Image Slider class which
 handles next and previous events and gets visible items on viewport.</p>
-<p>Example usage:
- var items = [
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>var items = [
     {name : 'one'},
     {name : 'two'},
     {name : 'three'},
@@ -4007,23 +4012,28 @@ handles next and previous events and gets visible items on viewport.</p>
     {name : 'five'},
     {name : 'six'},
     {name : 'seven'}
- ]; //seven items</p>
-<p> var carousel = new tart.CircularCarousel(items);</p>
-<p> carousel.setItemPerViewport(2); //only 2 items is visibile</p>
-<p> goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
-     console.info('items moved next');
-     console.log (e.itemsToBeRemoved);
-     console.log (e.itemsToBeInserted);
-     console.info(carousel.getVisibleItems());
- });</p>
-<p> goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
-     console.info('items moved prev');
-     console.log (e.itemsToBeRemoved);
-     console.log (e.itemsToBeInserted);
-     console.info(carousel.getVisibleItems());
- });</p>
-<p> carousel.prev(3);
- carousel.next(1);</p></div>
+]; //seven items
+
+var carousel = new tart.CircularCarousel(items);
+
+carousel.setItemPerViewport(2); //only 2 items is visibile
+
+goog.events.listen(carousel, tart.Carousel.EventTypes.NEXT, function (e) {
+    console.info('items moved next');
+    console.log (e.itemsToBeRemoved);
+    console.log (e.itemsToBeInserted);
+    console.info(carousel.getVisibleItems());
+});
+
+goog.events.listen(carousel, tart.Carousel.EventTypes.PREV, function (e) {
+    console.info('items moved prev');
+    console.log (e.itemsToBeRemoved);
+    console.log (e.itemsToBeInserted);
+    console.info(carousel.getVisibleItems());
+});
+
+carousel.prev(3);
+carousel.next(1);</code></pre></div>
         
         
         
@@ -4100,15 +4110,13 @@ handles next and previous events and gets visible items on viewport.</p>
             <div class="description"><p>tart.Collection is a useful data construct that also features an &quot;active item&quot;. It is a key-value pair
 collection with easy to use methods. It is also event-driven, so observers are notified when the index of the
 active item changes.</p>
-<p>Example usage:
-var items = { foo : 'bar' };
-var list = new tart.Collection(items);</p>
-<p>OR</p>
-<p>var items = ['A','B', 'C', 'D'];
-var list = new tart.Collection(items);</p>
-<p>OR</p>
-<p>var items = { foo : 'bar', baz:'zoo' };
-var list = new tart.Collection(items, 1); // Set activeItemIndex to 1</p></div>
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>var items = { foo : 'bar' };
+var list = new tart.Collection(items);</code></pre><p>OR</p>
+<pre class="prettyprint source"><code>var items = ['A','B', 'C', 'D'];
+var list = new tart.Collection(items);</code></pre><p>OR</p>
+<pre class="prettyprint source"><code>var items = { foo : 'bar', baz:'zoo' };
+var list = new tart.Collection(items, 1); // Set activeItemIndex to 1</code></pre></div>
         
         
         
@@ -4553,12 +4561,13 @@ var list = new tart.Collection(items, 1); // Set activeItemIndex to 1</p></div>
     
         
             <div class="description"><p>tart.components.Controller is a base class for all components Controller's.</p>
-<p>Example usage:
-     var ViewClass = function () {
-         goog.base(this);
-     };
-     goog.inherits(ViewClass, tart.components.View);</p>
-<pre class="prettyprint source"><code> ViewClass.prototype.render = function () {
+<p>Example usage:</p>
+<pre class="prettyprint source"><code> var ViewClass = function () {
+     goog.base(this);
+ };
+ goog.inherits(ViewClass, tart.components.View);
+
+ ViewClass.prototype.render = function () {
      return &quot;&lt;h1>Foo&lt;/h1>&quot;;
  };
  var view = new ViewClass();
@@ -4727,24 +4736,30 @@ var list = new tart.Collection(items, 1); // Set activeItemIndex to 1</p></div>
         
             <div class="description"><p>tart.components.View is a base class for all components View's.</p>
 <p>Example usage:</p>
-<p>SubViewClass = function() {
-    goog.base(this);</p>
-<pre class="prettyprint source"><code>this.domMappings = {
-    HEADER: 'h1'
-};</code></pre><p>};
-goog.inherits(SubViewClass, tart.components.View);</p>
-<p>SubViewClass.prototype.templates_header = function(text) {
+<pre class="prettyprint source"><code>SubViewClass = function() {
+    goog.base(this);
+
+    this.domMappings = {
+        HEADER: 'h1'
+    };
+};
+goog.inherits(SubViewClass, tart.components.View);
+
+SubViewClass.prototype.templates_header = function(text) {
     text = text || '';
-    return '<h1>' + text + '</h1>';
-};</p>
-<p>SubViewClass.prototype.render = function() {
-   return this.templates_header();
-};</p>
-<p>var subView = new SubViewClass();</p>
-<p>var dummyDiv = tart.dom.createElement(subView.render());</p>
-<p>subView.setDOM(dummyDiv);
-subView.get(subView.domMappings.HEADER);</p>
-<p> Known issues:</p>
+    return '&lt;h1>' + text + '&lt;/h1>';
+};
+
+SubViewClass.prototype.render = function() {
+    return this.templates_header();
+};
+
+var subView = new SubViewClass();
+
+var dummyDiv = tart.dom.createElement(subView.render());
+
+subView.setDOM(dummyDiv);
+subView.get(subView.domMappings.HEADER);</code></pre><p> Known issues:</p>
 <ul>
 <li>Templates will be injected withing Templates object</li>
 </ul></div>
@@ -5488,15 +5503,15 @@ subView.get(subView.domMappings.HEADER);</p>
     
         
             <div class="description"><p>Dropdown list class is an example of an HTML select box.</p>
-<p>Example usage:
-var items        = {key1:'val1',key2:'val2',key3:'val3'};
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>var items        = {key1:'val1',key2:'val2',key3:'val3'};
 var builder      = new tart.DropdownBuilder('elementId');
 var selectedItem = 1;
 var list = new tart.DropdownList(items, builder, selectedItem);
 list.getAll(); // Outputs [{key1:'val1'},{key2:'val2'},{key3:'val3'}]
 list.getDOM(); // Returns a select (dropdown) menu in jquery format jQuery(select#elementId)
 list.setActiveItemIndex(2); // Sets key3:val3 option element selected property to TRUE;
-list.getActiveItemIndex(); // Returns an Object { key3=&quot;val3&quot; }</p></div>
+list.getActiveItemIndex(); // Returns an Object { key3=&quot;val3&quot; }</code></pre></div>
         
         
         
@@ -5728,9 +5743,9 @@ cancels the tap event, and if a touchend is captured without a touchmove after a
 it's registered as a tap, and the GestureHandler dispatches a tap event on the touchend target.</p>
 <p>Swipe up, left, right and down gestures are also supported.</p>
 <p>Example usage:</p>
-<p>goog.events.listen(document.body, tart.events.EventType.TAP, function() {
+<pre class="prettyprint source"><code>goog.events.listen(document.body, tart.events.EventType.TAP, function() {
     console.log('tapped!');
-});</p></div>
+});</code></pre></div>
         
         
         
@@ -5807,10 +5822,10 @@ it's registered as a tap, and the GestureHandler dispatches a tap event on the t
             <div class="description"><p>Google Closure Library doesn't like mouseenter and mouseleave events, and provides no easy
 way to listen to it. Therefore, HoverHandler provides a consistent behavior of mouseenter and leave actions.</p>
 <p>Example usage:</p>
-<p>var handler = new tart.events.HoverHandler(elementToListen); // default is body.
+<pre class="prettyprint source"><code>var handler = new tart.events.HoverHandler(elementToListen); // default is body.
 goog.events.listen(handler, tart.events.EventType.MOUSEENTER, function() {
     console.log(&quot;i'm on hover&quot;);
-});</p></div>
+});</code></pre></div>
         
         
         
@@ -5888,8 +5903,8 @@ goog.events.listen(handler, tart.events.EventType.MOUSEENTER, function() {
 Note that some functions use different return types depending on the number
 of parameters passed in. In these cases, you may need to annotate the type
 of the result in your code, so the JSCompiler understands which type you're
-expecting. For example:
-   <code>var elt = /<em>* @type {Element} </em> / (foo.get(0));</code></p></div>
+expecting. For example:</p>
+<pre class="prettyprint source"><code>var elt = /** @type {Element} * / (foo.get(0));</code></pre></div>
         
         
         
@@ -5972,7 +5987,7 @@ expecting. For example:
         
             <div class="description"><p>tart.FormValidator is a form validation library which uses tart.Validation instance as validator.</p>
 <p>Example usage:</p>
-<p>var form = $(&quot;form&quot;);
+<pre class="prettyprint source"><code>var form = $(&quot;form&quot;);
 var validationForSubmit = function (errors) {
     //do some stuff with 'errors' object
 };
@@ -5980,8 +5995,7 @@ var validationForBlur = function (errors) {
     //do some stuff with 'errors' object
 };
 tart.FormValidator(form).validateOnSubmit(validationForSubmit);
-tart.FormValidator(form).validateOnBlur(validateOnBlur);</p>
-<p>More examples can be seen from spec/FormValidationSpec.js file</p></div>
+tart.FormValidator(form).validateOnBlur(validateOnBlur);</code></pre><p>More examples can be seen from spec/FormValidationSpec.js file</p></div>
         
         
         
@@ -6655,19 +6669,22 @@ takes place.</p></div>
         
             <div class="description"><p>tart.Pagination is an event driven Pagination object.</p>
 <p>Example usage:</p>
-<p> var paginator = new tart.Pagination();</p>
-<p> paginator.setTotalPage(5);
- paginator.setCurrentPage(2);</p>
-<p> goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
-     console.log(&quot;page changed&quot;);
-     console.log(&quot;old page : &quot; + e.oldValue);
-     console.log(&quot;new page : &quot; + e.newValue);
- });</p>
-<p> paginator.setCurrentPage(4); // oldPage : 2, newPage : 4
- paginator.setCurrentPage(7); // oldPage : 4, newpage : 5 (totalPage)
- paginator.prev(); // oldPage : 5, newPage: 4
- paginator.setCurrentPage(0); // oldPage : 4, newpage : 1 (at least 1)
- paginator.next(); // oldPage : 1, newPage : 2</p></div>
+<pre class="prettyprint source"><code>var paginator = new tart.Pagination();
+
+paginator.setTotalPage(5);
+paginator.setCurrentPage(2);
+
+goog.events.listen(paginator, tart.Pagination.EventTypes.PAGE_CHANGED, function (e) {
+    console.log(&quot;page changed&quot;);
+    console.log(&quot;old page : &quot; + e.oldValue);
+    console.log(&quot;new page : &quot; + e.newValue);
+});
+
+paginator.setCurrentPage(4); // oldPage : 2, newPage : 4
+paginator.setCurrentPage(7); // oldPage : 4, newpage : 5 (totalPage)
+paginator.prev(); // oldPage : 5, newPage: 4
+paginator.setCurrentPage(0); // oldPage : 4, newpage : 1 (at least 1)
+paginator.next(); // oldPage : 1, newPage : 2</code></pre></div>
         
         
         
@@ -6903,13 +6920,13 @@ subclass this base class and override the <code>createStates_</code> method. Thi
 initialization of states in the state machine and should return the first state the machine should begin with.</p>
 <p>This implementation features lazy loading in the sense that the <code>createStates_</code> method is not called
 until the first call to <code>startMachine</code> method.</p>
-<p>Example usage:
-<code>
-    Foo.MooreMachine = function(){
-        goog.base(this);
-    }
-    goog.inherits(Foo.MooreMachine, tart.StateMachine);</p>
-<pre class="prettyprint source"><code>// Having an enumerated type for events helps readability
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>Foo.MooreMachine = function(){
+    goog.base(this);
+}
+goog.inherits(Foo.MooreMachine, tart.StateMachine);
+
+// Having an enumerated type for events helps readability
 Foo.MooreMachine.Events = {
     CLICK: '0',
     DOUBLECLICK: '1'
@@ -6934,7 +6951,7 @@ Foo.MooreMachine.prototype.createStates_ = function(){
 }
 
 var myMachine = new Foo.MooreMachine();
-myMachine.startMachine();</code></pre><p></code></p></div>
+myMachine.startMachine();</code></pre></div>
         
         
         
@@ -7010,15 +7027,15 @@ myMachine.startMachine();</code></pre><p></code></p></div>
         
             <div class="description"><p>This file provides localStorage extensions that are essential to Tart. Basically, the localStorage
 only allows you to store strings. tart.storage.Storage can store any type of object via serialization.</p>
-<p>Example usage:
-var storage = new tart.storage.Storage();
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>var storage = new tart.storage.Storage();
 storage.set('foo', {bar: 'baz'});
 storage.get('foo');
 // you can still iterate through localStorage as before with for .. in;
 for (var key in localStorage) {
     var object = storage.get(key);
     //do something with the object
-}</p></div>
+}</code></pre></div>
         
         
         
@@ -7168,10 +7185,10 @@ for (var key in localStorage) {
         
             <div class="description"><p>Creates an instance with a tab and panel for using with an existing tabpanel.</p>
 <p>Example Usage:</p>
-<p>var panel1 = new tart.TabPanel({
-   title: 'Tab 1',
-   html: 'This is a basic text'
-});</p></div>
+<pre class="prettyprint source"><code>var panel1 = new tart.TabPanel({
+    title: 'Tab 1',
+    html: 'This is a basic text'
+});</code></pre></div>
         
         
         
@@ -7247,26 +7264,29 @@ for (var key in localStorage) {
         
             <div class="description"><p>Tabs is a fully working and customizable tab panel creator class.</p>
 <p>Example Usage:</p>
-<p>var tabPanel = new tart.Tabs({
-     activeTab: 1
- });</p>
-<p>var panel1 = new tart.TabPanel({
-   title: 'Tab 1',
-   html: 'This is a basic text'
+<pre class="prettyprint source"><code>var tabPanel = new tart.Tabs({
+    activeTab: 1
+});
+
+var panel1 = new tart.TabPanel({
+    title: 'Tab 1',
+    html: 'This is a basic text'
 });
 var panel2 = new tart.TabPanel({
     title: 'Tab 2',
-   html: 'Lorem ipsum dolor sit amet'
+    html: 'Lorem ipsum dolor sit amet'
 });
 var panel3 = new tart.TabPanel({
     title: 'Tab 3',
     html: 'Lorem ipsum dolor sit amet is a dummy text'
-});</p>
-<p>tabPanel.addTabPanel(panel1);
+});
+
+tabPanel.addTabPanel(panel1);
 tabPanel.addTabPanel(panel2);
-tabPanel.addTabPanel(panel3);</p>
-<p>var dom = tabPanel.buildDOM();
-$('body').append(dom);</p></div>
+tabPanel.addTabPanel(panel3);
+
+var dom = tabPanel.buildDOM();
+$('body').append(dom);</code></pre></div>
         
         
         
@@ -8033,12 +8053,11 @@ chars instead. Otherwise, the password string is being displayed as it is.</p></
         
             <div class="description"><p>tart.Validation is a validation library which checks for variable's format (such as email, number) or
 attribute (such as char length).</p>
-<p>Example usage:
-var validator = tart.Validation;
+<p>Example usage:</p>
+<pre class="prettyprint source"><code>var validator = tart.Validation;
 var isValidEmail = validator.is.email(&quot;foo@bar.com&quot;); //returns boolean true
 var isNumeric = validator.is.numeric(&quot;123foo&quot;); // returns boolean false
-var hasMaxLength10 = validator.has.maxLength(&quot;foobar&quot;, 10); //returns boolean true</p>
-<p>More examples can be seen from spec/ValidationSpec.js file</p></div>
+var hasMaxLength10 = validator.has.maxLength(&quot;foobar&quot;, 10); //returns boolean true</code></pre><p>More examples can be seen from spec/ValidationSpec.js file</p></div>
         
         
         
@@ -8173,7 +8192,7 @@ var hasMaxLength10 = validator.has.maxLength(&quot;foobar&quot;, 10); //returns 
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Jul 07 2015 10:38:10 GMT+0300 (EEST)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Jul 31 2015 21:59:39 GMT+0000 (UTC)
         </footer>
     </div>
 </div>
