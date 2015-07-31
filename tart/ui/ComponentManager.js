@@ -78,6 +78,7 @@ tart.ui.ComponentManager.eventTypes = [
     tart.events.EventType.MOUSEENTER,
     tart.events.EventType.MOUSELEAVE,
     tart.events.EventType.TAP,
+    tart.events.EventType.LONG_TAP,
     tart.events.EventType.SWIPE_LEFT,
     tart.events.EventType.SWIPE_RIGHT,
     tart.events.EventType.SWIPE_UP,

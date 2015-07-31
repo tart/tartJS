@@ -67,6 +67,7 @@ tart.events.GestureHandler.prototype.onTouchstart = function(e) {
     this.isInMotion = true;
     this.canTap = true;
     this.canSwipe = true;
+    this.touchStartTime = new Date().getTime();
 
     var browserEvent = e.getBrowserEvent();
     var changedTouch = browserEvent.changedTouches[0];
@@ -145,8 +146,10 @@ tart.events.GestureHandler.prototype.onTouchend = function(e) {
             return;
         }
 
+        var tapTimeDiff = new Date().getTime() - this.touchStartTime;
         var tap = document.createEvent("Event");
-        tap.initEvent(tart.events.EventType.TAP, true, true);
+        var eventName = tapTimeDiff > 800 ? tart.events.EventType.LONG_TAP : tart.events.EventType.TAP;
+        tap.initEvent(eventName, true, true);
 
         // Target element fix for iOS6+
         var targetElement = e.target;
