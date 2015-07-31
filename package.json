@@ -8,7 +8,6 @@
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-gh-pages": "^0.5.2",
     "gulp-shell": "^0.4.2",
     "jaguarjs-jsdoc": "git://github.com/davidshimjs/jaguarjs-jsdoc",
     "jsdoc": "^3.3.2",

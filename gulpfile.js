@@ -1,18 +1,24 @@
 var gulp = require('gulp');
 var shell = require("gulp-shell");
-var ghPages = require('gulp-gh-pages');
 var runSequence = require('run-sequence');
+
+var GH_TOKEN = process.env.GH_TOKEN || '';
 
 gulp.task('jsdoc', shell.task([
     'rm -rf ./docs',
     'jsdoc -c ./scripts/jsdoc-conf.json'
 ]));
 
-gulp.task('gh-pages', ['jsdoc'], function() {
-    var GH_TOKEN = process.env.GH_TOKEN || '';
-    return gulp.src('./docs/**/*').
-                pipe(ghPages({ remoteUrl: 'https://' + GH_TOKEN + '@github.com/tart/tartJS.git' }));	
-});
+gulp.task('gh-pages', ['jsdoc'], shell.task([
+    'mv docs docs_new',
+    'git remote add upstream https://' + GH_TOKEN + '@github.com/tart/tartJS.git/',
+    'git checkout -b gh-pages upstream/gh-pages',
+    'rm -rf docs',
+    'mv docs_new docs',
+    'git add docs',
+    'git commit -m "Update documentation"',
+    'git push upstream gh-pages'
+]));
 
 gulp.task('travis-master', ['gh-pages']);
 
