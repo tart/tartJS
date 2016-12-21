@@ -81,6 +81,18 @@ tart.Validation.is.numeric = function(text) {
 
 
 /**
+ * Checks if given text consists of alpha numeric characters
+ *
+ * @param {string} text text to be validated.
+ * @return {boolean} true if text contains only alpha numeric characters.
+ */
+tart.Validation.is.alphaNum = function(text) {
+    var pattern = /^[a-zA-Z0-9]+$/;
+    return pattern.test(text);
+};
+
+
+/**
  * Checks if given text contains both digit and non-digit chars
  *
  * @param {string} text text to be validated.
